@@ -38,3 +38,6 @@ dump.rdb
 # Ignore configuration files
 config/bridgembed.yml
 config/database.yml
+
+# Ignore cache files
+public/*_*.html
