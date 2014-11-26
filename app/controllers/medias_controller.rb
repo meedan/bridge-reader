@@ -1,6 +1,7 @@
 require 'bridge_google_spreadsheet'
 require 'bridge_embedly'
 class MediasController < ApplicationController
+  after_action :allow_iframe, only: :embed
 
   def embed
     milestone = params[:milestone]
@@ -39,5 +40,9 @@ class MediasController < ApplicationController
     f.puts(av.render(template: 'medias/checkdesk.erb.html'))
     f.close
     puts "Cache generated at #{cache}"
+  end
+
+  def allow_iframe
+    response.headers.except! 'X-Frame-Options'
   end
 end
