@@ -3,3 +3,8 @@ development:
   google_email: 
   google_password: 
   embedly_key: 
+  cache_embeds: true
+  twitter_consumer_key: 
+  twitter_consumer_secret: 
+  twitter_access_token: 
+  twitter_access_token_secret: 

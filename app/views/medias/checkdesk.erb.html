@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Checkdesk Template for Media Embeds</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <%= stylesheet_link_tag 'checkdesk' %>
+  </head>
+  <body class="html not-front logged-in no-sidebars page-embed page-embed- node-type-discussion toolbar toolbar-drawer i18n-en body-en" style="border-bottom-width: 0px;">
+    <div id="page" class="page">
+      <div id="main" class="clearfix">
+        <div id="content" class="clearfix">
+          <div id="content-inner" class="inner column center">
+            <div id="content-area">
+              <div class="region region-content">
+                <div id="block-system-main" class="block block-system">   
+                  <div class="content">
+                    <section class="node node-discussion node-promoted contextual-links-region" typeof="sioc:Item foaf:Document">
+                      <article class="story">
+                        <div class="story-updates-wrapper">
+                          <div class="view view-updates-for-stories view-id-updates_for_stories view-display-id-block">
+                            <div class="view-content">
+                              <div class="updates">
+                                
+                                <% @translations.each do |translation| %>
+
+                                <div class="update-row">
+                                  <span class="field-content">
+                                    <section class="node node-post node-promoted contextual-links-region">
+                                      <article class="update with-title">
+                                        <div class="update-wrapper">
+                                          <section class="node node-media node-promoted contextual-links-region">
+                                            <article class="report">
+                                              <section class="report-content">
+                                                <div class="report-media">
+                                                  <div class="container twitter-wrapper">
+                                                    <div class="oembed oembed-rich oembed-rich twitter">
+
+                                                      <% unless translation[:oembed].coordinates.nil? %>
+                                                      <p class="embed-geo-data">
+                                                        <a href="http://maps.google.com/?ie=UTF8&hq=&ll=<%= translation[:oembed].coordinates[0] %>,<%= translation[:oembed].coordinates[1] %>&z=13" 
+                                                           target="_blank">
+                                                             <i class="icon-pushpin"></i> <%= translation[:oembed].coordinates[0] %>, <%= translation[:oembed].coordinates[1] %>
+                                                        </a>
+                                                      </p>
+                                                      <% end %>
+
+                                                      <a href="<%= translation[:link] %>" class="oembed-title"><%= translation[:oembed].title || translation[:link] %></a>    
+                                                      <div class="oembed-content">
+                                                        <a class="embedly-card" href="<%= translation[:link] %>"></a>
+                                                        <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="report-attributes"></div>
+                                              </section>
+                                              <div id="report-actions"></div>
+                                            </article>
+                                          </section>
+                                          <div class="update-body-wrapper">
+                                            <div class="update-body">
+                                              <p><%= translation[:translation] %></p>
+                                              <div class="added-by">
+                                                Translated by <a href="<%= translation[:translator_url] %>" target="_blank"><%= translation[:translator_name] %></a>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <% unless translation[:comment].blank? %>
+                                          <section id="report-activity-node-2219" class="report-activity">
+                                            <header>
+                                              <h3 class="report-footnotes-count"><span>1</span> Translation Note</h3>
+                                            </header>
+                                            <div class="activity-wrapper">
+                                              <div class="view view-activity-report view-id-activity_report view-display-id-block heartbeat-stream heartbeat-messages-wrapper heartbeat-stream-viewsactivity">
+                                                <div class="view-content">
+                                                  <div class="activity views-row views-row-1 views-row-odd views-row-first">
+                                                    <div class="activity-content heartbeat-activity odd heartbeat-activity-4004 new_comment_report activity-content" id="heartbeat-activity-4004">
+                                                      <header>
+                                                        <span class="actor"><%= translation[:translator_name] %></span>
+                                                        <span class="activity-inner-wrapper">
+                                                          <span class="title">
+                                                            <p><%= translation[:comment] %></p>
+                                                          </span>
+                                                        </span>
+                                                      </header>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </section>
+                                          <% end %>
+                                        </div>
+                                      </article>
+                                    </section>
+                                  </span>
+                                </div>
+
+                                <% end %>
+                              </div>
+                            </div>
+                          </div>
+                        </div> <!-- /content-inner /content -->
+                      </article>
+                    </section>
+
+                    <div id="footer">
+                      <div id="footer-inner" class="inner">
+                        <ul id="footer-menu">
+                          <li><a class="checkdesk" href="http://bridge.net/" target="_blank"><span>Powered by Bridge</span></a></li>
+                        </ul>
+                      </div>
+                    </div> <!-- /footer -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /main -->
+    </div> <!-- /page -->
+    <iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" style="display: none;"></iframe>
+  </body>
+</html>

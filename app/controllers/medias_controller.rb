@@ -10,7 +10,7 @@ class MediasController < ApplicationController
                                               milestone)
 
     cache = cache_path(worksheet)
-    if File.exists?(cache)
+    if BRIDGE_CONFIG['cache_embeds'] && File.exists?(cache)
       puts "Using cache at #{cache}"
     else
       clear_cache(milestone)
@@ -34,9 +34,9 @@ class MediasController < ApplicationController
   def generate_cache(worksheet, cache)
     @embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
     av = ActionView::Base.new(Rails.root.join('app', 'views'))
-    av.assign(oembeds: @embedly.objects_from_urls(worksheet.get_urls))
+    av.assign(translations: @embedly.parse_entries(worksheet.get_entries))
     f = File.new(cache, 'w+')
-    f.puts(av.render(template: 'medias/embed.erb.html'))
+    f.puts(av.render(template: 'medias/checkdesk.erb.html'))
     f.close
     puts "Cache generated at #{cache}"
   end

@@ -38,6 +38,24 @@ module Bridge
       @urls
     end
 
+    def get_entries
+      unless @entries
+        worksheet = get_worksheet
+        @entries = []
+        for row in 2..worksheet.num_rows
+          @entries << {
+            source_text: worksheet[row, 1],
+            link: worksheet[row, 2],
+            translation: worksheet[row, 3],
+            comment: worksheet[row, 4],
+            translator_name: worksheet[row, 5],
+            translator_url: worksheet[row, 6]
+          }
+        end
+      end
+      @entries
+    end
+
     def updated_at
       get_worksheet.updated.to_i
     end
