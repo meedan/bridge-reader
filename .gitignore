@@ -41,3 +41,6 @@ config/database.yml
 
 # Ignore cache files
 public/*_*.html
+
+# Ignore compiled assets
+public/assets
