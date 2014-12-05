@@ -44,3 +44,6 @@ public/*_*.html
 
 # Ignore compiled assets
 public/assets
+
+# Ignore bower packages 
+vendor/assets/bower_components/
