@@ -1,33 +1,33 @@
-// // ## Core theme Sass
-// 
-// @import "checkdesk/shared/base";
-// @import "checkdesk/shared/colors";
-// @import "checkdesk/shared/backgrounds";
-// @import "checkdesk/shared/mixins";
-// @import "checkdesk/shared/buttons";
-// @import "checkdesk/shared/breakpoints";
-// @import "checkdesk/shared/if_direction";
+// ## Core theme Sass
 
-// // ## Checkdesk styles
-// @import "checkdesk/components/report";
-// @import "checkdesk/components/story_update";
+@import "checkdesk/shared/base";
+@import "checkdesk/shared/colors";
+@import "checkdesk/shared/backgrounds";
+@import "checkdesk/shared/mixins";
+@import "checkdesk/shared/buttons";
+@import "checkdesk/shared/breakpoints";
+@import "checkdesk/shared/if_direction";
 
-// // ## Typography
-// //
-// @import "meedan/typography";
-// @import "checkdesk/shared/fonts";
+// ## Typography
+//
+@import "meedan/typography";
+@import "checkdesk/shared/fonts";
 
-// // ## Meedan common base styles
-// //
-// @import "meedan/drupal";
-// @import "meedan/debug";
-// @import "meedan/transition";
-// @import "meedan/icons/icon_helpers";
-// @import "meedan/icons/fontawesome";
-// @import "meedan/gradients";
+// ## Meedan common base styles
+//
+@import "meedan/drupal";
+@import "meedan/debug";
+@import "meedan/transition";
+@import "meedan/icons/icon_helpers";
+@import "meedan/icons/fontawesome";
+@import "meedan/gradients";
 
-// // ## Bridge Styles
-// @import "bridge/typography";
+// ## Checkdesk styles
+@import "checkdesk/components/report";
+@import "checkdesk/components/story_update";
+
+// ## Bridge Styles
+@import "bridge/typography";
 
 // Unusual Hack
 // 
