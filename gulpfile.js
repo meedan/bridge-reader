@@ -3,7 +3,7 @@ var browserSync     = require('browser-sync');
 var reload          = browserSync.reload;
 var sass            = require('gulp-sass');
 var scssFiles       = "app/assets/stylesheets/**/*.scss";
-var cssCompileDir   = "www/stylesheets";
+var cssCompileDir   = "public/assets/stylesheets";
 var bowerDir        = "vendor/assets/bower_components";
 
 var serverConfig = {
