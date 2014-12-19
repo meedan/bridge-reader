@@ -17,6 +17,8 @@ You can embed a worksheet as a milestone by calling `http://yourhostname/medias/
 
 ### Developing the Sass theme
 
+- Install the Bridge-embed-ui dependences in *package.json* with `npm install` — this gives you grunt and browsersync.
+- run `gulp`
 - There is a Sass file that `@imports` other sass files. 
 - Some of the Sass files are managed with Bower.
 - The bower libraries are not in version control, you can install them with `rake bower:install`.
