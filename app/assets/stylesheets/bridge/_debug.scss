@@ -1,0 +1,55 @@
+@mixin label($label: "", $color: "red") {
+  border: 4px solid $color;
+  &:before {
+    content: $label;
+    background-color: yellow;
+    color: black;
+  }
+}
+
+//  New structure
+//  
+//  These are the minimal styles needed for the embed based on my review CGB Dec 18
+article.story {
+  @include label("story", rgba(cyan, 1));
+  article.report {
+    @include label("report", rgba(red, 0.5));
+  }
+  a.oembed-title {
+    @include label("oembed-title", rgba(red, 0.1));
+  }
+  a.embedly-card {
+    @include label("embedly-card", rgba(red, 0.5));
+  }
+  div.update-body {
+    @include label("update-body", rgba(red, 0.5));
+    p {
+      @include label("p", rgba(red, 0.1));
+    }
+    div.added-by {
+      @include label("added-by", rgba(red, 0.5));
+    }
+  }
+  section.report-activity {
+    @include label("report-activity", rgba(green, 0.9));
+    h3.report-activity-count {
+      @include label("h3.report-activity-count", rgba(green, 0.5));
+    }
+    header {
+      @include label("header", rgba(green, 0.5));
+      .actor {
+        @include label(".actor", rgba(green, 0.5));
+      }
+      .activity-inner-wrapper {
+        @include label(".activity-inner-wrapper", rgba(green, 0.5));
+      }
+      .title {
+        @include label(".title", rgba(green, 0.5));
+        p {}
+      }
+    }
+    article.report {
+      @include label("report", rgba(cyan, 0.5));
+    }
+  }
+}
