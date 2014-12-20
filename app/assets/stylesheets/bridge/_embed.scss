@@ -1,0 +1,87 @@
+// ## Style Guide
+//
+// .moduleName {}
+// .moduleName__element {}
+// .moduleName__element–is–modified {}
+
+// ## Main structure
+//
+body.bridgeEmbed {
+  @include animation("fade-in 2s");
+  font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+  margin: 0 auto;
+  max-width: 700px;
+  // 1pc = 12pt = 1/6th inch
+  padding: 1pc;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.byline {
+  font-style: italic;
+  margin-top: 1em;
+}
+
+.bridgeEmbed__item {
+  @include animation("expand-in 7s");
+  border: 1px solid rgba(0,0,0,0.1);
+  margin-top: 12pt;
+  padding: 24pt;
+  @include border-radius(8px);
+  background-color: white;
+
+}
+
+.bridgeEmbed__item-geodata {
+  text-align: right;
+  font-size: smaller;
+  .icon {
+      display: inline-block;
+      width: 9px;
+      height: 12px;
+      background-size: cover;
+      background-image: image-url("assets/images/map-pin.png");
+      background-repeat: no-repeat;
+      margin-right: 4px;
+    }
+  a { 
+    color: rgba(0,0,0,0.2); 
+    text-decoration: none;
+  } 
+}
+
+.bridgeEmbed__item-translation {
+  .translation {
+    padding-top: 1em;
+    font-size: 1.5em;
+  }
+
+  .byline {
+    &:before {
+      content: "—";
+    }
+  }
+}
+
+.update-body {
+  p {}
+  .added-by {}
+}
+
+.bridgeEmbed__item-comment {
+  padding-top: 1em;
+  font-size: smaller;
+
+  .count {
+    font-weight: bold;
+  }
+}
+
+.bridgeEmbed__footer {
+  display: block;
+  padding: 8em; 
+  text-align: center;
+  a {
+    text-decoration: none;
+  }
+}

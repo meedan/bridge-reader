@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bridge Embed</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <%#=stylesheet_link_tag 'checkdesk', media: 'all' %>
+    <link href="/assets/stylesheets/bridge.css" media="all" rel="stylesheet" />
+  </head>
+
+  <body class="bridgeEmbed">
+      
+    <% @translations.each do |translation| %>
+    <div class="bridgeEmbed__item">
+        
+      <!-- Item Geodata -->
+      <% unless translation[:oembed].coordinates.nil? %>
+        <div class="bridgeEmbed__item-geodata">
+          <a href="http://maps.google.com/?ie=UTF8&hq=&ll=<%= translation[:oembed].coordinates[0] %>,<%= translation[:oembed].coordinates[1] %>&z=13" target="_blank">
+            <i class="icon"></i>
+            <%= translation[:oembed].coordinates[0] %>,
+            <%= translation[:oembed].coordinates[1] %>
+          </a>
+        </div>
+      <% end %>
+
+      <!-- Item Title -->
+      <!-- <a href="<%#= translation[:link] %>" class="bridgeEmbed__item-oembed-title">
+        <%#= translation[:oembed].title || translation[:link] %>
+      </a> -->
+      
+      <!-- Item Source -->
+      <a class="bridgeEmbed__item-embedly-card embedly-card" href="<%= translation[:link] %>"></a>
+      <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+      <!-- Item Translation -->
+      <div class="bridgeEmbed__item-translation">
+        <div class="translation"><%= translation[:translation] %></div>
+        <div class="byline">
+          <span>Translated by</span>
+          <a class="name" href="<%= translation[:translator_url] %>" target="_blank">
+            <%= translation[:translator_name] %>
+          </a>
+        </div>
+      </div>
+
+      <!-- Item Annotations -->
+      <% unless translation[:comment].blank? %>
+        <div class="bridgeEmbed__item-comment">
+          <!-- <div class="count"><span>1</span> Translation Note</div> -->
+          <p class="comment">* <%= translation[:comment] %> — <div class="byline"><%= translation[:translator_name] %></div></p>
+        </div>
+      <% end %>
+
+    </div>
+    <% end %>
+    
+    <div id="bridgeEmbed__footer">
+      <a href="http://meedanlabs.com" target="_blank"><div>Powered by Bridge</div></a>
+    </div>
+
+  </body>
+</html>

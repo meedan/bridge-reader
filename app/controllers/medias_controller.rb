@@ -37,7 +37,7 @@ class MediasController < ApplicationController
     av = ActionView::Base.new(Rails.root.join('app', 'views'))
     av.assign(translations: @embedly.parse_entries(worksheet.get_entries))
     f = File.new(cache, 'w+')
-    f.puts(av.render(template: 'medias/checkdesk.erb.html'))
+    f.puts(av.render(template: 'medias/bridge.erb.html'))
     f.close
     puts "Cache generated at #{cache}"
   end
