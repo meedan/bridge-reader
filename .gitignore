@@ -48,3 +48,7 @@ public/assets
 # Ignore bower packages 
 vendor
 vendor/assets/bower_components/
+
+# Ignore Node stuff
+node_modules
+npm-debug.log

@@ -1,2 +1,2 @@
-asset 'scss-normalize'
+asset 'scss-normalize', 'git@github.com:kristerkari/normalize.scss.git'
 asset 'compass-mixins'
