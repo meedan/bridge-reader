@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Bridge Embed</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
@@ -52,7 +52,7 @@
       <% unless translation[:comment].blank? %>
         <div class="bridgeEmbed__item-comment">
           <!-- <div class="count"><span>1</span> Translation Note</div> -->
-          <p class="comment">* <%= translation[:comment] %> — <div class="byline"><%= translation[:translator_name] %></div></p>
+          <p class="comment">* <%= translation[:comment] %> — <span class="byline"><%= translation[:translator_name] %></span></p>
         </div>
       <% end %>
 

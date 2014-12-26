@@ -1,4 +1,6 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'test_helper')
+require 'w3c_validators'
+include W3CValidators
 
 class MediasControllerTest < ActionController::TestCase
 
@@ -42,6 +44,20 @@ class MediasControllerTest < ActionController::TestCase
     assert !cache_file_exists?
     get :embed, milestone: 'test'
     assert !assigns(:cache)
+  end
+
+  test "should output valid markup" do
+    @validator = MarkupValidator.new
+    clear_cache
+    get :embed, milestone: 'test'
+    file = Dir.glob(File.join(Rails.root, 'public', 'test_*')).first
+    results = @validator.validate_file(file)
+    if results.errors.length > 0
+      results.errors.each do |err|
+        puts err.to_s
+      end
+    end
+    assert_equal 0, results.errors.length
   end
 
 end
