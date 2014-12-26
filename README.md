@@ -1,6 +1,9 @@
 Bridgembed
 ==========
 
+[![Code Climate](https://codeclimate.com/repos/549c8a48e30ba06537002021/badges/2e1f5ed3a05c045248dc/gpa.svg)](https://codeclimate.com/repos/549c8a48e30ba06537002021/feed) 
+[![Test Coverage](https://codeclimate.com/repos/549c8a48e30ba06537002021/badges/2e1f5ed3a05c045248dc/coverage.svg)](https://codeclimate.com/repos/549c8a48e30ba06537002021/feed)
+
 A Bridge component, in Ruby On Rails, to generate embeds for media items.
 
 ### Installing the system
@@ -22,3 +25,7 @@ You can embed a worksheet as a milestone by calling `http://yourhostname/medias/
 * Some of the Sass files are managed with Bower
 * The bower libraries are not in version control, you can install them with `rake bower:install`
 * Run `gulp`
+
+### Running the tests
+
+* Just run `bundle exec rake test`
