@@ -10,22 +10,22 @@ class MediasController < ApplicationController
                                               BRIDGE_CONFIG['google_spreadsheet_id'],
                                               milestone)
 
-    cache = cache_path(worksheet)
-    if BRIDGE_CONFIG['cache_embeds'] && File.exists?(cache)
-      puts "Using cache at #{cache}"
+    @cachepath = cache_path(worksheet)
+    if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
+      @cache = true
     else
       clear_cache(milestone)
-      generate_cache(worksheet, cache)
+      generate_cache(worksheet, @cachepath)
+      @cache = false
     end
 
-    render file: cache
+    render file: @cachepath
   end
 
   private
 
   def clear_cache(milestone)
     FileUtils.rm Dir.glob(File.join(Rails.root, 'public', "#{milestone}_*"))
-    puts "Cache cleared"
   end
 
   def cache_path(worksheet)
@@ -39,7 +39,6 @@ class MediasController < ApplicationController
     f = File.new(cache, 'w+')
     f.puts(av.render(template: 'medias/bridge.erb.html'))
     f.close
-    puts "Cache generated at #{cache}"
   end
 
   def allow_iframe

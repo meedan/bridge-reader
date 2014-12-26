@@ -39,16 +39,20 @@ module Bridge
       require 'twitter'
       id = oembed.url.match(/status\/([0-9]+)/)
       unless id.nil?
-        client = Twitter::REST::Client.new do |config|
-          config.consumer_key        = BRIDGE_CONFIG['twitter_consumer_key']
-          config.consumer_secret     = BRIDGE_CONFIG['twitter_consumer_secret']
-          config.access_token        = BRIDGE_CONFIG['twitter_access_token']
-          config.access_token_secret = BRIDGE_CONFIG['twitter_token_secret']
-        end
+        client = connect_to_twitter 
         tweet = client.status(id[1])
         oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
       end
       oembed
+    end
+
+    def connect_to_twitter
+      Twitter::REST::Client.new do |config|
+        config.consumer_key        = BRIDGE_CONFIG['twitter_consumer_key']
+        config.consumer_secret     = BRIDGE_CONFIG['twitter_consumer_secret']
+        config.access_token        = BRIDGE_CONFIG['twitter_access_token']
+        config.access_token_secret = BRIDGE_CONFIG['twitter_token_secret']
+      end
     end
   end
 end
