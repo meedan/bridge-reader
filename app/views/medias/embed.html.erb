@@ -8,7 +8,6 @@
     <title>Bridge Embed</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <%#=stylesheet_link_tag 'checkdesk', media: 'all' %>
     <link href="/assets/stylesheets/bridge.css" media="all" rel="stylesheet" />
   </head>
 
@@ -63,5 +62,19 @@
       <a href="http://meedanlabs.com" target="_blank"><div>Powered by Bridge</div></a>
     </div>
 
+    <script type="text/javascript">
+    // Alert parent window when the height changes
+    var htmlHeight = 0;
+    function checkHTMLHeight() {
+      var height = document.getElementsByTagName('BODY')[0].offsetHeight;
+      if (height !== htmlHeight) {
+        htmlHeight = height;
+        window.parent.postMessage(['setHeight', '<%= @milestone %>', htmlHeight].join(';'), '*');
+      }
+      setTimeout(checkHTMLHeight, 100);
+    }
+    // Start the checker
+    checkHTMLHeight();
+    </script>
   </body>
 </html>

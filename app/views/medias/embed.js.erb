@@ -1,0 +1,32 @@
+/*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
+
+(function() {
+  'use strict';
+
+  var messageCallback = function(e) {
+    var data   = e.data.split(';'),
+        type   = data[0],
+        title  = data[1],
+        height = data[2];
+
+    switch (type) {
+      // Height changed
+      case 'setHeight':
+        console.log(height);
+        document.getElementById('bridge-embed-iframe-' + title).style.height = height + 'px';
+        break;
+    }
+  };
+  
+  if (!window.addEventListener) {
+    window.attachEvent('onmessage', messageCallback);
+  }
+  else {
+    window.addEventListener('message', messageCallback, false);
+  }
+
+  var frame = '<iframe src="<%= @url %>" width="800" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @milestone %>" seamless>' +
+              'Your browser does not support iframes' +
+              '</iframe>';
+  document.write(frame);
+}());

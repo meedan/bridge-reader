@@ -60,4 +60,9 @@ class MediasControllerTest < ActionController::TestCase
     assert_equal 0, results.errors.length
   end
 
+  test "should render javascript" do
+    get :embed, milestone: 'test', format: :js
+    assert_equal 'http://test.host/medias/embed/test', assigns(:url)
+  end
+
 end

@@ -16,7 +16,8 @@ A Bridge component, in Ruby On Rails, to generate embeds for media items.
 
 ### Using the system
 
-You can embed a worksheet as a milestone by calling `http://yourhostname/medias/embed/<worksheet title>`.
+You can render a worksheet as a milestone by calling `http://yourhostname/medias/embed/<worksheet title>`.
+You can embed a worksheet by adding a script tag like `<script src="http://yourhostname/medias/embed/<worksheet title>.js"></script>` to your HTML page.
 
 ### Developing the Sass theme
 

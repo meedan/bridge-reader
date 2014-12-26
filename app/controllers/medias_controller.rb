@@ -4,40 +4,52 @@ class MediasController < ApplicationController
   after_action :allow_iframe, only: :embed
 
   def embed
-    milestone = params[:milestone]
-    worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
+    @milestone = params[:milestone]
+
+    respond_to do |format|
+      format.html { render_embed_as_html }
+      format.js   { render_embed_as_js   }
+    end
+  end
+
+  private
+
+  def render_embed_as_js
+    @url = request.original_url.gsub(/\.js$/, '')
+  end
+
+  def render_embed_as_html
+    @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
                                               BRIDGE_CONFIG['google_password'],
                                               BRIDGE_CONFIG['google_spreadsheet_id'],
-                                              milestone)
+                                              @milestone)
 
-    @cachepath = cache_path(worksheet)
+    @cachepath = cache_path
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      clear_cache(milestone)
-      generate_cache(worksheet, @cachepath)
+      clear_cache
+      generate_cache
       @cache = false
     end
 
     render file: @cachepath
   end
 
-  private
-
-  def clear_cache(milestone)
-    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', "#{milestone}_*"))
+  def clear_cache
+    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', "#{@milestone}_*"))
   end
 
-  def cache_path(worksheet)
-    File.join(Rails.root, 'public', "#{worksheet.get_title}_#{worksheet.updated_at}.html")
+  def cache_path
+    File.join(Rails.root, 'public', "#{@worksheet.get_title}_#{@worksheet.updated_at}.html")
   end
 
-  def generate_cache(worksheet, cache)
+  def generate_cache
     @embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
     av = ActionView::Base.new(Rails.root.join('app', 'views'))
-    av.assign(translations: @embedly.parse_entries(worksheet.get_entries))
-    f = File.new(cache, 'w+')
-    f.puts(av.render(template: 'medias/bridge.erb.html'))
+    av.assign(translations: @embedly.parse_entries(@worksheet.get_entries), milestone: @milestone)
+    f = File.new(@cachepath, 'w+')
+    f.puts(av.render(template: 'medias/embed.html.erb'))
     f.close
   end
 
