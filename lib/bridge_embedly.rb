@@ -39,9 +39,13 @@ module Bridge
       require 'twitter'
       id = oembed.url.match(/status\/([0-9]+)/)
       unless id.nil?
-        client = connect_to_twitter 
-        tweet = client.status(id[1])
-        oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
+        begin
+          client = connect_to_twitter
+          tweet = client.status(id[1])
+          oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
+        rescue
+          # Do nothing
+        end
       end
       oembed
     end

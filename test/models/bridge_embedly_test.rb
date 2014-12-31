@@ -41,4 +41,10 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     assert_kind_of Float, embed['coordinates'].last
   end
 
+  test "should ignore if tweet does not exist" do
+    assert_nothing_raised do
+      @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/123456' }])
+    end
+  end
+
 end
