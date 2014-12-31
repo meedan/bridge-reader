@@ -43,9 +43,6 @@ config/initializers/errbit.rb
 # Ignore cache files
 public/*_*.html
 
-# Ignore compiled assets
-public/assets
-
 # Ignore bower packages 
 vendor
 vendor/assets/bower_components/
