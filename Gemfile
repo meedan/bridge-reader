@@ -12,3 +12,4 @@ gem 'codeclimate-test-reporter', group: :test, require: nil
 gem 'mocha'
 gem 'w3c_validators'
 gem 'airbrake'
+gem 'sass'
