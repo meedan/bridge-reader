@@ -6,6 +6,8 @@ Bridgembed
 
 A Bridge component, in Ruby On Rails, to generate embeds for media items.
 
+![Workflow](doc/workflow.png?raw=true "Workflow")
+
 ### Installing the system
 
 * Copy config/bridgembed.yml.example to config/bridgembed.yml and set the configurations
