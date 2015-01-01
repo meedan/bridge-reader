@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.9'
 gem 'google_drive'
 gem 'sqlite3'
 gem 'xml-simple'
