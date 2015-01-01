@@ -19,18 +19,8 @@ db/schema.rb
 /tmp/sessions
 /tmp/sockets
 
-# Ignore configuration files
-config/database.yml
-config/translatedesk.yml
-public/javascripts/td.config.js
-config/initializers/errbit.rb
-scripts/omegawiki-sql-to-yaml-params.sh
-
 # Ignore Vim files
 *.sw*
-
-# Ignore dumps
-dump.rdb
 
 # Ignore RBENV/RVM files
 .ruby-version
@@ -39,6 +29,7 @@ dump.rdb
 config/bridgembed.yml
 config/database.yml
 config/initializers/errbit.rb
+config/initializers/secret_token.rb
 
 # Ignore cache files
 public/*_*.html
