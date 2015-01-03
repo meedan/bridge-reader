@@ -153,92 +153,7 @@ body {
 a {
   color: #10212f; }
 
-@-webkit-keyframes expand-in {
-  0% {
-    height: 10px;
-    overflow: hidden; }
-
-  100% {
-    height: 100%;
-    overflow: visible; } }
-
-@-moz-keyframes expand-in {
-  0% {
-    height: 10px;
-    overflow: hidden; }
-
-  100% {
-    height: 100%;
-    overflow: visible; } }
-
-@-ms-keyframes expand-in {
-  0% {
-    height: 10px;
-    overflow: hidden; }
-
-  100% {
-    height: 100%;
-    overflow: visible; } }
-
-@-o-keyframes expand-in {
-  0% {
-    height: 10px;
-    overflow: hidden; }
-
-  100% {
-    height: 100%;
-    overflow: visible; } }
-
-@keyframes expand-in {
-  0% {
-    height: 10px;
-    overflow: hidden; }
-
-  100% {
-    height: 100%;
-    overflow: visible; } }
-
-@-webkit-keyframes fade-in {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@-moz-keyframes fade-in {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@-ms-keyframes fade-in {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@-o-keyframes fade-in {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
-@keyframes fade-in {
-  0% {
-    opacity: 0; }
-
-  100% {
-    opacity: 1; } }
-
 body.bridgeEmbed {
-  -webkit-animation: fade-in 2s;
-  -moz-animation: fade-in 2s;
-  -ms-animation: fade-in 2s;
-  -o-animation: fade-in 2s;
-  animation: fade-in 2s;
   font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4;
   margin: 0 auto;
@@ -251,11 +166,6 @@ body.bridgeEmbed {
   margin-top: 1em; }
 
 .bridgeEmbed__item {
-  -webkit-animation: expand-in 7s;
-  -moz-animation: expand-in 7s;
-  -ms-animation: expand-in 7s;
-  -o-animation: expand-in 7s;
-  animation: expand-in 7s;
   border: 1px solid rgba(0, 0, 0, 0.1);
   margin-top: 12pt;
   padding: 24pt;
@@ -274,7 +184,7 @@ body.bridgeEmbed {
     width: 9px;
     height: 12px;
     background-size: cover;
-    background-image: url("//images/map-pin.png");
+    background-image: url("/assets/images/map-pin.png");
     background-repeat: no-repeat;
     margin-right: 4px; }
   .bridgeEmbed__item-geodata a {
@@ -295,7 +205,7 @@ body.bridgeEmbed {
 
 .bridgeEmbed__footer {
   display: block;
-  padding: 8em;
+  padding: 2em;
   text-align: center; }
   .bridgeEmbed__footer a {
     text-decoration: none; }
