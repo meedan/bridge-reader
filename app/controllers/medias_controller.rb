@@ -20,9 +20,9 @@ class MediasController < ApplicationController
 
   def render_embed_as_html
     @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                              BRIDGE_CONFIG['google_password'],
-                                              BRIDGE_CONFIG['google_spreadsheet_id'],
-                                              @milestone)
+                                               BRIDGE_CONFIG['google_password'],
+                                               BRIDGE_CONFIG['google_spreadsheet_id'],
+                                               @milestone)
 
     @cachepath = cache_path
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)

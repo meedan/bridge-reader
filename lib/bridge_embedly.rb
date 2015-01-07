@@ -43,6 +43,7 @@ module Bridge
           client = connect_to_twitter
           tweet = client.status(id[1])
           oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
+          oembed['created_at'] = tweet.created_at
         rescue
           # Do nothing
         end

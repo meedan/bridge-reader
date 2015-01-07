@@ -47,4 +47,9 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     end
   end
 
+  test "should alter Twitter response by getting the creation date" do
+    embed = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/290093908564779009' }]).first[:oembed]
+    assert_kind_of Time, embed['created_at']
+  end
+
 end
