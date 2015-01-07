@@ -9,6 +9,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <%= stylesheet_link_tag 'bridge', media: 'all' %>
+    <%= javascript_include_tag 'jquery-2.1.3.min', 'jquery.inview.min' %>
+    <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
   </head>
 
   <body class="bridgeEmbed">
@@ -33,8 +35,7 @@
       </a> -->
       
       <!-- Item Source -->
-      <a class="bridgeEmbed__item-embedly-card embedly-card" href="<%= translation[:link] %>"></a>
-      <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+      <a class="bridgeEmbed__item-embedly-card" href="<%= translation[:link] %>"></a>
 
       <!-- Item Translation -->
       <div class="bridgeEmbed__item-translation">
@@ -75,6 +76,18 @@
     }
     // Start the checker
     checkHTMLHeight();
+
+    (function ($) {
+      // Lazy-loading
+      $('.bridgeEmbed__item-embedly-card').each(function() {
+        $(this).bind('inview', function() {
+          if (!$(this).hasClass('embedly-card')) {
+            $(this).addClass('embedly-card');
+            embedly('card', $(this)[0]);
+          }
+        });
+      });
+    }(jQuery));
     </script>
   </body>
 </html>
