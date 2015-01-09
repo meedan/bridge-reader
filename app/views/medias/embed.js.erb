@@ -1,27 +1,41 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
 
+// This happens on the parent window
+
 (function() {
   'use strict';
 
   var messageCallback = function(e) {
     var data   = e.data.split(';'),
-        type   = data[0],
-        title  = data[1],
-        height = data[2];
+        type   = data[0];
 
     switch (type) {
       // Height changed
       case 'setHeight':
+        var title = data[1],
+            height = data[2];
         document.getElementById('bridge-embed-iframe-' + title).style.height = height + 'px';
         break;
     }
   };
+
+  var resizeOrScrollCallback = function(e) {
+    var frame = document.getElementById('bridge-embed-iframe-<%= @milestone %>'),
+        f = frame.getBoundingClientRect(),
+        h = window.innerHeight || document.documentElement.clientHeight,
+        w = window.innerWidth || document.documentElement.clientWidth;
+    frame.contentWindow.postMessage(['lazyLoad', h, w, f.top, f.left, f.bottom, f.right].join(';'), '*');
+  };
   
   if (!window.addEventListener) {
     window.attachEvent('onmessage', messageCallback);
+    window.attachEvent('onscroll', resizeOrScrollCallback);
+    window.attachEvent('onresize', resizeOrScrollCallback);
   }
   else {
     window.addEventListener('message', messageCallback, false);
+    window.addEventListener('scroll', resizeOrScrollCallback, false);
+    window.addEventListener('resize', resizeOrScrollCallback, false);
   }
 
   var frame = '<iframe src="<%= @url %>" width="800" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @milestone %>" seamless>' +

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- This is the child window -->
 <html>
 
   <head>
@@ -9,7 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <%= stylesheet_link_tag 'bridge', media: 'all' %>
-    <%= javascript_include_tag 'jquery-2.1.3.min', 'jquery.inview.min' %>
+    <%= javascript_include_tag 'jquery-2.1.3.min' %>
     <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
   </head>
 
@@ -66,7 +67,7 @@
     <script type="text/javascript">
     // Alert parent window when the height changes
     var htmlHeight = 0;
-    function checkHTMLHeight() {
+    var checkHTMLHeight = function() {
       var height = document.getElementsByTagName('BODY')[0].offsetHeight;
       if (height !== htmlHeight) {
         htmlHeight = height;
@@ -77,17 +78,50 @@
     // Start the checker
     checkHTMLHeight();
 
-    (function ($) {
-      // Lazy-loading
-      $('.bridgeEmbed__item-embedly-card').each(function() {
-        $(this).bind('inview', function() {
-          if (!$(this).hasClass('embedly-card')) {
-            $(this).addClass('embedly-card');
-            embedly('card', $(this)[0]);
-          }
-        });
-      });
-    }(jQuery));
+    var isElementOnViewPort = function(el, data) {
+      var rect = el.getBoundingClientRect(),
+          h = data[0], w = data[1], tp = data[2], left = data[3], bottom = data[4], right = data[5];
+
+      return (
+        rect.top + tp >= 0 &&
+        rect.left + left >= 0 &&
+        rect.bottom + tp <= h &&
+        rect.right + left <= w
+      );
+    };
+
+    var messageCallback = function(e) {
+      var data = e.data.split(';'),
+          type = data.shift();
+
+      for (var i = 0; i < data.length; i++) {
+        data[i] = parseInt(data[i], 10);
+      }
+
+      switch (type) {
+        // Lazy load
+        case 'lazyLoad':
+          $('.bridgeEmbed__item-embedly-card').each(function() {
+            if (!$(this).hasClass('embedly-card') && isElementOnViewPort($(this)[0], data)) {
+              $(this).addClass('embedly-card');
+              try {
+                embedly('card', $(this)[0]);
+              }
+              catch(e) {
+                // Embedly is not ready
+              }
+            }
+          });
+          break;
+      }
+    };
+
+    if (!window.addEventListener) {
+      window.attachEvent('onmessage', messageCallback);
+    }
+    else {
+      window.addEventListener('message', messageCallback, false);
+    }
     </script>
   </body>
 </html>
