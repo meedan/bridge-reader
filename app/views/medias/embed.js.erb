@@ -31,11 +31,13 @@
     window.attachEvent('onmessage', messageCallback);
     window.attachEvent('onscroll', resizeOrScrollCallback);
     window.attachEvent('onresize', resizeOrScrollCallback);
+    window.attachEvent('onload', resizeOrScrollCallback);
   }
   else {
     window.addEventListener('message', messageCallback, false);
     window.addEventListener('scroll', resizeOrScrollCallback, false);
     window.addEventListener('resize', resizeOrScrollCallback, false);
+    window.addEventListener('load', resizeOrScrollCallback, false);
   }
 
   var frame = '<iframe src="<%= @url %>" width="800" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @milestone %>" seamless>' +
