@@ -42,10 +42,9 @@
       <div class="bridgeEmbed__item-translation">
         <div class="translation"><%= translation[:translation] %></div>
         <div class="byline">
-          <span>Translated by</span>
-          <a class="name" href="<%= translation[:translator_url] %>" target="_blank">
-            <%= translation[:translator_name] %>
-          </a>
+          <span>Translated by </span>
+          <%= link_to_unless translation[:translator_url].blank?, translation[:translator_name], translation[:translator_url],
+              { target: '_blank', class: 'name' } %>
         </div>
       </div>
 
