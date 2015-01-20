@@ -5,6 +5,11 @@
 (function() {
   'use strict';
 
+  var frame = '<iframe src="<%= @url %>" width="800" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @milestone %>" seamless>' +
+              'Your browser does not support iframes' +
+              '</iframe>';
+  document.write(frame);
+
   var messageCallback = function(e) {
     var data   = e.data.split(';'),
         type   = data[0];
@@ -13,8 +18,9 @@
       // Height changed
       case 'setHeight':
         var title = data[1],
-            height = data[2];
-        document.getElementById('bridge-embed-iframe-' + title).style.height = height + 'px';
+            height = data[2],
+            iframe = document.getElementById('bridge-embed-iframe-' + title);
+        if (iframe != undefined) iframe.style.height = height + 'px';
         break;
     }
   };
@@ -39,9 +45,4 @@
     window.addEventListener('resize', resizeOrScrollCallback, false);
     window.addEventListener('load', resizeOrScrollCallback, false);
   }
-
-  var frame = '<iframe src="<%= @url %>" width="800" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @milestone %>" seamless>' +
-              'Your browser does not support iframes' +
-              '</iframe>';
-  document.write(frame);
 }());
