@@ -11,7 +11,7 @@
   </head>
   <body>
     <h1>Bridgembed</h1>
-    <h2>All available milestones are embedded on this page.</h2>
+    <h2>All available milestones <a href="https://docs.google.com/spreadsheets/d/<%= BRIDGE_CONFIG['google_spreadsheet_id'] %>" target="_blank">from the spreadsheet</a> are embedded on this page.</h2>
     <ol>
       <% @worksheets.each do |worksheet| %>
         <li><a href="#<%= worksheet.title %>"><%= worksheet.title %></a></li>
@@ -22,7 +22,10 @@
       <% @worksheets.each do |worksheet| %>
       <li>
         <h3 id="<%= worksheet.title %>"><%= worksheet.title %></h3>
-        <p>Embed code: <pre>&lt;script type="text/javascript" src="http://<%= @host %>/medias/embed/<%= worksheet.title %>.js"&gt;&lt;/script&gt;</pre></p>
+        <p>Embed code: 
+          <pre>&lt;script type="text/javascript" src="http://<%= @host %>/medias/embed/<%= worksheet.title %>.js"&gt;&lt;/script&gt;</pre> 
+          <a href="medias/embed/<%= worksheet.title %>" target="_blank"><small>View milestone on a new page</small></a>
+        </p>
         <p><script type="text/javascript" src="medias/embed/<%= worksheet.title %>.js"></script></p>
       </li>
       <% end %>
