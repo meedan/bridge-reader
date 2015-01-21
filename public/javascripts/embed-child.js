@@ -29,7 +29,11 @@ var Bridge = {};
     );
   };
   
-  if (!window.embedly) window.embedly = function() { /* Just avoid undefined errors */ };
+  if (!window.embedly) {
+    window.embedly = function() {
+      // Just avoid undefined errors
+    };
+  }
 
   var lazyLoad = function(data) {
     $('.bridgeEmbed__item-embedly-card').each(function() {
