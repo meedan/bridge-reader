@@ -15,11 +15,11 @@ var Bridge = {};
       window.parent.postMessage(['setHeight', Bridge.milestone, htmlHeight].join(';'), '*');
     }
     setTimeout(checkHTMLHeight, 100);
-  }
+  };
   
   var isElementOnViewPort = function(el, data) {
     var rect = el.getBoundingClientRect(),
-        h = data[0], w = data[1], tp = data[2], left = data[3], bottom = data[4], right = data[5];
+        h = data[0], w = data[1], tp = data[2], left = data[3];
   
     return (
       rect.top + tp >= 0 &&
@@ -29,12 +29,14 @@ var Bridge = {};
     );
   };
   
+  if (!window.embedly) window.embedly = function() { /* Just avoid undefined errors */ };
+
   var lazyLoad = function(data) {
     $('.bridgeEmbed__item-embedly-card').each(function() {
       if (!$(this).hasClass('embedly-card') && isElementOnViewPort($(this)[0], data)) {
         $(this).addClass('embedly-card');
         try {
-          embedly('card', $(this)[0]);
+          window.embedly('card', $(this)[0]);
         }
         catch(e) {
           // Embedly is not ready
@@ -59,7 +61,7 @@ var Bridge = {};
     }
   };
   
-  var resizeOrScrollCallback = function(e) {
+  var resizeOrScrollCallback = function() {
     var h = window.innerHeight || document.documentElement.clientHeight,
         w = window.innerWidth || document.documentElement.clientWidth,
         data = [h, w, 0, 0, 0, 0];
