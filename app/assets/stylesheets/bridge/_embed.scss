@@ -85,3 +85,9 @@ body.bridgeEmbed {
     text-decoration: none;
   }
 }
+
+.bridgeEmbed__item-embedly-card {
+  min-height: 24px;
+  background: transparent url(/images/spin.gif) left center no-repeat;
+  display: block;
+}
