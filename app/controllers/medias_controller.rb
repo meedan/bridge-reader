@@ -3,6 +3,14 @@ require 'bridge_embedly'
 class MediasController < ApplicationController
   after_action :allow_iframe, only: :embed
 
+  def index
+    @spreadsheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
+                                                 BRIDGE_CONFIG['google_password'],
+                                                 BRIDGE_CONFIG['google_spreadsheet_id'])
+    @worksheets = @spreadsheet.get_worksheets
+    @host = request.host
+  end
+
   def embed
     @milestone = params[:milestone]
 

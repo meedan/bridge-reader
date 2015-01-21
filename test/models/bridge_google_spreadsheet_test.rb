@@ -15,6 +15,7 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_not_nil @b.instance_variable_get(:@worksheet)
     assert_not_nil @b.instance_variable_get(:@session)
     assert_not_nil @b.instance_variable_get(:@spreadsheet)
+    assert_nil @b.instance_variable_get(:@worksheets)
   end
 
   test "should authenticate" do
@@ -63,4 +64,15 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal 'http://ca.ios.ba', entries.last[:translator_url]
   end
 
+  test "should get worksheets" do
+    assert @b.get_worksheets.map(&:title).include?('test')
+  end
+
+  test "should initialize without milestone" do
+    b = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
+                                      BRIDGE_CONFIG['google_password'],
+                                      BRIDGE_CONFIG['google_spreadsheet_id'])
+    assert_not_nil b.instance_variable_get(:@worksheets)
+    assert_nil b.instance_variable_get(:@worksheet)
+  end
 end

@@ -2,10 +2,10 @@ require 'google_drive'
 
 module Bridge
   class GoogleSpreadsheet
-    def initialize(email, password, id, sheet)
+    def initialize(email, password, id, sheet = nil)
       authenticate(email, password)
       get_spreadsheet(id)
-      get_worksheet(sheet)
+      sheet.nil? ? get_worksheets : get_worksheet(sheet)
     end
     
     def authenticate(email = '', password = '')
@@ -60,5 +60,8 @@ module Bridge
       get_worksheet.updated.to_i
     end
   
+    def get_worksheets
+      @worksheets ||= get_spreadsheet.worksheets
+    end
   end
 end

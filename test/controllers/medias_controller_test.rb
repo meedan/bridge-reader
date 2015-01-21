@@ -65,4 +65,10 @@ class MediasControllerTest < ActionController::TestCase
     assert_equal 'http://test.host/medias/embed/test', assigns(:url)
   end
 
+  test "should list all milestones on index" do
+    get :index
+    assert_kind_of Bridge::GoogleSpreadsheet, assigns(:spreadsheet)
+    assert_kind_of Array, assigns(:worksheets)
+    assert_not_nil assigns(:worksheets).first.title
+  end
 end

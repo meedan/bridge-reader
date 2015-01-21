@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bridgembed</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <style type="text/css">
+    html {
+      padding: 10px;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Bridgembed</h1>
+    <h2>All available milestones are embedded on this page.</h2>
+    <ol>
+      <% @worksheets.each do |worksheet| %>
+        <li><a href="#<%= worksheet.title %>"><%= worksheet.title %></a></li>
+      <% end %>
+    </ol>
+    
+    <ol>
+      <% @worksheets.each do |worksheet| %>
+      <li>
+        <h3 id="<%= worksheet.title %>"><%= worksheet.title %></h3>
+        <p>Embed code: <pre>&lt;script type="text/javascript" src="http://<%= @host %>/medias/embed/<%= worksheet.title %>.js"&gt;&lt;/script&gt;</pre></p>
+        <p><script type="text/javascript" src="medias/embed/<%= worksheet.title %>.js"></script></p>
+      </li>
+      <% end %>
+    </ol>
+  </body>
+</html>

@@ -52,4 +52,9 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     assert_kind_of Time, embed['created_at']
   end
 
+  test "should not crash if oembed has no provider" do
+    assert_nothing_raised do
+      @b.parse_entries([{ link: 'https://nothing.nothing' }]).first[:oembed]
+    end
+  end
 end
