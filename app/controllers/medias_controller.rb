@@ -44,12 +44,16 @@ class MediasController < ApplicationController
     render file: @cachepath
   end
 
+  def cache_dir
+    File.join(Rails.root, 'public', 'cache')
+  end
+
   def clear_cache
-    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', 'cache', "#{@milestone}_*"))
+    FileUtils.rm Dir.glob(File.join(cache_dir, "#{@milestone}_*"))
   end
 
   def cache_path
-    File.join(Rails.root, 'public', 'cache', "#{@worksheet.get_title}_#{@worksheet.updated_at}.html")
+    File.join(cache_dir, "#{@worksheet.get_title}_#{@worksheet.updated_at}.html")
   end
 
   def generate_cache
@@ -57,6 +61,7 @@ class MediasController < ApplicationController
     av = ActionView::Base.new(Rails.root.join('app', 'views'))
     av.assign(translations: @embedly.parse_entries(@worksheet.get_entries), milestone: @milestone)
     ActionView::Base.send :include, MediasHelper
+    FileUtils.mkdir(cache_dir) unless File.exists?(cache_dir)
     f = File.new(@cachepath, 'w+')
     f.puts(av.render(template: 'medias/embed.html.erb'))
     f.close
