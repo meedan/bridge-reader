@@ -56,6 +56,7 @@ class MediasController < ApplicationController
     @embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
     av = ActionView::Base.new(Rails.root.join('app', 'views'))
     av.assign(translations: @embedly.parse_entries(@worksheet.get_entries), milestone: @milestone)
+    ActionView::Base.send :include, MediasHelper
     f = File.new(@cachepath, 'w+')
     f.puts(av.render(template: 'medias/embed.html.erb'))
     f.close

@@ -24,11 +24,9 @@ module Bridge
         @entries = []
         entries.each do |entry|
           oembed = connect_to_api.oembed(url: entry[:link]).first
-          provider = oembed.provider_name
-          unless provider.nil?
-            function = "alter_#{provider.underscore}_oembed"
-            (oembed = self.send(function, oembed)) if self.respond_to?(function)
-          end
+          entry[:provider] = provider = oembed.provider_name.to_s.underscore
+          function = "alter_#{provider}_oembed"
+          (oembed = self.send(function, oembed)) if self.respond_to?(function)
           entry[:oembed] = oembed
           @entries << entry
         end
