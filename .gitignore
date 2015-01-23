@@ -32,7 +32,7 @@ config/initializers/errbit.rb
 config/initializers/secret_token.rb
 
 # Ignore cache files
-public/*_*.html
+public/cache/*.html
 
 # Ignore bower packages 
 vendor

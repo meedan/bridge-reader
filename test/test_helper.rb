@@ -16,15 +16,15 @@ class ActiveSupport::TestCase
   end
 
   def clear_cache
-    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', 'test_*'))
+    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', 'cache', 'test_*'))
   end
 
   def cache_file_exists?
-    !Dir.glob(File.join(Rails.root, 'public', 'test_*')).empty?
+    !Dir.glob(File.join(Rails.root, 'public', 'cache', 'test_*')).empty?
   end
 
   def create_cache
     Bridge::GoogleSpreadsheet.any_instance.stubs(:updated_at).returns(123456)
-    FileUtils.touch(File.join(Rails.root, 'public', 'test_123456.html'))
+    FileUtils.touch(File.join(Rails.root, 'public', 'cache', 'test_123456.html'))
   end
 end

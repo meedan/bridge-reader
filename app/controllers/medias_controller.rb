@@ -45,11 +45,11 @@ class MediasController < ApplicationController
   end
 
   def clear_cache
-    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', "#{@milestone}_*"))
+    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', 'cache', "#{@milestone}_*"))
   end
 
   def cache_path
-    File.join(Rails.root, 'public', "#{@worksheet.get_title}_#{@worksheet.updated_at}.html")
+    File.join(Rails.root, 'public', 'cache', "#{@worksheet.get_title}_#{@worksheet.updated_at}.html")
   end
 
   def generate_cache

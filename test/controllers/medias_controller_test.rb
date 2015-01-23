@@ -50,7 +50,7 @@ class MediasControllerTest < ActionController::TestCase
     @validator = MarkupValidator.new
     clear_cache
     get :embed, milestone: 'test'
-    file = Dir.glob(File.join(Rails.root, 'public', 'test_*')).first
+    file = Dir.glob(File.join(Rails.root, 'public', 'cache', 'test_*')).first
     results = @validator.validate_file(file)
     if results.errors.length > 0
       results.errors.each do |err|
