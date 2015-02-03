@@ -40,14 +40,14 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
 
   test "should get URLs" do
     urls = @b.get_urls
-    assert_equal 2, urls.size
+    assert_equal 3, urls.size
     assert_equal 'https://twitter.com/caiosba/status/548252845238398976', urls.first
-    assert_equal 'http://instagram.com/p/tP5h3kvHTi/', urls.last
+    assert_equal 'http://instagram.com/p/tP5h3kvHTi/', urls[1]
   end
 
   test "should get entries" do
     entries = @b.get_entries
-    assert_equal 2, entries.size
+    assert_equal 3, entries.size
     assert_equal 'Feliz Natal! Ressuscitando um cartão que eu fiz há 10 anos pra participar de um concurso de arte digital. Tempo voa!',
                  entries.first[:source_text]
     assert_equal 'https://twitter.com/caiosba/status/548252845238398976', entries.first[:link]
@@ -56,12 +56,12 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal 'Caio won first place on this contest.', entries.first[:comment]
     assert_equal 'Caio Almeida', entries.first[:translator_name]
     assert_equal 'http://ca.ios.ba', entries.first[:translator_url]
-    assert_equal 'Because the sky is blue', entries.last[:source_text]
-    assert_equal 'http://instagram.com/p/tP5h3kvHTi/', entries.last[:link]
-    assert_equal 'Porque o céu é azul', entries.last[:translation]
-    assert_equal 'This is a palm tree on Salvador', entries.last[:comment]
-    assert_equal 'Caio Almeida', entries.last[:translator_name]
-    assert_equal 'http://ca.ios.ba', entries.last[:translator_url]
+    assert_equal 'Because the sky is blue', entries[1][:source_text]
+    assert_equal 'http://instagram.com/p/tP5h3kvHTi/', entries[1][:link]
+    assert_equal 'Porque o céu é azul', entries[1][:translation]
+    assert_equal 'This is a palm tree on Salvador', entries[1][:comment]
+    assert_equal 'Caio Almeida', entries[1][:translator_name]
+    assert_equal 'http://ca.ios.ba', entries[1][:translator_url]
   end
 
   test "should get worksheets" do
@@ -74,5 +74,20 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
                                       BRIDGE_CONFIG['google_spreadsheet_id'])
     assert_not_nil b.instance_variable_get(:@worksheets)
     assert_nil b.instance_variable_get(:@worksheet)
+  end
+
+  test "should mark unavailable link as such" do
+    w = @b.get_worksheet('test')
+    w[1, 7] = ''
+    w[4, 7] = ''
+    w.save
+    (1..4).each do |i|
+      assert w[i, 7].blank?
+    end
+    @b.notify_unavailable(4)
+    assert_equal 'Unavailable?', w[1, 7]
+    assert w[2, 7].blank?
+    assert w[3, 7].blank?
+    assert_equal 'Yes', w[4, 7]
   end
 end

@@ -42,9 +42,19 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   end
 
   test "should ignore if tweet does not exist" do
+    embeds = []
     assert_nothing_raised do
-      @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/123456' }])
+      embeds = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/123456' }])
     end
+    assert embeds.empty?
+  end
+
+  test "should ignore if tweet is private" do
+    embeds = []
+    assert_nothing_raised do
+      embeds = @b.parse_entries([{ link: 'https://twitter.com/meglmz/status/490029122232782848' }])
+    end
+    assert embeds.empty?
   end
 
   test "should alter Twitter response by getting the creation date" do
