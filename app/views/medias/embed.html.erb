@@ -52,8 +52,16 @@
       <!-- Item Annotations -->
       <% unless translation[:comment].blank? %>
         <div class="bridgeEmbed__item-comment">
-          <!-- <div class="count"><span>1</span> Translation Note</div> -->
-          <p class="comment">* <%= auto_link translation[:comment], html: { target: '_blank' } %> — <span class="byline"><%= translation[:translator_name] %></span></p>
+          <p class="comment">* <%= auto_link translation[:comment], html: { target: '_blank' } %>
+          
+          <% unless translation[:commenter].blank? %>
+          — <span class="byline">
+              <%= link_to_unless translation[:commenter_url].blank?, translation[:commenter], translation[:commenter_url],
+                  { target: '_blank' } %>
+            </span>
+          <% end %>
+          
+          </p>
         </div>
       <% end %>
 

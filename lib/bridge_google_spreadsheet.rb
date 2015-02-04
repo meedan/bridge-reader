@@ -50,6 +50,8 @@ module Bridge
             comment: worksheet[row, 4],
             translator_name: worksheet[row, 5],
             translator_url: worksheet[row, 6],
+            commenter: worksheet[row, 7],
+            commenter_url: worksheet[row, 8],
             source: self,
             index: row
           }
@@ -69,8 +71,8 @@ module Bridge
     def notify_unavailable(index)
       #FIXME: Cell position is hard-coded here
       worksheet = get_worksheet
-      worksheet[1, 7] = 'Unavailable?'
-      worksheet[index, 7] = 'Yes'
+      worksheet[1, 9] = 'Unavailable?'
+      worksheet[index, 9] = 'Yes'
       worksheet.save
     end
   end

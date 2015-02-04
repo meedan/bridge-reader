@@ -48,6 +48,7 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
   test "should get entries" do
     entries = @b.get_entries
     assert_equal 3, entries.size
+    
     assert_equal 'Feliz Natal! Ressuscitando um cartão que eu fiz há 10 anos pra participar de um concurso de arte digital. Tempo voa!',
                  entries.first[:source_text]
     assert_equal 'https://twitter.com/caiosba/status/548252845238398976', entries.first[:link]
@@ -56,12 +57,17 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal 'Caio won first place on this contest.', entries.first[:comment]
     assert_equal 'Caio Almeida', entries.first[:translator_name]
     assert_equal 'http://ca.ios.ba', entries.first[:translator_url]
+    assert_equal 'Caio', entries.first[:commenter]
+    assert_equal '', entries.first[:commenter_url]
+    
     assert_equal 'Because the sky is blue', entries[1][:source_text]
     assert_equal 'http://instagram.com/p/tP5h3kvHTi/', entries[1][:link]
     assert_equal 'Porque o céu é azul', entries[1][:translation]
     assert_equal 'This is a palm tree on Salvador', entries[1][:comment]
     assert_equal 'Caio Almeida', entries[1][:translator_name]
     assert_equal 'http://ca.ios.ba', entries[1][:translator_url]
+    assert_equal 'Caio', entries[1][:commenter]
+    assert_equal 'http://twitter.com/caiosba', entries[1][:commenter_url]
   end
 
   test "should get worksheets" do
@@ -78,16 +84,16 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
 
   test "should mark unavailable link as such" do
     w = @b.get_worksheet('test')
-    w[1, 7] = ''
-    w[4, 7] = ''
+    w[1, 9] = ''
+    w[4, 9] = ''
     w.save
     (1..4).each do |i|
-      assert w[i, 7].blank?
+      assert w[i, 9].blank?
     end
     @b.notify_unavailable(4)
-    assert_equal 'Unavailable?', w[1, 7]
-    assert w[2, 7].blank?
-    assert w[3, 7].blank?
-    assert_equal 'Yes', w[4, 7]
+    assert_equal 'Unavailable?', w[1, 9]
+    assert w[2, 9].blank?
+    assert w[3, 9].blank?
+    assert_equal 'Yes', w[4, 9]
   end
 end
