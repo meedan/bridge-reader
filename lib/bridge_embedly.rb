@@ -56,10 +56,8 @@ module Bridge
           tweet = client.status(id[1])
           oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
           oembed['created_at'] = tweet.created_at
-        rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
-          oembed['unavailable'] = true
         rescue
-          # Do nothing
+          oembed['unavailable'] = true
         end
       end
       oembed
