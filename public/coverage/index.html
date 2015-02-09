@@ -14,7 +14,7 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-02-03T21:22:20-03:00">2015-02-03T21:22:20-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-02-09T15:22:16-03:00">2015-02-09T15:22:16-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         6.61
+         6.65
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>5</b> files in total.
-    <b>145</b> relevant lines. 
-    <span class="green"><b>145</b> lines covered</span> and
+    <b>146</b> relevant lines. 
+    <span class="green"><b>146</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -73,11 +73,11 @@
       <tr>
         <td class="strong"><a href="#255d8734f1b7ebd54e643d07715d4e7a73386401" class="src_link" title="app/helpers/medias_helper.rb">app/helpers/medias_helper.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>22</td>
-        <td>14</td>
-        <td>14</td>
+        <td>23</td>
+        <td>15</td>
+        <td>15</td>
         <td>0</td>
-        <td>5.0</td>
+        <td>5.5</td>
       </tr>
       
       <tr>
@@ -244,15 +244,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         5.0
+         5.5
        </span>
     </span> hits/line)
   </h2>
   <a name="Helpers"></a>
   <div>
     <b>1</b> files in total.
-    <b>14</b> relevant lines. 
-    <span class="green"><b>14</b> lines covered</span> and
+    <b>15</b> relevant lines. 
+    <span class="green"><b>15</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -272,11 +272,11 @@
       <tr>
         <td class="strong"><a href="#255d8734f1b7ebd54e643d07715d4e7a73386401" class="src_link" title="app/helpers/medias_helper.rb">app/helpers/medias_helper.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>22</td>
-        <td>14</td>
-        <td>14</td>
+        <td>23</td>
+        <td>15</td>
+        <td>15</td>
         <td>0</td>
-        <td>5.0</td>
+        <td>5.5</td>
       </tr>
       
     </tbody>
@@ -860,8 +860,8 @@
     <h3>app/helpers/medias_helper.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>14</b> relevant lines. 
-      <span class="green"><b>14</b> lines covered</span> and
+      <b>15</b> relevant lines. 
+      <span class="green"><b>15</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -920,82 +920,88 @@
         <li class="covered" data-hits="12" data-linenumber="9">
           <span class="hits">12</span>
           
-          <code class="ruby">    text = auto_link(translation[:translation], html: { target: &#39;_blank&#39; })</code>
+          <code class="ruby">    text = simple_format translation[:translation]</code>
         </li>
       
         <li class="covered" data-hits="12" data-linenumber="10">
           <span class="hits">12</span>
           
-          <code class="ruby">    text = self.send(&quot;#{provider}_parse_translation&quot;, text) if !provider.blank? &amp;&amp; self.respond_to?(&quot;#{provider}_parse_translation&quot;)</code>
+          <code class="ruby">    text = auto_link text, html: { target: &#39;_blank&#39; }</code>
         </li>
       
         <li class="covered" data-hits="12" data-linenumber="11">
           <span class="hits">12</span>
           
-          <code class="ruby">    text.html_safe</code>
+          <code class="ruby">    text = self.send(&quot;#{provider}_parse_translation&quot;, text) if !provider.blank? &amp;&amp; self.respond_to?(&quot;#{provider}_parse_translation&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="12">
+        <li class="covered" data-hits="12" data-linenumber="12">
+          <span class="hits">12</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    text.html_safe</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="13">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="14">
+        <li class="covered" data-hits="1" data-linenumber="15">
           <span class="hits">1</span>
           
           <code class="ruby">  def twitter_parse_translation(text)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="15">
+        <li class="covered" data-hits="5" data-linenumber="16">
           <span class="hits">5</span>
           
           <code class="ruby">    text = text.gsub(/(#{TWITTER_HASHTAG_BOUNDARY})(#|＃)(#{TWITTER_HASHTAG_ALPHANUMERIC}*#{TWITTER_HASHTAG_ALPHA}#{TWITTER_HASHTAG_ALPHANUMERIC}*)/io, &#39;\1&lt;a href=&quot;https://twitter.com/hashtag/\3&quot; target=&quot;_blank&quot;&gt;\2\3&lt;/a&gt;&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="16">
+        <li class="covered" data-hits="5" data-linenumber="17">
           <span class="hits">5</span>
           
           <code class="ruby">    text.gsub(/([@＠])([a-zA-Z0-9_]{1,20})/, &#39;&lt;a href=&quot;https://twitter.com/\2&quot; target=&quot;_blank&quot;&gt;\1\2&lt;/a&gt;&#39;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="17">
+        <li class="never" data-hits="" data-linenumber="18">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="18">
+        <li class="never" data-hits="" data-linenumber="19">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="19">
+        <li class="covered" data-hits="1" data-linenumber="20">
           <span class="hits">1</span>
           
           <code class="ruby">  def instagram_parse_translation(text)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="20">
+        <li class="covered" data-hits="5" data-linenumber="21">
           <span class="hits">5</span>
           
           <code class="ruby">    text.gsub(/@([a-zA-Z0-9_]+)/, &#39;&lt;a href=&quot;http://instagram.com/\1&quot; target=&quot;_blank&quot;&gt;@\1&lt;/a&gt;&#39;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="21">
+        <li class="never" data-hits="" data-linenumber="22">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="22">
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">end</code>
