@@ -55,7 +55,7 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal 'Merry Christmas! Reviving a card that I did 10 years ago to join a digital art contest. Time flies!',
                  entries.first[:translation]
     assert_equal 'Caio won first place on this contest.', entries.first[:comment]
-    assert_equal 'Caio Almeida', entries.first[:translator_name]
+    assert_equal '', entries.first[:translator_name]
     assert_equal 'http://ca.ios.ba', entries.first[:translator_url]
     assert_equal 'Caio', entries.first[:commenter]
     assert_equal '', entries.first[:commenter_url]

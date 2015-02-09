@@ -42,11 +42,15 @@
       <!-- Item Translation -->
       <div class="bridgeEmbed__item-translation">
         <div class="translation"><%= parse_translation translation %></div>
-        <div class="byline">
-          <span>Translated by </span>
-          <%= link_to_unless translation[:translator_url].blank?, translation[:translator_name], translation[:translator_url],
-              { target: '_blank', class: 'name' } %>
-        </div>
+          
+          <% unless translation[:translator_name].blank? %>
+          <div class="byline">
+            <span>Translated by </span>
+            <%= link_to_unless translation[:translator_url].blank?, translation[:translator_name], translation[:translator_url],
+                { target: '_blank', class: 'name' } %>
+          </div>
+          <% end %>
+
       </div>
 
       <!-- Item Annotations -->
