@@ -52,9 +52,16 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal 'Feliz Natal! Ressuscitando um cartão que eu fiz há 10 anos pra participar de um concurso de arte digital. Tempo voa!',
                  entries.first[:source_text]
     assert_equal 'https://twitter.com/caiosba/status/548252845238398976', entries.first[:link]
-    assert_equal 'Merry Christmas! Reviving a card that I did 10 years ago to join a digital art contest. Time flies!',
-                 entries.first[:translation]
-    assert_equal 'Caio won first place on this contest.', entries.first[:comment]
+    text = 'Merry Christmas! 
+
+Reviving a card that I did 10 years ago to join a digital art contest.
+
+Time flies!'
+    comment = 'Caio won first place on this contest.
+
+Not big deal, actually.'
+    assert_equal text, entries.first[:translation]
+    assert_equal comment, entries.first[:comment]
     assert_equal '', entries.first[:translator_name]
     assert_equal 'http://ca.ios.ba', entries.first[:translator_url]
     assert_equal 'Caio', entries.first[:commenter]

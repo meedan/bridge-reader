@@ -56,7 +56,7 @@
       <!-- Item Annotations -->
       <% unless translation[:comment].blank? %>
         <div class="bridgeEmbed__item-comment">
-          <p class="comment">* <%= auto_link translation[:comment], html: { target: '_blank' } %>
+          <%= simple_format auto_link(translation[:comment], html: { target: '_blank' }) %>
           
           <% unless translation[:commenter].blank? %>
           — <span class="byline">
@@ -64,8 +64,6 @@
                   { target: '_blank' } %>
             </span>
           <% end %>
-          
-          </p>
         </div>
       <% end %>
 

@@ -8,7 +8,7 @@ module MediasHelper
     provider = translation[:provider]
     text = auto_link(translation[:translation], html: { target: '_blank' })
     text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
-    text.html_safe
+    simple_format text.html_safe
   end
 
   def twitter_parse_translation(text)
