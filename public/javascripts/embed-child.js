@@ -35,18 +35,32 @@ var Bridge = {};
     };
   }
 
+  var embedlyEventsAttached = false;
+
   var lazyLoad = function(data) {
     $('.bridgeEmbed__item-embedly-card').each(function() {
-      if (!$(this).hasClass('embedly-card') && isElementOnViewPort($(this)[0], data)) {
-        $(this).addClass('embedly-card');
+      var $that = $(this);
+      if (!$that.hasClass('embedly-card') && isElementOnViewPort($that[0], data)) {
+        $that.addClass('embedly-card');
         try {
-          window.embedly('card', $(this)[0]);
+          window.embedly('card', $that[0], function(e) {
+            $(e.elem).attr('data-sid', e.sid);
+            $that.parents('.bridgeEmbed__item').attr('id', 'item-' + e.sid);
+          });
         }
         catch(e) {
           // Embedly is not ready
         }
       }
     });
+
+    if (!embedlyEventsAttached) {
+      window.embedly('on', 'card.rendered', function(iframe) {
+        if (!jQuery.contains(document, iframe)) {
+          $('#item-' + $(iframe).data('sid')).remove();
+        }
+      });
+    }
   };
   
   var messageCallback = function(e) {

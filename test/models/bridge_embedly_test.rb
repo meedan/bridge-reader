@@ -57,6 +57,14 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     assert embeds.empty?
   end
 
+  test "should ignore if Instagram photo does not exist" do
+    embeds = []
+    assert_nothing_raised do
+      embeds = @b.parse_entries([{ link: 'http://instagram.com/p/pwcow7AjL3/' }])
+    end
+    assert embeds.empty?
+  end
+
   test "should alter Twitter response by getting the creation date" do
     embed = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/290093908564779009' }]).first[:oembed]
     assert_kind_of Time, embed['created_at']

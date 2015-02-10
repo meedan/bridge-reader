@@ -68,11 +68,11 @@ module Bridge
       @worksheets ||= get_spreadsheet.worksheets
     end
 
-    def notify_unavailable(index)
+    def notify_availability(index, available)
       #FIXME: Cell position is hard-coded here
       worksheet = get_worksheet
       worksheet[1, 9] = 'Unavailable?'
-      worksheet[index, 9] = 'Yes'
+      worksheet[index, 9] = (available ? 'No' : 'Yes')
       worksheet.save
     end
   end

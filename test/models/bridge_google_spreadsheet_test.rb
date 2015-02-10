@@ -40,14 +40,14 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
 
   test "should get URLs" do
     urls = @b.get_urls
-    assert_equal 3, urls.size
+    assert_equal 4, urls.size
     assert_equal 'https://twitter.com/caiosba/status/548252845238398976', urls.first
     assert_equal 'http://instagram.com/p/tP5h3kvHTi/', urls[1]
   end
 
   test "should get entries" do
     entries = @b.get_entries
-    assert_equal 3, entries.size
+    assert_equal 4, entries.size
     
     assert_equal 'Feliz Natal! Ressuscitando um cartão que eu fiz há 10 anos pra participar de um concurso de arte digital. Tempo voa!',
                  entries.first[:source_text]
@@ -91,16 +91,19 @@ Not big deal, actually.'
 
   test "should mark unavailable link as such" do
     w = @b.get_worksheet('test')
-    w[1, 9] = ''
-    w[4, 9] = ''
-    w.save
     (1..4).each do |i|
+      w[i, 9] = ''
+      w.save
       assert w[i, 9].blank?
     end
-    @b.notify_unavailable(4)
+    @b.notify_availability(2, true)
+    @b.notify_availability(3, true)
+    @b.notify_availability(4, false)
+    @b.notify_availability(5, false)
     assert_equal 'Unavailable?', w[1, 9]
-    assert w[2, 9].blank?
-    assert w[3, 9].blank?
+    assert_equal 'No', w[2, 9]
+    assert_equal 'No', w[3, 9]
     assert_equal 'Yes', w[4, 9]
+    assert_equal 'Yes', w[5, 9]
   end
 end

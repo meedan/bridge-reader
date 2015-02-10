@@ -29,14 +29,19 @@ module Bridge
           oembed[:link] = link
           entry[:provider] = provider = oembed.provider_name.to_s.underscore
           entry[:oembed] = self.alter_oembed(oembed, provider)
-          entry[:oembed]['unavailable'] ? notify_unavailable(entry) : (@entries << entry)
+          entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
         end
       end
       @entries
     end
 
+    def notify_available(entry)
+      @entries << entry
+      entry[:source].notify_availability(entry[:index], true) unless entry[:source].nil?
+    end
+
     def notify_unavailable(entry)
-      entry[:source].notify_unavailable(entry[:index]) unless entry[:source].nil?
+      entry[:source].notify_availability(entry[:index], false) unless entry[:source].nil?
     end
 
     def alter_oembed(oembed, provider)
@@ -70,6 +75,13 @@ module Bridge
         config.access_token        = BRIDGE_CONFIG['twitter_access_token']
         config.access_token_secret = BRIDGE_CONFIG['twitter_access_token_secret']
       end
+    end
+
+    def alter_instagram_oembed(oembed)
+      uri = URI.parse(oembed[:link])
+      result = Net::HTTP.start(uri.host, uri.port) { |http| http.get(uri.path) }
+      oembed['unavailable'] = (result.code.to_i === 404)
+      oembed
     end
   end
 end
