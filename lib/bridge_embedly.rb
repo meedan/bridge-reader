@@ -46,6 +46,7 @@ module Bridge
 
     def alter_oembed(oembed, provider)
       function = "alter_#{provider}_oembed"
+      oembed['unavailable'] = true if oembed.respond_to?(:error_code) && oembed.error_code === 404
       (oembed = self.send(function, oembed)) if self.respond_to?(function)
       oembed
     end
