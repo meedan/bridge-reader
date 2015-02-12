@@ -74,6 +74,10 @@ GEM
     jwt (1.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    logstash-event (1.1.5)
+    logstasher (0.6.2)
+      logstash-event (~> 1.1.0)
+      request_store
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -119,6 +123,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    request_store (1.1.0)
     retriable (1.4.1)
     sass (3.4.3)
     signet (0.5.1)
@@ -175,6 +180,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   embedly
   google_drive
+  logstasher
   mocha
   rails (= 4.0.9)
   rails_autolink
