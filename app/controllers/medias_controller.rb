@@ -1,6 +1,10 @@
 require 'bridge_google_spreadsheet'
 require 'bridge_embedly'
+require 'bridge_cache'
+
 class MediasController < ApplicationController
+  include Bridge::Cache
+
   after_action :allow_iframe, only: :embed
 
   def index
@@ -32,39 +36,16 @@ class MediasController < ApplicationController
                                                BRIDGE_CONFIG['google_spreadsheet_id'],
                                                @milestone)
 
-    @cachepath = cache_path
+    @cachepath = cache_path(@worksheet)
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      clear_cache
-      generate_cache
+      clear_cache(@milestone)
+      generate_cache(@milestone, @worksheet)
       @cache = false
     end
 
     render file: @cachepath
-  end
-
-  def cache_dir
-    File.join(Rails.root, 'public', 'cache')
-  end
-
-  def clear_cache
-    FileUtils.rm Dir.glob(File.join(cache_dir, "#{@milestone}_*"))
-  end
-
-  def cache_path
-    File.join(cache_dir, "#{@worksheet.get_title}_#{@worksheet.updated_at}.html")
-  end
-
-  def generate_cache
-    @embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
-    av = ActionView::Base.new(Rails.root.join('app', 'views'))
-    av.assign(translations: @embedly.parse_entries(@worksheet.get_entries), milestone: @milestone)
-    ActionView::Base.send :include, MediasHelper
-    FileUtils.mkdir(cache_dir) unless File.exists?(cache_dir)
-    f = File.new(@cachepath, 'w+')
-    f.puts(av.render(template: 'medias/embed.html.erb'))
-    f.close
   end
 
   def allow_iframe
