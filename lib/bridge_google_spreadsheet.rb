@@ -76,10 +76,13 @@ module Bridge
     def notify_availability(index, available)
       #FIXME: Cell position is hard-coded here
       worksheet = get_worksheet
-      worksheet[1, 9] = 'Unavailable?'
-      worksheet[index, 9] = (available ? 'No' : 'Yes')
-      Retryable.retryable tries: 5 do
-        worksheet.save
+      value = available ? 'No' : 'Yes'
+      unless worksheet[index, 9].to_s == value.to_s
+        worksheet[1, 9] = 'Unavailable?'
+        worksheet[index, 9] = value
+        Retryable.retryable tries: 5 do
+          worksheet.save
+        end
       end
     end
   end
