@@ -2,6 +2,7 @@ require 'google_drive'
 
 module Bridge
   class GoogleSpreadsheet
+
     def initialize(email, password, id, sheet = nil)
       authenticate(email, password)
       get_spreadsheet(id)
@@ -31,7 +32,9 @@ module Bridge
         # FIXME: Assuming that the first row is the header
         for row in 2..worksheet.num_rows
           # FIXME: Link column index is hard-coded here
-          urls << worksheet[row, 2]
+          Retryable.retryable tries: 5 do
+            urls << worksheet[row, 2]
+          end
         end
         @urls = urls
       end
@@ -43,18 +46,20 @@ module Bridge
         worksheet = get_worksheet
         @entries = []
         for row in 2..worksheet.num_rows
-          @entries << {
-            source_text: worksheet[row, 1],
-            link: worksheet[row, 2],
-            translation: worksheet[row, 3],
-            comment: worksheet[row, 4],
-            translator_name: worksheet[row, 5],
-            translator_url: worksheet[row, 6],
-            commenter: worksheet[row, 7],
-            commenter_url: worksheet[row, 8],
-            source: self,
-            index: row
-          }
+          Retryable.retryable tries: 5 do
+            @entries << {
+              source_text: worksheet[row, 1],
+              link: worksheet[row, 2],
+              translation: worksheet[row, 3],
+              comment: worksheet[row, 4],
+              translator_name: worksheet[row, 5],
+              translator_url: worksheet[row, 6],
+              commenter: worksheet[row, 7],
+              commenter_url: worksheet[row, 8],
+              source: self,
+              index: row
+            }
+          end
         end
       end
       @entries
@@ -73,7 +78,9 @@ module Bridge
       worksheet = get_worksheet
       worksheet[1, 9] = 'Unavailable?'
       worksheet[index, 9] = (available ? 'No' : 'Yes')
-      worksheet.save
+      Retryable.retryable tries: 5 do
+        worksheet.save
+      end
     end
   end
 end

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.0.9'
-gem 'google_drive'
+gem 'google_drive', '0.3.11'
 gem 'sqlite3'
 gem 'xml-simple'
 gem 'embedly'
@@ -15,3 +15,4 @@ gem 'airbrake'
 gem 'sass'
 gem 'rails_autolink'
 gem 'logstasher'
+gem 'retryable'

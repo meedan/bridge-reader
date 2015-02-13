@@ -49,17 +49,16 @@ GEM
     extlib (0.9.16)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
-    google-api-client (0.7.1)
-      addressable (>= 2.3.2)
-      autoparse (>= 0.3.3)
-      extlib (>= 0.9.15)
-      faraday (>= 0.9.0)
-      jwt (>= 0.1.5)
-      launchy (>= 2.1.1)
-      multi_json (>= 1.0.0)
-      retriable (>= 1.4)
-      signet (>= 0.5.0)
-      uuidtools (>= 2.1.0)
+    google-api-client (0.8.1.1)
+      activesupport (>= 3.2)
+      addressable (~> 2.3)
+      autoparse (~> 0.3)
+      extlib (~> 0.9)
+      faraday (~> 0.9)
+      launchy (~> 2.4)
+      multi_json (~> 1.10)
+      retriable (~> 1.4)
+      signet (~> 0.6)
     google_drive (0.3.11)
       google-api-client (>= 0.7.0)
       nokogiri (>= 1.4.4, != 1.5.2, != 1.5.1)
@@ -71,7 +70,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.7.0)
     json (1.8.1)
-    jwt (1.0.0)
+    jwt (1.2.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     logstash-event (1.1.5)
@@ -125,12 +124,14 @@ GEM
     rake (10.4.2)
     request_store (1.1.0)
     retriable (1.4.1)
+    retryable (2.0.1)
     sass (3.4.3)
-    signet (0.5.1)
-      addressable (>= 2.2.3)
-      faraday (>= 0.9.0.rc5)
-      jwt (>= 0.1.5)
-      multi_json (>= 1.0.0)
+    signet (0.6.0)
+      addressable (~> 2.3)
+      extlib (~> 0.9)
+      faraday (~> 0.9)
+      jwt (~> 1.0)
+      multi_json (~> 1.10)
     simple_oauth (0.3.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)
@@ -165,7 +166,6 @@ GEM
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
     tzinfo (0.3.42)
-    uuidtools (2.1.5)
     w3c_validators (1.2)
       json
       nokogiri
@@ -179,11 +179,12 @@ DEPENDENCIES
   bower-rails (~> 0.9.1)
   codeclimate-test-reporter
   embedly
-  google_drive
+  google_drive (= 0.3.11)
   logstasher
   mocha
   rails (= 4.0.9)
   rails_autolink
+  retryable
   sass
   simplecov
   sqlite3
