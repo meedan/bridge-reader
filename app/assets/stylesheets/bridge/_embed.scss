@@ -11,29 +11,47 @@ body.bridgeEmbed {
   font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4;
   margin: 0 auto;
-  max-width: 700px;
-  // 1pc = 12pt = 1/6th inch
-  padding: 1pc;
-  background-color: rgba(0,0,0,0.1);
+  padding: 1em 0.5em;
+  background-color: rgba($photo-feb10-blue,0.05);
+  // Medium sizes
+  @media all and (min-width: 800px) {
+    @include columns(2);
+    #bridgeEmbed__footer {
+      -webkit-column-span: all;
+      -moz-column-span: all;
+      column-span: all;
+    }
+    .bridgeEmbed__item {
+      @include column-break(inside, avoid);
+    }
+  }
+  // Largest size
+  @media all and (min-width: 1200px) {
+    @include columns(3);
+  }
 }
 
 .byline {
-  font-style: italic;
-  margin-top: 1em;
+  color: rgba($photo-feb10-blue, 1);
+  margin-top: 0.5em;
+  font-size: smaller;
 }
 
 .bridgeEmbed__item {
-  @include animation("expand-in 7s");
-  border: 1px solid rgba(0,0,0,0.1);
-  margin-top: 12pt;
-  padding: 24pt;
+  margin: 2em auto;
+  padding: 0.5em 2em 1.5em;
   @include border-radius(8px);
   background-color: white;
-
+  max-width: 500px;
+  position: relative;
+  @include box-shadow($shadow-grey 0px 2px 4px);
+  &:first-of-type {
+    margin-top: 0;
+  }
 }
 
 .bridgeEmbed__item-geodata {
-  text-align: right;
+  display: none;
   font-size: smaller;
   .icon {
       display: inline-block;
@@ -43,44 +61,67 @@ body.bridgeEmbed {
       background-image: url('/images/map-pin.png');
       background-repeat: no-repeat;
       margin-right: 4px;
-    }
-  a { 
-    color: rgba(0,0,0,0.2); 
-    text-decoration: none;
-  } 
+      &:hover {
+        @include opacity(0.8);
+      }
+    a {
+      text-decoration: none;
+    } 
+  }
 }
 
 .bridgeEmbed__item-translation {
+
   .translation {
-    padding-top: 1em;
-    font-size: 1.5em;
+    padding-top: 0.5em;
+    font-size: 1.2em;
+    font-weight: 500;
+
+    a {
+      color: rgba(lighten($another-blue, 10%),1);
+      text-decoration: none;
+      border-bottom: 2px solid $light-blue;
+      &:hover {
+        border-bottom: 2px solid darken($light-blue, 10%);
+      }
+    }
   }
 
   .byline {
+    font-style: italic;
     &:before {
       content: "—";
     }
   }
-}
 
-.update-body {
-  p {}
-  .added-by {}
-}
+  p {
+    margin: 0;
+  }
 
+}
 .bridgeEmbed__item-comment {
   padding-top: 1em;
   font-size: smaller;
-
-  .count {
-    font-weight: bold;
+  color: rgba($photo-feb10-blue,0.5);
+  font-weight: 200;
+  a {
+    color: rgba($another-blue,0.6);
+    // color: rgba(darken(yellow, 100%), 0.2);
+    // background-color: rgba(yellow, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    &:hover {
+      text-decoration: underline;
+    }
   }
+  
 }
 
-.bridgeEmbed__footer {
+#bridgeEmbed__footer {
   display: block;
-  padding: 8em; 
+  padding: 2em;
   text-align: center;
+  @include opacity(0.3);
   a {
     text-decoration: none;
   }
@@ -88,6 +129,6 @@ body.bridgeEmbed {
 
 .bridgeEmbed__item-embedly-card {
   min-height: 24px;
-  background: transparent url(/images/spin.gif) left center no-repeat;
+  background: transparent url("/images/spin.gif") left center no-repeat;
   display: block;
 }

@@ -10,7 +10,9 @@
     "test",
     "tests"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "compass-mixins": "~1.0.2"
+  },
   "devDependencies": {
     "bootcamp": "~1.1.6",
     "scss-normalize": "git@github.com:kristerkari/normalize.scss.git",
