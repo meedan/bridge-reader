@@ -65,8 +65,9 @@ module Bridge
       @entries
     end
 
-    def updated_at
-      get_worksheet.updated.to_i
+    def version
+      # get_worksheet.updated.to_i
+      get_worksheet[2, 10].to_i
     end
   
     def get_worksheets

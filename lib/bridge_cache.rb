@@ -9,7 +9,7 @@ module Bridge
     end
 
     def cache_path(worksheet)
-      File.join(cache_dir, "#{worksheet.get_title}_#{worksheet.updated_at}.html")
+      File.join(cache_dir, "#{worksheet.get_title}_#{worksheet.version}.html")
     end
 
     def generate_cache(milestone, worksheet)

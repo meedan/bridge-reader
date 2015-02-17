@@ -57,13 +57,15 @@ module Bridge
       require 'twitter'
       id = oembed[:link].match(/status\/([0-9]+)/)
       unless id.nil?
-        begin
-          client = connect_to_twitter
-          tweet = client.status(id[1])
-          oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
-          oembed['created_at'] = tweet.created_at
-        rescue
-          oembed['unavailable'] = true
+        Retryable.retryable tries: 5, sleep: 3 do
+          begin
+            client = connect_to_twitter
+            tweet = client.status(id[1])
+            oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
+            oembed['created_at'] = tweet.created_at
+          rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
+            oembed['unavailable'] = true
+          end
         end
       end
       oembed

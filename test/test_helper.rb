@@ -24,7 +24,6 @@ class ActiveSupport::TestCase
   end
 
   def create_cache
-    Bridge::GoogleSpreadsheet.any_instance.stubs(:updated_at).returns(123456)
-    FileUtils.touch(File.join(Rails.root, 'public', 'cache', 'test_123456.html'))
+    FileUtils.touch(File.join(Rails.root, 'public', 'cache', 'test_1.html'))
   end
 end

@@ -34,8 +34,8 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal @b.instance_variable_get(:@worksheet), @b.get_worksheet('test')
   end
 
-  test "should get update at" do
-    assert_kind_of Integer, @b.updated_at
+  test "should get version" do
+    assert_kind_of Integer, @b.version
   end
 
   test "should get URLs" do

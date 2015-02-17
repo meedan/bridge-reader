@@ -14,7 +14,7 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-02-13T05:25:32-03:00">2015-02-13T05:25:32-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-02-17T00:50:41-03:00">2015-02-17T00:50:41-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         8.17
+         7.99
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>5</b> files in total.
-    <b>143</b> relevant lines. 
-    <span class="green"><b>143</b> lines covered</span> and
+    <b>148</b> relevant lines. 
+    <span class="green"><b>148</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -83,9 +83,9 @@
       <tr>
         <td class="strong"><a href="#8e3e4bf48032d2f0357011e60b97e48eb680fe26" class="src_link" title="lib/bridge_embedly.rb">lib/bridge_embedly.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>88</td>
-        <td>57</td>
-        <td>57</td>
+        <td>90</td>
+        <td>58</td>
+        <td>58</td>
         <td>0</td>
         <td>10.8</td>
       </tr>
@@ -93,11 +93,11 @@
       <tr>
         <td class="strong"><a href="#561d67b4e272c36278e02679dd436234cf73e91e" class="src_link" title="lib/bridge_google_spreadsheet.rb">lib/bridge_google_spreadsheet.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>82</td>
-        <td>40</td>
-        <td>40</td>
+        <td>90</td>
+        <td>44</td>
+        <td>44</td>
         <td>0</td>
-        <td>9.6</td>
+        <td>8.8</td>
       </tr>
       
     </tbody>
@@ -291,15 +291,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         10.31
+         9.94
        </span>
     </span> hits/line)
   </h2>
   <a name="Libraries"></a>
   <div>
     <b>2</b> files in total.
-    <b>97</b> relevant lines. 
-    <span class="green"><b>97</b> lines covered</span> and
+    <b>102</b> relevant lines. 
+    <span class="green"><b>102</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -319,9 +319,9 @@
       <tr>
         <td class="strong"><a href="#8e3e4bf48032d2f0357011e60b97e48eb680fe26" class="src_link" title="lib/bridge_embedly.rb">lib/bridge_embedly.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>88</td>
-        <td>57</td>
-        <td>57</td>
+        <td>90</td>
+        <td>58</td>
+        <td>58</td>
         <td>0</td>
         <td>10.8</td>
       </tr>
@@ -329,11 +329,11 @@
       <tr>
         <td class="strong"><a href="#561d67b4e272c36278e02679dd436234cf73e91e" class="src_link" title="lib/bridge_google_spreadsheet.rb">lib/bridge_google_spreadsheet.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>82</td>
-        <td>40</td>
-        <td>40</td>
+        <td>90</td>
+        <td>44</td>
+        <td>44</td>
         <td>0</td>
-        <td>9.6</td>
+        <td>8.8</td>
       </tr>
       
     </tbody>
@@ -902,8 +902,8 @@
     <h3>lib/bridge_embedly.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>57</b> relevant lines. 
-      <span class="green"><b>57</b> lines covered</span> and
+      <b>58</b> relevant lines. 
+      <span class="green"><b>58</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1268,172 +1268,184 @@
         <li class="covered" data-hits="13" data-linenumber="60">
           <span class="hits">13</span>
           
-          <code class="ruby">        begin</code>
+          <code class="ruby">        Retryable.retryable tries: 5, sleep: 3 do</code>
         </li>
       
         <li class="covered" data-hits="13" data-linenumber="61">
           <span class="hits">13</span>
           
-          <code class="ruby">          client = connect_to_twitter</code>
+          <code class="ruby">          begin</code>
         </li>
       
         <li class="covered" data-hits="13" data-linenumber="62">
           <span class="hits">13</span>
           
-          <code class="ruby">          tweet = client.status(id[1])</code>
+          <code class="ruby">            client = connect_to_twitter</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="63">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="13" data-linenumber="63">
+          <span class="hits">13</span>
           
-          <code class="ruby">          oembed[&#39;coordinates&#39;] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?</code>
+          <code class="ruby">            tweet = client.status(id[1])</code>
         </li>
       
         <li class="covered" data-hits="7" data-linenumber="64">
           <span class="hits">7</span>
           
-          <code class="ruby">          oembed[&#39;created_at&#39;] = tweet.created_at</code>
+          <code class="ruby">            oembed[&#39;coordinates&#39;] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="65">
+        <li class="covered" data-hits="7" data-linenumber="65">
+          <span class="hits">7</span>
           
-          
-          <code class="ruby">        rescue</code>
+          <code class="ruby">            oembed[&#39;created_at&#39;] = tweet.created_at</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="66">
+        <li class="never" data-hits="" data-linenumber="66">
+          
+          
+          <code class="ruby">          rescue Twitter::Error::NotFound, Twitter::Error::Forbidden</code>
+        </li>
+      
+        <li class="covered" data-hits="6" data-linenumber="67">
           <span class="hits">6</span>
           
-          <code class="ruby">          oembed[&#39;unavailable&#39;] = true</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="67">
-          
-          
-          <code class="ruby">        end</code>
+          <code class="ruby">            oembed[&#39;unavailable&#39;] = true</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="68">
           
           
-          <code class="ruby">      end</code>
+          <code class="ruby">          end</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="69">
-          <span class="hits">14</span>
+        <li class="never" data-hits="" data-linenumber="69">
           
-          <code class="ruby">      oembed</code>
+          
+          <code class="ruby">        end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="70">
           
           
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="covered" data-hits="14" data-linenumber="71">
+          <span class="hits">14</span>
+          
+          <code class="ruby">      oembed</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="72">
+          
+          
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="71">
+        <li class="never" data-hits="" data-linenumber="73">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="72">
+        <li class="covered" data-hits="1" data-linenumber="74">
           <span class="hits">1</span>
           
           <code class="ruby">    def connect_to_twitter</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="73">
+        <li class="covered" data-hits="14" data-linenumber="75">
           <span class="hits">14</span>
           
           <code class="ruby">      Twitter::REST::Client.new do |config|</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="74">
+        <li class="covered" data-hits="14" data-linenumber="76">
           <span class="hits">14</span>
           
           <code class="ruby">        config.consumer_key        = BRIDGE_CONFIG[&#39;twitter_consumer_key&#39;]</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="75">
+        <li class="covered" data-hits="14" data-linenumber="77">
           <span class="hits">14</span>
           
           <code class="ruby">        config.consumer_secret     = BRIDGE_CONFIG[&#39;twitter_consumer_secret&#39;]</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="76">
+        <li class="covered" data-hits="14" data-linenumber="78">
           <span class="hits">14</span>
           
           <code class="ruby">        config.access_token        = BRIDGE_CONFIG[&#39;twitter_access_token&#39;]</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="77">
+        <li class="covered" data-hits="14" data-linenumber="79">
           <span class="hits">14</span>
           
           <code class="ruby">        config.access_token_secret = BRIDGE_CONFIG[&#39;twitter_access_token_secret&#39;]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="78">
+        <li class="never" data-hits="" data-linenumber="80">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="79">
+        <li class="never" data-hits="" data-linenumber="81">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="80">
+        <li class="never" data-hits="" data-linenumber="82">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="81">
+        <li class="covered" data-hits="1" data-linenumber="83">
           <span class="hits">1</span>
           
           <code class="ruby">    def alter_instagram_oembed(oembed)</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="82">
+        <li class="covered" data-hits="6" data-linenumber="84">
           <span class="hits">6</span>
           
           <code class="ruby">      uri = URI.parse(oembed[:link])</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="83">
+        <li class="covered" data-hits="12" data-linenumber="85">
           <span class="hits">12</span>
           
           <code class="ruby">      result = Net::HTTP.start(uri.host, uri.port) { |http| http.get(uri.path) }</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="84">
+        <li class="covered" data-hits="6" data-linenumber="86">
           <span class="hits">6</span>
           
           <code class="ruby">      oembed[&#39;unavailable&#39;] = (result.code.to_i === 404)</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="85">
+        <li class="covered" data-hits="6" data-linenumber="87">
           <span class="hits">6</span>
           
           <code class="ruby">      oembed</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="86">
+        <li class="never" data-hits="" data-linenumber="88">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="87">
+        <li class="never" data-hits="" data-linenumber="89">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="88">
+        <li class="never" data-hits="" data-linenumber="90">
           
           
           <code class="ruby">end</code>
@@ -1448,8 +1460,8 @@
     <h3>lib/bridge_google_spreadsheet.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>40</b> relevant lines. 
-      <span class="green"><b>40</b> lines covered</span> and
+      <b>44</b> relevant lines. 
+      <span class="green"><b>44</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1601,8 +1613,8 @@
           <code class="ruby">    def get_worksheet(title = &#39;&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="51" data-linenumber="25">
-          <span class="hits">51</span>
+        <li class="covered" data-hits="54" data-linenumber="25">
+          <span class="hits">54</span>
           
           <code class="ruby">      @worksheet ||= get_spreadsheet.worksheet_by_title(get_title(title))</code>
         </li>
@@ -1664,187 +1676,187 @@
         <li class="covered" data-hits="4" data-linenumber="35">
           <span class="hits">4</span>
           
-          <code class="ruby">          urls &lt;&lt; worksheet[row, 2]</code>
+          <code class="ruby">          Retryable.retryable tries: 5 do</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="36">
+        <li class="covered" data-hits="4" data-linenumber="36">
+          <span class="hits">4</span>
           
-          
-          <code class="ruby">        end</code>
+          <code class="ruby">            urls &lt;&lt; worksheet[row, 2]</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="37">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="37">
           
-          <code class="ruby">        @urls = urls</code>
+          
+          <code class="ruby">          end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="38">
           
           
-          <code class="ruby">      end</code>
+          <code class="ruby">        end</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="39">
           <span class="hits">1</span>
           
-          <code class="ruby">      @urls</code>
+          <code class="ruby">        @urls = urls</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="40">
           
           
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="41">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @urls</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="42">
+          
+          
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="41">
+        <li class="never" data-hits="" data-linenumber="43">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="42">
+        <li class="covered" data-hits="1" data-linenumber="44">
           <span class="hits">1</span>
           
           <code class="ruby">    def get_entries</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="43">
+        <li class="covered" data-hits="5" data-linenumber="45">
           <span class="hits">5</span>
           
           <code class="ruby">      unless @entries</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="44">
+        <li class="covered" data-hits="5" data-linenumber="46">
           <span class="hits">5</span>
           
           <code class="ruby">        worksheet = get_worksheet</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="45">
+        <li class="covered" data-hits="5" data-linenumber="47">
           <span class="hits">5</span>
           
           <code class="ruby">        @entries = []</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="46">
+        <li class="covered" data-hits="5" data-linenumber="48">
           <span class="hits">5</span>
           
           <code class="ruby">        for row in 2..worksheet.num_rows</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="47">
+        <li class="covered" data-hits="20" data-linenumber="49">
+          <span class="hits">20</span>
           
-          
-          <code class="ruby">          @entries &lt;&lt; {</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="48">
-          
-          
-          <code class="ruby">            source_text: worksheet[row, 1],</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="49">
-          
-          
-          <code class="ruby">            link: worksheet[row, 2],</code>
+          <code class="ruby">          Retryable.retryable tries: 5 do</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="50">
           
           
-          <code class="ruby">            translation: worksheet[row, 3],</code>
+          <code class="ruby">            @entries &lt;&lt; {</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="51">
           
           
-          <code class="ruby">            comment: worksheet[row, 4],</code>
+          <code class="ruby">              source_text: worksheet[row, 1],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="52">
           
           
-          <code class="ruby">            translator_name: worksheet[row, 5],</code>
+          <code class="ruby">              link: worksheet[row, 2],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="53">
           
           
-          <code class="ruby">            translator_url: worksheet[row, 6],</code>
+          <code class="ruby">              translation: worksheet[row, 3],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="54">
           
           
-          <code class="ruby">            commenter: worksheet[row, 7],</code>
+          <code class="ruby">              comment: worksheet[row, 4],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="55">
           
           
-          <code class="ruby">            commenter_url: worksheet[row, 8],</code>
+          <code class="ruby">              translator_name: worksheet[row, 5],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="56">
           
           
-          <code class="ruby">            source: self,</code>
+          <code class="ruby">              translator_url: worksheet[row, 6],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="57">
           
           
-          <code class="ruby">            index: row</code>
+          <code class="ruby">              commenter: worksheet[row, 7],</code>
         </li>
       
-        <li class="covered" data-hits="20" data-linenumber="58">
-          <span class="hits">20</span>
+        <li class="never" data-hits="" data-linenumber="58">
           
-          <code class="ruby">          }</code>
+          
+          <code class="ruby">              commenter_url: worksheet[row, 8],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="59">
           
           
-          <code class="ruby">        end</code>
+          <code class="ruby">              source: self,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="60">
           
           
-          <code class="ruby">      end</code>
+          <code class="ruby">              index: row</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="61">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="20" data-linenumber="61">
+          <span class="hits">20</span>
           
-          <code class="ruby">      @entries</code>
+          <code class="ruby">            }</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="62">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">          end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="63">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">        end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="64">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="64">
           
-          <code class="ruby">    def updated_at</code>
+          
+          <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="65">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="5" data-linenumber="65">
+          <span class="hits">5</span>
           
-          <code class="ruby">      get_worksheet.updated.to_i</code>
+          <code class="ruby">      @entries</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="66">
@@ -1856,94 +1868,142 @@
         <li class="never" data-hits="" data-linenumber="67">
           
           
-          <code class="ruby">  </code>
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="68">
           <span class="hits">1</span>
           
-          <code class="ruby">    def get_worksheets</code>
+          <code class="ruby">    def version</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="69">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="69">
           
-          <code class="ruby">      @worksheets ||= get_spreadsheet.worksheets</code>
+          
+          <code class="ruby">      # get_worksheet.updated.to_i</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="70">
+        <li class="covered" data-hits="10" data-linenumber="70">
+          <span class="hits">10</span>
           
-          
-          <code class="ruby">    end</code>
+          <code class="ruby">      get_worksheet[2, 10].to_i</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="71">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="72">
+        <li class="never" data-hits="" data-linenumber="72">
+          
+          
+          <code class="ruby">  </code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="73">
           <span class="hits">1</span>
           
-          <code class="ruby">    def notify_availability(index, available)</code>
+          <code class="ruby">    def get_worksheets</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="73">
+        <li class="covered" data-hits="4" data-linenumber="74">
+          <span class="hits">4</span>
           
-          
-          <code class="ruby">      #FIXME: Cell position is hard-coded here</code>
+          <code class="ruby">      @worksheets ||= get_spreadsheet.worksheets</code>
         </li>
       
-        <li class="covered" data-hits="20" data-linenumber="74">
-          <span class="hits">20</span>
-          
-          <code class="ruby">      worksheet = get_worksheet</code>
-        </li>
-      
-        <li class="covered" data-hits="20" data-linenumber="75">
-          <span class="hits">20</span>
-          
-          <code class="ruby">      worksheet[1, 9] = &#39;Unavailable?&#39;</code>
-        </li>
-      
-        <li class="covered" data-hits="20" data-linenumber="76">
-          <span class="hits">20</span>
-          
-          <code class="ruby">      worksheet[index, 9] = (available ? &#39;No&#39; : &#39;Yes&#39;)</code>
-        </li>
-      
-        <li class="covered" data-hits="20" data-linenumber="77">
-          <span class="hits">20</span>
-          
-          <code class="ruby">      Retryable.retryable tries: 5 do</code>
-        </li>
-      
-        <li class="covered" data-hits="20" data-linenumber="78">
-          <span class="hits">20</span>
-          
-          <code class="ruby">        worksheet.save</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="79">
-          
-          
-          <code class="ruby">      end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="80">
+        <li class="never" data-hits="" data-linenumber="75">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="81">
+        <li class="never" data-hits="" data-linenumber="76">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="77">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    def notify_availability(index, available)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="78">
+          
+          
+          <code class="ruby">      #FIXME: Cell position is hard-coded here</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="79">
+          <span class="hits">20</span>
+          
+          <code class="ruby">      worksheet = get_worksheet</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="80">
+          <span class="hits">20</span>
+          
+          <code class="ruby">      value = available ? &#39;No&#39; : &#39;Yes&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="20" data-linenumber="81">
+          <span class="hits">20</span>
+          
+          <code class="ruby">      unless worksheet[index, 9].to_s == value.to_s</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="82">
+          <span class="hits">3</span>
+          
+          <code class="ruby">        worksheet[1, 9] = &#39;Unavailable?&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="83">
+          <span class="hits">3</span>
+          
+          <code class="ruby">        worksheet[index, 9] = value</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="84">
+          <span class="hits">3</span>
+          
+          <code class="ruby">        Retryable.retryable tries: 5 do</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="85">
+          <span class="hits">3</span>
+          
+          <code class="ruby">          worksheet.save</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="86">
+          
+          
+          <code class="ruby">        end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="87">
+          
+          
+          <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="88">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="89">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="82">
+        <li class="never" data-hits="" data-linenumber="90">
           
           
           <code class="ruby">end</code>
