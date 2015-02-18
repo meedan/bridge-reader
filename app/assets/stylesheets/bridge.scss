@@ -5,12 +5,6 @@
 
 // ## Bridge Styles
 //
-//
-$accent-blue: #6d9ed3;
-$photo-feb10-blue: #596d74;
-$another-blue: #005bbe;
-$light-blue: lighten($accent-blue, 30%);
-
 @import "bridge/typography";
 @import "bridge/animations";
 @import "bridge/embed";
