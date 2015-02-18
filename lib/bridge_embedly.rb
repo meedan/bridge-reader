@@ -20,13 +20,21 @@ module Bridge
       end
     end
 
+    def call_oembed(link)
+      oembed = {}
+      Retryable.retryable tries: 5, sleep: 3 do
+        oembed = connect_to_api.oembed(url: link).first
+      end
+      oembed[:link] = link
+      oembed
+    end
+
     def parse_entries(entries = [])
       unless @entries
         @entries = []
         entries.each do |entry|
           link = entry[:link]
-          oembed = connect_to_api.oembed(url: link).first
-          oembed[:link] = link
+          oembed = call_oembed(link)
           entry[:provider] = provider = oembed.provider_name.to_s.underscore
           entry[:oembed] = self.alter_oembed(oembed, provider)
           entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
