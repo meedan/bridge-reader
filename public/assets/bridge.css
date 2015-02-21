@@ -336,11 +336,11 @@ body.bridgeEmbed {
   font-size: 1.2em;
   font-weight: 500; }
   .bridgeEmbed__item-translation .translation a {
-    color: #0074f1;
+    color: #2476cd;
     text-decoration: none;
-    border-bottom: 2px solid #e3ecf6; }
+    border-bottom: 2px solid white; }
     .bridgeEmbed__item-translation .translation a:hover {
-      border-bottom: 2px solid #bbd2eb; }
+      border-bottom: 2px solid #d8e5f3; }
 .bridgeEmbed__item-translation .byline {
   font-style: italic; }
   .bridgeEmbed__item-translation .byline:before {
@@ -354,7 +354,7 @@ body.bridgeEmbed {
   color: rgba(89, 109, 116, 0.5);
   font-weight: 200; }
   .bridgeEmbed__item-comment a {
-    color: rgba(0, 91, 190, 0.6);
+    color: rgba(28, 92, 161, 0.6);
     text-decoration: none;
     font-weight: 600; }
     .bridgeEmbed__item-comment a:hover {

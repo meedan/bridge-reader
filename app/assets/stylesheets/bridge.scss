@@ -8,8 +8,8 @@
 //
 $accent-blue: #6d9ed3;
 $photo-feb10-blue: #596d74;
-$another-blue: #005bbe;
-$light-blue: lighten($accent-blue, 30%);
+$another-blue: desaturate(#005bbe, 30%);
+$light-blue: lighten($accent-blue, 80%);
 $shadow-grey: #c3c3c3;
 
 @import "bridge/typography";
