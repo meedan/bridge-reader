@@ -25,9 +25,9 @@ body.bridgeEmbed {
   line-height: 1.4;
   margin: 0 auto;
   padding: 1em 0.5em;
-  background-color: $warm-color;
+  background-color: lighten($warm-color, 15%);
   // Medium sizes
-  @media all and (min-width: 800px) {
+  @media all and (min-width: 1096px) {
     @include columns(2);
     #bridgeEmbed__footer {
       -webkit-column-span: all;
@@ -38,9 +38,13 @@ body.bridgeEmbed {
       @include column-break(inside, avoid);
     }
   }
-  // Largest size
-  @media all and (min-width: 1200px) {
+
+  @media all and (min-width: 1550px) {
     @include columns(3);
+  }
+
+  @media all and (min-width: 1900px) {
+    @include columns(4);
   }
 }
 
@@ -51,39 +55,48 @@ body.bridgeEmbed {
 }
 
 .bridgeEmbed__item {
+  min-width: 500px;
+  padding: 4em;
+  background-color: rgba(white, 0.8);
+  @include border-top-radius(8px);
   & > iframe {
-    padding: 1em 1em 0em;
+    margin-bottom: 0!important;
   }
   margin: 1em auto;
-  padding: 0.5em 0em 1.5em;
-  @include border-radius(8px);
-  background-color: white;
-  max-width: 500px;
+  width: 400px;
   position: relative;
-  // @include box-shadow($shadow-grey 0px 2px 4px);
-  // border: 2px solid rgba(black, 0.2);
   &:first-of-type {
     margin-top: 0;
   }
 }
 
+// Absolute positioning hax
+%pin-to-corner {
+  // Container must be position: relative
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  z-index: 100;
+}
+
 .bridgeEmbed__item-geodata {
-  display: none;
-  font-size: smaller;
-  .icon {
-      display: inline-block;
-      width: 9px;
-      height: 12px;
-      background-size: cover;
-      background-image: url('/images/map-pin.png');
-      background-repeat: no-repeat;
-      margin-right: 4px;
-      &:hover {
-        @include opacity(0.8);
-      }
-    a {
+  @extend %pin-to-corner;
+  font-size: 10px;
+  @include opacity(0.5);
+  a {
       text-decoration: none;
     } 
+  .icon {
+    display: inline-block;
+    width: 9px;
+    height: 12px;
+    background-size: cover;
+    background-image: url('/images/map-pin.png');
+    background-repeat: no-repeat;
+    margin-right: 4px;
+    &:hover {
+      @include opacity(0.8);
+    }
   }
 }
 
@@ -92,15 +105,19 @@ body.bridgeEmbed {
   // @include linear-gradient(white, black);
   // background-color: hue-rotate(purple, 10deg);
   // border-left: 5px solid $translation-border-color;
-  padding: 0.5em 0.7em 1em;
+  // background-color: white;
+  @include border-bottom-radius(8px);
+  padding: 0em 0em 0em;
   color: rgba(black, 0.9);
   overflow: hidden;
   // border: 1px solid #960808;
+  // border: 10px solid lighten(blue, 10%);
   .translation {
-    padding-top: 0.5em;
-    font-size: 1.3em;
+    // @include linear-gradient(rgba($warm-color, 0.01), rgba($warm-color, 0.1));
+    padding: 1em;
+    font-size: 1.2em;
     font-weight: 500;
-
+    // background-color: lighten($byline-background-color, 40%);
     a {
       color: rgba(darken($another-blue, 10%),1);
       // color: white;
@@ -114,10 +131,10 @@ body.bridgeEmbed {
 
   .byline {
     font-style: italic;
-    background-color: $byline-background-color;
+    font-weight: 700;
     color: $byline-color;
-    float: right;
-    padding: 1em;
+    padding: 0.5em 2em 1em;
+    margin: 0;
     &:before {
       content: "—";
     }
@@ -129,11 +146,10 @@ body.bridgeEmbed {
 
 }
 .bridgeEmbed__item-comment {
-  padding: 1em;
+  padding: 0 1em;
   font-size: smaller;
   color: $translation-comment-blue;
   font-weight: 200;
-  // margin-left: 5em;
   clear: both;
   a {
     color: $translation-comment-link-blue;
@@ -151,9 +167,6 @@ body.bridgeEmbed {
   padding: 2em;
   text-align: center;
   @include opacity(0.3);
-  a {
-    text-decoration: none;
-  }
 }
 
 .bridgeEmbed__item-embedly-card {
