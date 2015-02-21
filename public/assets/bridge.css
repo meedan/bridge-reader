@@ -261,11 +261,6 @@ a {
     opacity: 1; } }
 
 body.bridgeEmbed {
-  -webkit-animation: fade-in 2s;
-  -moz-animation: fade-in 2s;
-  -ms-animation: fade-in 2s;
-  -o-animation: fade-in 2s;
-  animation: fade-in 2s;
   font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4;
   margin: 0 auto;
@@ -301,11 +296,11 @@ body.bridgeEmbed {
 .bridgeEmbed__item {
   margin: 1em auto;
   padding: 0.5em 0em 1.5em;
-  -webkit-border-radius: 18px;
-  -moz-border-radius: 18px;
-  -ms-border-radius: 18px;
-  -o-border-radius: 18px;
-  border-radius: 18px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
   background-color: white;
   max-width: 500px;
   position: relative; }
@@ -332,7 +327,8 @@ body.bridgeEmbed {
 
 .bridgeEmbed__item-translation {
   padding: 0.5em 0.7em 1em;
-  color: rgba(0, 0, 0, 0.9); }
+  color: rgba(0, 0, 0, 0.9);
+  overflow: hidden; }
   .bridgeEmbed__item-translation .translation {
     padding-top: 0.5em;
     font-size: 1.3em;
@@ -345,7 +341,8 @@ body.bridgeEmbed {
         border-bottom: 2px solid #d8e5f3; }
   .bridgeEmbed__item-translation .byline {
     font-style: italic;
-    background-color: yellow;
+    background-color: rgba(255, 255, 0, 0.4);
+    color: rgba(0, 0, 0, 0.8);
     float: right;
     padding: 1em; }
     .bridgeEmbed__item-translation .byline:before {
