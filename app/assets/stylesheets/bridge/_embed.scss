@@ -4,6 +4,19 @@
 // .moduleName__element {}
 // .moduleName__element–is–modified {}
 
+
+@mixin linear-gradient($fromColor, $toColor) {
+  background-color: $toColor; /* Fallback Color */
+  background-image: -webkit-gradient(linear, left top, left bottom, from($fromColor), to($toColor)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, $fromColor, $toColor); /* Chrome 10+, Saf5.1+, iOS 5+ */
+  background-image:    -moz-linear-gradient(top, $fromColor, $toColor); /* FF3.6 */
+  background-image:     -ms-linear-gradient(top, $fromColor, $toColor); /* IE10 */
+  background-image:      -o-linear-gradient(top, $fromColor, $toColor); /* Opera 11.10+ */
+  background-image:         linear-gradient(top, $fromColor, $toColor);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}');
+}
+
+
 // ## Main structure
 //
 body.bridgeEmbed {
@@ -12,7 +25,7 @@ body.bridgeEmbed {
   line-height: 1.4;
   margin: 0 auto;
   padding: 1em 0.5em;
-  background-color: rgba($photo-feb10-blue,0.05);
+  background-color: $warm-color;
   // Medium sizes
   @media all and (min-width: 800px) {
     @include columns(2);
@@ -38,13 +51,17 @@ body.bridgeEmbed {
 }
 
 .bridgeEmbed__item {
-  margin: 2em auto;
-  padding: 0.5em 2em 1.5em;
-  @include border-radius(8px);
+  & > iframe {
+    padding: 1em 1em 0em;
+  }
+  margin: 1em auto;
+  padding: 0.5em 0em 1.5em;
+  @include border-radius(18px);
   background-color: white;
   max-width: 500px;
   position: relative;
-  @include box-shadow($shadow-grey 0px 2px 4px);
+  // @include box-shadow($shadow-grey 0px 2px 4px);
+  // border: 2px solid rgba(black, 0.2);
   &:first-of-type {
     margin-top: 0;
   }
@@ -71,14 +88,21 @@ body.bridgeEmbed {
 }
 
 .bridgeEmbed__item-translation {
-
+  // background-color: $translation-background-color;
+  // @include linear-gradient(white, black);
+  // background-color: hue-rotate(purple, 10deg);
+  // border-left: 5px solid $translation-border-color;
+  padding: 0.5em 0.7em 1em;
+  color: rgba(black, 0.9);
+  // border: 1px solid #960808;
   .translation {
     padding-top: 0.5em;
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-weight: 500;
 
     a {
-      color: rgba(lighten($another-blue, 10%),1);
+      color: rgba(darken($another-blue, 10%),1);
+      // color: white;
       text-decoration: none;
       border-bottom: 2px solid $light-blue;
       &:hover {
@@ -89,6 +113,9 @@ body.bridgeEmbed {
 
   .byline {
     font-style: italic;
+    background-color: yellow;
+    float: right;
+    padding: 1em;
     &:before {
       content: "—";
     }
@@ -100,14 +127,14 @@ body.bridgeEmbed {
 
 }
 .bridgeEmbed__item-comment {
-  padding-top: 1em;
+  padding: 1em;
   font-size: smaller;
-  color: rgba($photo-feb10-blue,0.5);
+  color: $translation-comment-blue;
   font-weight: 200;
+  // margin-left: 5em;
+  clear: both;
   a {
-    color: rgba($another-blue,0.6);
-    // color: rgba(darken(yellow, 100%), 0.2);
-    // background-color: rgba(yellow, 0.2);
+    color: $translation-comment-link-blue;
     text-decoration: none;
     font-weight: 600;
     &:hover {
