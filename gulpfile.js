@@ -21,7 +21,10 @@ gulp.task('browser-sync', function () {
 // will auto-update browsers
 gulp.task('sass', function () {
   return gulp.src(scssFiles)
-    .pipe(sass({includePaths: [bowerDir]}))
+    .pipe(sass({
+      includePaths: [bowerDir],
+      errLogToConsole: true
+    }))
     .pipe(gulp.dest(cssCompileDir))
     .pipe(reload({stream: true}));
 });

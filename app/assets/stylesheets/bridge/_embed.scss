@@ -12,7 +12,7 @@ body.bridgeEmbed {
   line-height: 1.4;
   margin: 0 auto;
   padding: 1em 0.5em;
-  background-color: lighten($warm-color, 15%);
+  // background-color: lighten($warm-color, 15%);
   // Medium sizes
   @media all and (min-width: 1096px) {
     @include columns(2);
@@ -43,7 +43,7 @@ body.bridgeEmbed {
 .bridgeEmbed__item {
   min-width: 500px;
   padding: 4em;
-  background-color: rgba(white, 0.8);
+  // background-color: rgba(white, 0.8);
   & > iframe {
     margin-bottom: 0 !important;
   }
@@ -112,7 +112,6 @@ body.bridgeEmbed {
   // border-left: 5px solid $translation-border-color;
   // background-color: white;
   @include border-bottom-radius(8px);
-  padding: 0em 0em 0em;
   color: rgba(black, 0.9);
   overflow: hidden;
   // border: 1px solid #960808;
@@ -173,6 +172,7 @@ body.bridgeEmbed {
 
 .bridgeEmbed__item-embedly-card {
   min-height: 24px;
-  background: transparent url("/images/spin.gif") left center no-repeat;
+  // background: transparent url("/images/spin.gif") left center no-repeat;
+  @extend %loading;
   display: block;
 }
