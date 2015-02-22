@@ -4,19 +4,6 @@
 // .moduleName__element {}
 // .moduleName__element–is–modified {}
 
-
-@mixin linear-gradient($fromColor, $toColor) {
-  background-color: $toColor; /* Fallback Color */
-  background-image: -webkit-gradient(linear, left top, left bottom, from($fromColor), to($toColor)); /* Saf4+, Chrome */
-  background-image: -webkit-linear-gradient(top, $fromColor, $toColor); /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image:    -moz-linear-gradient(top, $fromColor, $toColor); /* FF3.6 */
-  background-image:     -ms-linear-gradient(top, $fromColor, $toColor); /* IE10 */
-  background-image:      -o-linear-gradient(top, $fromColor, $toColor); /* Opera 11.10+ */
-  background-image:         linear-gradient(top, $fromColor, $toColor);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}');
-}
-
-
 // ## Main structure
 //
 body.bridgeEmbed {
@@ -38,13 +25,12 @@ body.bridgeEmbed {
       @include column-break(inside, avoid);
     }
   }
-
   @media all and (min-width: 1550px) {
     @include columns(3);
   }
-
   @media all and (min-width: 1900px) {
     @include columns(4);
+    @include column-gap(1em);
   }
 }
 
@@ -58,9 +44,8 @@ body.bridgeEmbed {
   min-width: 500px;
   padding: 4em;
   background-color: rgba(white, 0.8);
-  @include border-top-radius(8px);
   & > iframe {
-    margin-bottom: 0!important;
+    margin-bottom: 0 !important;
   }
   margin: 1em auto;
   width: 400px;
@@ -70,28 +55,48 @@ body.bridgeEmbed {
   }
 }
 
-// Absolute positioning hax
 %pin-to-corner {
-  // Container must be position: relative
   position: absolute;
-  top: 15px;
-  right: 10px;
+  bottom: 15px;
+  right: 50px;
   z-index: 100;
+}
+
+%icon-size {
+  width: 9px;
+  height: 12px;
 }
 
 .bridgeEmbed__item-geodata {
   @extend %pin-to-corner;
-  font-size: 10px;
+  @extend %icon-size;
   @include opacity(0.5);
+  overflow: hidden;
+  font-size: 10px;
+  &:hover {
+    @include opacity(1);
+    overflow: visible;
+    display: block;
+    width: auto;
+    height: auto;
+    a {
+      color: $another-blue;
+      text-decoration: underline;
+    }
+    .icon {
+      display: none;
+    }
+  }
   a {
-      text-decoration: none;
-    } 
+    text-decoration: none;
+  }
   .icon {
+    @extend %icon-size;
     display: inline-block;
     width: 9px;
     height: 12px;
     background-size: cover;
-    background-image: url('/images/map-pin.png');
+    background-image: url("/images/map-pin.png");
     background-repeat: no-repeat;
     margin-right: 4px;
     &:hover {
@@ -119,7 +124,7 @@ body.bridgeEmbed {
     font-weight: 500;
     // background-color: lighten($byline-background-color, 40%);
     a {
-      color: rgba(darken($another-blue, 10%),1);
+      color: rgba(darken($another-blue, 10%), 1);
       // color: white;
       text-decoration: none;
       border-bottom: 2px solid $light-blue;
@@ -128,7 +133,6 @@ body.bridgeEmbed {
       }
     }
   }
-
   .byline {
     font-style: italic;
     font-weight: 700;
@@ -139,12 +143,11 @@ body.bridgeEmbed {
       content: "—";
     }
   }
-
   p {
     margin: 0;
   }
-
 }
+
 .bridgeEmbed__item-comment {
   padding: 0 1em;
   font-size: smaller;
@@ -159,7 +162,6 @@ body.bridgeEmbed {
       text-decoration: underline;
     }
   }
-  
 }
 
 #bridgeEmbed__footer {
