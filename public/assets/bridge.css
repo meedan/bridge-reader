@@ -260,7 +260,45 @@ a {
   100% {
     opacity: 1; } }
 
-.bridgeEmbed__item-embedly-card {
+.bridgeEmbed__item-geodata {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 100; }
+
+.bridgeEmbed__item-geodata, .bridgeEmbed__item-geodata .icon {
+  width: 12px;
+  height: 12px; }
+
+.bridgeEmbed__item-geodata {
+  overflow: hidden;
+  opacity: 0.5; }
+  .bridgeEmbed__item-geodata:hover {
+    opacity: 1;
+    overflow: visible;
+    display: block;
+    width: auto;
+    height: auto; }
+    .bridgeEmbed__item-geodata:hover a {
+      color: #1d5da2;
+      text-decoration: underline; }
+    .bridgeEmbed__item-geodata:hover .icon {
+      display: none; }
+
+.bridgeEmbed__item-geodata {
+  font-size: 10px; }
+  .bridgeEmbed__item-geodata a {
+    text-decoration: none; }
+  .bridgeEmbed__item-geodata .icon {
+    display: inline-block;
+    background-size: cover;
+    background-image: url("/assets/images/icons/pin-map-7.png");
+    background-repeat: no-repeat;
+    margin-right: 5px; }
+    .bridgeEmbed__item-geodata .icon:hover {
+      opacity: 0.8; }
+
+.bridgeEmbed__item:first-of-type .bridgeEmbed__item-embedly-card {
   width: 40px;
   height: 40px;
   margin: 100px auto;
@@ -288,107 +326,38 @@ a {
     opacity: 0; } }
 
 body.bridgeEmbed {
+  -webkit-animation: fade-in 2s;
+  -moz-animation: fade-in 2s;
+  -ms-animation: fade-in 2s;
+  -o-animation: fade-in 2s;
+  animation: fade-in 2s;
   font-family: 'PT Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4;
   margin: 0 auto;
-  padding: 1em 0.5em; }
-  @media all and (min-width: 1096px) {
-    body.bridgeEmbed {
-      -webkit-columns: 2;
-      -moz-columns: 2;
-      -ms-columns: 2;
-      -o-columns: 2;
-      columns: 2; }
-      body.bridgeEmbed #bridgeEmbed__footer {
-        -webkit-column-span: all;
-        -moz-column-span: all;
-        column-span: all; }
-      body.bridgeEmbed .bridgeEmbed__item {
-        -webkit-column-break-inside: avoid;
-        column-break-inside: avoid; } }
-  @media all and (min-width: 1550px) {
-    body.bridgeEmbed {
-      -webkit-columns: 3;
-      -moz-columns: 3;
-      -ms-columns: 3;
-      -o-columns: 3;
-      columns: 3; } }
-  @media all and (min-width: 1900px) {
-    body.bridgeEmbed {
-      -webkit-columns: 4;
-      -moz-columns: 4;
-      -ms-columns: 4;
-      -o-columns: 4;
-      columns: 4;
-      -webkit-column-gap: 1em;
-      -moz-column-gap: 1em;
-      -ms-column-gap: 1em;
-      -o-column-gap: 1em;
-      column-gap: 1em; } }
+  padding: 1em 0.5em;
+  background-color: #f2f0eb; }
 
 .byline {
-  color: #596d74;
-  margin-top: 0.5em;
-  font-size: smaller; }
+  color: rgba(66, 71, 111, 0.8) !important;
+  margin-top: 0.5em; }
 
 .bridgeEmbed__item {
-  min-width: 500px;
-  padding: 4em;
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+  padding: 0.3em 1em 1em;
+  max-width: 500px;
   margin: 1em auto;
-  width: 400px;
   position: relative; }
   .bridgeEmbed__item > iframe {
     margin-bottom: 0 !important; }
   .bridgeEmbed__item:first-of-type {
     margin-top: 0; }
 
-.bridgeEmbed__item-geodata {
-  position: absolute;
-  bottom: 15px;
-  right: 50px;
-  z-index: 100; }
-
-.bridgeEmbed__item-geodata, .bridgeEmbed__item-geodata .icon {
-  width: 9px;
-  height: 12px; }
-
-.bridgeEmbed__item-geodata {
-  opacity: 0.5;
-  overflow: hidden;
-  font-size: 10px; }
-  .bridgeEmbed__item-geodata:hover {
-    opacity: 1;
-    overflow: visible;
-    display: block;
-    width: auto;
-    height: auto; }
-    .bridgeEmbed__item-geodata:hover a {
-      color: #1d5da2;
-      text-decoration: underline; }
-    .bridgeEmbed__item-geodata:hover .icon {
-      display: none; }
-  .bridgeEmbed__item-geodata a {
-    text-decoration: none; }
-  .bridgeEmbed__item-geodata .icon {
-    display: inline-block;
-    width: 9px;
-    height: 12px;
-    background-size: cover;
-    background-image: url("/images/map-pin.png");
-    background-repeat: no-repeat;
-    margin-right: 4px; }
-    .bridgeEmbed__item-geodata .icon:hover {
-      opacity: 0.8; }
-
 .bridgeEmbed__item-translation {
-  -moz-border-radius-bottomleft: 8px;
-  border-radius-bottomleft: 8px;
-  -webkit-border-bottom-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  -moz-border-radius-bottomright: 8px;
-  border-radius-bottomright: 8px;
-  -webkit-border-bottom-right-radius: 8px;
-  border-bottom-right-radius: 8px;
   color: rgba(0, 0, 0, 0.9);
   overflow: hidden; }
   .bridgeEmbed__item-translation .translation {
@@ -431,6 +400,5 @@ body.bridgeEmbed {
   text-align: center;
   opacity: 0.3; }
 
-.bridgeEmbed__item-embedly-card {
-  min-height: 24px;
+.bridgeEmbed__item:first-of-type .bridgeEmbed__item-embedly-card {
   display: block; }
