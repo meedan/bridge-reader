@@ -9,7 +9,7 @@
 
 %icon-size {
   width: 12px;
-  height: 12px;
+  height: 14px;
 }
 
 %show-on-hover {
@@ -43,7 +43,7 @@
     @extend %icon-size;
     display: inline-block;
     background-size: cover;
-    background-image: url("/assets/images/icons/pin-map-7.png");
+    background-image: url("/images/map-pin.png");
     background-repeat: no-repeat;
     margin-right: 5px;
     &:hover {

@@ -268,7 +268,7 @@ a {
 
 .bridgeEmbed__item-geodata, .bridgeEmbed__item-geodata .icon {
   width: 12px;
-  height: 12px; }
+  height: 14px; }
 
 .bridgeEmbed__item-geodata {
   overflow: hidden;
@@ -292,7 +292,7 @@ a {
   .bridgeEmbed__item-geodata .icon {
     display: inline-block;
     background-size: cover;
-    background-image: url("/assets/images/icons/pin-map-7.png");
+    background-image: url("/images/map-pin.png");
     background-repeat: no-repeat;
     margin-right: 5px; }
     .bridgeEmbed__item-geodata .icon:hover {
