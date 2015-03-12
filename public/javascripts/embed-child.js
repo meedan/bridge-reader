@@ -59,6 +59,7 @@ var Bridge = {};
         if (!jQuery.contains(document, iframe)) {
           $('#item-' + $(iframe).data('sid')).remove();
         }
+        $(iframe).css('width', '100%');
       });
     }
   };
