@@ -1,10 +1,10 @@
-var gulp            = require('gulp');
-var browserSync     = require('browser-sync');
-var reload          = browserSync.reload;
-var sass            = require('gulp-sass');
-var scssFiles       = "app/assets/stylesheets/**/*.scss";
-var cssCompileDir   = "public/stylesheets";
-var bowerDir        = "vendor/assets/bower_components";
+var gulp = require('gulp');
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+var sass = require('gulp-sass');
+var scssFiles = "app/assets/sass/**/*.scss";
+var cssCompileDir = "public/stylesheets";
+var bowerDir = "vendor/assets/bower_components";
 
 var serverConfig = {
   server: {
@@ -26,7 +26,9 @@ gulp.task('sass', function () {
       errLogToConsole: true
     }))
     .pipe(gulp.dest(cssCompileDir))
-    .pipe(reload({stream: true}));
+    .pipe(reload({
+      stream: true
+    }));
 });
 
 // "manually" reload browsers instead of stream-injection
@@ -35,7 +37,7 @@ gulp.task('sass', function () {
 // via http://www.browsersync.io/docs/gulp/
 // 
 gulp.task('bs-reload', function () {
-    browserSync.reload();
+  browserSync.reload();
 });
 
 // Default task to be run with `gulp` on CLI
