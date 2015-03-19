@@ -14,7 +14,7 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-02-18T18:15:01-03:00">2015-02-18T18:15:01-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-03-19T17:59:52-03:00">2015-03-19T17:59:52-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         8.37
+         8.34
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>5</b> files in total.
-    <b>153</b> relevant lines. 
-    <span class="green"><b>153</b> lines covered</span> and
+    <b>155</b> relevant lines. 
+    <span class="green"><b>155</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -63,11 +63,11 @@
       <tr>
         <td class="strong"><a href="#6a39daa1be193c23afc6d0591edd8e8114a8c118" class="src_link" title="app/controllers/medias_controller.rb">app/controllers/medias_controller.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>54</td>
-        <td>29</td>
-        <td>29</td>
+        <td>57</td>
+        <td>31</td>
+        <td>31</td>
         <td>0</td>
-        <td>2.9</td>
+        <td>3.1</td>
       </tr>
       
       <tr>
@@ -113,15 +113,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.78
+         2.97
        </span>
     </span> hits/line)
   </h2>
   <a name="Controllers"></a>
   <div>
     <b>2</b> files in total.
-    <b>31</b> relevant lines. 
-    <span class="green"><b>31</b> lines covered</span> and
+    <b>33</b> relevant lines. 
+    <span class="green"><b>33</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -151,11 +151,11 @@
       <tr>
         <td class="strong"><a href="#6a39daa1be193c23afc6d0591edd8e8114a8c118" class="src_link" title="app/controllers/medias_controller.rb">app/controllers/medias_controller.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>54</td>
-        <td>29</td>
-        <td>29</td>
+        <td>57</td>
+        <td>31</td>
+        <td>31</td>
         <td>0</td>
-        <td>2.9</td>
+        <td>3.1</td>
       </tr>
       
     </tbody>
@@ -404,8 +404,8 @@
     <h3>app/controllers/medias_controller.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>29</b> relevant lines. 
-      <span class="green"><b>29</b> lines covered</span> and
+      <b>31</b> relevant lines. 
+      <span class="green"><b>31</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -614,97 +614,97 @@
         <li class="covered" data-hits="5" data-linenumber="34">
           <span class="hits">5</span>
           
-          <code class="ruby">    @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG[&#39;google_email&#39;],</code>
+          <code class="ruby">    time = Benchmark.ms{</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="35">
+        <li class="covered" data-hits="5" data-linenumber="35">
+          <span class="hits">5</span>
           
-          
-          <code class="ruby">                                               BRIDGE_CONFIG[&#39;google_password&#39;],</code>
+          <code class="ruby">      @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG[&#39;google_email&#39;],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="36">
           
           
-          <code class="ruby">                                               BRIDGE_CONFIG[&#39;google_spreadsheet_id&#39;],</code>
+          <code class="ruby">                                                 BRIDGE_CONFIG[&#39;google_password&#39;],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="37">
           
           
-          <code class="ruby">                                               @milestone)</code>
+          <code class="ruby">                                                 BRIDGE_CONFIG[&#39;google_spreadsheet_id&#39;],</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="38">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">                                                 @milestone)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="39">
-          <span class="hits">5</span>
+        <li class="never" data-hits="" data-linenumber="39">
           
-          <code class="ruby">    @cachepath = cache_path(@worksheet)</code>
+          
+          <code class="ruby">    }</code>
         </li>
       
         <li class="covered" data-hits="5" data-linenumber="40">
           <span class="hits">5</span>
           
-          <code class="ruby">    if BRIDGE_CONFIG[&#39;cache_embeds&#39;] &amp;&amp; File.exists?(@cachepath)</code>
+          <code class="ruby">    Rails.logger.info &quot;  Fetched information from Google Spreadsheet (#{time.round(1)}ms)&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="41">
-          <span class="hits">1</span>
-          
-          <code class="ruby">      @cache = true</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="42">
-          
-          
-          <code class="ruby">    else</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="43">
-          <span class="hits">4</span>
-          
-          <code class="ruby">      clear_cache(@milestone)</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="44">
-          <span class="hits">4</span>
-          
-          <code class="ruby">      generate_cache(@milestone, @worksheet)</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="45">
-          <span class="hits">4</span>
-          
-          <code class="ruby">      @cache = false</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="46">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="47">
+        <li class="never" data-hits="" data-linenumber="41">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="48">
+        <li class="covered" data-hits="5" data-linenumber="42">
           <span class="hits">5</span>
           
-          <code class="ruby">    render file: @cachepath</code>
+          <code class="ruby">    @cachepath = cache_path(@worksheet)</code>
+        </li>
+      
+        <li class="covered" data-hits="5" data-linenumber="43">
+          <span class="hits">5</span>
+          
+          <code class="ruby">    if BRIDGE_CONFIG[&#39;cache_embeds&#39;] &amp;&amp; File.exists?(@cachepath)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="44">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @cache = true</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="45">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="46">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      clear_cache(@milestone)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="47">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      generate_cache(@milestone, @worksheet)</code>
+        </li>
+      
+        <li class="covered" data-hits="4" data-linenumber="48">
+          <span class="hits">4</span>
+          
+          <code class="ruby">      @cache = false</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="49">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="50">
@@ -713,25 +713,43 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="51">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="5" data-linenumber="51">
+          <span class="hits">5</span>
           
-          <code class="ruby">  def allow_iframe</code>
+          <code class="ruby">    render file: @cachepath</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="52">
-          <span class="hits">6</span>
-          
-          <code class="ruby">    response.headers.except! &#39;X-Frame-Options&#39;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="53">
+        <li class="never" data-hits="" data-linenumber="52">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="54">
+        <li class="never" data-hits="" data-linenumber="53">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="54">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def allow_iframe</code>
+        </li>
+      
+        <li class="covered" data-hits="6" data-linenumber="55">
+          <span class="hits">6</span>
+          
+          <code class="ruby">    response.headers.except! &#39;X-Frame-Options&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="56">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="57">
           
           
           <code class="ruby">end</code>
