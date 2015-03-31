@@ -57,7 +57,16 @@ module Bridge
       @entries
     end
 
+    def send_to_watchbot(entry)
+      unless BRIDGE_CONFIG['watchbot_url'].blank?
+        url = entry[:link] + '#' + entry[:source].to_s
+        uri = URI.parse(BRIDGE_CONFIG['watchbot_url'])
+        Net::HTTP.post_form(uri, { url: url })
+      end
+    end
+
     def notify_available(entry)
+      send_to_watchbot(entry)
       entry[:source].notify_availability(entry[:index], true) unless entry[:source].nil?
     end
 

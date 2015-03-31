@@ -95,4 +95,21 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     assert Rails.cache.exist?(key)
     assert_equal output, @b.parse_entry({ link: url })
   end
+
+  test "should notify the watchbot when some link is online" do
+    Bridge::Embedly.any_instance.expects(:send_to_watchbot).once
+    entry = { link: 'http://twitter.com/caiosba/123456' }
+    @b.notify_available(entry)
+  end
+
+  test "should not notify watchbot if configuration option is not set" do
+    Net::HTTP.expects(:post_form).never
+    stub_config('watchbot_url', nil)
+    @b.send_to_watchbot({})
+  end
+
+  test "should send link to watchbot" do
+    @b.send_to_watchbot({ link: 'https://twitter.com/caiosba/123456', source: 'milestone' })
+    WebMock.assert_requested :post, BRIDGE_CONFIG['watchbot_url'], body: 'url=https%3A%2F%2Ftwitter.com%2Fcaiosba%2F123456%23milestone'
+  end
 end

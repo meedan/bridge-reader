@@ -86,5 +86,9 @@ module Bridge
         end
       end
     end
+
+    def to_s
+      get_title
+    end
   end
 end

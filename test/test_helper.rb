@@ -4,12 +4,16 @@ CodeClimate::TestReporter.start
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/test_unit'
+require 'webmock/test_unit'
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 
   def setup
     Rails.cache.clear
+    WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
+                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'validator.w3.org']
+    WebMock.stub_request(:post, 'http://watch.bot/links')
   end
 
   def stub_config(key, value)

@@ -53,7 +53,7 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal 'Feliz Natal! Ressuscitando um cartão que eu fiz há 10 anos pra participar de um concurso de arte digital. Tempo voa!',
                  entries.first[:source_text]
     assert_equal 'https://twitter.com/caiosba/status/548252845238398976', entries.first[:link]
-    text = 'Merry Christmas! 
+    text = 'Merry Christmas!
 
 Reviving a card that I did 10 years ago to join a digital art contest.
 
@@ -106,5 +106,9 @@ Not big deal, actually.'
     assert_equal 'No', w[3, 9]
     assert_equal 'Yes', w[4, 9]
     assert_equal 'Yes', w[5, 9]
+  end
+
+  test "should return title when casting to string" do
+    assert_equal 'test', @b.to_s
   end
 end
