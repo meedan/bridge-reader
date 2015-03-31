@@ -29,22 +29,35 @@ module Bridge
       oembed
     end
 
+    def cache_key(entry)
+      hash = Digest::SHA1.hexdigest(entry.except(:source).to_s)
+      entry[:link] + ':' + hash
+    end
+
+    def parse_entry(entry)
+      Rails.cache.fetch(cache_key(entry)) do
+        link = entry[:link]
+        Rails.cache.delete_matched(/^#{link}:/)
+        oembed = call_oembed(link)
+        entry[:provider] = provider = oembed.provider_name.to_s.underscore
+        entry[:oembed] = self.alter_oembed(oembed, provider)
+        entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
+        entry
+      end
+    end
+
     def parse_entries(entries = [])
       unless @entries
         @entries = []
         entries.each do |entry|
-          link = entry[:link]
-          oembed = call_oembed(link)
-          entry[:provider] = provider = oembed.provider_name.to_s.underscore
-          entry[:oembed] = self.alter_oembed(oembed, provider)
-          entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
+          entry = parse_entry(entry)
+          @entries << entry unless entry[:oembed]['unavailable']
         end
       end
       @entries
     end
 
     def notify_available(entry)
-      @entries << entry
       entry[:source].notify_availability(entry[:index], true) unless entry[:source].nil?
     end
 
@@ -90,7 +103,9 @@ module Bridge
 
     def alter_instagram_oembed(oembed)
       uri = URI.parse(oembed[:link])
-      result = Net::HTTP.start(uri.host, uri.port) { |http| http.get(uri.path) }
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == 'https'
+      result = http.get(uri.path)
       oembed['unavailable'] = (result.code.to_i === 404)
       oembed
     end

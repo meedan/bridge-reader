@@ -5,6 +5,7 @@ require 'bridge_embedly'
 class BridgeEmbedlyTest < ActiveSupport::TestCase
 
   def setup
+    super
     @b = Bridge::Embedly.new(BRIDGE_CONFIG['embedly_key'])
   end
 
@@ -17,7 +18,7 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   end
 
   test "should get objects from URLs" do
-    embeds = @b.objects_from_urls(['https://twitter.com/caiosba/status/548252845238398976', 'http://instagram.com/p/tP5h3kvHTi/'])
+    embeds = @b.objects_from_urls(['https://twitter.com/caiosba/status/548252845238398976', 'https://instagram.com/p/tP5h3kvHTi/'])
     assert_equal 2, embeds.size
     assert_kind_of Embedly::EmbedlyObject, embeds.first
     assert_kind_of Embedly::EmbedlyObject, embeds.last
@@ -74,5 +75,24 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     assert_nothing_raised do
       @b.parse_entries([{ link: 'https://nothing.nothing' }]).first[:oembed]
     end
+  end
+
+  test "should generate cache key" do
+    url = 'https://twitter.com/caiosba/status/290093908564779009'
+    entry = { link: url }
+    key = @b.cache_key(entry)
+    assert_kind_of String, key
+    assert_equal key, @b.cache_key(entry)
+  end
+
+  test "should cache entries" do
+    Rails.cache.expects(:delete_matched).once
+    url = 'https://twitter.com/caiosba/status/290093908564779009'
+    entry = { link: url }
+    key = @b.cache_key(entry)
+    assert !Rails.cache.exist?(key)
+    output = @b.parse_entry(entry)
+    assert Rails.cache.exist?(key)
+    assert_equal output, @b.parse_entry({ link: url })
   end
 end

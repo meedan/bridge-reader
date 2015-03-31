@@ -8,6 +8,10 @@ require 'mocha/test_unit'
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 
+  def setup
+    Rails.cache.clear
+  end
+
   def stub_config(key, value)
     BRIDGE_CONFIG.each do |k, v|
       BRIDGE_CONFIG.stubs(:[]).with(k).returns(v)

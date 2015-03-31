@@ -33,4 +33,9 @@ namespace :bridgembed do
       puts "[#{Time.now}] Generated cache file"
     end
   end
+
+  task rebuild_all_cache: :environment do
+    Rake::Task['bridgembed:clear_link_cache'].execute
+    Rake::Task['bridgembed:rebuild_milestone_cache'].execute
+  end
 end

@@ -5,6 +5,7 @@ require 'bridge_google_spreadsheet'
 class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
 
   def setup
+    super
     @b = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
                                        BRIDGE_CONFIG['google_password'],
                                        BRIDGE_CONFIG['google_spreadsheet_id'],
