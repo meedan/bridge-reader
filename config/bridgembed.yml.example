@@ -9,3 +9,4 @@ development:
   twitter_access_token: 
   twitter_access_token_secret: 
   watchbot_url: 
+  watchbot_token: 

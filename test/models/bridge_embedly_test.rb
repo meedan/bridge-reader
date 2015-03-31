@@ -103,7 +103,7 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   end
 
   test "should not notify watchbot if configuration option is not set" do
-    Net::HTTP.expects(:post_form).never
+    Bridge::Embedly.any_instance.expects(:request_watchbot).never
     stub_config('watchbot_url', nil)
     @b.send_to_watchbot({})
   end

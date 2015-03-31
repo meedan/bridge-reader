@@ -57,11 +57,21 @@ module Bridge
       @entries
     end
 
+    def request_watchbot(uri, url)
+      request = Net::HTTP::Post.new(uri.path)
+      request.set_form_data({ url: url })
+      request['Authorization'] = 'Token token=' + BRIDGE_CONFIG['watchbot_token'].to_s
+      response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+        http.request(request)
+      end
+      response
+    end
+
     def send_to_watchbot(entry)
       unless BRIDGE_CONFIG['watchbot_url'].blank?
-        url = entry[:link] + '#' + entry[:source].to_s
         uri = URI.parse(BRIDGE_CONFIG['watchbot_url'])
-        Net::HTTP.post_form(uri, { url: url })
+        url = entry[:link] + '#' + entry[:source].to_s
+        request_watchbot(uri, url)
       end
     end
 
