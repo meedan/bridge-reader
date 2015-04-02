@@ -7,7 +7,7 @@ class MediasController < ApplicationController
 
   after_action :allow_iframe, only: :embed
 
-  def index
+  def all
     @spreadsheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
                                                  BRIDGE_CONFIG['google_password'],
                                                  BRIDGE_CONFIG['google_spreadsheet_id'])

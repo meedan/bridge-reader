@@ -66,7 +66,7 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should list all milestones on index" do
-    get :index
+    get :all
     assert_kind_of Bridge::GoogleSpreadsheet, assigns(:spreadsheet)
     assert_kind_of Array, assigns(:worksheets)
     assert_not_nil assigns(:worksheets).first.title
