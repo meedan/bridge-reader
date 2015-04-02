@@ -23,7 +23,7 @@
       <!-- Item Geodata -->
       <% unless translation[:oembed].coordinates.nil? %>
         <div class="bridgeEmbed__item-geodata">
-          <a href="http://maps.google.com/?ie=UTF8&hq=&ll=<%= translation[:oembed].coordinates[0] %>,<%= translation[:oembed].coordinates[1] %>&z=13" target="_blank">
+          <a href="http://www.openstreetmap.org/?mlat=<%= translation[:oembed].coordinates[0] %>&mlon=<%= translation[:oembed].coordinates[1] %>&zoom=18" target="_blank">
             <i class="icon"></i>
             <%= translation[:oembed].coordinates[0] %>,
             <%= translation[:oembed].coordinates[1] %>
