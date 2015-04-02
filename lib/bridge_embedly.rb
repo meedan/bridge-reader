@@ -68,10 +68,13 @@ module Bridge
     end
 
     def send_to_watchbot(entry)
-      unless BRIDGE_CONFIG['watchbot_url'].blank?
+      if BRIDGE_CONFIG['watchbot_url'].blank?
+        Rails.logger.info 'Not sending to WatchBot because its URL is not set on the configuration file'
+      else
         uri = URI.parse(BRIDGE_CONFIG['watchbot_url'])
         url = entry[:link] + '#' + entry[:source].to_s
         request_watchbot(uri, url)
+        Rails.logger.info 'Sent to the WatchBot'
       end
     end
 
