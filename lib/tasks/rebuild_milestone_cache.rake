@@ -7,7 +7,7 @@ namespace :bridgembed do
     include Bridge::Cache
 
     MAX = 180
-    WAIT = 900
+    WAIT = ENV['WAIT_INTERVAL'] || 900
 
     email, pw, sid = BRIDGE_CONFIG['google_email'], BRIDGE_CONFIG['google_password'], BRIDGE_CONFIG['google_spreadsheet_id']
 
@@ -23,7 +23,7 @@ namespace :bridgembed do
       
       if (w.rows.count - 1 + count) > MAX
         puts "[#{Time.now}] Limit reached, waiting for #{WAIT} seconds before proceeding"
-        sleep WAIT
+        sleep WAIT.to_i
         count = 0
       end
 
@@ -32,5 +32,10 @@ namespace :bridgembed do
       generate_cache(milestone, worksheet)
       puts "[#{Time.now}] Generated cache file"
     end
+  end
+
+  task rebuild_all_cache: :environment do
+    Rake::Task['bridgembed:clear_link_cache'].execute
+    Rake::Task['bridgembed:rebuild_milestone_cache'].execute
   end
 end

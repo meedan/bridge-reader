@@ -5,6 +5,7 @@ require 'bridge_google_spreadsheet'
 class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
 
   def setup
+    super
     @b = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
                                        BRIDGE_CONFIG['google_password'],
                                        BRIDGE_CONFIG['google_spreadsheet_id'],
@@ -105,5 +106,9 @@ Not big deal, actually.'
     assert_equal 'No', w[3, 9]
     assert_equal 'Yes', w[4, 9]
     assert_equal 'Yes', w[5, 9]
+  end
+
+  test "should return title when casting to string" do
+    assert_equal 'test', @b.to_s
   end
 end

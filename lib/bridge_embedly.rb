@@ -29,22 +29,57 @@ module Bridge
       oembed
     end
 
+    def cache_key(entry)
+      hash = Digest::SHA1.hexdigest(entry.except(:source).to_s)
+      entry[:link] + ':' + hash
+    end
+
+    def parse_entry(entry)
+      Rails.cache.fetch(cache_key(entry)) do
+        link = entry[:link]
+        Rails.cache.delete_matched(/^#{link}:/)
+        oembed = call_oembed(link)
+        entry[:provider] = provider = oembed.provider_name.to_s.underscore
+        entry[:oembed] = self.alter_oembed(oembed, provider)
+        entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
+        entry
+      end
+    end
+
     def parse_entries(entries = [])
       unless @entries
         @entries = []
         entries.each do |entry|
-          link = entry[:link]
-          oembed = call_oembed(link)
-          entry[:provider] = provider = oembed.provider_name.to_s.underscore
-          entry[:oembed] = self.alter_oembed(oembed, provider)
-          entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
+          entry = parse_entry(entry)
+          @entries << entry unless entry[:oembed]['unavailable']
         end
       end
       @entries
     end
 
+    def request_watchbot(uri, url)
+      request = Net::HTTP::Post.new(uri.path)
+      request.set_form_data({ url: url })
+      request['Authorization'] = 'Token token=' + BRIDGE_CONFIG['watchbot_token'].to_s
+      response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+        http.request(request)
+      end
+      response
+    end
+
+    def send_to_watchbot(entry)
+      if BRIDGE_CONFIG['watchbot_url'].blank?
+        Rails.logger.info 'Not sending to WatchBot because its URL is not set on the configuration file'
+      else
+        uri = URI.parse(BRIDGE_CONFIG['watchbot_url'])
+        url = entry[:link] + '#' + entry[:source].to_s
+        request_watchbot(uri, url)
+        Rails.logger.info 'Sent to the WatchBot'
+      end
+    end
+
     def notify_available(entry)
-      @entries << entry
+      send_to_watchbot(entry)
       entry[:source].notify_availability(entry[:index], true) unless entry[:source].nil?
     end
 

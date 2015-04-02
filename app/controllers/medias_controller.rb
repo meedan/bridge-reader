@@ -31,10 +31,13 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_html
-    @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                               BRIDGE_CONFIG['google_password'],
-                                               BRIDGE_CONFIG['google_spreadsheet_id'],
-                                               @milestone)
+    time = Benchmark.ms{
+      @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
+                                                 BRIDGE_CONFIG['google_password'],
+                                                 BRIDGE_CONFIG['google_spreadsheet_id'],
+                                                 @milestone)
+    }
+    Rails.logger.info "  Fetched information from Google Spreadsheet (#{time.round(1)}ms)"
 
     @cachepath = cache_path(@worksheet)
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)

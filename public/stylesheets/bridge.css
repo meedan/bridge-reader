@@ -341,10 +341,9 @@ body.bridgeEmbed {
   color: rgba(66, 71, 111, 0.8) !important;
   margin-top: 0.5em; }
 
-.bridgeEmbed__item-embedly-card-container {
-  width: 100% !important; }
-
 .bridgeEmbed__item {
+  clear: both;
+  overflow: hidden;
   background-color: rgba(255, 255, 255, 0.8);
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -353,18 +352,22 @@ body.bridgeEmbed {
   border-radius: 8px;
   padding: 0.3em 1em 1em;
   margin: 1em auto;
-  position: relative; }
+  position: relative;
+  -webkit-box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05); }
   .bridgeEmbed__item > iframe {
-    margin-bottom: 0 !important;
-    width: 100% !important; }
+    margin: 0 auto;
+    max-width: 580px !important; }
   .bridgeEmbed__item:first-of-type {
     margin-top: 0; }
 
 .bridgeEmbed__item-translation {
   color: rgba(0, 0, 0, 0.9);
-  overflow: hidden; }
+  margin: 0 auto;
+  max-width: 580px; }
   .bridgeEmbed__item-translation .translation {
-    padding: 1em;
+    max-width: 580px;
     font-size: 1.2em;
     font-weight: 500; }
     .bridgeEmbed__item-translation .translation a {
@@ -373,6 +376,11 @@ body.bridgeEmbed {
       border-bottom: 2px solid white; }
       .bridgeEmbed__item-translation .translation a:hover {
         border-bottom: 2px solid #d8e5f3; }
+    .bridgeEmbed__item-translation .translation p {
+      max-width: 580px;
+      padding: 1em; }
+    .bridgeEmbed__item-translation .translation p:empty {
+      display: none; }
   .bridgeEmbed__item-translation .byline {
     font-style: italic;
     font-weight: 700;
@@ -389,7 +397,9 @@ body.bridgeEmbed {
   font-size: smaller;
   color: rgba(89, 109, 116, 0.5);
   font-weight: 200;
-  clear: both; }
+  clear: both;
+  margin: 0 auto;
+  max-width: 580px; }
   .bridgeEmbed__item-comment a {
     color: rgba(28, 92, 161, 0.6);
     text-decoration: none;
