@@ -90,7 +90,9 @@ module Bridge
 
     def alter_instagram_oembed(oembed)
       uri = URI.parse(oembed[:link])
-      result = Net::HTTP.start(uri.host, uri.port) { |http| http.get(uri.path) }
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == 'https'
+      result = http.get(uri.path)
       oembed['unavailable'] = (result.code.to_i === 404)
       oembed
     end

@@ -52,7 +52,7 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal 'Feliz Natal! Ressuscitando um cartão que eu fiz há 10 anos pra participar de um concurso de arte digital. Tempo voa!',
                  entries.first[:source_text]
     assert_equal 'https://twitter.com/caiosba/status/548252845238398976', entries.first[:link]
-    text = 'Merry Christmas! 
+    text = 'Merry Christmas!
 
 Reviving a card that I did 10 years ago to join a digital art contest.
 
