@@ -61,7 +61,6 @@ module Bridge
       request['Authorization'] = 'Token token=' + BRIDGE_CONFIG['watchbot_token'].to_s
       http = Net::HTTP.new(uri.hostname, uri.port)
       http.use_ssl = uri.scheme == 'https'
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       http.request(request)
     end
 
@@ -125,7 +124,6 @@ module Bridge
       uri = URI.parse(oembed[:link])
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = uri.scheme == 'https'
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       result = http.get(uri.path)
       oembed['unavailable'] = (result.code.to_i === 404)
       oembed
