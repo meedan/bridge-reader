@@ -111,4 +111,26 @@ Not big deal, actually.'
   test "should return title when casting to string" do
     assert_equal 'test', @b.to_s
   end
+
+  test "should update version" do
+    w = @b.get_worksheet('test')
+    assert_equal 1, @b.version
+    @b.update_version
+    w.save
+    assert_equal 2, @b.version
+    w[2, 10] = 1
+    w.save
+  end
+
+  test "should notify that link is offline" do
+    w = @b.get_worksheet('test')
+    w[5, 9] = 'No'
+    w.save
+    assert_equal 1, @b.version
+    @b.notify_link_condition('http://instagram.com/p/pwcow7AjL3/', 'check404')
+    assert_equal 2, @b.version
+    assert_equal 'Yes', w[5, 9]
+    w[2, 10] = 1
+    w.save
+  end
 end

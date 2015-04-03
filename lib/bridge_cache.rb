@@ -22,5 +22,10 @@ module Bridge
       f.puts(av.render(template: 'medias/embed.html.erb'))
       f.close
     end
+
+    def cache_key(entry)
+      hash = Digest::SHA1.hexdigest(entry.except(:source).to_s)
+      entry[:link] + ':' + hash
+    end
   end
 end

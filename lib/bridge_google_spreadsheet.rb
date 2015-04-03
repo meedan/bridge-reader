@@ -1,7 +1,9 @@
 require 'google_drive'
+require 'bridge_cache'
 
 module Bridge
   class GoogleSpreadsheet
+    include Bridge::Cache
 
     def initialize(email, password, id, sheet = nil)
       authenticate(email, password)
@@ -69,6 +71,10 @@ module Bridge
       # get_worksheet.updated.to_i
       get_worksheet[2, 10].to_i
     end
+
+    def update_version
+      get_worksheet[2, 10] = version + 1
+    end
   
     def get_worksheets
       @worksheets ||= get_spreadsheet.worksheets
@@ -89,6 +95,17 @@ module Bridge
 
     def to_s
       get_title
+    end
+
+    def notify_link_condition(link, condition)
+      entry = self.get_entries.select{ |e| e[:link] == link }.first
+      return if entry.nil?
+ 
+      if condition == 'check404'
+        Rails.cache.write(cache_key(entry), entry.merge({ oembed: { 'unavailable' => true }}))
+        notify_availability(entry[:index], false)
+        update_version
+      end
     end
   end
 end

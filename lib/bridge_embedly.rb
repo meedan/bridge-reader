@@ -1,8 +1,11 @@
 require 'embedly'
 require 'json'
+require 'bridge_cache'
 
 module Bridge
   class Embedly
+    include Bridge::Cache
+
     def initialize(key)
       connect_to_api(key)
     end
@@ -27,11 +30,6 @@ module Bridge
       end
       oembed[:link] = link
       oembed
-    end
-
-    def cache_key(entry)
-      hash = Digest::SHA1.hexdigest(entry.except(:source).to_s)
-      entry[:link] + ':' + hash
     end
 
     def parse_entry(entry)
