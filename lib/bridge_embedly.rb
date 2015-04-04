@@ -33,7 +33,7 @@ module Bridge
     end
 
     def parse_entry(entry)
-      Rails.cache.fetch(cache_key(entry)) do
+      Rails.cache.fetch(bridge_cache_key(entry)) do
         link = entry[:link]
         Rails.cache.delete_matched(/^#{link}:/)
         oembed = call_oembed(link)

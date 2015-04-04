@@ -23,7 +23,7 @@ module Bridge
       f.close
     end
 
-    def cache_key(entry)
+    def bridge_cache_key(entry)
       hash = Digest::SHA1.hexdigest(entry.except(:source).to_s)
       entry[:link] + ':' + hash
     end

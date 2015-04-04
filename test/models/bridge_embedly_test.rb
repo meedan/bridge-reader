@@ -80,16 +80,16 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   test "should generate cache key" do
     url = 'https://twitter.com/caiosba/status/290093908564779009'
     entry = { link: url }
-    key = @b.cache_key(entry)
+    key = @b.bridge_cache_key(entry)
     assert_kind_of String, key
-    assert_equal key, @b.cache_key(entry)
+    assert_equal key, @b.bridge_cache_key(entry)
   end
 
   test "should cache entries" do
     Rails.cache.expects(:delete_matched).once
     url = 'https://twitter.com/caiosba/status/290093908564779009'
     entry = { link: url }
-    key = @b.cache_key(entry)
+    key = @b.bridge_cache_key(entry)
     assert !Rails.cache.exist?(key)
     output = @b.parse_entry(entry)
     assert Rails.cache.exist?(key)

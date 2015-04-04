@@ -14,7 +14,7 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-04-03T20:53:06-03:00">2015-04-03T20:53:06-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-04-04T17:24:54-03:00">2015-04-04T17:24:54-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -1462,7 +1462,7 @@
         <li class="covered" data-hits="26" data-linenumber="36">
           <span class="hits">26</span>
           
-          <code class="ruby">      Rails.cache.fetch(cache_key(entry)) do</code>
+          <code class="ruby">      Rails.cache.fetch(bridge_cache_key(entry)) do</code>
         </li>
       
         <li class="covered" data-hits="25" data-linenumber="37">
@@ -2740,19 +2740,19 @@
         <li class="covered" data-hits="2" data-linenumber="105">
           <span class="hits">2</span>
           
-          <code class="ruby">        Rails.cache.write(cache_key(entry), entry.merge({ oembed: { &#39;unavailable&#39; =&gt; true }}))</code>
+          <code class="ruby">        Rails.cache.write(bridge_cache_key(entry), entry.merge({ oembed: { &#39;unavailable&#39; =&gt; true }}))</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="106">
           <span class="hits">2</span>
           
-          <code class="ruby">        notify_availability(entry[:index], false)</code>
+          <code class="ruby">        update_version</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="107">
           <span class="hits">2</span>
           
-          <code class="ruby">        update_version</code>
+          <code class="ruby">        notify_availability(entry[:index], false)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="108">
