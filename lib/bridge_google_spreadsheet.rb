@@ -103,8 +103,8 @@ module Bridge
  
       if condition == 'check404'
         Rails.cache.write(cache_key(entry), entry.merge({ oembed: { 'unavailable' => true }}))
-        notify_availability(entry[:index], false)
         update_version
+        notify_availability(entry[:index], false)
       end
     end
   end
