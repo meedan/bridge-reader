@@ -25,4 +25,9 @@ class MediasHelperTest < ActionView::TestCase
     translation = { translation: 'Markdown is *really* **cool**!' }
     assert_equal '<p>Markdown is <em>really</em> <strong>cool</strong>!</p>', parse_translation(translation)
   end
+
+  test "should parse links in markdown" do
+    text = 'Visit [Meedan](http://meedan.com) website!'
+    assert_equal '<p>Visit <a href="http://meedan.com" target="_blank">Meedan</a> website!</p>', parse_text(text)
+  end
 end
