@@ -4,12 +4,18 @@ module MediasHelper
   TWITTER_HASHTAG_ALPHANUMERIC = /[\p{L}\p{M}\p{Nd}_\u200c\u0482\ua673\ua67e\u05be\u05f3\u05f4\u309b\u309c\u30a0\u30fb\u3003\u0f0b\u0f0c\u0f0d]/
   TWITTER_HASHTAG_BOUNDARY = /\A|\z|[^&\p{L}\p{M}\p{Nd}_\u200c\u0482\ua673\ua67e\u05be\u05f3\u05f4\u309b\u309c\u30a0\u30fb\u3003\u0f0b\u0f0c\u0f0d]/
 
+  def parse_text(text)
+    renderer = Redcarpet::Render::HTML.new(link_attributes: { target: '_blank' })
+    markdown = Redcarpet::Markdown.new(renderer, autolink: true)
+    text = markdown.render(text)
+    text.html_safe.chomp
+  end
+
   def parse_translation(translation)
-    provider = translation[:provider]
-    text = simple_format translation[:translation]
-    text = auto_link text, html: { target: '_blank' }
+    provider, text = translation[:provider], translation[:translation]
+    text = parse_text(text)
     text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
-    text.html_safe
+    text
   end
 
   def twitter_parse_translation(text)

@@ -20,4 +20,9 @@ class MediasHelperTest < ActionView::TestCase
     translation = { translation: 'Check @meedan, is #amazing!', provider: 'other' }
     assert_equal '<p>Check @meedan, is #amazing!</p>', parse_translation(translation)
   end
+
+  test "should parse markdown" do
+    translation = { translation: 'Markdown is *really* **cool**!' }
+    assert_equal '<p>Markdown is <em>really</em> <strong>cool</strong>!</p>', parse_translation(translation)
+  end
 end

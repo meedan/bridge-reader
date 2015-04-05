@@ -116,14 +116,13 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.9)
       sprockets-rails (~> 2.0)
-    rails_autolink (1.1.6)
-      rails (> 3.1)
     railties (4.0.9)
       actionpack (= 4.0.9)
       activesupport (= 4.0.9)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    redcarpet (3.2.2)
     request_store (1.1.0)
     retriable (1.4.1)
     retryable (2.0.1)
@@ -189,7 +188,7 @@ DEPENDENCIES
   logstasher
   mocha
   rails (= 4.0.9)
-  rails_autolink
+  redcarpet
   retryable
   sass
   simplecov
