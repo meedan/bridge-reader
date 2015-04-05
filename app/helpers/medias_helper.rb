@@ -15,7 +15,7 @@ module MediasHelper
     provider, text = translation[:provider], translation[:translation]
     text = parse_text(text)
     text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
-    text
+    text.html_safe
   end
 
   def twitter_parse_translation(text)
