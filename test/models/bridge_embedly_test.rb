@@ -103,10 +103,10 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   end
 
   test "should not notify watchbot if configuration option is not set" do
-    Bridge::Embedly.any_instance.expects(:request_watchbot).never
+    Bridge::Watchbot.any_instance.expects(:request).never
     Rails.logger.expects(:info).with('Not sending to WatchBot because its URL is not set on the configuration file')
     stub_config('watchbot_url', nil)
-    @b.send_to_watchbot({})
+    @b.send_to_watchbot({ link: 'http://twitter.com/caiosba/123456' })
   end
 
   test "should send link to watchbot" do

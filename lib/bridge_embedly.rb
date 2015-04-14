@@ -1,6 +1,7 @@
 require 'embedly'
 require 'json'
 require 'bridge_cache'
+require 'bridge_watchbot'
 
 module Bridge
   class Embedly
@@ -55,24 +56,8 @@ module Bridge
       @entries
     end
 
-    def request_watchbot(uri, url)
-      request = Net::HTTP::Post.new(uri.path)
-      request.set_form_data({ url: url })
-      request['Authorization'] = 'Token token=' + BRIDGE_CONFIG['watchbot_token'].to_s
-      http = Net::HTTP.new(uri.hostname, uri.port)
-      http.use_ssl = uri.scheme == 'https'
-      http.request(request)
-    end
-
     def send_to_watchbot(entry)
-      if BRIDGE_CONFIG['watchbot_url'].blank?
-        Rails.logger.info 'Not sending to WatchBot because its URL is not set on the configuration file'
-      else
-        uri = URI.parse(BRIDGE_CONFIG['watchbot_url'])
-        url = entry[:link] + '#' + entry[:source].to_s
-        request_watchbot(uri, url)
-        Rails.logger.info 'Sent to the WatchBot'
-      end
+      Bridge::Watchbot.new.send(entry[:link] + '#' + entry[:source].to_s)
     end
 
     def notify_available(entry)
