@@ -12,7 +12,7 @@ class ActiveSupport::TestCase
   def setup
     Rails.cache.clear
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
-                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'validator.w3.org']
+                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'validator.w3.org', 'docs.google.com']
     WebMock.stub_request(:post, 'http://watch.bot/links')
   end
 

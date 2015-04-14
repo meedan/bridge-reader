@@ -1,5 +1,6 @@
 require 'google_drive'
 require 'bridge_cache'
+require 'bridge_watchbot'
 
 module Bridge
   class GoogleSpreadsheet
@@ -106,6 +107,14 @@ module Bridge
         update_version
         notify_availability(entry[:index], false)
       end
+    end
+
+    def url
+      get_worksheet.spreadsheet.human_url + '#' + get_title
+    end
+
+    def send_to_watchbot
+      Bridge::Watchbot.new.send(self.url)
     end
   end
 end

@@ -133,4 +133,14 @@ Not big deal, actually.'
     w[2, 10] = 1
     w.save
   end
+
+  test "should get url" do
+    assert_kind_of String, @b.url
+    assert_equal 'docs.google.com', URI.parse(@b.url).host
+  end
+
+  test "should send to watchbot" do
+    Bridge::Watchbot.any_instance.expects(:send).once
+    @b.send_to_watchbot
+  end
 end
