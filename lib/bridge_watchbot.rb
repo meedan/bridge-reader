@@ -7,12 +7,14 @@ module Bridge
     end
 
     def send(link)
+      response = nil
       if @url.blank?
         Rails.logger.info 'Not sending to WatchBot because its URL is not set on the configuration file'
       else
-        self.request(link)
+        response = self.request(link)
         Rails.logger.info 'Sent to the WatchBot'
       end
+      response
     end
 
     protected
