@@ -143,4 +143,13 @@ Not big deal, actually.'
     Bridge::Watchbot.any_instance.expects(:send).once
     @b.send_to_watchbot
   end
+
+  test "should notify that spreadsheet was updated" do
+    w = @b.get_worksheet('test')
+    assert_equal 1, @b.version
+    @b.notify_link_condition('https://docs.google.com/a/meedan.com/spreadsheets/d/1qpLfypUaoQalem6i3SHIiPqHOYGCWf2r7GFbvkIZtvk/edit#test', 'check_google_spreadsheet_updated')
+    assert_equal 2, @b.version
+    w[2, 10] = 1
+    w.save
+  end
 end

@@ -98,23 +98,36 @@ module Bridge
       get_title
     end
 
-    def notify_link_condition(link, condition)
-      entry = self.get_entries.select{ |e| e[:link] == link }.first
-      return if entry.nil?
- 
-      if condition == 'check404'
-        Rails.cache.write(bridge_cache_key(entry), entry.merge({ oembed: { 'unavailable' => true }}))
-        update_version
-        notify_availability(entry[:index], false)
-      end
-    end
-
     def url
       get_worksheet.spreadsheet.human_url + '#' + get_title
     end
 
     def send_to_watchbot
       Bridge::Watchbot.new.send(self.url)
+    end
+
+    def notify_link_condition(link, condition)
+      case condition
+      when 'check404'
+        notify_entry_offline(link)
+      when 'check_google_spreadsheet_updated'
+        notify_google_spreadsheet_updated
+      end
+    end
+    
+    protected
+
+    def notify_entry_offline(link)
+      entry = self.get_entries.select{ |e| e[:link] == link }.first
+      return if entry.nil?   
+      Rails.cache.write(bridge_cache_key(entry), entry.merge({ oembed: { 'unavailable' => true }}))
+      update_version
+      notify_availability(entry[:index], false)
+    end
+
+    def notify_google_spreadsheet_updated
+      update_version
+      get_worksheet.save
     end
   end
 end
