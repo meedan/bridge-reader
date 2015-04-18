@@ -1,4 +1,5 @@
 require 'google_drive'
+require 'bridge_embedly'
 require 'bridge_cache'
 require 'bridge_watchbot'
 
@@ -68,15 +69,6 @@ module Bridge
       @entries
     end
 
-    def version
-      # get_worksheet.updated.to_i
-      get_worksheet[2, 10].to_i
-    end
-
-    def update_version
-      get_worksheet[2, 10] = version + 1
-    end
-  
     def get_worksheets
       @worksheets ||= get_spreadsheet.worksheets
     end
@@ -121,13 +113,12 @@ module Bridge
       entry = self.get_entries.select{ |e| e[:link] == link }.first
       return if entry.nil?   
       Rails.cache.write(bridge_cache_key(entry), entry.merge({ oembed: { 'unavailable' => true }}))
-      update_version
       notify_availability(entry[:index], false)
+      generate_cache(get_title, self)
     end
 
     def notify_google_spreadsheet_updated
-      update_version
-      get_worksheet.save
+      generate_cache(get_title, self)
     end
   end
 end

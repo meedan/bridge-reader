@@ -35,10 +35,6 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
     assert_equal @b.instance_variable_get(:@worksheet), @b.get_worksheet('test')
   end
 
-  test "should get version" do
-    assert_kind_of Integer, @b.version
-  end
-
   test "should get URLs" do
     urls = @b.get_urls
     assert_equal 4, urls.size
@@ -112,26 +108,16 @@ Not big deal, actually.'
     assert_equal 'test', @b.to_s
   end
 
-  test "should update version" do
-    w = @b.get_worksheet('test')
-    assert_equal 1, @b.version
-    @b.update_version
-    w.save
-    assert_equal 2, @b.version
-    w[2, 10] = 1
-    w.save
-  end
-
   test "should notify that link is offline" do
     w = @b.get_worksheet('test')
     w[5, 9] = 'No'
     w.save
-    assert_equal 1, @b.version
+    clear_cache
+    assert !cache_file_exists?
     @b.notify_link_condition('http://instagram.com/p/pwcow7AjL3/', 'check404')
-    assert_equal 2, @b.version
+    w.reload
     assert_equal 'Yes', w[5, 9]
-    w[2, 10] = 1
-    w.save
+    assert cache_file_exists?
   end
 
   test "should get url" do
@@ -146,10 +132,9 @@ Not big deal, actually.'
 
   test "should notify that spreadsheet was updated" do
     w = @b.get_worksheet('test')
-    assert_equal 1, @b.version
+    clear_cache
+    assert !cache_file_exists?
     @b.notify_link_condition('https://docs.google.com/a/meedan.com/spreadsheets/d/1qpLfypUaoQalem6i3SHIiPqHOYGCWf2r7GFbvkIZtvk/edit#test', 'check_google_spreadsheet_updated')
-    assert_equal 2, @b.version
-    w[2, 10] = 1
-    w.save
+    assert cache_file_exists?
   end
 end

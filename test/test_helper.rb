@@ -24,14 +24,14 @@ class ActiveSupport::TestCase
   end
 
   def clear_cache
-    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', 'cache', 'test_*'))
+    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', 'cache', 'test*'))
   end
 
   def cache_file_exists?
-    !Dir.glob(File.join(Rails.root, 'public', 'cache', 'test_*')).empty?
+    File.exists?(File.join(Rails.root, 'public', 'cache', 'test.html'))
   end
 
   def create_cache
-    FileUtils.touch(File.join(Rails.root, 'public', 'cache', 'test_1.html'))
+    FileUtils.touch(File.join(Rails.root, 'public', 'cache', 'test.html'))
   end
 end
