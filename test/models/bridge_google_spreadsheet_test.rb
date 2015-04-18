@@ -137,4 +137,16 @@ Not big deal, actually.'
     @b.notify_link_condition('https://docs.google.com/a/meedan.com/spreadsheets/d/1qpLfypUaoQalem6i3SHIiPqHOYGCWf2r7GFbvkIZtvk/edit#test', 'check_google_spreadsheet_updated')
     assert cache_file_exists?
   end
+
+  test "should send to watchbot when generating cache if file does not exist" do
+    Bridge::GoogleSpreadsheet.any_instance.expects(:send_to_watchbot).once
+    clear_cache
+    @b.generate_cache('test', @b)
+  end
+
+  test "should not send to watchbot when generating cache if file exists" do
+    Bridge::GoogleSpreadsheet.any_instance.expects(:send_to_watchbot).never
+    create_cache
+    @b.generate_cache('test', @b)
+  end
 end

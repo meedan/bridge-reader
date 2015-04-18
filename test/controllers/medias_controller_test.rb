@@ -92,9 +92,4 @@ class MediasControllerTest < ActionController::TestCase
     post :notify, payload
     assert_response :success
   end
-
-  test "should send to watchbot" do
-    Bridge::GoogleSpreadsheet.any_instance.expects(:send_to_watchbot).once    
-    get :embed, milestone: 'test'
-  end
 end

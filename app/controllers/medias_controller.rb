@@ -60,7 +60,6 @@ class MediasController < ApplicationController
     else
       clear_cache(@milestone)
       generate_cache(@milestone, @worksheet)
-      @worksheet.send_to_watchbot
       @cache = false
     end
 
