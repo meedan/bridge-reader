@@ -5,7 +5,7 @@ module Bridge
     end
 
     def clear_cache(milestone)
-      FileUtils.rm Dir.glob(File.join(cache_dir, "#{milestone}_*"))
+      FileUtils.rm Dir.glob(File.join(cache_dir, "#{milestone}.html"))
     end
 
     def cache_path(worksheet)
