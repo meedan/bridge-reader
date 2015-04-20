@@ -77,7 +77,7 @@ class MediasController < ApplicationController
 
   def parse_notification(payload)
     notification = JSON.parse(payload)
-    uri = URI.parse(notification['link'])
+    uri = URI.parse(Rack::Utils.unescape(notification['link']))
     link = uri.to_s.gsub('#' + uri.fragment, '')
 
     @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
