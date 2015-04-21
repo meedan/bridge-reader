@@ -9,7 +9,8 @@ module Bridge
     end
 
     def cache_path(worksheet)
-      File.join(cache_dir, "#{worksheet.get_title}.html")
+      title = worksheet.is_a?(Bridge::GoogleSpreadsheet) ? worksheet.get_title : worksheet
+      File.join(cache_dir, "#{title}.html")
     end
 
     def generate_cache(milestone, worksheet)

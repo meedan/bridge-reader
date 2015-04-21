@@ -149,4 +149,9 @@ Not big deal, actually.'
     create_cache
     @b.generate_cache('test', @b)
   end
+
+  test "should get cache path" do
+    assert_match /test\.html$/, @b.cache_path(@b)
+    assert_match /foo\.html$/, @b.cache_path('foo')
+  end
 end
