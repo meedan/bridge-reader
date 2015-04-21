@@ -62,7 +62,7 @@ class MediasController < ApplicationController
       @cache = false
     end
 
-    render file: @cachepath
+    render text: File.read(@cachepath)
   end
 
   def allow_iframe
