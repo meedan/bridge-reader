@@ -30,4 +30,9 @@ class MediasHelperTest < ActionView::TestCase
     text = 'Visit [Meedan](http://meedan.com) website!'
     assert_equal '<p>Visit <a href="http://meedan.com" target="_blank">Meedan</a> website!</p>', parse_text(text)
   end
+
+  test "should not parse hashtags as Markdown title" do
+    translation = { translation: '#hashtag1 This should not be a header #hashtag2', provider: 'twitter' }
+    assert_equal '<p><a href="https://twitter.com/hashtag/hashtag1" target="_blank">#hashtag1</a> This should not be a header <a href="https://twitter.com/hashtag/hashtag2" target="_blank">#hashtag2</a></p>', parse_translation(translation)
+  end
 end

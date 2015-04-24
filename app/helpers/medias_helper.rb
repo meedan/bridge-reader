@@ -13,8 +13,8 @@ module MediasHelper
 
   def parse_translation(translation)
     provider, text = translation[:provider], translation[:translation]
-    text = parse_text(text)
     text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
+    text = parse_text(text)
     text.html_safe
   end
 
