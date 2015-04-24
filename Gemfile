@@ -13,7 +13,8 @@ gem 'logstasher'
 gem 'retryable'
 gem 'redcarpet'
 
-group :test do
+# Test gems
+# group :test do
   gem 'simplecov', require: false, group: :test
   gem 'codeclimate-test-reporter', group: :test, require: nil
   gem 'mocha'
@@ -21,4 +22,4 @@ group :test do
   gem 'webmock'
   gem 'capybara'
   gem 'poltergeist'
-end
+# end
