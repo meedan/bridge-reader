@@ -42,7 +42,8 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_js
-    @url = request.original_url.gsub(/\.js$/, '')
+    @caller = request.original_url
+    @url = @caller.gsub(/\.js$/, '')
   end
 
   def render_embed_as_html

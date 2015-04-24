@@ -6,6 +6,12 @@ var Bridge = {};
 (function($) {
   'use strict';
 
+  // Add custom CSS
+  var css = document.location.hash.replace('#css=', '');
+  if (css != '') {
+    $('head').append('<link rel="stylesheet" href="' + css + '" type="text/css" class="bridgembed-custom-css" />');
+  }
+
   // Alert parent window when the height changes
   var htmlHeight = 0;
   var checkHTMLHeight = function() {

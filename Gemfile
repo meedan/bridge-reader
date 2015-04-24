@@ -7,13 +7,18 @@ gem 'xml-simple'
 gem 'embedly'
 gem 'twitter'
 gem 'bower-rails', '~> 0.9.1'
-gem 'simplecov', require: false, group: :test
-gem 'codeclimate-test-reporter', group: :test, require: nil
-gem 'mocha'
-gem 'w3c_validators'
 gem 'airbrake'
 gem 'sass'
 gem 'logstasher'
 gem 'retryable'
-gem 'webmock'
-gem 'redcarpet' 
+gem 'redcarpet'
+
+group :test do
+  gem 'simplecov', require: false, group: :test
+  gem 'codeclimate-test-reporter', group: :test, require: nil
+  gem 'mocha'
+  gem 'w3c_validators'
+  gem 'webmock'
+  gem 'capybara'
+  gem 'poltergeist'
+end
