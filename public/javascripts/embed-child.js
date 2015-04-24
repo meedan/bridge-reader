@@ -8,7 +8,7 @@ var Bridge = {};
 
   // Add custom CSS
   var css = document.location.hash.replace('#css=', '');
-  if (css != '') {
+  if (css !== '') {
     $('head').append('<link rel="stylesheet" href="' + css + '" type="text/css" class="bridgembed-custom-css" />');
   }
 
