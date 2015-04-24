@@ -6,10 +6,11 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "should lazy-load Instagram image" do
-    with_testing_page '<script type="text/javascript" src="/medias/embed/test.js" data-custom-css="/test/test.css"></script>' do
+    with_testing_page '<script type="text/javascript" src="/medias/embed/test.js"></script>' do
       within_frame 0 do
         within_frame 1 do
           assert page.find('img.art-bd-img').visible? # Assert that Instagram image is visible
+          assert !page.has_css?('link.bridgembed-custom-css', visible: false)
         end
       end
     end
