@@ -18,6 +18,7 @@ class MediasController < ApplicationController
 
   def embed
     @milestone = params[:milestone]
+    @link = params[:link]
 
     respond_to do |format|
       format.html { render_embed_as_html }
@@ -47,7 +48,7 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_html
-    @cachepath = cache_path(@milestone)
+    @cachepath = cache_path(@milestone, @link)
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
@@ -58,8 +59,7 @@ class MediasController < ApplicationController
                                                    @milestone)
       }
       Rails.logger.info "  Fetched information from Google Spreadsheet (#{time.round(1)}ms)"
-      clear_cache(@milestone)
-      generate_cache(@milestone, @worksheet)
+      generate_cache(@milestone, @worksheet, @link)
       @cache = false
     end
 

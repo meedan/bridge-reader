@@ -93,4 +93,10 @@ class MediasControllerTest < ActionController::TestCase
     post :notify, payload
     assert_response :success
   end
+
+  test "should receive link" do
+    get :embed, milestone: 'test', link: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :html
+    assert_equal '183773d82423893d9409faf05941bdbd63eb0b5c', assigns(:link)
+    assert_match /test\/183773d82423893d9409faf05941bdbd63eb0b5c\.html$/, assigns(:cachepath)
+  end
 end

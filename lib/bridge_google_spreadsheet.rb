@@ -45,24 +45,13 @@ module Bridge
       @urls
     end
 
-    def get_entries
+    def get_entries(link = nil)
       unless @entries
         worksheet = get_worksheet
         @entries = []
         for row in 2..worksheet.num_rows
           Retryable.retryable tries: 5 do
-            @entries << {
-              source_text: worksheet[row, 1],
-              link: worksheet[row, 2],
-              translation: worksheet[row, 3],
-              comment: worksheet[row, 4],
-              translator_name: worksheet[row, 5],
-              translator_url: worksheet[row, 6],
-              commenter: worksheet[row, 7],
-              commenter_url: worksheet[row, 8],
-              source: self,
-              index: row
-            }
+            @entries << row_to_hash(row) if link.nil? || link == Digest::SHA1.hexdigest(worksheet[row, 2])
           end
         end
       end
@@ -108,6 +97,22 @@ module Bridge
     end
     
     protected
+
+    def row_to_hash(row)
+      worksheet = get_worksheet
+      {
+        source_text: worksheet[row, 1],
+        link: worksheet[row, 2],
+        translation: worksheet[row, 3],
+        comment: worksheet[row, 4],
+        translator_name: worksheet[row, 5],
+        translator_url: worksheet[row, 6],
+        commenter: worksheet[row, 7],
+        commenter_url: worksheet[row, 8],
+        source: self,
+        index: row
+      }
+    end
 
     def notify_entry_offline(link)
       entry = self.get_entries.select{ |e| e[:link] == link }.first

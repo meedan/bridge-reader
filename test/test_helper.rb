@@ -36,7 +36,7 @@ class ActiveSupport::TestCase
   end
 
   def clear_cache
-    FileUtils.rm Dir.glob(File.join(Rails.root, 'public', 'cache', 'test*'))
+    FileUtils.rm_rf Dir.glob(File.join(Rails.root, 'public', 'cache', 'test*'))
   end
 
   def cache_file_exists?

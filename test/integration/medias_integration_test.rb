@@ -5,6 +5,10 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
     assert_recognizes({ controller: 'medias', action: 'embed', milestone: 'test' }, { path: 'medias/embed/test', method: :get })
   end
 
+  test "should redirect to single embed method" do
+    assert_recognizes({ controller: 'medias', action: 'embed', milestone: 'test', link: '123456' }, { path: 'medias/embed/test/123456', method: :get })
+  end
+
   test "should lazy-load Instagram image" do
     with_testing_page '<script type="text/javascript" src="/medias/embed/test.js"></script>' do
       within_frame 0 do

@@ -1,0 +1,52 @@
+<div class="bridgeEmbed__item">
+    
+  <!-- Item Geodata -->
+  <% unless translation[:oembed].coordinates.nil? %>
+    <div class="bridgeEmbed__item-geodata">
+      <a href="http://www.openstreetmap.org/?mlat=<%= translation[:oembed].coordinates[0] %>&mlon=<%= translation[:oembed].coordinates[1] %>&zoom=11#map=11/<%= translation[:oembed].coordinates[0] %>/<%= translation[:oembed].coordinates[1] %>" target="_blank">
+        <i class="icon"></i>
+        <%= translation[:oembed].coordinates[0] %>,
+        <%= translation[:oembed].coordinates[1] %>
+      </a>
+    </div>
+  <% end %>
+
+  <!-- Item Title -->
+  <!-- <a href="<%#= translation[:link] %>" class="bridgeEmbed__item-oembed-title">
+    <%#= translation[:oembed].title || translation[:link] %>
+  </a> -->
+  
+  <!-- Item Source -->
+  <div class="bridgeEmbed__item-embedly-card-container">
+    <a data-card-controls="0" data-card-width="100%" class="bridgeEmbed__item-embedly-card" href="<%= translation[:link] %>"></a>
+  </div>
+
+  <!-- Item Translation -->
+  <div class="bridgeEmbed__item-translation">
+    <div class="translation"><%= parse_translation translation %></div>
+      
+      <% unless translation[:translator_name].blank? %>
+      <div class="byline">
+        <span>Translated by </span>
+        <%= link_to_unless translation[:translator_url].blank?, translation[:translator_name], translation[:translator_url],
+            { target: '_blank', class: 'name' } %>
+      </div>
+      <% end %>
+
+  </div>
+
+  <!-- Item Annotations -->
+  <% unless translation[:comment].blank? %>
+    <div class="bridgeEmbed__item-comment">
+      <%= parse_text(translation[:comment]).html_safe %>
+      
+      <% unless translation[:commenter].blank? %>
+      — <span class="byline">
+          <%= link_to_unless translation[:commenter_url].blank?, translation[:commenter], translation[:commenter_url],
+              { target: '_blank' } %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+
+</div>

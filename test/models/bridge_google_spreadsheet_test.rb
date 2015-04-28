@@ -154,4 +154,14 @@ Not big deal, actually.'
     assert_match /test\.html$/, @b.cache_path(@b)
     assert_match /foo\.html$/, @b.cache_path('foo')
   end
+
+  test "should get a single entry" do
+    entries = @b.get_entries('183773d82423893d9409faf05941bdbd63eb0b5c')
+    assert_equal 1, entries.size
+  end
+
+  test "should get nothing if link does not exist" do
+    entries = @b.get_entries('hdgsahd78d67sa6dasdgasgjdjd78e6tyudas87d')
+    assert_equal 0, entries.size
+  end
 end

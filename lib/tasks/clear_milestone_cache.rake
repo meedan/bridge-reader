@@ -4,7 +4,7 @@ namespace :bridgembed do
   end
 
   task clear_link_cache: :environment do
-    Rails.cache.delete_matched(/^http/)
+    Rails.cache.delete_matched(/:/)
   end
 
   task clear_all_cache: :environment do
