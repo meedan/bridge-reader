@@ -44,6 +44,7 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_png
+    render_error('Link is mandatory', 'PARAMETERS_MISSING') and return if @link.blank?
     @image = generate_screenshot(@milestone, @link)
     send_data File.read(@image), type: 'image/png', disposition: 'inline'
   end
