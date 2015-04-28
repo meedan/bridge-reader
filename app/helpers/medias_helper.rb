@@ -26,4 +26,13 @@ module MediasHelper
   def instagram_parse_translation(text)
     text.gsub(/@([a-zA-Z0-9_]+)/, '<a href="http://instagram.com/\1" target="_blank">@\1</a>')
   end
+
+  def include_twitter_tags_if_needed
+    if @translations.size == 1 && !@link.nil?
+      url = URI.join(@site, 'medias/', 'embed/', @milestone + '/', "#{@link}.png")
+      tag(:meta, name: 'twitter:card', content: 'photo')
+      tag(:meta, name: 'twitter:site', content: '@meedan') # FIXME
+      tag(:meta, name: 'twitter:image', content: url.to_s)
+    end
+  end
 end

@@ -7,13 +7,13 @@ class MediasController < ApplicationController
   include Bridge::Cache
 
   after_action :allow_iframe, only: :embed
+  before_filter :get_host
 
   def all
     @spreadsheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
                                                  BRIDGE_CONFIG['google_password'],
                                                  BRIDGE_CONFIG['google_spreadsheet_id'])
     @worksheets = @spreadsheet.get_worksheets
-    @host = request.host
   end
 
   def embed
@@ -21,8 +21,9 @@ class MediasController < ApplicationController
     @link = params[:link]
 
     respond_to do |format|
-      format.html { render_embed_as_html }
-      format.js   { render_embed_as_js   }
+      format.html { render_embed_as_html           }
+      format.js   { render_embed_as_js             }
+      format.png  { render_embed_as_png and return }
     end
   end
 
@@ -42,6 +43,11 @@ class MediasController < ApplicationController
 
   private
 
+  def render_embed_as_png
+    @image = generate_screenshot(@milestone, @link)
+    send_data File.read(@image), type: 'image/png', disposition: 'inline'
+  end
+
   def render_embed_as_js
     @caller = request.original_url
     @url = @caller.gsub(/\.js$/, '')
@@ -59,7 +65,7 @@ class MediasController < ApplicationController
                                                    @milestone)
       }
       Rails.logger.info "  Fetched information from Google Spreadsheet (#{time.round(1)}ms)"
-      generate_cache(@milestone, @worksheet, @link)
+      generate_cache(@milestone, @worksheet, @link, @site)
       @cache = false
     end
 
@@ -86,5 +92,12 @@ class MediasController < ApplicationController
                                                uri.fragment)
 
     @worksheet.notify_link_condition(link, notification['condition'])
+  end
+
+  def get_host
+    @host = request.host
+    @host_with_port = request.host_with_port
+    @protocol = request.protocol
+    @site = @protocol + @host_with_port
   end
 end

@@ -11,3 +11,4 @@ development:
   watchbot_url: 
   watchbot_token: 
   secret_token: mysecrettoken
+  bridgembed_host:

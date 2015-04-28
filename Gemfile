@@ -12,6 +12,8 @@ gem 'sass'
 gem 'logstasher'
 gem 'retryable'
 gem 'redcarpet'
+gem 'screencap'
+gem 'thin'
 
 # Test gems
 # group :test do
