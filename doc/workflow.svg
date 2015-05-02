@@ -1880,7 +1880,7 @@
          y="245.59778"
          x="364.39029"
          sodipodi:role="line"
-         id="tspan3832">gets milestone's static HTML</tspan><tspan
+         id="tspan3832">gets item's static HTML</tspan><tspan
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
          y="267.33368"
          x="364.39029"
@@ -1895,7 +1895,7 @@
          y="310.80548"
          x="364.39029"
          sodipodi:role="line"
-         id="tspan7850">saves milestone's static HTML</tspan><tspan
+         id="tspan7850">saves item's static HTML</tspan><tspan
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
          y="332.54138"
          x="364.39029"
@@ -1919,7 +1919,7 @@
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
          y="117.81093"
          x="91.744446"
-         sodipodi:role="line">requests embeddable milestone from Bridgembed</tspan></text>
+         sodipodi:role="line">requests embeddable item from Bridgembed</tspan></text>
     <g
        id="g3626"
        transform="matrix(0.41685668,0,0,0.41682646,8.678926,293.09991)">
@@ -2087,7 +2087,17 @@
          x="30.307005"
          y="16.626627"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan5997">in its body (one script tag per milestone)</tspan></text>
+         id="tspan5997">in its body (one script tag per item - right now</tspan><tspan
+         sodipodi:role="line"
+         x="30.307005"
+         y="38.362526"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         id="tspan3413">        an item can be a milestone (collection of</tspan><tspan
+         sodipodi:role="line"
+         x="30.307005"
+         y="60.098423"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         id="tspan3415">        links) or a single link)</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:3.63912988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
        d="M 645.30027,46.867335 C 656.7999,13.129483 685.32912,3.231342 721.59897,4.169275"
@@ -2176,7 +2186,7 @@
          x="360.68939"
          y="422.32504"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan7858">with milestone data</tspan></text>
+         id="tspan7858">with item data</tspan></text>
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
