@@ -37,12 +37,18 @@ module Bridge
       Rails.cache.fetch(bridge_cache_key(entry)) do
         link = entry[:link]
         Rails.cache.delete_matched(/^#{link}:/)
+        remove_embed_screenshot(entry)
         oembed = call_oembed(link)
         entry[:provider] = provider = oembed.provider_name.to_s.underscore
         entry[:oembed] = self.alter_oembed(oembed, provider)
         entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
         entry
       end
+    end
+
+    def remove_embed_screenshot(entry)
+      id = Digest::SHA1.hexdigest(entry[:link])
+      remove_screenshot('link', id)
     end
 
     def parse_entries(entries = [])

@@ -114,4 +114,14 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     @b.send_to_watchbot({ link: 'https://twitter.com/caiosba/123456', source: 'milestone' })
     WebMock.assert_requested :post, BRIDGE_CONFIG['watchbot_url'], body: 'url=https%3A%2F%2Ftwitter.com%2Fcaiosba%2F123456%23milestone'
   end
+
+  test "should remove screenshot of embed" do
+    dir = File.join(Rails.root, 'public', 'screenshots', 'link')
+    FileUtils.mkdir_p(dir) unless File.exists?(dir)
+    path = File.join(dir, '183773d82423893d9409faf05941bdbd63eb0b5c.png')
+    FileUtils.touch(path)
+    assert File.exists?(path)
+    @b.remove_embed_screenshot({ link: 'https://twitter.com/caiosba/status/548252845238398976' })
+    assert !File.exists?(path)
+  end
 end

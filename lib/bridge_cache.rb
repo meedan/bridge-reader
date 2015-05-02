@@ -49,7 +49,6 @@ module Bridge
 
     protected
 
-    # def save_cache_file(milestone, worksheet, link = nil, site = nil)
     def save_cache_file(object, type, id, site = nil)
       embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
       av = ActionView::Base.new(Rails.root.join('app', 'views'))
