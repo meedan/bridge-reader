@@ -8,6 +8,7 @@ module Bridge
     include Bridge::Cache
 
     def initialize(email, password, id, sheet = nil)
+      @entries = []
       authenticate(email, password)
       get_spreadsheet(id)
       sheet.nil? ? get_worksheets : get_worksheet(sheet)
@@ -46,7 +47,7 @@ module Bridge
     end
 
     def get_entries(link = nil)
-      unless @entries
+      if @entries.empty?
         worksheet = get_worksheet
         @entries = []
         for row in 2..worksheet.num_rows
@@ -60,6 +61,14 @@ module Bridge
 
     def get_worksheets
       @worksheets ||= get_spreadsheet.worksheets
+    end
+
+    def get_link(link)
+      get_worksheets.each do |worksheet|
+        @worksheet = worksheet
+        get_entries(link)
+      end
+      @entries.first
     end
 
     def notify_availability(index, available)
@@ -115,15 +124,15 @@ module Bridge
     end
 
     def notify_entry_offline(link)
-      entry = self.get_entries.select{ |e| e[:link] == link }.first
+      entry = self.get_entries(Digest::SHA1.hexdigest(link)).first
       return if entry.nil?   
       Rails.cache.write(bridge_cache_key(entry), entry.merge({ oembed: { 'unavailable' => true }}))
       notify_availability(entry[:index], false)
-      generate_cache(get_title, self)
+      generate_cache(self, 'milestone', self.get_worksheet.title)
     end
 
     def notify_google_spreadsheet_updated
-      generate_cache(get_title, self)
+      generate_cache(self, 'milestone', self.get_worksheet.title)
     end
   end
 end

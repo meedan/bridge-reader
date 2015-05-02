@@ -116,8 +116,8 @@ Not big deal, actually.'
     assert !cache_file_exists?
     @b.notify_link_condition('http://instagram.com/p/pwcow7AjL3/', 'check404')
     w.reload
-    assert_equal 'Yes', w[5, 9]
     assert cache_file_exists?
+    assert_equal 'Yes', w[5, 9]
   end
 
   test "should get url" do
@@ -141,18 +141,18 @@ Not big deal, actually.'
   test "should send to watchbot when generating cache if file does not exist" do
     Bridge::GoogleSpreadsheet.any_instance.expects(:send_to_watchbot).once
     clear_cache
-    @b.generate_cache('test', @b)
+    @b.generate_cache(@b, 'milestone', 'test')
   end
 
   test "should not send to watchbot when generating cache if file exists" do
     Bridge::GoogleSpreadsheet.any_instance.expects(:send_to_watchbot).never
     create_cache
-    @b.generate_cache('test', @b)
+    @b.generate_cache(@b, 'milestone', 'test')
   end
 
   test "should get cache path" do
-    assert_match /test\.html$/, @b.cache_path(@b)
-    assert_match /foo\.html$/, @b.cache_path('foo')
+    assert_match /milestone\/test\.html$/, @b.cache_path('milestone', @b.get_worksheet.title)
+    assert_match /link\/foo\.html$/, @b.cache_path('link', 'foo')
   end
 
   test "should get a single entry" do
@@ -163,5 +163,13 @@ Not big deal, actually.'
   test "should get nothing if link does not exist" do
     entries = @b.get_entries('hdgsahd78d67sa6dasdgasgjdjd78e6tyudas87d')
     assert_equal 0, entries.size
+  end
+
+  test "should get link" do
+    assert_not_nil @b.get_link('183773d82423893d9409faf05941bdbd63eb0b5c')
+  end
+
+  test "should not get link" do
+    assert_nil @b.get_link('183773d82423893d9409faf05941bdbd63eb0b5x')
   end
 end

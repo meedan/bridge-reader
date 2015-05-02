@@ -17,7 +17,7 @@
     }
   }
 
-  var frame = '<iframe src="' + url + '" width="100%" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @milestone %>" seamless>' +
+  var frame = '<iframe src="' + url + '" width="100%" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @id %>" seamless>' +
               'Your browser does not support iframes' +
               '</iframe>';
   document.write(frame);
@@ -42,7 +42,7 @@
   };
 
   var resizeOrScrollCallback = function(e) {
-    var frame = document.getElementById('bridge-embed-iframe-<%= @milestone %>'),
+    var frame = document.getElementById('bridge-embed-iframe-<%= @id %>'),
         f = frame.getBoundingClientRect(),
         h = window.innerHeight || document.documentElement.clientHeight,
         w = window.innerWidth || document.documentElement.clientWidth;
@@ -52,7 +52,7 @@
   // If the embed is not visible, watch for its visiblity
   var frameVisible = false;
   var checkFrameVisibility = function() {
-    var frame = document.getElementById('bridge-embed-iframe-<%= @milestone %>');
+    var frame = document.getElementById('bridge-embed-iframe-<%= @id %>');
     if (frame) {
       var visible = isVisible(frame);
       if (visible != frameVisible) {

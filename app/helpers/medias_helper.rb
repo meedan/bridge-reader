@@ -27,11 +27,11 @@ module MediasHelper
     text.gsub(/@([a-zA-Z0-9_]+)/, '<a href="http://instagram.com/\1" target="_blank">@\1</a>')
   end
 
-  def include_twitter_tags_if_needed
-    if @translations.size == 1 && !@link.nil?
-      url = URI.join(@site, 'medias/', 'embed/', @milestone + '/', "#{@link}.png")
-      tag(:meta, name: 'twitter:card', content: 'photo')
-      tag(:meta, name: 'twitter:site', content: '@meedan') # FIXME
+  def include_twitter_tags_if_needed(entries, type, id, site)
+    if entries.size == 1 && type == 'link'
+      url = URI.join(site, 'medias/', 'embed/', type + '/', "#{id}.png")
+      tag(:meta, name: 'twitter:card', content: 'photo') +
+      tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) +
       tag(:meta, name: 'twitter:image', content: url.to_s)
     end
   end

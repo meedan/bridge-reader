@@ -18,7 +18,7 @@ var Bridge = {};
     var height = document.getElementsByTagName('BODY')[0].offsetHeight;
     if (height !== htmlHeight) {
       htmlHeight = height;
-      window.parent.postMessage(['setHeight', Bridge.milestone, htmlHeight].join(';'), '*');
+      window.parent.postMessage(['setHeight', Bridge.id, htmlHeight].join(';'), '*');
     }
     setTimeout(checkHTMLHeight, 100);
   };

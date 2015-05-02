@@ -8,6 +8,9 @@ class MediasController < ApplicationController
 
   after_action :allow_iframe, only: :embed
   before_filter :get_host
+  before_filter :get_params, only: :embed
+
+  TYPES = ['milestone', 'link']
 
   def all
     @spreadsheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
@@ -17,8 +20,7 @@ class MediasController < ApplicationController
   end
 
   def embed
-    @milestone = params[:milestone]
-    @link = params[:link]
+    render_error('Type not supported', 'INVALID_TYPE') and return if @type.nil?
 
     respond_to do |format|
       format.html { render_embed_as_html           }
@@ -44,8 +46,9 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_png
-    render_error('Link is mandatory', 'PARAMETERS_MISSING') and return if @link.blank?
-    @image = generate_screenshot(@milestone, @link)
+    # Right now let's allow screenshots only of links
+    render_error('Link is mandatory', 'PARAMETERS_MISSING') and return unless @type == 'link'
+    @image = generate_screenshot(@type, @id)
     send_data File.read(@image), type: 'image/png', disposition: 'inline'
   end
 
@@ -55,18 +58,12 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_html
-    @cachepath = cache_path(@milestone, @link)
+    @cachepath = cache_path(@type, @id)
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      time = Benchmark.ms{
-        @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                                   BRIDGE_CONFIG['google_password'],
-                                                   BRIDGE_CONFIG['google_spreadsheet_id'],
-                                                   @milestone)
-      }
-      Rails.logger.info "  Fetched information from Google Spreadsheet (#{time.round(1)}ms)"
-      generate_cache(@milestone, @worksheet, @link, @site)
+      get_object
+      generate_cache(@object, @type, @id, @site)
       @cache = false
     end
 
@@ -93,6 +90,26 @@ class MediasController < ApplicationController
                                                uri.fragment)
 
     @worksheet.notify_link_condition(link, notification['condition'])
+  end
+
+  def get_params
+    @type = (TYPES & [params[:type].to_s]).first
+    @id = params[:id].to_s.gsub(/[^a-zA-Z0-9_-]/, '')
+  end
+
+  def get_object
+    case @type.to_s
+    when 'milestone'
+      @object = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
+                                              BRIDGE_CONFIG['google_password'],
+                                              BRIDGE_CONFIG['google_spreadsheet_id'],
+                                              @id)
+    when 'link'
+      @object = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
+                                              BRIDGE_CONFIG['google_password'],
+                                              BRIDGE_CONFIG['google_spreadsheet_id'])
+      @link = @object.get_link(@id)
+    end
   end
 
   def get_host

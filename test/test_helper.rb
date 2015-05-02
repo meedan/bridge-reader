@@ -16,7 +16,7 @@ class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 
   def setup
-    Rails.cache.clear
+    clear_cache
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
                                          'scontent.cdninstagram.com', 'spreadsheets.google.com', 'validator.w3.org', 'docs.google.com',
                                          '127.0.0.1']
@@ -28,6 +28,10 @@ class ActiveSupport::TestCase
     Capybara.default_wait_time = 30
   end
 
+  def teardown
+    clear_cache
+  end
+
   def stub_config(key, value)
     BRIDGE_CONFIG.each do |k, v|
       BRIDGE_CONFIG.stubs(:[]).with(k).returns(v)
@@ -36,15 +40,21 @@ class ActiveSupport::TestCase
   end
 
   def clear_cache
-    FileUtils.rm_rf Dir.glob(File.join(Rails.root, 'public', 'cache', 'test*'))
+    Rails.cache.clear
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'milestone', 'test.html')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.html')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'invalid')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
   end
 
   def cache_file_exists?
-    File.exists?(File.join(Rails.root, 'public', 'cache', 'test.html'))
+    File.exists?(File.join(Rails.root, 'public', 'cache', 'milestone', 'test.html'))
   end
 
   def create_cache
-    FileUtils.touch(File.join(Rails.root, 'public', 'cache', 'test.html'))
+    dir = File.join(Rails.root, 'public', 'cache', 'milestone')
+    FileUtils.mkdir_p(dir) unless File.exists?(dir)
+    FileUtils.touch(File.join(dir, 'test.html'))
   end
 
   def js

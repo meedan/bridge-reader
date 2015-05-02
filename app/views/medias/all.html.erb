@@ -23,10 +23,10 @@
       <li>
         <h3 id="<%= worksheet.title %>"><%= worksheet.title %></h3>
         <p>Embed code: 
-          <pre>&lt;script type="text/javascript" src="http://<%= @host %>/medias/embed/<%= worksheet.title %>.js"&gt;&lt;/script&gt;</pre> 
-          <a href="/medias/embed/<%= worksheet.title %>" target="_blank"><small>View milestone on a new page</small></a>
+          <pre>&lt;script type="text/javascript" src="<%= @site %>/medias/embed/<%= worksheet.title %>.js"&gt;&lt;/script&gt;</pre> 
+          <a href="/medias/embed/milestone/<%= worksheet.title %>" target="_blank"><small>View milestone on a new page</small></a>
         </p>
-        <p><script type="text/javascript" src="/medias/embed/<%= worksheet.title %>.js"></script></p>
+        <p><script type="text/javascript" src="/medias/embed/milestone/<%= worksheet.title %>.js"></script></p>
       </li>
       <% end %>
     </ol>

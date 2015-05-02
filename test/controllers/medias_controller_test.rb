@@ -7,17 +7,11 @@ class MediasControllerTest < ActionController::TestCase
   def setup
     super
     @controller = MediasController.new
-    clear_cache
-  end
-
-  def teardown
-    super
-    clear_cache
   end
 
   test "should generate cache path" do
     assert !cache_file_exists?
-    get :embed, milestone: 'test'
+    get :embed, type: 'milestone', id: 'test'
     assert_kind_of String, assigns(:cachepath)
     assert cache_file_exists?
   end
@@ -26,7 +20,7 @@ class MediasControllerTest < ActionController::TestCase
     stub_config :cache_embeds, true
     create_cache
     assert cache_file_exists?
-    get :embed, milestone: 'test'
+    get :embed, type: 'milestone', id: 'test'
     assert assigns(:cache)
   end
 
@@ -34,7 +28,7 @@ class MediasControllerTest < ActionController::TestCase
     stub_config :cache_embeds, false
     create_cache
     assert cache_file_exists?
-    get :embed, milestone: 'test'
+    get :embed, type: 'milestone', id: 'test'
     assert !assigns(:cache)
   end
 
@@ -42,15 +36,15 @@ class MediasControllerTest < ActionController::TestCase
     clear_cache
     stub_config :cache_embeds, true
     assert !cache_file_exists?
-    get :embed, milestone: 'test'
+    get :embed, type: 'milestone', id: 'test'
     assert !assigns(:cache)
   end
 
   test "should output valid markup" do
     @validator = MarkupValidator.new
     clear_cache
-    get :embed, milestone: 'test'
-    file = File.join(Rails.root, 'public', 'cache', 'test.html')
+    get :embed, type: 'milestone', id: 'test'
+    file = File.join(Rails.root, 'public', 'cache', 'milestone', 'test.html')
     results = @validator.validate_file(file)
     if results.errors.length > 0
       results.errors.each do |err|
@@ -61,9 +55,9 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should render javascript" do
-    get :embed, milestone: 'test', format: :js
-    assert_equal 'http://test.host/medias/embed/test', assigns(:url)
-    assert_equal 'http://test.host/medias/embed/test.js', assigns(:caller)
+    get :embed, type: 'milestone', id: 'test', format: :js
+    assert_equal 'http://test.host/medias/embed/milestone/test', assigns(:url)
+    assert_equal 'http://test.host/medias/embed/milestone/test.js', assigns(:caller)
   end
 
   test "should list all milestones on index" do
@@ -95,8 +89,50 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should receive link" do
-    get :embed, milestone: 'test', link: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :html
-    assert_equal '183773d82423893d9409faf05941bdbd63eb0b5c', assigns(:link)
-    assert_match /test\/183773d82423893d9409faf05941bdbd63eb0b5c\.html$/, assigns(:cachepath)
+    get :embed, type: 'link', id: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :html
+    assert_equal '183773d82423893d9409faf05941bdbd63eb0b5c', assigns(:id)
+    assert_match /link\/183773d82423893d9409faf05941bdbd63eb0b5c\.html$/, assigns(:cachepath)
+  end
+
+  test "should render Twitter metatags" do
+    get :embed, type: 'link', id: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :html
+    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
+    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
+    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
+  end
+
+  test "should not render Twitter metatags" do
+    get :embed, type: 'milestone', id: 'test', format: :html
+    assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
+    assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
+    assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
+  end
+
+  test "should not have object if type is not supported" do
+    get :embed, type: 'invalid', id: 'invalid', format: :html
+    assert_nil assigns(:object) 
+  end
+
+  test "should get error if type is not supported" do
+    get :embed, type: 'invalid', id: 'invalid', format: :html
+    assert_response 400
+  end
+
+  test "should not render png if type is not link" do
+    get :embed, type: 'milestone', id: 'invalid', format: :png
+    assert_response 400 
+  end
+
+  test "should render png for links" do
+    path = File.join(Rails.root, 'public', 'screenshots', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
+    assert !File.exists?(path)
+    get :embed, type: 'link', id: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :png
+    assert File.exists?(path)
+  end
+
+  test "should sanitize params" do
+    get :embed, type: :link, id: 'another @thing!'
+    assert_equal 'link', assigns(:type)
+    assert_equal 'anotherthing', assigns(:id)
   end
 end
