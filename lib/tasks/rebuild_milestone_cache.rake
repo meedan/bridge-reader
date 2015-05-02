@@ -28,14 +28,13 @@ namespace :bridgembed do
       end
 
       count += (w.rows.count - 1)
-      clear_cache(milestone)
-      generate_cache(milestone, worksheet)
+      generate_cache(worksheet, 'milestone', milestone)
       puts "[#{Time.now}] Generated cache file"
     end
   end
 
   task rebuild_all_cache: :environment do
-    Rake::Task['bridgembed:clear_link_cache'].execute
+    Rake::Task['bridgembed:clear_all_cache'].execute
     Rake::Task['bridgembed:rebuild_milestone_cache'].execute
   end
 end
