@@ -10,6 +10,9 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
                                        BRIDGE_CONFIG['google_password'],
                                        BRIDGE_CONFIG['google_spreadsheet_id'],
                                        'test')
+    @all = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
+                                         BRIDGE_CONFIG['google_password'],
+                                         BRIDGE_CONFIG['google_spreadsheet_id'])
   end
 
   test "should initialize" do
@@ -166,10 +169,21 @@ Not big deal, actually.'
   end
 
   test "should get link" do
-    assert_not_nil @b.get_link('183773d82423893d9409faf05941bdbd63eb0b5c')
+    assert_not_nil @all.get_link('183773d82423893d9409faf05941bdbd63eb0b5c')
   end
 
   test "should not get link" do
-    assert_nil @b.get_link('183773d82423893d9409faf05941bdbd63eb0b5x')
+    assert_nil @all.get_link('183773d82423893d9409faf05941bdbd63eb0b5x')
+  end
+
+  test "should get link from cache if available" do
+    all = @all.get_worksheets
+    Bridge::GoogleSpreadsheet.any_instance.expects(:get_worksheets).returns(all).once
+    hash = '183773d82423893d9409faf05941bdbd63eb0b5c'
+    assert_nil Rails.cache.read(hash)
+    link1 = @all.get_link(hash)
+    assert_not_nil Rails.cache.read(hash)
+    link2 = @all.get_link(hash)
+    assert_equal link1, link2
   end
 end

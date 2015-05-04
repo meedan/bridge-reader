@@ -64,11 +64,16 @@ module Bridge
     end
 
     def get_link(link)
-      get_worksheets.each do |worksheet|
-        @worksheet = worksheet
-        get_entries(link)
+      title = Rails.cache.fetch(link) do
+        get_worksheets.each do |worksheet|
+          @worksheet = worksheet
+          get_entries(link)
+          break unless @entries.empty? 
+        end
+        @worksheet.title
       end
-      @entries.first
+      get_worksheet(title)
+      get_entries(link).first
     end
 
     def notify_availability(index, available)
