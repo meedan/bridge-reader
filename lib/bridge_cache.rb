@@ -34,16 +34,34 @@ module Bridge
       File.join(Rails.root, 'public', 'screenshots', type, "#{id}.png")
     end
 
-    def generate_screenshot(type, id)
-      path = screenshot_path(type, id)
-      if File.exists?(path)
-        path
+    def screenshoter
+      Smartshot::Screenshot.new(phantomjs: File.join(Rails.root, 'bin', 'phantomjs'))
+    end
+
+    def generate_screenshot(type, id, css = '')
+      output = screenshot_path(type, id)
+      if File.exists?(output)
+        output
       else
-        require 'screencap'
-        url = URI.join(BRIDGE_CONFIG['bridgembed_host'], 'medias/', 'embed/', type + '/', id)
-        fetcher = Screencap::Fetcher.new(url.to_s)
-        screenshot = fetcher.fetch(output: path)
-        screenshot.nil? ? nil : screenshot.path
+        require 'smartshot'
+        url = URI.join(BRIDGE_CONFIG['bridgembed_host'], 'medias/', 'embed/', type + '/', id, "#css=#{css}")
+        
+        frames = []
+        element = 'body'
+        link = Rails.cache.read(id)
+
+        unless link.nil?
+          case URI.parse(link[:url]).host
+          when 'twitter.com'
+            frames  = [0, 'twitter-widget-0']
+            element = 'img.Avatar:last-child'
+          when 'instagram.com'
+            frames  = [0]
+            element = 'img.art-bd-img'
+          end
+        end
+
+        screenshoter.take_screenshot!(url: url, output: output, wait_for_element: element, frames_path: frames, sleep: 3) ? output : nil
       end
     end
 

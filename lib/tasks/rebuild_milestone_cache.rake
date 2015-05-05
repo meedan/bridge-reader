@@ -37,6 +37,7 @@ namespace :bridgembed do
         id = Digest::SHA1.hexdigest(e[:link])
         worksheet.get_entries(id, true)
         generate_cache(worksheet, 'link', id, BRIDGE_CONFIG['bridgembed_host'])
+        generate_screenshot('link', id)
       end
 
       puts "[#{Time.now}] Generated cache file"

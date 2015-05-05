@@ -63,17 +63,17 @@ module Bridge
       @worksheets ||= get_spreadsheet.worksheets
     end
 
-    def get_link(link)
-      title = Rails.cache.fetch(link) do
+    def get_link(hash)
+      link = Rails.cache.fetch(hash) do
         get_worksheets.each do |worksheet|
           @worksheet = worksheet
-          get_entries(link)
+          get_entries(hash)
           break unless @entries.empty? 
         end
-        @worksheet.title
+        { title: @worksheet.title, url: @entries[0][:link] }
       end
-      get_worksheet(title)
-      get_entries(link).first
+      get_worksheet(link[:title])
+      get_entries(hash).first
     end
 
     def notify_availability(index, available)

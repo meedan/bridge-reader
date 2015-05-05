@@ -135,4 +135,36 @@ class MediasControllerTest < ActionController::TestCase
     assert_equal 'link', assigns(:type)
     assert_equal 'anotherthing', assigns(:id)
   end
+
+  test "should render cached png" do
+    Smartshot::Screenshot.expects(:new).never
+    path = File.join(Rails.root, 'public', 'screenshots', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
+    FileUtils.touch(path)
+    assert File.exists?(path)
+    get :embed, type: 'link', id: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :png
+  end
+
+  test "should render png for Twitter" do
+    id = '183773d82423893d9409faf05941bdbd63eb0b5c'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    output = File.join(Rails.root, 'test', 'data', "#{id}.png")
+    get :embed, type: 'link', id: id, format: :png
+    assert_equal File.read(output), File.read(generated)
+  end
+
+  test "should render png for Instagram" do
+    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    output = File.join(Rails.root, 'test', 'data', "#{id}.png")
+    get :embed, type: 'link', id: id, format: :png
+    assert_equal File.read(output), File.read(generated)
+  end
+
+  test "should render png with custom CSS" do
+    id = '183773d82423893d9409faf05941bdbd63eb0b5c'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
+    get :embed, type: 'link', id: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
+    assert_equal File.read(output), File.read(generated)
+  end
 end

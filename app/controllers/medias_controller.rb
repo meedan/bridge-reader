@@ -46,9 +46,11 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_png
-    # Right now let's allow screenshots only of links
     render_error('Link is mandatory', 'PARAMETERS_MISSING') and return unless @type == 'link'
-    @image = generate_screenshot(@type, @id)
+
+    css = URI.parse(params[:css].to_s).to_s
+
+    @image = generate_screenshot(@type, @id, css)
     send_data File.read(@image), type: 'image/png', disposition: 'inline'
   end
 

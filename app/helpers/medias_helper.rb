@@ -30,9 +30,9 @@ module MediasHelper
   def include_twitter_tags_if_needed(entries, type, id, site)
     if entries.size == 1 && type == 'link'
       url = URI.join(site, 'medias/', 'embed/', type + '/', "#{id}.png")
-      tag(:meta, name: 'twitter:card', content: 'photo') +
-      tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) +
-      tag(:meta, name: 'twitter:image', content: url.to_s)
+      tag(:meta, name: 'twitter:card', content: 'photo') + "\n" +
+      tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) + "\n" +
+      tag(:meta, name: 'twitter:image', content: url.to_s) + "\n"
     end
   end
 end
