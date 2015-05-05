@@ -43,6 +43,7 @@ class ActiveSupport::TestCase
     Rails.cache.clear
     FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'milestone', 'test.html')
     FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.html')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14.html')
     FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'invalid')
     FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
     FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', 'anotherthing.html')

@@ -3,7 +3,6 @@ load File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'bri
 require 'bridge_google_spreadsheet'
 
 class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
-
   def setup
     super
     @b = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
@@ -117,10 +116,13 @@ Not big deal, actually.'
     w.save
     clear_cache
     assert !cache_file_exists?
+    path = File.join('public', 'cache', 'link', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14.html')
+    assert !File.exists?(path)
     @b.notify_link_condition('http://instagram.com/p/pwcow7AjL3/', 'check404')
     w.reload
     assert cache_file_exists?
     assert_equal 'Yes', w[5, 9]
+    assert File.exists?(path)
   end
 
   test "should get url" do
@@ -137,8 +139,11 @@ Not big deal, actually.'
     w = @b.get_worksheet('test')
     clear_cache
     assert !cache_file_exists?
+    path = File.join('public', 'cache', 'link', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14.html')
+    assert !File.exists?(path)
     @b.notify_link_condition('https://docs.google.com/a/meedan.com/spreadsheets/d/1qpLfypUaoQalem6i3SHIiPqHOYGCWf2r7GFbvkIZtvk/edit#test', 'check_google_spreadsheet_updated')
     assert cache_file_exists?
+    assert File.exists?(path)
   end
 
   test "should send to watchbot when generating cache if file does not exist" do
@@ -185,5 +190,12 @@ Not big deal, actually.'
     assert_not_nil Rails.cache.read(hash)
     link2 = @all.get_link(hash)
     assert_equal link1, link2
+  end
+
+  test "should refresh entries" do
+    @b.get_link('183773d82423893d9409faf05941bdbd63eb0b5c')
+    assert_equal 1, @b.get_entries.size
+    @b.get_entries(nil, true)
+    assert_equal 4, @b.get_entries.size
   end
 end

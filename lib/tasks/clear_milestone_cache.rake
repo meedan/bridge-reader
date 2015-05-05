@@ -8,7 +8,7 @@ namespace :bridgembed do
   end
 
   task clear_link_cache: :environment do
-    Rails.cache.delete_matched(/:/)
+    Rails.cache.clear
   end
 
   task clear_all_cache: :environment do

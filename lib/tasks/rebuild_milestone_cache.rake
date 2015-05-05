@@ -28,7 +28,17 @@ namespace :bridgembed do
       end
 
       count += (w.rows.count - 1)
+      
       generate_cache(worksheet, 'milestone', milestone)
+
+      entries = worksheet.get_entries
+
+      entries.each do |e|
+        id = Digest::SHA1.hexdigest(e[:link])
+        worksheet.get_entries(id, true)
+        generate_cache(worksheet, 'link', id, BRIDGE_CONFIG['bridgembed_host'])
+      end
+
       puts "[#{Time.now}] Generated cache file"
     end
   end

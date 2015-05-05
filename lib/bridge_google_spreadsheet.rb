@@ -46,8 +46,8 @@ module Bridge
       @urls
     end
 
-    def get_entries(link = nil)
-      if @entries.empty?
+    def get_entries(link = nil, force = false)
+      if @entries.empty? || force
         worksheet = get_worksheet
         @entries = []
         for row in 2..worksheet.num_rows
@@ -129,15 +129,24 @@ module Bridge
     end
 
     def notify_entry_offline(link)
-      entry = self.get_entries(Digest::SHA1.hexdigest(link)).first
-      return if entry.nil?   
+      hash = Digest::SHA1.hexdigest(link)
+      entry = self.get_entries(hash).first
+      return if entry.nil?
       Rails.cache.write(bridge_cache_key(entry), entry.merge({ oembed: { 'unavailable' => true }}))
       notify_availability(entry[:index], false)
       generate_cache(self, 'milestone', self.get_worksheet.title)
+      self.get_entries(hash, true)
+      generate_cache(self, 'link', hash, BRIDGE_CONFIG['bridgembed_host'])
     end
 
     def notify_google_spreadsheet_updated
       generate_cache(self, 'milestone', self.get_worksheet.title)
+
+      self.get_entries.each do |entry|
+        hash = Digest::SHA1.hexdigest(entry[:link])
+        self.get_entries(hash, true)
+        generate_cache(self, 'link', hash, BRIDGE_CONFIG['bridgembed_host'])
+      end
     end
   end
 end
