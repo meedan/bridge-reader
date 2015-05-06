@@ -89,13 +89,13 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should receive link" do
-    get :embed, type: 'link', id: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :html
-    assert_equal '183773d82423893d9409faf05941bdbd63eb0b5c', assigns(:id)
-    assert_match /link\/183773d82423893d9409faf05941bdbd63eb0b5c\.html$/, assigns(:cachepath)
+    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
+    assert_equal 'c291f649aa5625b81322207177a41e2c4a08f09d', assigns(:id)
+    assert_match /link\/c291f649aa5625b81322207177a41e2c4a08f09d\.html$/, assigns(:cachepath)
   end
 
   test "should render Twitter metatags" do
-    get :embed, type: 'link', id: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :html
+    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
@@ -124,9 +124,9 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should render png for links" do
-    path = File.join(Rails.root, 'public', 'screenshots', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
+    path = File.join(Rails.root, 'public', 'screenshots', 'link', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
     assert !File.exists?(path)
-    get :embed, type: 'link', id: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :png
+    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
     assert File.exists?(path)
   end
 
@@ -138,10 +138,10 @@ class MediasControllerTest < ActionController::TestCase
 
   test "should render cached png" do
     Smartshot::Screenshot.expects(:new).never
-    path = File.join(Rails.root, 'public', 'screenshots', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
+    path = File.join(Rails.root, 'public', 'screenshots', 'link', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
     FileUtils.touch(path)
     assert File.exists?(path)
-    get :embed, type: 'link', id: '183773d82423893d9409faf05941bdbd63eb0b5c', format: :png
+    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
   end
 
   test "should render png for Twitter" do
@@ -149,7 +149,7 @@ class MediasControllerTest < ActionController::TestCase
     generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, type: 'link', id: id, format: :png
-    assert_equal File.read(output), File.read(generated)
+    assert FileUtils.compare_file(generated, output)
   end
 
   test "should render png for Instagram" do
@@ -157,14 +157,18 @@ class MediasControllerTest < ActionController::TestCase
     generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, type: 'link', id: id, format: :png
-    assert_equal File.read(output), File.read(generated)
+    assert FileUtils.compare_file(generated, output)
   end
 
   test "should render png with custom CSS" do
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
     generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
     get :embed, type: 'link', id: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
-    assert_equal File.read(output), File.read(generated)
+    FileUtils.cp generated, '/tmp/generated'
+    FileUtils.cp output, '/tmp/expected'
+    assert FileUtils.compare_file(generated, output)
   end
 end

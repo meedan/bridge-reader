@@ -70,10 +70,13 @@ module Bridge
           get_entries(hash)
           break unless @entries.empty? 
         end
-        { title: @worksheet.title, url: @entries[0][:link] }
+        @entries.empty? ? nil : { title: @worksheet.title, url: @entries[0][:link] }
       end
-      get_worksheet(link[:title])
-      get_entries(hash).first
+
+      unless link.nil?
+        get_worksheet(link[:title])
+        get_entries(hash).first
+      end
     end
 
     def notify_availability(index, available)
