@@ -15,6 +15,7 @@ gem 'redcarpet'
 gem 'thin'
 gem 'smartshot'
 gem 'twitter_web_intents'
+gem 'bitly'
 
 # Test gems
 # group :test do

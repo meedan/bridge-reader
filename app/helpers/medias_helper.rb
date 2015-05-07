@@ -35,4 +35,15 @@ module MediasHelper
       tag(:meta, name: 'twitter:image', content: url.to_s) + "\n"
     end
   end
+
+  def short_url_for(type, id)
+    require 'bitly'
+    url = URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/#{type}/#{id}").to_s
+    begin
+      bitly = Bitly.client.shorten(url)
+      bitly.short_url
+    rescue
+      url
+    end
+  end
 end
