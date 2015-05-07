@@ -167,8 +167,6 @@ class MediasControllerTest < ActionController::TestCase
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
     get :embed, type: 'link', id: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
-    FileUtils.cp generated, '/tmp/generated'
-    FileUtils.cp output, '/tmp/expected'
     assert FileUtils.compare_file(generated, output)
   end
 end

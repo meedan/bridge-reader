@@ -35,7 +35,7 @@ module Bridge
     end
 
     def screenshoter
-      options = { phantomjs: File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s) }
+      options = { phantomjs: File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s), timeout: 40 }
       if Rails.env.test?
         options.merge! run_server: true
       end
@@ -63,8 +63,6 @@ module Bridge
             frames  = [0]
             element = ['img.art-bd-img']
           end
-
-          element << 'link.bridgembed-custom-css' unless css.blank?
         end
 
         screenshoter.take_screenshot!(url: url, output: output, wait_for_element: element, frames_path: frames, sleep: 5) ? output : nil

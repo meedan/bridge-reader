@@ -13,7 +13,7 @@
   <li>
     <%= link_to 'Embed Code (copy & paste)', '#', class: 'bridgeEmbed__link-embed-code' %>
     <textarea class="bridgeEmbed__embed-code" rows="4" disabled readonly>
-      <%= content_tag :script, '', src: URI.join(@site, "/medias/embed/link/#{id}.js").to_s, type: 'text/javascript' %>
+      <%= content_tag :script, '', src: URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/link/#{id}.js").to_s, type: 'text/javascript' %>
     </textarea>
   </li>
 
@@ -21,7 +21,7 @@
 
   <li>
     <%
-      params = { url: URI.join(@site, "/medias/embed/link/#{id}.html"), text: text }
+      params = { url: URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/link/#{id}.html"), text: text }
       params[:in_reply_to] = tweet_id unless tweet_id.blank?
     %>
     <%= link_to 'Share on Twitter',
