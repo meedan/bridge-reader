@@ -124,4 +124,9 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     @b.remove_embed_screenshot({ link: 'https://twitter.com/caiosba/status/548252845238398976' })
     assert !File.exists?(path)
   end
+
+  test "should alter Twitter response by adding ID" do
+    embed = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/290093908564779009' }]).first[:oembed]
+    assert_equal '290093908564779009', embed['twitter_id']
+  end
 end

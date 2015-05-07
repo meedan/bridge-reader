@@ -33,4 +33,25 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test "should open share menu" do
+    js do
+      visit '/medias/embed/link/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      assert !page.has_css?('.bridgeEmbed__share-menu', visible: true)
+      page.click_link('Share')
+      assert page.has_css?('.bridgeEmbed__share-menu', visible: true)
+    end
+  end
+
+  test "should share on Twitter" do
+    js do
+      visit '/medias/embed/link/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      page.click_link('Share')
+      page.click_link('Share on Twitter')
+      twitter = page.driver.window_handles.last
+      page.within_window twitter do
+        assert_equal 'twitter.com', URI.parse(current_url).host
+      end
+    end
+  end
 end

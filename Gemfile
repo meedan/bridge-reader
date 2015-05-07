@@ -14,6 +14,7 @@ gem 'retryable'
 gem 'redcarpet'
 gem 'thin'
 gem 'smartshot'
+gem 'twitter_web_intents'
 
 # Test gems
 # group :test do

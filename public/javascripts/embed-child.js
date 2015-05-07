@@ -74,7 +74,7 @@ var Bridge = {};
   };
   
   var messageCallback = function(e) {
-    var data = e.data.split(';'),
+    var data = e.data.toString().split(';'),
         type = data.shift();
   
     for (var i = 0; i < data.length; i++) {

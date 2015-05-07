@@ -2,6 +2,7 @@ require 'embedly'
 require 'json'
 require 'bridge_cache'
 require 'bridge_watchbot'
+require 'twitter'
 
 module Bridge
   class Embedly
@@ -85,9 +86,9 @@ module Bridge
     # Methods to alter responses for some providers
 
     def alter_twitter_oembed(oembed)
-      require 'twitter'
       id = oembed[:link].match(/status\/([0-9]+)/)
       unless id.nil?
+        oembed['twitter_id'] = id[1]
         Retryable.retryable tries: 5, sleep: 3 do
           begin
             client = connect_to_twitter

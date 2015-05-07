@@ -196,6 +196,8 @@ GEM
       memoizable (~> 0.4.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
+    twitter_web_intents (0.0.1)
+      activesupport (>= 3.0, < 4.1)
     tzinfo (0.3.44)
     w3c_validators (1.2)
       json
@@ -232,6 +234,7 @@ DEPENDENCIES
   sqlite3
   thin
   twitter
+  twitter_web_intents
   w3c_validators
   webmock
   xml-simple

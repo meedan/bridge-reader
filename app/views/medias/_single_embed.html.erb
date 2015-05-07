@@ -1,4 +1,6 @@
 <div class="bridgeEmbed__item">
+  <!-- Share menu -->
+  <%= render partial: 'medias/share_menu', locals: { id: Digest::SHA1.hexdigest(entry[:link]), tweet_id: entry[:oembed]['twitter_id'].to_s, text: entry[:translation] } %>
     
   <!-- Item Geodata -->
   <% unless entry[:oembed].coordinates.nil? %>
