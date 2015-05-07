@@ -21,7 +21,7 @@
 
   <li>
     <%
-      params = { url: short_url_for('link', id), text: text }
+      params = { url: short_url_for('link', "#{id}.html"), text: text }
       params[:in_reply_to] = tweet_id unless tweet_id.blank?
     %>
     <%= link_to 'Share on Twitter',

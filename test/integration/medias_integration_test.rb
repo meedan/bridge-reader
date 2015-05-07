@@ -54,4 +54,9 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test "should redirect to new route" do
+    visit '/medias/embed/test'
+    assert_equal '/medias/embed/milestone/test', current_path
+  end
 end
