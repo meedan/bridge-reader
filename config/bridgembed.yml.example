@@ -13,4 +13,5 @@ development:
   watchbot_token: 
   secret_token: mysecrettoken
   bridgembed_host:
+  bridgembed_host_private:
   bitly_key:

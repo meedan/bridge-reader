@@ -48,7 +48,7 @@ module Bridge
         output
       else
         require 'smartshot'
-        url = URI.join(BRIDGE_CONFIG['bridgembed_host'], 'medias/', 'embed/', type + '/', id, "#css=#{css}")
+        url = URI.join(BRIDGE_CONFIG['bridgembed_host_private'], 'medias/', 'embed/', type + '/', id, "#css=#{css}")
         
         frames = []
         element = ['body']
