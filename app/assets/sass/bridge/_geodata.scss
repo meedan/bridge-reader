@@ -14,14 +14,13 @@
 
 %show-on-hover {
   overflow: hidden;
-  opacity: 0.5;
+  @include opacity(0.5);
   &:hover {
-    opacity: 1;
+    @include opacity(1);
     overflow: visible;
     display: block;
     width: auto;
     height: auto;
-    transition: 0.4s;
     a {
       color: $another-blue;
       text-decoration: underline;
@@ -48,7 +47,7 @@
     background-repeat: no-repeat;
     margin-right: 5px;
     &:hover {
-      opacity: 0.8;
+      @include opacity(0.8);
     }
   }
 }
