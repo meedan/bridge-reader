@@ -19,7 +19,7 @@ class ActiveSupport::TestCase
     clear_cache
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
                                          'scontent.cdninstagram.com', 'spreadsheets.google.com', 'validator.w3.org', 'docs.google.com',
-                                         '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com']
+                                         '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com']
     WebMock.stub_request(:post, 'http://watch.bot/links')
     Capybara.register_driver :poltergeist do |app|
       Capybara::Poltergeist::Driver.new(app, js_errors: false)
@@ -40,7 +40,7 @@ class ActiveSupport::TestCase
   end
 
   def clear_cache
-    Rails.cache.clear
+    Rails.cache.delete_matched /^[^\!]/
     FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'milestone', 'test.html')
     FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.html')
     FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14.html')

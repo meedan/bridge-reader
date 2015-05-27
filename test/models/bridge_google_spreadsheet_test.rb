@@ -5,13 +5,8 @@ require 'bridge_google_spreadsheet'
 class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
   def setup
     super
-    @b = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                       BRIDGE_CONFIG['google_password'],
-                                       BRIDGE_CONFIG['google_spreadsheet_id'],
-                                       'test')
-    @all = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                         BRIDGE_CONFIG['google_password'],
-                                         BRIDGE_CONFIG['google_spreadsheet_id'])
+    @b = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'], 'test')
+    @all = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'])
   end
 
   test "should initialize" do
@@ -22,7 +17,7 @@ class BridgeGoogleSpreadsheetTest < ActiveSupport::TestCase
   end
 
   test "should authenticate" do
-    assert_equal @b.instance_variable_get(:@session), @b.authenticate(BRIDGE_CONFIG['google_email'], BRIDGE_CONFIG['google_password'])
+    assert_equal @b.instance_variable_get(:@session), @b.authenticate('test')
   end
 
   test "should get spreadsheet" do
@@ -81,9 +76,7 @@ Not big deal, actually.'
   end
 
   test "should initialize without milestone" do
-    b = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                      BRIDGE_CONFIG['google_password'],
-                                      BRIDGE_CONFIG['google_spreadsheet_id'])
+    b = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'])
     assert_not_nil b.instance_variable_get(:@worksheets)
     assert_nil b.instance_variable_get(:@worksheet)
   end
@@ -197,5 +190,17 @@ Not big deal, actually.'
     assert_equal 1, @b.get_entries.size
     @b.get_entries(nil, true)
     assert_equal 4, @b.get_entries.size
+  end
+
+  test "should get access token" do
+    Rails.cache.delete('!google_access_token')
+    assert_kind_of String, @b.send(:generate_google_access_token)
+  end
+
+  test "should refresh token" do
+    Rails.cache.expects(:fetch).returns('invalid token')
+    assert_nothing_raised do
+      Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'], 'test')
+    end
   end
 end

@@ -86,7 +86,7 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   end
 
   test "should cache entries" do
-    Rails.cache.expects(:delete_matched).once
+    Rails.cache.expects(:delete_matched).at_least_once
     url = 'https://twitter.com/caiosba/status/290093908564779009'
     entry = { link: url }
     key = @b.bridge_cache_key(entry)

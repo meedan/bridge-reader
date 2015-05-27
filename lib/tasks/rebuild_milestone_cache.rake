@@ -9,15 +9,15 @@ namespace :bridgembed do
     MAX = 180
     WAIT = ENV['WAIT_INTERVAL'] || 900
 
-    email, pw, sid = BRIDGE_CONFIG['google_email'], BRIDGE_CONFIG['google_password'], BRIDGE_CONFIG['google_spreadsheet_id']
+    sid = BRIDGE_CONFIG['google_spreadsheet_id']
 
-    spreadsheet = Bridge::GoogleSpreadsheet.new(email, pw, sid)
+    spreadsheet = Bridge::GoogleSpreadsheet.new(sid)
     worksheets = spreadsheet.get_worksheets
     count = 0
 
     worksheets.each do |w|
       milestone = w.title
-      worksheet = Bridge::GoogleSpreadsheet.new(email, pw, sid, milestone)
+      worksheet = Bridge::GoogleSpreadsheet.new(sid, milestone)
 
       puts "[#{Time.now}] Parsing milestone #{milestone}..."
       

@@ -149,6 +149,7 @@ class MediasControllerTest < ActionController::TestCase
     generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, type: 'link', id: id, format: :png
+    FileUtils.cp(generated, "/tmp/#{id}.png")
     assert FileUtils.compare_file(generated, output)
   end
 
@@ -157,6 +158,7 @@ class MediasControllerTest < ActionController::TestCase
     generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, type: 'link', id: id, format: :png
+    FileUtils.cp(generated, "/tmp/#{id}.png")
     assert FileUtils.compare_file(generated, output)
   end
 
@@ -167,6 +169,7 @@ class MediasControllerTest < ActionController::TestCase
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
     get :embed, type: 'link', id: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
+    FileUtils.cp(generated, "/tmp/#{id}.png")
     assert FileUtils.compare_file(generated, output)
   end
 end

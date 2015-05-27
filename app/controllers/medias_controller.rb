@@ -13,9 +13,7 @@ class MediasController < ApplicationController
   TYPES = ['milestone', 'link']
 
   def all
-    @spreadsheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                                 BRIDGE_CONFIG['google_password'],
-                                                 BRIDGE_CONFIG['google_spreadsheet_id'])
+    @spreadsheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'])
     @worksheets = @spreadsheet.get_worksheets
   end
 
@@ -88,10 +86,7 @@ class MediasController < ApplicationController
     uri = URI.parse(Rack::Utils.unescape(notification['link']))
     link = uri.to_s.gsub('#' + uri.fragment, '')
 
-    @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                               BRIDGE_CONFIG['google_password'],
-                                               BRIDGE_CONFIG['google_spreadsheet_id'],
-                                               uri.fragment)
+    @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'], uri.fragment)
 
     @worksheet.notify_link_condition(link, notification['condition'])
   end
@@ -104,14 +99,9 @@ class MediasController < ApplicationController
   def get_object
     case @type.to_s
     when 'milestone'
-      @object = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                              BRIDGE_CONFIG['google_password'],
-                                              BRIDGE_CONFIG['google_spreadsheet_id'],
-                                              @id)
+      @object = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'], @id)
     when 'link'
-      @object = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                              BRIDGE_CONFIG['google_password'],
-                                              BRIDGE_CONFIG['google_spreadsheet_id'])
+      @object = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'])
       @link = @object.get_link(@id)
     end
   end

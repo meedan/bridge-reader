@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.0.9'
-gem 'google_drive', '0.3.11'
+gem 'google_drive', '1.0.1'
 gem 'sqlite3'
 gem 'xml-simple'
 gem 'embedly'

@@ -7,19 +7,30 @@ module Bridge
   class GoogleSpreadsheet
     include Bridge::Cache
 
-    def initialize(email, password, id, sheet = nil)
+    def initialize(id, sheet = nil)
       @entries = []
-      authenticate(email, password)
-      get_spreadsheet(id)
+      authenticate(id)
       sheet.nil? ? get_worksheets : get_worksheet(sheet)
     end
     
-    def authenticate(email = '', password = '')
-      @session ||= GoogleDrive::Session.login(email, password)
+    def authenticate(spreadsheet_id)
+      return @session unless @session.nil?
+      begin
+        access_token = Rails.cache.fetch('!google_access_token') do
+          generate_google_access_token
+        end
+        @session = GoogleDrive.login_with_oauth(access_token)
+        get_spreadsheet(spreadsheet_id)
+      rescue Google::APIClient::AuthorizationError
+        access_token = generate_google_access_token
+        Rails.cache.write('!google_access_token', access_token)
+        @session = GoogleDrive.login_with_oauth(access_token)
+        get_spreadsheet(spreadsheet_id)
+      end
     end
 
     def get_spreadsheet(id = '')
-      @spreadsheet ||= authenticate.spreadsheet_by_key(id)
+      @spreadsheet ||= @session.spreadsheet_by_key(id)
     end
 
     def get_title(title = '')
@@ -135,7 +146,7 @@ module Bridge
       hash = Digest::SHA1.hexdigest(link)
       entry = self.get_entries(hash).first
       return if entry.nil?
-      Rails.cache.write(bridge_cache_key(entry), entry.merge({ oembed: { 'unavailable' => true }}))
+      Rails.cache.write(bridge_cache_key(entry), entry.except(:source).merge({ oembed: { 'unavailable' => true }}))
       notify_availability(entry[:index], false)
       generate_cache(self, 'milestone', self.get_worksheet.title)
       self.get_entries(hash, true)
@@ -150,6 +161,29 @@ module Bridge
         self.get_entries(hash, true)
         generate_cache(self, 'link', hash, BRIDGE_CONFIG['bridgembed_host'])
       end
+    end
+
+    private
+
+    def generate_google_access_token
+      require 'google/api_client'
+      require 'google/api_client/client_secrets'
+      require 'google/api_client/auth/installed_app'
+      
+      client = Google::APIClient.new(
+        :application_name => 'Bridgembed',
+        :application_version => '1.0.0'
+      )
+      
+      key = Google::APIClient::KeyUtils.load_from_pkcs12(BRIDGE_CONFIG['google_pkcs12_path'], BRIDGE_CONFIG['google_pkcs12_secret'])
+      client.authorization = Signet::OAuth2::Client.new(
+          :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+          :audience => 'https://accounts.google.com/o/oauth2/token',
+          :scope => ['https://www.googleapis.com/auth/drive', 'https://spreadsheets.google.com/feeds/'],
+          :issuer => BRIDGE_CONFIG['google_issuer'],
+          :signing_key => key)
+      client.authorization.fetch_access_token!
+      client.authorization.access_token
     end
   end
 end

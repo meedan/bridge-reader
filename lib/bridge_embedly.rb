@@ -43,7 +43,7 @@ module Bridge
         entry[:provider] = provider = oembed.provider_name.to_s.underscore
         entry[:oembed] = self.alter_oembed(oembed, provider)
         entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
-        entry
+        entry.except(:source)
       end
     end
 
