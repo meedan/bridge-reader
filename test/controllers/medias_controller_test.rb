@@ -172,4 +172,9 @@ class MediasControllerTest < ActionController::TestCase
     FileUtils.cp(generated, "/tmp/#{id}.png")
     assert FileUtils.compare_file(generated, output)
   end
+
+  test "should set custom cache header" do
+    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
+    assert_match /no-transform/, @response.headers['Cache-Control']
+  end
 end

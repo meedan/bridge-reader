@@ -9,6 +9,7 @@ class MediasController < ApplicationController
   after_action :allow_iframe, only: :embed
   before_filter :get_host
   before_filter :get_params, only: :embed
+  before_filter :set_headers
 
   TYPES = ['milestone', 'link']
 
@@ -111,5 +112,9 @@ class MediasController < ApplicationController
     @host_with_port = request.host_with_port
     @protocol = request.protocol
     @site = @protocol + @host_with_port
+  end
+
+  def set_headers
+    response.headers['Cache-Control'] = 'no-transform,public,max-age=600,s-maxage=300'
   end
 end
