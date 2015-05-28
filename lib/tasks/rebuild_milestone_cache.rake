@@ -17,7 +17,6 @@ namespace :bridgembed do
 
     worksheets.each do |w|
       milestone = w.title
-      worksheet = Bridge::GoogleSpreadsheet.new(sid, milestone)
 
       puts "[#{Time.now}] Parsing milestone #{milestone}..."
       
@@ -26,6 +25,8 @@ namespace :bridgembed do
         sleep WAIT.to_i
         count = 0
       end
+      
+      worksheet = Bridge::GoogleSpreadsheet.new(sid, milestone)
 
       count += (w.rows.count - 1)
       
