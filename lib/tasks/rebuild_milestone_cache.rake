@@ -19,16 +19,18 @@ namespace :bridgembed do
       puts "[#{Time.now}] Parsing milestone #{milestone}..."
       
       worksheet = Bridge::GoogleSpreadsheet.new(sid, milestone)
+      w = worksheet.get_worksheet
       
-      if (worksheet.rows.count - 1 + count) > MAX
+      if (w.rows.count - 1 + count) > MAX
         puts "[#{Time.now}] Limit reached, waiting for #{WAIT} seconds before proceeding"
         sleep WAIT.to_i
         count = 0
       end
       
       worksheet = Bridge::GoogleSpreadsheet.new(sid, milestone)
+      w = worksheet.get_worksheet
 
-      count += (worksheet.rows.count - 1)
+      count += (w.rows.count - 1)
       
       generate_cache(worksheet, 'milestone', milestone)
 
