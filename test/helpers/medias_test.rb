@@ -46,4 +46,16 @@ class MediasHelperTest < ActionView::TestCase
     short = short_url_for('link', '582e4e8ba9a751009aa37552bd39c7e4ead9122a.png')
     assert_equal 'bit.ly', URI.parse(short).host
   end
+
+  test "should return direction for rtl text" do
+    assert_equal 'rtl', get_text_direction({ translation: 'مسيحيو الشرق الأوسط المختفين' })
+  end
+
+  test "should return direction for ltr text" do
+    assert_equal 'ltr', get_text_direction({ translation: 'Left to right text' })
+  end
+
+  test "should return direction for bi-directional text" do
+    assert_equal 'rtl', get_text_direction({ translation: 'ﻢﺴﻴﺤﻳﻭ ﺎﻠﺷﺮﻗ ﺍﻷﻮﺴﻃ ﺎﻠﻤﺨﺘﻔﻴﻧ with English' })
+  end
 end

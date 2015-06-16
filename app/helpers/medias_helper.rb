@@ -46,4 +46,9 @@ module MediasHelper
       url
     end
   end
+
+  def get_text_direction(translation)
+    direction = parse_translation(translation).direction
+    direction == 'bidi' ? 'rtl' : direction
+  end
 end

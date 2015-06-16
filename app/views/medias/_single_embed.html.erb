@@ -20,7 +20,7 @@
 
   <!-- Item Translation -->
   <div class="bridgeEmbed__item-translation">
-    <div class="translation"><%= parse_translation entry %></div>
+    <div class="translation" style="direction: <%= get_text_direction(entry) %>;"><%= parse_translation entry %></div>
       
       <% unless entry[:translator_name].blank? %>
       <div class="byline">

@@ -16,6 +16,7 @@ gem 'thin'
 gem 'smartshot'
 gem 'twitter_web_intents'
 gem 'bitly'
+gem 'string-direction'
 
 # Test gems
 # group :test do
