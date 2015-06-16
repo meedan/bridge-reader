@@ -59,4 +59,18 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
     visit '/medias/embed/test'
     assert_equal '/medias/embed/milestone/test', current_path
   end
+
+  test "should display RTL text" do
+    js do
+      visit '/medias/embed/link/6f975c79aa6644919907e3b107babf56803f57c7.html'
+      assert_equal 'rtl', page.evaluate_script('getComputedStyle(document.getElementsByTagName("P")[0]).getPropertyValue("direction")')
+    end
+  end
+
+  test "should display LTR text" do
+    js do
+      visit '/medias/embed/link/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      assert_equal 'ltr', page.evaluate_script('getComputedStyle(document.getElementsByTagName("P")[0]).getPropertyValue("direction")')
+    end
+  end
 end

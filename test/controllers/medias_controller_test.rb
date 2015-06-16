@@ -173,6 +173,17 @@ class MediasControllerTest < ActionController::TestCase
     assert FileUtils.compare_file(generated, output)
   end
 
+  test "should render png with RTL text" do
+    id = '6f975c79aa6644919907e3b107babf56803f57c7'
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    assert !File.exists?(generated)
+    output = File.join(Rails.root, 'test', 'data', "#{id}.png")
+    get :embed, type: 'link', id: id, format: :png
+    FileUtils.cp(generated, "/tmp/#{id}.png")
+    assert FileUtils.compare_file(generated, output)
+  end
+
   test "should set custom cache header" do
     get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
     assert_match /no-transform/, @response.headers['Cache-Control']

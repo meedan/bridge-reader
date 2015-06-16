@@ -49,6 +49,8 @@ class ActiveSupport::TestCase
     FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
     FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
     FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', 'anotherthing.html')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', '6f975c79aa6644919907e3b107babf56803f57c7.png')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', '6f975c79aa6644919907e3b107babf56803f57c7.html')
   end
 
   def cache_file_exists?
