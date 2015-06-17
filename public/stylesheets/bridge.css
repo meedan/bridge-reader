@@ -25,7 +25,8 @@ body {
 h2 {
   padding: 0 1.5em;
   font-size: 1.2em;
-  font-weight: 300; }
+  font-weight: 300;
+  text-align: center; }
 
 a {
   font-weight: 400; }
@@ -280,12 +281,14 @@ body {
     display: none; }
 
 ul.bridgeEmbed__share-menu {
+  display: block;
   padding: 0;
   position: absolute;
   right: 5px;
   top: 20px;
   z-index: 1;
-  background: white;
+  border: 1px solid #abb5bd;
+  background: #d1d6db;
   width: 300px; }
   ul.bridgeEmbed__share-menu li {
     list-style: none; }
