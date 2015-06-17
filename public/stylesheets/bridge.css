@@ -1,4 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 * {
   box-sizing: border-box; }
 
@@ -20,13 +19,33 @@ body {
   font-weight: 300;
   color: #283743;
   line-height: 1.4;
-  padding: 0; }
+  padding: 0;
+  font-size: 14px; }
+
+h1 {
+  font-size: 14px;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  line-height: 1.7; }
 
 h2 {
-  padding: 0 1.5em;
-  font-size: 1.2em;
-  font-weight: 300;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
   text-align: center; }
+
+h3 {
+  color: #abb5bd;
+  font-weight: 300;
+  font-size: 14px;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase; }
 
 a {
   font-weight: 400; }
@@ -111,51 +130,31 @@ a {
   100% {
     opacity: 1; } }
 
-.bridgeEmbed__item-geodata {
-  overflow: hidden;
-  opacity: 50%; }
-  .bridgeEmbed__item-geodata:hover {
-    opacity: 100%;
-    overflow: visible;
-    display: block;
-    width: auto;
-    height: auto; }
-    .bridgeEmbed__item-geodata:hover:after {
-      content: "Map it!";
-      -webkit-animation: fadeInUp 0.5s;
-      -moz-animation: fadeInUp 0.5s;
-      -ms-animation: fadeInUp 0.5s;
-      -o-animation: fadeInUp 0.5s;
-      animation: fadeInUp 0.5s; }
-    .bridgeEmbed__item-geodata:hover a {
-      -webkit-animation: fadeInUp 1s;
-      -moz-animation: fadeInUp 1s;
-      -ms-animation: fadeInUp 1s;
-      -o-animation: fadeInUp 1s;
-      animation: fadeInUp 1s;
-      text-decoration: underline;
-      padding: 0.3em; }
-    .bridgeEmbed__item-geodata:hover .icon {
-      display: none; }
+.embeds ::-webkit-scrollbar {
+  width: 5px;
+  height: 5px; }
+.embeds ::-webkit-scrollbar-thumb {
+  background-color: #d1d6db;
+  border-radius: 5px; }
 
-.bridgeEmbed__item-geodata {
-  font-size: 10px; }
-  .bridgeEmbed__item-geodata a {
-    text-decoration: none; }
-  .bridgeEmbed__item-geodata .icon:hover {
-    opacity: 80%; }
+.embeds {
+  align-items: flex-start;
+  background-color: white; }
+  .embeds .embed {
+    height: 100%;
+    padding-top: 4em;
+    overflow: scroll; }
 
 .byline {
   font-weight: 400;
   margin-top: 0.5em; }
 
 .bridgeEmbed__item {
-  clear: both;
   overflow: hidden;
-  border-radius: 8px;
-  padding: 0.3em 1em 1em;
+  padding: 0.3em 2em 1em;
   margin: 2em auto;
-  position: relative; }
+  position: relative;
+  max-width: 580px; }
   .bridgeEmbed__item > iframe {
     margin: 0 auto;
     max-width: 580px !important; }
@@ -163,29 +162,22 @@ a {
     margin-top: 0; }
 
 .bridgeEmbed__item-translation {
-  margin: 0 auto;
-  max-width: 580px;
+  padding: 0 1em;
   border-left: 3px solid #ff4f00;
-  margin-left: 1em; }
+  margin-left: 0; }
   .bridgeEmbed__item-translation .translation {
-    max-width: 580px;
-    font-size: 1.2em;
+    font-size: smaller;
     font-weight: 500; }
-    .bridgeEmbed__item-translation .translation a {
-      text-decoration: none;
-      border-bottom: 2px solid white; }
-      .bridgeEmbed__item-translation .translation a:hover {
-        border-bottom: 2px solid #d8e5f3; }
-    .bridgeEmbed__item-translation .translation p {
-      max-width: 580px;
-      padding: 1em; }
-    .bridgeEmbed__item-translation .translation p:empty {
-      display: none; }
+  .bridgeEmbed__item-translation p {
+    max-width: 580px;
+    padding: 0.6em 1em; }
+  .bridgeEmbed__item-translation p:empty {
+    display: none; }
   .bridgeEmbed__item-translation .byline {
     padding: 0.5em 2em 1em;
     margin: 0; }
-    .bridgeEmbed__item-translation .byline:before {
-      content: "—"; }
+  .bridgeEmbed__item-translation .byline:before {
+    content: "—"; }
   .bridgeEmbed__item-translation p {
     margin: 0; }
 
@@ -194,15 +186,9 @@ a {
   background-color: #ffdbcc;
   width: 80%;
   font-weight: 200;
-  padding: 1em;
+  padding: 0.6em 1em;
   margin: 1em auto;
   max-width: 580px; }
-  .bridgeEmbed__item-comment a {
-    color: rgba(28, 92, 161, 0.6);
-    text-decoration: none;
-    font-weight: 600; }
-    .bridgeEmbed__item-comment a:hover {
-      text-decoration: underline; }
 
 #bridgeEmbed__footer {
   display: block;
@@ -213,27 +199,21 @@ a {
 .bridgeEmbed__item:first-of-type .bridgeEmbed__item-embedly-card {
   display: block; }
 
-.embeds ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px; }
-.embeds ::-webkit-scrollbar-thumb {
-  background-color: #d1d6db;
-  border-radius: 5px; }
-
 body {
   margin: 0; }
 
 .description {
   position: absolute;
-  font-size: 1.4em;
+  font-size: smaller;
   background-color: white;
   padding: 0.6em 1em;
   position: absolute;
   right: 0;
   width: 100%;
-  border-bottom: 1px solid #abb5bd; }
+  border-bottom: 1px solid #d1d6db; }
+  .description p {
+    padding: 0; }
   .description.top {
-    font-size: 0.5em;
     font-weight: 700;
     color: #ff4f00; }
   .description.bottom {
@@ -241,40 +221,25 @@ body {
     bottom: 0;
     border-bottom-width: 0; }
   .description a {
-    color: #ff4f00; }
-  .description a {
-    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     padding: 0 0.4em;
     transition: 0.4s; }
-    .description a.translate:after {
-      content: "."; }
-    .description a.translate:hover:after {
-      content: "!"; }
-    .description a:hover {
-      background-color: rgba(0, 0, 0, 0.2);
-      color: white;
-      text-decoration: none; }
-
-.embeds {
-  align-items: flex-start;
-  background-color: white; }
-  .embeds .embed {
-    height: 100%;
-    padding-top: 6em;
-    overflow: scroll; }
+  .description a.translate:after {
+    content: "."; }
+  .description a.translate:hover:after {
+    content: "!"; }
 
 .bridgeEmbed__share {
   display: block;
-  width: 16px;
+  width: 17px;
   height: 16px;
   position: absolute;
-  right: 16px;
-  top: 16px;
+  right: 26px;
+  top: 19px;
   z-index: 2;
-  background: transparent url(/images/share.png) center center no-repeat;
+  background: transparent url("/images/share.png") center center no-repeat;
   background-size: cover;
-  opacity: 0.5; }
+  opacity: 0.3; }
   .bridgeEmbed__share.expanded {
     background-color: white; }
   .bridgeEmbed__share span {
@@ -298,12 +263,14 @@ ul.bridgeEmbed__share-menu {
     text-transform: uppercase;
     padding: 1em;
     display: inline-block;
-    width: 100%; }
+    width: 100%;
+    color: #404d59; }
     ul.bridgeEmbed__share-menu a:hover {
-      background: #abb5bd; }
+      background: #283743;
+      color: white; }
   ul.bridgeEmbed__share-menu textarea {
     display: block;
     margin: 5px;
     font-size: small;
-    border: 1px solid #abb5bd;
+    border: 1px solid #d1d6db;
     width: 288px; }
