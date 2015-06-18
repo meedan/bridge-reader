@@ -20,29 +20,26 @@
 
   <!-- Item Translation -->
   <div class="bridgeEmbed__item-translation">
+    <% unless entry[:translator_name].blank? %>
+    <div class="byline">
+      <span>Translated by </span>
+      <%= link_to_unless entry[:translator_url].blank?, entry[:translator_name], entry[:translator_url],
+          { target: '_blank', class: 'name' } %>
+    </div>
+    <% end %>
     <div class="translation" style="direction: <%= get_text_direction(entry) %>;"><%= parse_translation entry %></div>
-      
-      <% unless entry[:translator_name].blank? %>
-      <div class="byline">
-        <span>Translated by </span>
-        <%= link_to_unless entry[:translator_url].blank?, entry[:translator_name], entry[:translator_url],
-            { target: '_blank', class: 'name' } %>
-      </div>
-      <% end %>
-
   </div>
 
   <!-- Item Annotations -->
   <% unless entry[:comment].blank? %>
     <div class="bridgeEmbed__item-comment">
-      <%= parse_text(entry[:comment]).html_safe %>
-      
       <% unless entry[:commenter].blank? %>
-      — <span class="byline">
+      <span class="byline">
           <%= link_to_unless entry[:commenter_url].blank?, entry[:commenter], entry[:commenter_url],
               { target: '_blank' } %>
         </span>
       <% end %>
+      <%= parse_text(entry[:comment]).html_safe %>
     </div>
   <% end %>
 

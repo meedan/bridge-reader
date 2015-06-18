@@ -161,9 +161,8 @@ a {
     margin-top: 0; }
 
 .bridgeEmbed__item-translation {
-  padding: 0 1em;
-  border-left: 3px solid #ff4f00;
-  margin-left: 0; }
+  margin: 0 1em;
+  border-left: 3px solid #ff4f00; }
   .bridgeEmbed__item-translation .translation {
     font-size: smaller;
     font-weight: 500; }
@@ -174,9 +173,8 @@ a {
     display: none; }
   .bridgeEmbed__item-translation .byline {
     padding: 0.5em 2em 1em;
-    margin: 0; }
-  .bridgeEmbed__item-translation .byline:before {
-    content: "—"; }
+    margin: 0;
+    font-weight: 400; }
   .bridgeEmbed__item-translation p {
     margin: 0; }
 

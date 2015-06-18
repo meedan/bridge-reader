@@ -9,7 +9,8 @@ var bowerDir = "vendor/assets/bower_components";
 var serverConfig = {
   server: {
     baseDir: "public"
-  }
+  },
+  proxy: "localhost:1234"
 };
 
 // browser-sync task for starting the server.
