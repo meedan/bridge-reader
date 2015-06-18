@@ -10,7 +10,8 @@
     "test",
     "tests"
   ],
-  "devDependencies": {
-
+  "devDependencies": {},
+  "dependencies": {
+    "scrolltofixed": "~1.0.6"
   }
 }

@@ -34,14 +34,14 @@ h1 {
 h2 {
   padding: 0;
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   text-align: center; }
 
 h3 {
   color: #abb5bd;
   font-weight: 300;
-  font-size: 14px;
+  font-size: 12px;
   padding: 0;
   width: 100%;
   text-align: center;
@@ -131,11 +131,11 @@ a {
     opacity: 1; } }
 
 .embeds ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px; }
+  width: 3px;
+  height: 3px; }
 .embeds ::-webkit-scrollbar-thumb {
   background-color: #d1d6db;
-  border-radius: 5px; }
+  border-radius: 3px; }
 
 .embeds {
   align-items: flex-start;
@@ -153,7 +153,6 @@ a {
   overflow: hidden;
   padding: 0.3em 2em 1em;
   margin: 2em auto;
-  position: relative;
   max-width: 580px; }
   .bridgeEmbed__item > iframe {
     margin: 0 auto;
