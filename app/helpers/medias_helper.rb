@@ -14,7 +14,7 @@ module MediasHelper
   def parse_translation(translation)
     provider, text = translation[:provider], translation[:translation]
     text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
-    text = parse_text(text)
+    text = parse_text(text).encode('UTF-8', :invalid => :replace)
     text.html_safe
   end
 

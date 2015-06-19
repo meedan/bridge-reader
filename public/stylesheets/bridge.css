@@ -48,7 +48,8 @@ h3 {
   text-transform: uppercase; }
 
 a {
-  font-weight: 400; }
+  font-weight: 400;
+  color: #404d59; }
 
 @-webkit-keyframes expand-in {
   0% {
@@ -160,21 +161,24 @@ a {
   .bridgeEmbed__item:first-of-type {
     margin-top: 0; }
 
+.byline {
+  padding: 0.6em 1em 1em;
+  margin: 0;
+  font-weight: 700; }
+
 .bridgeEmbed__item-translation {
   margin: 0 1em;
   border-left: 3px solid #ff4f00; }
-  .bridgeEmbed__item-translation .translation {
-    font-size: smaller;
-    font-weight: 500; }
+  .bridgeEmbed__item-translation.rtl {
+    direction: rtl;
+    text-align: right;
+    border-left-width: 0;
+    border-right: 3px solid #ff4f00; }
   .bridgeEmbed__item-translation p {
     max-width: 580px;
     padding: 0.6em 1em; }
   .bridgeEmbed__item-translation p:empty {
     display: none; }
-  .bridgeEmbed__item-translation .byline {
-    padding: 0.5em 2em 1em;
-    margin: 0;
-    font-weight: 400; }
   .bridgeEmbed__item-translation p {
     margin: 0; }
 

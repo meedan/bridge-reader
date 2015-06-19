@@ -19,7 +19,7 @@
   </div>
 
   <!-- Item Translation -->
-  <div class="bridgeEmbed__item-translation">
+  <div class="bridgeEmbed__item-translation  <%= get_text_direction(entry) %>">
     <% unless entry[:translator_name].blank? %>
     <div class="byline">
       <span>Translated by </span>
