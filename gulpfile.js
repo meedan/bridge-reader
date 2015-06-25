@@ -7,10 +7,7 @@ var cssCompileDir = "public/stylesheets";
 var bowerDir = "vendor/assets/bower_components";
 
 var serverConfig = {
-  server: {
-    baseDir: "public"
-  },
-  proxy: "localhost:1234"
+  proxy: "localhost:3000"
 };
 
 // browser-sync task for starting the server.
