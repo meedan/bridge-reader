@@ -35,10 +35,20 @@ module Bridge
     end
 
     def screenshoter
-      options = { phantomjs: File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s), timeout: 40 }
+      path = File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s)
+      version = `#{path} --version`
+      if (version.chomp =~ /^[0-9.]+$/).nil?
+        path = `which phantomjs`
+      end
+
+      raise 'PhantomJS not found!' if version.empty?
+
+      options = { phantomjs: path.chomp, timeout: 40 }
+
       if Rails.env.test?
         options.merge! run_server: true
       end
+
       Smartshot::Screenshot.new(options)
     end
 
