@@ -37,8 +37,7 @@ public/cache
 public/screenshots
 
 # Ignore bower packages 
-vendor
-vendor/assets/bower_components/
+vendor/assets/*bower*
 
 # Ignore Node stuff
 node_modules
