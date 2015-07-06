@@ -1,6 +1,12 @@
+/// Bridge.scss
+/// This is the main stylesheet loaded by Bridge Embeds.
+/// No styles are written directly to this repository.
+/// They are all written in meedan-style or bridge-style.
 @import "meedan-style/layout";
+@import "meedan-style/colors";
 @import "bridge-style/colors";
 @import "bridge-style/typography";
+@import "bridge-style/icons";
 @import "bridge-style/animation";
 @import "bridge-style/embed";
 @import "bridge-style/share";
