@@ -1,6 +1,5 @@
 {
   "name": "bridge-embed",
-  "version": "0.0.0",
   "private": true,
   "homepage": "localhost",
   "ignore": [
@@ -11,7 +10,4 @@
     "tests"
   ],
   "devDependencies": {},
-  "dependencies": {
-    "scrolltofixed": "~1.0.6"
-  }
 }
