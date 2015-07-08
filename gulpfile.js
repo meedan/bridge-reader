@@ -6,17 +6,24 @@ var scssFiles = "app/assets/sass/**/*.scss";
 var cssCompileDir = "public/stylesheets";
 var bowerDir = "vendor/assets/bower_components";
 
+// Browsersync configuration
+// 
+// Proxy to the default rails port.
+// Warning: The rails server must be booted to this port before you can run this app.
 var serverConfig = {
   proxy: "localhost:3000"
 };
 
-// browser-sync task for starting the server.
+// A Browsersync task 
+// 
+// Starting the server.
 gulp.task('browser-sync', function () {
   browserSync(serverConfig);
 });
 
-// Sass task, will run when any SCSS files change & BrowserSync
-// will auto-update browsers
+// A Sass task
+// 
+// Run this when any SCSS files change & BrowserSync should auto-update browsers (without a full refresh).
 gulp.task('sass', function () {
   return gulp.src(scssFiles)
     .pipe(sass({
@@ -29,9 +36,10 @@ gulp.task('sass', function () {
     }));
 });
 
-// "manually" reload browsers instead of stream-injection
-// e.g. for when you edit the html
+// Another Browsersync task  
 // 
+// We "manually" do a "full refresh" of  the browser instead of stream-injection (used in the Sass task)
+// This is e.g. for when you edit the html
 // via http://www.browsersync.io/docs/gulp/
 // 
 gulp.task('bs-reload', function () {

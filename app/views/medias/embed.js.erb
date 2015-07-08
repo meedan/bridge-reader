@@ -63,7 +63,7 @@
     setTimeout(checkFrameVisibility, 100);
   };
   checkFrameVisibility();
-  
+
   if (!window.addEventListener) {
     window.attachEvent('onmessage', messageCallback);
     window.attachEvent('onscroll', resizeOrScrollCallback);
