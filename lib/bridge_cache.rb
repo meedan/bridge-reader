@@ -68,7 +68,7 @@ module Bridge
           case URI.parse(link[:url]).host
           when 'twitter.com'
             frames  = [0, 'twitter-widget-0']
-            element = ['img.Avatar:last-child']
+            element = ['.EmbeddedTweet-tweet img.Avatar:last-child']
           when 'instagram.com'
             frames  = [0]
             element = ['img.art-bd-img']
