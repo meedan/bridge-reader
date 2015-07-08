@@ -41,15 +41,19 @@ module Bridge
       @worksheet ||= get_spreadsheet.worksheet_by_title(get_title(title))
     end
 
+    def get_url(row)
+      # FIXME: Link column index is hard-coded here
+      get_worksheet[row, 2].gsub(' ', '')
+    end
+
     def get_urls
       unless @urls
         worksheet = get_worksheet
         urls = []
         # FIXME: Assuming that the first row is the header
         for row in 2..worksheet.num_rows
-          # FIXME: Link column index is hard-coded here
           Retryable.retryable tries: 5 do
-            urls << worksheet[row, 2]
+            urls << self.get_url(row)
           end
         end
         @urls = urls
@@ -63,7 +67,7 @@ module Bridge
         @entries = []
         for row in 2..worksheet.num_rows
           Retryable.retryable tries: 5 do
-            @entries << row_to_hash(row) if link.nil? || link == Digest::SHA1.hexdigest(worksheet[row, 2])
+            @entries << row_to_hash(row) if link.nil? || link == Digest::SHA1.hexdigest(self.get_url(row))
           end
         end
       end
@@ -130,7 +134,7 @@ module Bridge
       worksheet = get_worksheet
       {
         source_text: worksheet[row, 1],
-        link: worksheet[row, 2],
+        link: self.get_url(row),
         translation: worksheet[row, 3],
         comment: worksheet[row, 4],
         translator_name: worksheet[row, 5],
