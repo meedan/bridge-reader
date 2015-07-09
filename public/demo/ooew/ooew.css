@@ -1,0 +1,14 @@
+/* Use the OOEW red border */
+.bridgeEmbed__item-translation {
+  border-color: #960808 !important;
+}
+
+/* no color on the translation annotation */
+.bridgeEmbed__item-comment {
+  background-color: transparent;
+}
+
+/*Disable the share button */
+.bridgeEmbed__share {
+  display: none;
+}
