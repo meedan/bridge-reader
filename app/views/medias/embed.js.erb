@@ -23,17 +23,19 @@
   document.write(frame);
 
   var messageCallback = function(e) {
-    var data   = e.data.split(';'),
-        type   = data[0];
+    if (e && e.data && typeof e.data === 'string') {
+      var data   = e.data.split(';'),
+          type   = data[0];
 
-    switch (type) {
-      // Height changed
-      case 'setHeight':
-        var title = data[1],
-            height = data[2],
-            iframe = document.getElementById('bridge-embed-iframe-' + title);
-        if (iframe != undefined) iframe.style.height = height + 'px';
-        break;
+      switch (type) {
+        // Height changed
+        case 'setHeight':
+          var title = data[1],
+              height = data[2],
+              iframe = document.getElementById('bridge-embed-iframe-' + title);
+          if (iframe != undefined) iframe.style.height = height + 'px';
+          break;
+      }
     }
   };
 
