@@ -2,9 +2,6 @@
   box-sizing: border-box; }
 
 body {
-  min-width: 320px; }
-
-body {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   color: #283743;
@@ -242,12 +239,13 @@ body {
 .bridgeEmbed__item {
   position: relative;
   overflow: hidden;
-  padding: 0.3em 2em 0em;
+  padding: 0.3em 0 0em;
   margin: 2em auto 0;
-  max-width: 580px; }
+  max-width: 600px;
+  min-width: 200px; }
   .bridgeEmbed__item > iframe {
     margin: 0 auto;
-    max-width: 580px !important; }
+    max-width: 600px !important; }
   .bridgeEmbed__item:first-of-type {
     margin-top: 0; }
 
@@ -265,7 +263,7 @@ body {
     direction: rtl;
     text-align: right; }
   .bridgeEmbed__item-translation p {
-    max-width: 580px;
+    max-width: 600px;
     padding: 0.6em 1em;
     margin: 0; }
   .bridgeEmbed__item-translation p:empty {
@@ -279,7 +277,7 @@ body {
   font-weight: 200;
   padding: 0.2em 1em;
   margin: 0 16px;
-  max-width: 580px; }
+  max-width: 600px; }
 
 #bridgeEmbed__footer {
   display: block;
