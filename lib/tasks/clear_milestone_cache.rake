@@ -1,6 +1,7 @@
 namespace :bridgembed do
   task :clear_milestone_cache do
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'milestone')
   end
 
   task :clear_screenshot_cache do

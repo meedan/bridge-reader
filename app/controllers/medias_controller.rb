@@ -61,7 +61,7 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_html
-    @cachepath = cache_path(@type, @id)
+    @cachepath = legacy_cache_path(@id) || cache_path(@type, @id)
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
@@ -69,6 +69,8 @@ class MediasController < ApplicationController
       generate_cache(@object, @type, @id, @site)
       @cache = false
     end
+
+    logger.info "Rendering cache file #{@cachepath}"
 
     render text: File.read(@cachepath)
   end

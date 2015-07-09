@@ -12,6 +12,12 @@ module Bridge
       File.join(cache_dir, type, "#{id}.html")
     end
 
+    # The old cache path until Bridgembed 0.5
+    # Deprecated - please remove it later
+    def legacy_cache_path(id)
+      Dir.glob(File.join(cache_dir, "#{id}_*")).first
+    end
+
     def generate_cache(object, type, id, site = nil)
       FileUtils.mkdir(cache_dir) unless File.exists?(cache_dir)
       FileUtils.mkdir(File.join(cache_dir, type)) unless File.exists?(File.join(cache_dir, type))
