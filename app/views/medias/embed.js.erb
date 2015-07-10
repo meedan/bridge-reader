@@ -5,23 +5,37 @@
 (function() {
   'use strict';
 
-  var frame = '<iframe src="<%= @url %>" width="100%" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @milestone %>" seamless>' +
+  var scripts = document.getElementsByTagName('SCRIPT'),
+      url = '<%= @url %>';
+
+  for (var i = 0; i < scripts.length; i++) {
+    if (scripts[i].getAttribute('src') == '<%= @caller %>') {
+      var css = scripts[i].getAttribute('data-custom-css');
+      if (css) {
+        url += '#css=' + css;
+      }
+    }
+  }
+
+  var frame = '<iframe src="' + url + '" width="100%" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @id %>" seamless>' +
               'Your browser does not support iframes' +
               '</iframe>';
   document.write(frame);
 
   var messageCallback = function(e) {
-    var data   = e.data.split(';'),
-        type   = data[0];
+    if (e && e.data && typeof e.data === 'string') {
+      var data   = e.data.split(';'),
+          type   = data[0];
 
-    switch (type) {
-      // Height changed
-      case 'setHeight':
-        var title = data[1],
-            height = data[2],
-            iframe = document.getElementById('bridge-embed-iframe-' + title);
-        if (iframe != undefined) iframe.style.height = height + 'px';
-        break;
+      switch (type) {
+        // Height changed
+        case 'setHeight':
+          var title = data[1],
+              height = data[2],
+              iframe = document.getElementById('bridge-embed-iframe-' + title);
+          if (iframe != undefined) iframe.style.height = height + 'px';
+          break;
+      }
     }
   };
 
@@ -30,7 +44,7 @@
   };
 
   var resizeOrScrollCallback = function(e) {
-    var frame = document.getElementById('bridge-embed-iframe-<%= @milestone %>'),
+    var frame = document.getElementById('bridge-embed-iframe-<%= @id %>'),
         f = frame.getBoundingClientRect(),
         h = window.innerHeight || document.documentElement.clientHeight,
         w = window.innerWidth || document.documentElement.clientWidth;
@@ -40,7 +54,7 @@
   // If the embed is not visible, watch for its visiblity
   var frameVisible = false;
   var checkFrameVisibility = function() {
-    var frame = document.getElementById('bridge-embed-iframe-<%= @milestone %>');
+    var frame = document.getElementById('bridge-embed-iframe-<%= @id %>');
     if (frame) {
       var visible = isVisible(frame);
       if (visible != frameVisible) {
@@ -51,7 +65,7 @@
     setTimeout(checkFrameVisibility, 100);
   };
   checkFrameVisibility();
-  
+
   if (!window.addEventListener) {
     window.attachEvent('onmessage', messageCallback);
     window.attachEvent('onscroll', resizeOrScrollCallback);

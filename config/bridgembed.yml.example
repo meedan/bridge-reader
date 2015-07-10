@@ -1,12 +1,18 @@
 development:
   google_spreadsheet_id: 
-  google_email: 
-  google_password: 
   embedly_key: 
   cache_embeds: true
+  twitter_handle: '@handle'
   twitter_consumer_key: 
   twitter_consumer_secret: 
   twitter_access_token: 
   twitter_access_token_secret: 
   watchbot_url: 
   watchbot_token: 
+  secret_token: mysecrettoken
+  bridgembed_host:
+  bridgembed_host_private:
+  bitly_key:
+  google_issuer:
+  google_pkcs12_path:
+  google_pkcs12_secret:

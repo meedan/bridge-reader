@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1528px" height="932px" viewBox="0 0 1528 932" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>how to design with the rails codebase</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="how-to-design-with-the-rails-codebase" sketch:type="MSArtboardGroup">
+            <path d="M182.5,418.5 L182.5,393.480008" id="Line" stroke="#D1D6DB" stroke-width="5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+            <path id="Line-decoration-1" d="M185.5,404.280008 L182.5,393.480008 L179.5,404.280008" stroke="#D1D6DB" stroke-width="5" stroke-linecap="square"></path>
+            <path d="M612.5,418.5 L612.5,393.480008" id="Line-Copy-6" stroke="#D1D6DB" stroke-width="5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+            <path id="Line-Copy-6-decoration-1" d="M615.5,404.280008 L612.5,393.480008 L609.5,404.280008" stroke="#D1D6DB" stroke-width="5" stroke-linecap="square"></path>
+            <path d="M1362.5,411.5 L1362.5,386.480008" id="Line-Copy-10" stroke="#D1D6DB" stroke-width="5" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+            <path id="Line-Copy-10-decoration-1" d="M1365.5,397.280008 L1362.5,386.480008 L1359.5,397.280008" stroke="#D1D6DB" stroke-width="5" stroke-linecap="square"></path>
+            <g id="Group-Copy" sketch:type="MSLayerGroup" transform="translate(-242.250000, 79.000000)">
+                <g id="Rectangle-1-Copy-+-Rails--+-Rails--Copy" transform="translate(346.000000, 91.750000)">
+                    <rect id="Rectangle-1-Copy" fill="#ABB5BD" sketch:type="MSShapeGroup" x="0" y="0" width="208" height="208" rx="8"></rect>
+                    <text id="Rails-" sketch:type="MSTextLayer" font-family="Akkurat" font-size="13" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="16" y="45.12">Rails </tspan>
+                        <tspan x="16" y="58.12">localhost:3000</tspan>
+                        <tspan x="16" y="71.12">/path/to/trigger/render</tspan>
+                    </text>
+                    <rect id="Rectangle-4" fill="#D1D6DB" sketch:type="MSShapeGroup" x="52" y="13" width="117" height="8"></rect>
+                    <circle id="Oval-3-Copy-3" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="15" cy="18" r="4"></circle>
+                    <circle id="Oval-3-Copy" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="25" cy="18" r="4"></circle>
+                    <circle id="Oval-3-Copy-2" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="35" cy="18" r="4"></circle>
+                </g>
+                <g id="Rectangle-1-Copy-+-Rails--+-Rails--Copy-Copy" transform="translate(773.500000, 91.750000)">
+                    <rect id="Rectangle-1-Copy" fill="#ABB5BD" sketch:type="MSShapeGroup" x="0" y="0" width="208" height="208" rx="8"></rect>
+                    <text id="Rails-" sketch:type="MSTextLayer" font-family="Akkurat" font-size="13" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="16" y="45.12">Browser Sync</tspan>
+                        <tspan x="16" y="58.12">http://192.168.50.189:3000</tspan>
+                    </text>
+                    <rect id="Rectangle-4" fill="#D1D6DB" sketch:type="MSShapeGroup" x="52" y="13" width="117" height="8"></rect>
+                    <circle id="Oval-3-Copy-3" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="15" cy="18" r="4"></circle>
+                    <circle id="Oval-3-Copy" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="25" cy="18" r="4"></circle>
+                    <circle id="Oval-3-Copy-2" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="35" cy="18" r="4"></circle>
+                </g>
+                <g id="Rectangle-1-Copy-+-Rails--+-Rails--Copy-Copy-Copy" transform="translate(1511.500000, 83.750000)">
+                    <rect id="Rectangle-1-Copy" fill="#ABB5BD" sketch:type="MSShapeGroup" x="0" y="0" width="208" height="208" rx="8"></rect>
+                    <text id="Rails-" sketch:type="MSTextLayer" font-family="Akkurat" font-size="13" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="16" y="45.12">Ngrok.io/2345</tspan>
+                    </text>
+                    <rect id="Rectangle-4" fill="#D1D6DB" sketch:type="MSShapeGroup" x="52" y="13" width="117" height="8"></rect>
+                    <circle id="Oval-3-Copy-3" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="15" cy="18" r="4"></circle>
+                    <circle id="Oval-3-Copy" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="25" cy="18" r="4"></circle>
+                    <circle id="Oval-3-Copy-2" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="35" cy="18" r="4"></circle>
+                </g>
+                <text id="View-this-when-you-a" sketch:type="MSTextLayer" font-family="Akkurat-Bold" font-size="12" font-weight="bold">
+                    <tspan x="787" y="184" fill="#3A3A3A">View this when you are working </tspan>
+                    <tspan x="787" y="196" fill="#3A3A3A">with the stylesheet.</tspan>
+                    <tspan x="787" y="208" font-family="Akkurat" font-weight="normal" fill="#4A4A4A"></tspan>
+                    <tspan x="787" y="220" font-family="Akkurat" font-weight="normal" fill="#4A4A4A">ENABLE THE CACHE </tspan>
+                    <tspan x="902.44" y="220" font-family="Akkurat" font-weight="normal" fill="#3A3A3A">for the </tspan>
+                    <tspan x="787" y="232" font-family="Akkurat" font-weight="normal" fill="#3A3A3A">template. This allows you to </tspan>
+                    <tspan x="787" y="244" font-family="Akkurat" font-weight="normal" fill="#3A3A3A">work on the Sass without </tspan>
+                    <tspan x="787" y="256" font-family="Akkurat" font-weight="normal" fill="#3A3A3A">regenerating the HTML each </tspan>
+                    <tspan x="787" y="268" font-family="Akkurat" font-weight="normal" fill="#3A3A3A">time.</tspan>
+                    <tspan x="787" y="280" font-family="Akkurat" font-weight="normal" fill="#3A3A3A"></tspan>
+                </text>
+                <text id="View-this-port-when-" sketch:type="MSTextLayer" font-family="Akkurat-Bold" font-size="12" font-weight="bold">
+                    <tspan x="365" y="186" fill="#3A3A3A">View this port when </tspan>
+                    <tspan x="365" y="198" fill="#3A3A3A">regenerating HTML templates. </tspan>
+                    <tspan x="365" y="210" font-family="Akkurat" font-weight="normal" fill="#3A3A3A"></tspan>
+                    <tspan x="365" y="222" font-family="Akkurat" font-weight="normal" fill="#4A4A4A">DISABLE THE CACHE </tspan>
+                    <tspan x="483.368" y="222" font-family="Akkurat" font-weight="normal" fill="#3A3A3A">to </tspan>
+                    <tspan x="365" y="234" font-family="Akkurat" font-weight="normal" fill="#3A3A3A">regenerate HTML templates</tspan>
+                    <tspan x="365" y="246" font-family="Akkurat" font-weight="normal" fill="#3A3A3A"></tspan>
+                    <tspan x="365" y="258" font-family="Akkurat" font-weight="normal" fill="#3A3A3A">Use the default port: 3000</tspan>
+                </text>
+                <path d="M427.5,536.126 L689.5,536.126 L689.5,482" id="Line-Copy" stroke="#979797" stroke-width="3" stroke-linecap="square" sketch:type="MSShapeGroup" transform="translate(558.500000, 509.063000) scale(-1, 1) translate(-558.500000, -509.063000) "></path>
+                <path id="Line-Copy-decoration-1" d="M689.5,482 L686.5,492.8 L692.5,492.8 L689.5,482 Z" stroke="#979797" stroke-width="3" stroke-linecap="square"></path>
+                <path d="M682.999966,610.126 L862.999966,610.126 L862.999966,490.126" id="Line-Copy-2" stroke="#979797" stroke-width="3" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path id="Line-Copy-2-decoration-1" d="M862.999966,490.126 L859.999966,500.926 L865.999966,500.926 L862.999966,490.126 Z" stroke="#979797" stroke-width="3" stroke-linecap="square"></path>
+                <path d="M682.999966,684.063 L1246.5,684.063 L1246.5,490.126" id="Line-Copy-5" stroke="#979797" stroke-width="3" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path id="Line-Copy-5-decoration-1" d="M1246.5,490.126 L1243.5,500.926 L1249.5,500.926 L1246.5,490.126 Z" stroke="#979797" stroke-width="3" stroke-linecap="square"></path>
+                <path d="M682.999966,754.063 L1601.24997,754.063 L1601.25,471.000004" id="Line-Copy-7" stroke="#979797" stroke-width="3" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path id="Line-Copy-7-decoration-1" d="M1601.25,471.000004 L1598.25,481.800004 L1604.25,481.800005 L1601.25,471.000004 Z" stroke="#979797" stroke-width="3" stroke-linecap="square"></path>
+                <ellipse id="Oval-3" fill="#ABB5BD" sketch:type="MSShapeGroup" cx="371" cy="138.75" rx="4" ry="4"></ellipse>
+                <g id="Rectangle-7-+-Type-something" transform="translate(303.000000, 337.250000)">
+                    <rect id="Rectangle-7" fill="#4A4A4A" sketch:type="MSShapeGroup" x="0" y="0" width="236" height="130" rx="1"></rect>
+                    <text id="Type-something" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal" fill="#FF4F00">
+                        <tspan x="10.5" y="27">$ bundle exec rails s</tspan>
+                        <tspan x="10.5" y="43"></tspan>
+                        <tspan x="10.5" y="59">   ... starting rails</tspan>
+                    </text>
+                    <rect id="Rectangle-7-Copy" fill="#4A4A4A" sketch:type="MSShapeGroup" x="0" y="0" width="236" height="130" rx="1"></rect>
+                    <text id="Type-something-Copy" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal">
+                        <tspan x="10.5" y="27" fill="#FF4F00">$ rails</tspan>
+                        <tspan x="10.5" y="43" fill="#FF4F00"></tspan>
+                        <tspan x="10.5" y="59" fill="#B8E986">   ... starting rails</tspan>
+                    </text>
+                </g>
+                <g id="Rectangle-7-+-Type-something-Copy" transform="translate(773.500000, 337.250000)">
+                    <rect id="Rectangle-7" fill="#4A4A4A" sketch:type="MSShapeGroup" x="0" y="0" width="236" height="130" rx="1"></rect>
+                    <text id="Type-something" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal">
+                        <tspan x="10.5" y="27" fill="#FF4F00">$ gulp</tspan>
+                        <tspan x="10.5" y="43" fill="#FF4F00"></tspan>
+                        <tspan x="10.5" y="59" fill="#B8E986">   ... starting gulp</tspan>
+                    </text>
+                    <rect id="Rectangle-7-Copy" fill="#4A4A4A" sketch:type="MSShapeGroup" x="0" y="0" width="236" height="130" rx="1"></rect>
+                    <text id="Type-something-Copy" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal">
+                        <tspan x="10.5" y="27" fill="#FF4F00">$ gulp</tspan>
+                        <tspan x="10.5" y="43" fill="#FF4F00"></tspan>
+                        <tspan x="10.5" y="59" fill="#B8E986">   ... starting gulp</tspan>
+                    </text>
+                </g>
+                <text id="Run-the-Rails-API" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="501.5" y="528">Run the Rails API</tspan>
+                </text>
+                <text id="Run-the-Sass-build" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="708" y="602">Run the Sass build</tspan>
+                </text>
+                <text id="Load-it-on-your-phon" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="708" y="669">Load it on your phone</tspan>
+                </text>
+                <text id="BONUS-—-Share-off-ne" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="708" y="737">BONUS — Share off-network with Ngrok</tspan>
+                </text>
+                <path d="M757.25,208.155132 L590.405132,208.155132" id="Line" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path id="Line-decoration-1" d="M746.45,205.155132 L757.25,208.155132 L746.45,211.155132" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square"></path>
+                <path id="Line-decoration-2" d="M601.205132,205.155132 L590.405132,208.155132 L601.205132,211.155132" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square"></path>
+                <path d="M1495.25,207 L997.185747,207" id="Line-Copy-9" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path id="Line-Copy-9-decoration-1" d="M1484.45,204 L1495.25,207 L1484.45,210" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square"></path>
+                <path id="Line-Copy-9-decoration-2" d="M1007.98575,204 L997.185747,207 L1007.98575,210" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square"></path>
+                <path d="M995.25,278 L1093.75,333.5 C1126.58333,352 1192.25,389 1192.25,389" id="Line-Copy-3" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path id="Line-Copy-3-decoration-1" d="M1003.18651,285.915286 L995.25,278 L1006.13186,280.68796" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square"></path>
+                <path d="M1601.24999,74 L1601.25,0 L1347.25,0" id="Line-Copy-8" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square" sketch:type="MSShapeGroup"></path>
+                <path id="Line-Copy-8-decoration-1" d="M1604.24999,63.2000003 L1601.24999,74 L1598.24999,63.1999997" stroke="#D1D6DB" stroke-width="4" stroke-linecap="square"></path>
+                <text id="proxied" sketch:type="MSTextLayer" font-family="Akkurat-Bold" font-size="16" font-weight="bold" fill="#D1D6DB">
+                    <tspan x="694" y="193">proxied</tspan>
+                </text>
+            </g>
+            <g id="number" sketch:type="MSLayerGroup" transform="translate(403.000000, 590.000000)">
+                <g id="Oval-11-+-1" transform="translate(1.000000, 0.000000)">
+                    <circle id="Oval-11" fill="#4A4A4A" sketch:type="MSShapeGroup" cx="24.5" cy="24.5" r="24.5"></circle>
+                    <text id="1" sketch:type="MSTextLayer" font-family="Akkurat-Bold" font-size="36" font-weight="bold" fill="#D1D6DB">
+                        <tspan x="14" y="37">1</tspan>
+                    </text>
+                </g>
+                <g id="Oval-11-+-1-Copy" transform="translate(0.000000, 73.000000)">
+                    <circle id="Oval-11" fill="#4A4A4A" sketch:type="MSShapeGroup" cx="24.5" cy="24.5" r="24.5"></circle>
+                    <text id="2" sketch:type="MSTextLayer" font-family="Akkurat-Bold" font-size="36" font-weight="bold" fill="#D1D6DB">
+                        <tspan x="14" y="37">2</tspan>
+                    </text>
+                </g>
+                <g id="Oval-11-+-1-Copy-2" transform="translate(0.000000, 146.000000)">
+                    <circle id="Oval-11" fill="#4A4A4A" sketch:type="MSShapeGroup" cx="24.5" cy="24.5" r="24.5"></circle>
+                    <text id="3" sketch:type="MSTextLayer" font-family="Akkurat-Bold" font-size="36" font-weight="bold" fill="#D1D6DB">
+                        <tspan x="14" y="37">3</tspan>
+                    </text>
+                </g>
+                <g id="Oval-11-+-1-Copy-3" transform="translate(0.000000, 216.000000)">
+                    <circle id="Oval-11" fill="#4A4A4A" sketch:type="MSShapeGroup" cx="24.5" cy="24.5" r="24.5"></circle>
+                    <text id="4" sketch:type="MSTextLayer" font-family="Akkurat-Bold" font-size="36" font-weight="bold" fill="#D1D6DB">
+                        <tspan x="14" y="37">4</tspan>
+                    </text>
+                </g>
+            </g>
+            <text id="Now-you-can-view-the" sketch:type="MSTextLayer" font-family="Akkurat" font-size="12" font-weight="normal" fill="#4A4A4A">
+                <tspan x="1025.125" y="664.14">Now you can view the external IP </tspan>
+                <tspan x="1025.125" y="676.14">generated by browserSync</tspan>
+                <tspan x="1025.125" y="688.14"></tspan>
+                <tspan x="1025.125" y="700.14">http://192.168.50.189:3000</tspan>
+                <tspan x="1025.125" y="712.14"></tspan>
+                <tspan x="1025.125" y="724.14">* the URL might start with 10.x but </tspan>
+                <tspan x="1025.125" y="736.14">the point is that it does not start with </tspan>
+                <tspan x="1025.125" y="748.14">localhost.</tspan>
+                <tspan x="1025.125" y="760.14"></tspan>
+                <tspan x="1025.125" y="772.14">**make sure the phone is on the same </tspan>
+                <tspan x="1025.125" y="784.14">wifi network</tspan>
+            </text>
+            <rect id="Rectangle-7-Copy-2" fill="#4A4A4A" sketch:type="MSShapeGroup" x="1269.125" y="417" width="212" height="130" rx="1"></rect>
+            <text id="Type-something-Copy-2" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal">
+                <tspan x="1290.5" y="441" fill="#FF4F00">$ ngrok -h 3000</tspan>
+                <tspan x="1290.5" y="457" fill="#FF4F00"></tspan>
+                <tspan x="1290.5" y="473" fill="#B8E986">   ... starting ngrok</tspan>
+            </text>
+            <g id="phone" sketch:type="MSLayerGroup" transform="translate(968.000000, 412.000000)">
+                <rect id="Rectangle-1-Copy-2" fill="#4A4A4A" sketch:type="MSShapeGroup" x="0" y="0" width="73" height="140" rx="8"></rect>
+                <ellipse id="Oval-3-Copy-4" opacity="0.3" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="36" cy="129.5" rx="6" ry="6.5"></ellipse>
+            </g>
+            <g id="phone-copy" sketch:type="MSLayerGroup" transform="translate(1035.000000, 30.000000)">
+                <rect id="Rectangle-1-Copy-2" fill="#4A4A4A" sketch:type="MSShapeGroup" x="0" y="0" width="73" height="140" rx="8"></rect>
+                <ellipse id="Oval-3-Copy-4" opacity="0.3" fill="#D1D6DB" sketch:type="MSShapeGroup" cx="37" cy="126.5" rx="6" ry="6.5"></ellipse>
+            </g>
+            <text id="To-do-this-part-you-" sketch:type="MSTextLayer" font-family="Akkurat" font-size="11" font-weight="normal" fill="#4A4A4A">
+                <tspan x="642" y="570">To do this part you need </tspan>
+                <tspan x="642" y="581">dependencies defined in:</tspan>
+                <tspan x="642" y="592"></tspan>
+                <tspan x="642" y="603">- package.json</tspan>
+                <tspan x="642" y="614">- bower.json</tspan>
+                <tspan x="642" y="625"></tspan>
+                <tspan x="642" y="636">See setup instructions in the </tspan>
+                <tspan x="642" y="647">README file.</tspan>
+            </text>
+            <text id="To-do-this-part-you-" sketch:type="MSTextLayer" font-family="Akkurat" font-size="11" font-weight="normal" fill="#4A4A4A">
+                <tspan x="66" y="570">To do this part you </tspan>
+                <tspan x="66" y="581">need dependencies </tspan>
+                <tspan x="66" y="592">defined in:</tspan>
+                <tspan x="66" y="603"></tspan>
+                <tspan x="66" y="614">- Gemfile</tspan>
+                <tspan x="66" y="625"></tspan>
+                <tspan x="66" y="636">Check the README </tspan>
+                <tspan x="66" y="647">for how to install the </tspan>
+                <tspan x="66" y="658">Rails app.</tspan>
+            </text>
+            <text id="FOCUS-HERE" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal" fill="#FF4F00">
+                <tspan x="1056" y="461"></tspan>
+                <tspan x="1056" y="477">Load the</tspan>
+                <tspan x="1056" y="493">IP address</tspan>
+                <tspan x="1056" y="509">on your phone.</tspan>
+            </text>
+            <text id="Others-can-" sketch:type="MSTextLayer" font-family="Akkurat" font-size="16" font-weight="normal" fill="#FF4F00">
+                <tspan x="1131" y="108">Others can </tspan>
+                <tspan x="1131" y="124">load the ngrok</tspan>
+                <tspan x="1131" y="140">address remotely</tspan>
+            </text>
+            <path d="M1145,199 L1145,187 L1144.82185,187 C1144.93948,186.016409 1145,185.015272 1145,184 C1145,170.192881 1133.80712,159 1120,159 C1116.26264,159 1112.71682,159.820098 1109.53269,161.290155 L1109.53269,161.290155 C1105.181,153.933513 1097.16664,149 1088,149 C1077.88558,149 1069.17404,155.006452 1065.23773,163.647 C1059.03693,155.362036 1049.14465,150 1038,150 C1019.22232,150 1004,165.222319 1004,184 C1004,185.010911 1004.04412,186.011518 1004.13054,187 L1004.13054,187 L1004,187 L1004,199 L1004,194 L1145,194 L1145,199 Z" id="Oval-17" fill="#ABB5BD" sketch:type="MSShapeGroup"></path>
+            <path d="M1494,382.154255 L1494,361.920213 L1493.69961,361.920213 C1493.89795,360.261711 1494,358.573624 1494,356.861702 C1494,333.58055 1475.1269,314.707447 1451.84574,314.707447 C1445.54392,314.707447 1439.56507,316.090272 1434.19608,318.569038 L1434.19608,318.569038 C1426.85839,306.164488 1413.34482,297.845745 1397.8883,297.845745 C1380.83366,297.845745 1366.14452,307.973645 1359.50724,322.54308 C1349.05163,308.57322 1332.37156,299.531915 1313.57979,299.531915 C1281.91742,299.531915 1256.25,325.199335 1256.25,356.861702 C1256.25,358.566271 1256.32439,360.253464 1256.47011,361.920213 L1256.47011,361.920213 L1256.25,361.920213 L1256.25,382.154255 L1256.25,373.723404 L1494,373.723404 L1494,382.154255 Z" id="Oval-17-Copy-3" fill="#D1D6DB" sketch:type="MSShapeGroup"></path>
+            <text id="Bridge-Embed-" sketch:type="MSTextLayer" font-family="Akkurat-Bold" font-size="14" font-weight="bold" fill="#606060">
+                <tspan x="19" y="32">Bridge Embed </tspan>
+                <tspan x="19" y="46" font-family="Akkurat" font-weight="normal">Rails with Gulp hybrid setup for live-reloading mobile-based design</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

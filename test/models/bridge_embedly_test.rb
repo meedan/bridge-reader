@@ -80,16 +80,16 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   test "should generate cache key" do
     url = 'https://twitter.com/caiosba/status/290093908564779009'
     entry = { link: url }
-    key = @b.cache_key(entry)
+    key = @b.bridge_cache_key(entry)
     assert_kind_of String, key
-    assert_equal key, @b.cache_key(entry)
+    assert_equal key, @b.bridge_cache_key(entry)
   end
 
   test "should cache entries" do
-    Rails.cache.expects(:delete_matched).once
+    Rails.cache.expects(:delete_matched).at_least_once
     url = 'https://twitter.com/caiosba/status/290093908564779009'
     entry = { link: url }
-    key = @b.cache_key(entry)
+    key = @b.bridge_cache_key(entry)
     assert !Rails.cache.exist?(key)
     output = @b.parse_entry(entry)
     assert Rails.cache.exist?(key)
@@ -103,15 +103,30 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   end
 
   test "should not notify watchbot if configuration option is not set" do
-    Bridge::Embedly.any_instance.expects(:request_watchbot).never
+    Bridge::Watchbot.any_instance.expects(:request).never
     Rails.logger.expects(:info).with('Not sending to WatchBot because its URL is not set on the configuration file')
     stub_config('watchbot_url', nil)
-    @b.send_to_watchbot({})
+    @b.send_to_watchbot({ link: 'http://twitter.com/caiosba/123456' })
   end
 
   test "should send link to watchbot" do
     Rails.logger.expects(:info).with('Sent to the WatchBot')
     @b.send_to_watchbot({ link: 'https://twitter.com/caiosba/123456', source: 'milestone' })
     WebMock.assert_requested :post, BRIDGE_CONFIG['watchbot_url'], body: 'url=https%3A%2F%2Ftwitter.com%2Fcaiosba%2F123456%23milestone'
+  end
+
+  test "should remove screenshot of embed" do
+    dir = File.join(Rails.root, 'public', 'screenshots', 'link')
+    FileUtils.mkdir_p(dir) unless File.exists?(dir)
+    path = File.join(dir, '183773d82423893d9409faf05941bdbd63eb0b5c.png')
+    FileUtils.touch(path)
+    assert File.exists?(path)
+    @b.remove_embed_screenshot({ link: 'https://twitter.com/caiosba/status/548252845238398976' })
+    assert !File.exists?(path)
+  end
+
+  test "should alter Twitter response by adding ID" do
+    embed = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/290093908564779009' }]).first[:oembed]
+    assert_equal '290093908564779009', embed['twitter_id']
   end
 end
