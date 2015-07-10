@@ -1,8 +1,13 @@
 require 'embedly'
 require 'json'
+require 'bridge_cache'
+require 'bridge_watchbot'
+require 'twitter'
 
 module Bridge
   class Embedly
+    include Bridge::Cache
+
     def initialize(key)
       connect_to_api(key)
     end
@@ -29,21 +34,22 @@ module Bridge
       oembed
     end
 
-    def cache_key(entry)
-      hash = Digest::SHA1.hexdigest(entry.except(:source).to_s)
-      entry[:link] + ':' + hash
-    end
-
     def parse_entry(entry)
-      Rails.cache.fetch(cache_key(entry)) do
+      Rails.cache.fetch(bridge_cache_key(entry)) do
         link = entry[:link]
         Rails.cache.delete_matched(/^#{link}:/)
+        remove_embed_screenshot(entry)
         oembed = call_oembed(link)
         entry[:provider] = provider = oembed.provider_name.to_s.underscore
         entry[:oembed] = self.alter_oembed(oembed, provider)
         entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
-        entry
+        entry.except(:source)
       end
+    end
+
+    def remove_embed_screenshot(entry)
+      id = Digest::SHA1.hexdigest(entry[:link])
+      remove_screenshot('link', id)
     end
 
     def parse_entries(entries = [])
@@ -57,25 +63,8 @@ module Bridge
       @entries
     end
 
-    def request_watchbot(uri, url)
-      request = Net::HTTP::Post.new(uri.path)
-      request.set_form_data({ url: url })
-      request['Authorization'] = 'Token token=' + BRIDGE_CONFIG['watchbot_token'].to_s
-      response = Net::HTTP.start(uri.hostname, uri.port) do |http|
-        http.request(request)
-      end
-      response
-    end
-
     def send_to_watchbot(entry)
-      if BRIDGE_CONFIG['watchbot_url'].blank?
-        Rails.logger.info 'Not sending to WatchBot because its URL is not set on the configuration file'
-      else
-        uri = URI.parse(BRIDGE_CONFIG['watchbot_url'])
-        url = entry[:link] + '#' + entry[:source].to_s
-        request_watchbot(uri, url)
-        Rails.logger.info 'Sent to the WatchBot'
-      end
+      Bridge::Watchbot.new.send(entry[:link] + '#' + entry[:source].to_s)
     end
 
     def notify_available(entry)
@@ -97,14 +86,15 @@ module Bridge
     # Methods to alter responses for some providers
 
     def alter_twitter_oembed(oembed)
-      require 'twitter'
       id = oembed[:link].match(/status\/([0-9]+)/)
       unless id.nil?
+        oembed['twitter_id'] = id[1]
         Retryable.retryable tries: 5, sleep: 3 do
           begin
             client = connect_to_twitter
             tweet = client.status(id[1])
-            oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
+            geo = tweet.geo
+            oembed['coordinates'] = [geo.latitude, geo.longitude] if tweet.geo?
             oembed['created_at'] = tweet.created_at
           rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
             oembed['unavailable'] = true

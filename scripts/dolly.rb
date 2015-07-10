@@ -6,10 +6,7 @@ require 'bridge_embedly'
 f = File.open('/tmp/dolly.csv', 'w+')
 f.puts 'Milestone,Date,Latitude,Longitude'
 %w(1696 1785 1839 1920 2016 2115 2137 2217 2276).each do |nid|
-  worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_email'],
-                                            BRIDGE_CONFIG['google_password'],
-                                            BRIDGE_CONFIG['google_spreadsheet_id'],
-                                            nid)
+  worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'], nid)
   embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
   entries = embedly.parse_entries(worksheet.get_entries)
   entries.each do |entry|

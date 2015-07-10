@@ -20,4 +20,42 @@ class MediasHelperTest < ActionView::TestCase
     translation = { translation: 'Check @meedan, is #amazing!', provider: 'other' }
     assert_equal '<p>Check @meedan, is #amazing!</p>', parse_translation(translation)
   end
+
+  test "should parse markdown" do
+    translation = { translation: 'Markdown is *really* **cool**!' }
+    assert_equal '<p>Markdown is <em>really</em> <strong>cool</strong>!</p>', parse_translation(translation)
+  end
+
+  test "should parse links in markdown" do
+    text = 'Visit [Meedan](http://meedan.com) website!'
+    assert_equal '<p>Visit <a href="http://meedan.com" target="_blank">Meedan</a> website!</p>', parse_text(text)
+  end
+
+  test "should not parse hashtags as Markdown title" do
+    translation = { translation: '#hashtag1 This should not be a header #hashtag2', provider: 'twitter' }
+    assert_equal '<p><a href="https://twitter.com/hashtag/hashtag1" target="_blank">#hashtag1</a> This should not be a header <a href="https://twitter.com/hashtag/hashtag2" target="_blank">#hashtag2</a></p>', parse_translation(translation)
+  end
+
+  test "should shorten URL return long" do
+    short = short_url_for('link', 'jksdahdiu6786378ygdsuyt387e673eywgdwsyutwds836s8273seujlkjf3827e376rs876wekhdjwhsi628r7')
+    assert_not_equal 'bit.ly', URI.parse(short).host
+  end
+
+  test "should shorten URL return short" do
+    stub_config 'bridgembed_host', 'https://bridge-embed.dev.meedan.net' 
+    short = short_url_for('link', '582e4e8ba9a751009aa37552bd39c7e4ead9122a.png')
+    assert_equal 'bit.ly', URI.parse(short).host
+  end
+
+  test "should return direction for rtl text" do
+    assert_equal 'rtl', get_text_direction({ translation: 'مسيحيو الشرق الأوسط المختفين' })
+  end
+
+  test "should return direction for ltr text" do
+    assert_equal 'ltr', get_text_direction({ translation: 'Left to right text' })
+  end
+
+  test "should return direction for bi-directional text" do
+    assert_equal 'rtl', get_text_direction({ translation: 'ﻢﺴﻴﺤﻳﻭ ﺎﻠﺷﺮﻗ ﺍﻷﻮﺴﻃ ﺎﻠﻤﺨﺘﻔﻴﻧ with English' })
+  end
 end

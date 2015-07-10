@@ -6,13 +6,22 @@ var Bridge = {};
 (function($) {
   'use strict';
 
+  // Add custom CSS
+  var css = document.location.hash.replace('#css=', '');
+  if (css !== '') {
+    $('head').append('<link rel="stylesheet" href="' + css + '" type="text/css" class="bridgembed-custom-css" />');
+    $('meta[name="twitter:image"]').attr('content', function(index, attr) {
+      return attr + '?css=' + css;
+    });
+  }
+
   // Alert parent window when the height changes
   var htmlHeight = 0;
   var checkHTMLHeight = function() {
     var height = document.getElementsByTagName('BODY')[0].offsetHeight;
     if (height !== htmlHeight) {
       htmlHeight = height;
-      window.parent.postMessage(['setHeight', Bridge.milestone, htmlHeight].join(';'), '*');
+      window.parent.postMessage(['setHeight', Bridge.id, htmlHeight].join(';'), '*');
     }
     setTimeout(checkHTMLHeight, 100);
   };
@@ -65,7 +74,7 @@ var Bridge = {};
   };
   
   var messageCallback = function(e) {
-    var data = e.data.split(';'),
+    var data = e.data.toString().split(';'),
         type = data.shift();
   
     for (var i = 0; i < data.length; i++) {

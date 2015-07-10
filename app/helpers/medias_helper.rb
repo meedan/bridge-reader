@@ -4,11 +4,17 @@ module MediasHelper
   TWITTER_HASHTAG_ALPHANUMERIC = /[\p{L}\p{M}\p{Nd}_\u200c\u0482\ua673\ua67e\u05be\u05f3\u05f4\u309b\u309c\u30a0\u30fb\u3003\u0f0b\u0f0c\u0f0d]/
   TWITTER_HASHTAG_BOUNDARY = /\A|\z|[^&\p{L}\p{M}\p{Nd}_\u200c\u0482\ua673\ua67e\u05be\u05f3\u05f4\u309b\u309c\u30a0\u30fb\u3003\u0f0b\u0f0c\u0f0d]/
 
+  def parse_text(text)
+    renderer = Redcarpet::Render::HTML.new(link_attributes: { target: '_blank' })
+    markdown = Redcarpet::Markdown.new(renderer, autolink: true)
+    text = markdown.render(text)
+    text.html_safe.chomp
+  end
+
   def parse_translation(translation)
-    provider = translation[:provider]
-    text = simple_format translation[:translation]
-    text = auto_link text, html: { target: '_blank' }
+    provider, text = translation[:provider], translation[:translation]
     text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
+    text = parse_text(text).encode('UTF-8', :invalid => :replace)
     text.html_safe
   end
 
@@ -19,5 +25,30 @@ module MediasHelper
 
   def instagram_parse_translation(text)
     text.gsub(/@([a-zA-Z0-9_]+)/, '<a href="http://instagram.com/\1" target="_blank">@\1</a>')
+  end
+
+  def include_twitter_tags_if_needed(entries, type, id, site)
+    if entries.size == 1 && type == 'link'
+      url = URI.join(site, 'medias/', 'embed/', type + '/', "#{id}.png")
+      tag(:meta, name: 'twitter:card', content: 'photo') + "\n" +
+      tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) + "\n" +
+      tag(:meta, name: 'twitter:image', content: url.to_s) + "\n"
+    end
+  end
+
+  def short_url_for(type, id)
+    require 'bitly'
+    url = URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/#{type}/#{id}").to_s
+    begin
+      bitly = Bitly.client.shorten(url)
+      bitly.short_url
+    rescue
+      url
+    end
+  end
+
+  def get_text_direction(translation)
+    direction = parse_translation(translation).direction
+    direction == 'bidi' ? 'rtl' : direction
   end
 end
