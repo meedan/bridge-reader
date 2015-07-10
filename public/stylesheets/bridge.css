@@ -275,9 +275,11 @@ body {
   font-size: smaller;
   background-color: #fff6f1;
   font-weight: 200;
-  padding: 0.2em 1em;
-  margin: 0 16px;
+  padding: 0.6em 1em;
+  margin: 4px 16px;
   max-width: 580px; }
+  .bridgeEmbed__item-comment .byline {
+    padding: 0; }
 
 #bridgeEmbed__footer {
   display: block;
