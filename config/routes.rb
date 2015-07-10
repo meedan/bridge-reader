@@ -4,5 +4,6 @@ Bridgembed::Application.routes.draw do
   post 'medias/notify', to: 'medias#notify'
 
   # Legacy: ensure compatibility with version 0.5
+  get 'medias/embed/:id.:format', to: redirect('/medias/embed/milestone/%{id}.%{format}')
   get 'medias/embed/:id', to: redirect('/medias/embed/milestone/%{id}')
 end
