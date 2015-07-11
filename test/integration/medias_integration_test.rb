@@ -37,9 +37,10 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
   test "should open share menu" do
     js do
       visit '/medias/embed/link/c291f649aa5625b81322207177a41e2c4a08f09d.html'
-      assert !page.has_css?('.bridgeEmbed__share-menu', visible: true)
+      assert !page.has_text?('SHARE ON TWITTER')
       page.click_link('Share')
-      assert page.has_css?('.bridgeEmbed__share-menu', visible: true)
+      sleep 2.seconds
+      assert page.has_text?('SHARE ON TWITTER')
     end
   end
 
