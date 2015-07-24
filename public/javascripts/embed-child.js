@@ -21,7 +21,7 @@ var Bridge = {};
     var height = document.getElementsByTagName('BODY')[0].offsetHeight;
     if (height !== htmlHeight) {
       htmlHeight = height;
-      window.parent.postMessage(['setHeight', Bridge.id, htmlHeight].join(';'), '*');
+      window.parent.postMessage(['setHeight', Bridge.path, htmlHeight].join(';'), '*');
     }
     setTimeout(checkHTMLHeight, 100);
   };

@@ -6,14 +6,18 @@
   
   <!-- Screenshot -->
 
-  <li><%= link_to 'Screenshot', '/medias/embed/link/' + id + '.png', target: 'blank', class: 'bridgeEmbed__link-screenshot' %></li>
+  <li><%= link_to 'Screenshot', "/medias/embed/#{@project}/#{@collection}/#{item}.png", target: 'blank', class: 'bridgeEmbed__link-screenshot' %></li>
 
   <!-- Embed Code -->
 
   <li>
     <%= link_to 'Embed Code (copy & paste)', '#', class: 'bridgeEmbed__link-embed-code' %>
     <textarea class="bridgeEmbed__embed-code" rows="4" disabled readonly>
-      <%= content_tag :script, '', src: URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/link/#{id}.js").to_s, type: 'text/javascript' %>
+      <%= content_tag :script,
+                      '',
+                      src: URI.join(BRIDGE_CONFIG['bridgembed_host'],
+                                    "/medias/embed/#{@project}/#{@collection}/#{item}.js").to_s,
+                                    type: 'text/javascript' %>
     </textarea>
   </li>
 
@@ -21,7 +25,7 @@
 
   <li>
     <%
-      params = { url: short_url_for('link', "#{id}.html"), text: text }
+      params = { url: short_url_for(@project, @collection, item), text: text }
       params[:in_reply_to] = tweet_id unless tweet_id.blank?
     %>
     <%= link_to 'Share on Twitter',

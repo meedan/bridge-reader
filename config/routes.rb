@@ -1,9 +1,12 @@
 Bridgembed::Application.routes.draw do
-  get 'medias/embed/:type/:id', to: 'medias#embed'
-  get 'medias/all', to: 'medias#all'
-  post 'medias/notify', to: 'medias#notify'
-
-  # Legacy: ensure compatibility with version 0.5
-  get 'medias/embed/:id.:format', to: redirect('/medias/embed/milestone/%{id}.%{format}')
-  get 'medias/embed/:id', to: redirect('/medias/embed/milestone/%{id}')
+  get 'medias/embed/:project/(:collection/(:item))', to: 'medias#embed', constraints: {
+    project: /[0-9a-zA-Z_-]+/,
+    collection: /[0-9a-zA-Z_-]+/,
+    item: /[0-9a-zA-Z_-]+/
+  }
+  post 'medias/notify/:project/(:collection/(:item))', to: 'medias#notify', constraints: {
+    project: /[0-9a-zA-Z_-]+/,
+    collection: /[0-9a-zA-Z_-]+/,
+    item: /[0-9a-zA-Z_-]+/
+  }
 end

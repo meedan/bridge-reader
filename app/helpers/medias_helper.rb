@@ -11,10 +11,10 @@ module MediasHelper
     text.html_safe.chomp
   end
 
-  def parse_translation(translation)
-    provider, text = translation[:provider], translation[:translation]
+  def parse_translation(translation, provider)
+    text = translation[:text]
     text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
-    text = parse_text(text).encode('UTF-8', :invalid => :replace)
+    text = parse_text(text).encode('UTF-8', invalid: :replace)
     text.html_safe
   end
 
@@ -27,18 +27,19 @@ module MediasHelper
     text.gsub(/@([a-zA-Z0-9_]+)/, '<a href="http://instagram.com/\1" target="_blank">@\1</a>')
   end
 
-  def include_twitter_tags_if_needed(entries, type, id, site)
-    if entries.size == 1 && type == 'link'
-      url = URI.join(site, 'medias/', 'embed/', type + '/', "#{id}.png")
+  def include_twitter_tags(project, collection, item, level, site)
+    if level === 'item'
+      image = URI.join(site, 'medias/', 'embed/', project + '/', collection + '/', "#{item}.png")
+
       tag(:meta, name: 'twitter:card', content: 'photo') + "\n" +
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) + "\n" +
-      tag(:meta, name: 'twitter:image', content: url.to_s) + "\n"
+      tag(:meta, name: 'twitter:image', content: image.to_s) + "\n"
     end
   end
 
-  def short_url_for(type, id)
+  def short_url_for(project, collection, item)
     require 'bitly'
-    url = URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/#{type}/#{id}").to_s
+    url = URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/#{project}/#{collection}/#{item}").to_s
     begin
       bitly = Bitly.client.shorten(url)
       bitly.short_url
@@ -47,8 +48,8 @@ module MediasHelper
     end
   end
 
-  def get_text_direction(translation)
-    direction = parse_translation(translation).direction
+  def get_text_direction(translation, provider)
+    direction = parse_translation(translation, provider).direction
     direction == 'bidi' ? 'rtl' : direction
   end
 end

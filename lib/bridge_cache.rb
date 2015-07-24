@@ -1,43 +1,40 @@
+require 'bridge_embedly'
+
 module Bridge
   module Cache
-    def cache_dir
-      File.join(Rails.root, 'public', 'cache')
+    def clear_cache(project, collection, item)
+      FileUtils.rm(cache_path(project, collection, item))
     end
 
-    def clear_cache(type, id)
-      FileUtils.rm(cache_path(type, id))
+    def cache_path(project, collection, item)
+      path = [project, collection, item].reject(&:empty?)
+      File.join(Rails.root, 'public', 'cache', path) + '.html'
     end
 
-    def cache_path(type, id)
-      File.join(cache_dir, type, "#{id}.html")
+    def cache_exists?(project, collection, item)
+      File.exists?(cache_path(project, collection, item))
     end
 
-    # The old cache path until Bridgembed 0.5
-    # Deprecated - please remove it later
-    def legacy_cache_path(id)
-      Dir.glob(File.join(cache_dir, "#{id}_*")).first
+    def screenshot_exists?(project, collection, item)
+      File.exists?(screenshot_path(project, collection, item))
     end
 
-    def generate_cache(object, type, id, site = nil)
-      FileUtils.mkdir(cache_dir) unless File.exists?(cache_dir)
-      FileUtils.mkdir(File.join(cache_dir, type)) unless File.exists?(File.join(cache_dir, type))
-      should_send_to_watchbot = !File.exists?(cache_path(type, id))
-      remove_screenshot(type, id)
-      save_cache_file(object, type, id, site)
-      object.send_to_watchbot if should_send_to_watchbot 
+    def generate_cache(object, project, collection, item, site = BRIDGE_CONFIG['bridgembed_host'])
+      path = cache_path(project, collection, item)
+      dir = File.dirname(path)
+      FileUtils.mkdir_p(dir) unless File.exists?(dir)
+      new_item = !File.exists?(path)
+      save_cache_file(object, project, collection, item, site)
+      object.notify_new_item(collection, item) if new_item
     end
 
-    def bridge_cache_key(entry)
-      hash = Digest::SHA1.hexdigest(entry.except(:source).to_s)
-      entry[:link] + ':' + hash
+    def remove_screenshot(project, collection, item)
+      FileUtils.rm_rf(screenshot_path(project, collection, item))
     end
 
-    def remove_screenshot(type, id)
-      FileUtils.rm_rf(screenshot_path(type, id))
-    end
-
-    def screenshot_path(type, id)
-      File.join(Rails.root, 'public', 'screenshots', type, "#{id}.png")
+    def screenshot_path(project, collection, item)
+      path = [project, collection, item].reject(&:empty?)
+      File.join(Rails.root, 'public', 'screenshots', path) + '.png'
     end
 
     def screenshoter
@@ -58,24 +55,25 @@ module Bridge
       Smartshot::Screenshot.new(options)
     end
 
-    def generate_screenshot(type, id, css = '')
-      output = screenshot_path(type, id)
+    def generate_screenshot(project, collection, item, css = '')
+      output = screenshot_path(project, collection, item)
       if File.exists?(output)
         output
       else
         require 'smartshot'
-        url = URI.join(BRIDGE_CONFIG['bridgembed_host_private'], 'medias/', 'embed/', type + '/', id, "#css=#{css}")
+        url = [BRIDGE_CONFIG['bridgembed_host_private'], 'medias', 'embed', project, collection, item].join('/')
+        url += "?#{Time.now.to_i}#css=#{css}"
         
         frames = []
         element = ['body']
-        link = Rails.cache.read(id)
+        link = Rails.cache.read('embedly:' + item)
 
         unless link.nil?
-          case URI.parse(link[:url]).host
-          when 'twitter.com'
+          case link[:provider]
+          when 'twitter'
             frames  = [0, 'twitter-widget-0']
             element = ['.EmbeddedTweet-tweet img.Avatar:last-child']
-          when 'instagram.com'
+          when 'instagram'
             frames  = [0]
             element = ['img.art-bd-img']
           end
@@ -87,13 +85,31 @@ module Bridge
 
     protected
 
-    def save_cache_file(object, type, id, site = nil)
+    def get_level(project, collection, item)
+      if !item.blank?
+        'item'
+      elsif !collection.blank?
+        'collection'
+      else
+        'project'
+      end
+    end
+
+    def get_entries_from_source(object, collection, item, level)
       embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
+      entries = object.send("get_#{level}", collection, item)
+      embedly.send("parse_#{level}", entries)
+    end
+
+    def save_cache_file(object, project, collection, item, site = nil)
+      path = [project, collection, item].reject(&:empty?).join('-')
+      level = get_level(project, collection, item)
       av = ActionView::Base.new(Rails.root.join('app', 'views'))
-      av.assign(entries: embedly.parse_entries(object.get_entries), type: type, id: id, site: site)
+      av.assign(entries: get_entries_from_source(object, collection, item, level),
+                project: project, collection: collection, item: item, site: site, level: level, path: path)
       ActionView::Base.send :include, MediasHelper
-      f = File.new(cache_path(type, id), 'w+')
-      f.puts(av.render(template: 'medias/embed.html.erb'))
+      f = File.new(cache_path(project, collection, item), 'w+')
+      f.puts(av.render(template: "medias/embed-#{level}.html.erb", layout: "layouts/application.html.erb"))
       f.close
     end
   end
