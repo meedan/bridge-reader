@@ -18,7 +18,7 @@ class ActiveSupport::TestCase
   def setup
     clear_cache
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
-                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'validator.w3.org', 'docs.google.com',
+                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com',
                                          '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com']
     WebMock.stub_request(:post, 'http://watch.bot/links')
     Capybara.register_driver :poltergeist do |app|
@@ -46,11 +46,11 @@ class ActiveSupport::TestCase
   end
 
   def cache_file_exists?
-    File.exists?(File.join(Rails.root, 'public', 'cache', 'ooew', 'test.html'))
+    File.exists?(File.join(Rails.root, 'public', 'cache', 'google_spreadsheet', 'test.html'))
   end
 
   def create_cache
-    dir = File.join(Rails.root, 'public', 'cache', 'ooew')
+    dir = File.join(Rails.root, 'public', 'cache', 'google_spreadsheet')
     FileUtils.mkdir_p(dir) unless File.exists?(dir)
     FileUtils.touch(File.join(dir, 'test.html'))
   end

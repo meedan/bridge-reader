@@ -13,11 +13,7 @@
   <li>
     <%= link_to 'Embed Code (copy & paste)', '#', class: 'bridgeEmbed__link-embed-code' %>
     <textarea class="bridgeEmbed__embed-code" rows="4" disabled readonly>
-      <%= content_tag :script,
-                      '',
-                      src: URI.join(BRIDGE_CONFIG['bridgembed_host'],
-                                    "/medias/embed/#{@project}/#{@collection}/#{item}.js").to_s,
-                                    type: 'text/javascript' %>
+      &lt;script type="text/javascript" src="<%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %>.js"&gt;&lt;/script&gt;
     </textarea>
   </li>
 

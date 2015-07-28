@@ -33,11 +33,12 @@ module Bridge
     end
 
     def parse_collection(entries)
+      parsed = []
       entries.each_with_index do |entry, i|
         entry = parse_item(entry)
-        entries[i] = entry[:oembed]['unavailable'] ? nil : entry
+        parsed << entry unless entry[:oembed]['unavailable']
       end
-      entries.reject{ |entry| entry.nil? }
+      parsed
     end
 
     def parse_item(entry)
@@ -79,7 +80,7 @@ module Bridge
           rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
             oembed['unavailable'] = true
           rescue Twitter::Error::TooManyRequests => error
-            sleep error.rate_limit.reset_in
+            sleep error.rate_limit.reset_in.to_i
           end
         end
       end

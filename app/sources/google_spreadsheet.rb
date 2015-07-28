@@ -53,7 +53,7 @@ module Sources
     end
     
     def notify_new_item(worksheet, entry)
-      if entry.blank?
+      if entry.blank? && worksheet.present?
         url = get_worksheet.spreadsheet.human_url + '#' + worksheet
         Bridge::Watchbot.new(@config['watchbot']).send(url)
       end
@@ -89,7 +89,7 @@ module Sources
     end
 
     def get_title(title = '')
-      @title = title
+      @title = title unless title.blank?
       @title
     end
 

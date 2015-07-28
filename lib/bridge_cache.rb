@@ -61,8 +61,8 @@ module Bridge
         output
       else
         require 'smartshot'
-        url = [BRIDGE_CONFIG['bridgembed_host_private'], 'medias', 'embed', project, collection, item].join('/')
-        url += "?#{Time.now.to_i}#css=#{css}"
+        url = [BRIDGE_CONFIG['bridgembed_host_private'], 'medias', 'embed', project, collection, item].join('/') + "?#{Time.now.to_i}"
+        url += "#css=#{css}" unless css.blank?
         
         frames = []
         element = ['body']
@@ -79,7 +79,10 @@ module Bridge
           end
         end
 
-        screenshoter.take_screenshot!(url: url, output: output, wait_for_element: element, frames_path: frames, sleep: 5) ? output : nil
+        dir = File.dirname(output)
+        FileUtils.mkdir_p(dir) unless File.exists?(dir)
+        
+        screenshoter.take_screenshot!(url: url, output: output, wait_for_element: element, frames_path: frames, sleep: 20) ? output : nil
       end
     end
 

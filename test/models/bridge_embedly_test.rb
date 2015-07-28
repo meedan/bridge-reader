@@ -17,16 +17,9 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     assert_equal @b.instance_variable_get(:@api), @b.connect_to_api(BRIDGE_CONFIG['embedly_key'])
   end
 
-  test "should get objects from URLs" do
-    embeds = @b.objects_from_urls(['https://twitter.com/caiosba/status/548252845238398976', 'https://instagram.com/p/tP5h3kvHTi/'])
-    assert_equal 2, embeds.size
-    assert_kind_of Embedly::EmbedlyObject, embeds.first
-    assert_kind_of Embedly::EmbedlyObject, embeds.last
-  end
-
   test "should parse entries" do
-    embeds = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/548252845238398976' },
-                               { link: 'http://instagram.com/p/tP5h3kvHTi/' }])
+    embeds = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/548252845238398976', id: 'test' },
+                                  { link: 'http://instagram.com/p/tP5h3kvHTi/', id: 'test2' }])
     assert_equal 2, embeds.size
     assert_kind_of Embedly::EmbedlyObject, embeds.first[:oembed]
     assert_kind_of Embedly::EmbedlyObject, embeds.last[:oembed]
@@ -37,7 +30,7 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   end
 
   test "should alter Twitter response by adding coordinates" do
-    embed = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/290093908564779009' }]).first[:oembed]
+    embed = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }]).first[:oembed]
     assert_kind_of Float, embed['coordinates'].first
     assert_kind_of Float, embed['coordinates'].last
   end
@@ -45,7 +38,7 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   test "should ignore if tweet does not exist" do
     embeds = []
     assert_nothing_raised do
-      embeds = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/123456' }])
+      embeds = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/123456', id: 'test' }])
     end
     assert embeds.empty?
   end
@@ -53,7 +46,7 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   test "should ignore if tweet is private" do
     embeds = []
     assert_nothing_raised do
-      embeds = @b.parse_entries([{ link: 'https://twitter.com/meglmz/status/490029122232782848' }])
+      embeds = @b.parse_collection([{ link: 'https://twitter.com/meglmz/status/490029122232782848', id: 'test' }])
     end
     assert embeds.empty?
   end
@@ -61,72 +54,45 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   test "should ignore if Instagram photo does not exist" do
     embeds = []
     assert_nothing_raised do
-      embeds = @b.parse_entries([{ link: 'http://instagram.com/p/pwcow7AjL3/' }])
+      embeds = @b.parse_collection([{ link: 'http://instagram.com/p/pwcow7AjL3/', id: 'test' }])
     end
     assert embeds.empty?
   end
 
   test "should alter Twitter response by getting the creation date" do
-    embed = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/290093908564779009' }]).first[:oembed]
+    embed = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }]).first[:oembed]
     assert_kind_of Time, embed['created_at']
   end
 
   test "should not crash if oembed has no provider" do
     assert_nothing_raised do
-      @b.parse_entries([{ link: 'https://nothing.nothing' }]).first[:oembed]
+      @b.parse_collection([{ link: 'https://nothing.nothing', id: 'test' }]).first[:oembed]
     end
   end
 
-  test "should generate cache key" do
-    url = 'https://twitter.com/caiosba/status/290093908564779009'
-    entry = { link: url }
-    key = @b.bridge_cache_key(entry)
-    assert_kind_of String, key
-    assert_equal key, @b.bridge_cache_key(entry)
-  end
-
   test "should cache entries" do
-    Rails.cache.expects(:delete_matched).at_least_once
     url = 'https://twitter.com/caiosba/status/290093908564779009'
-    entry = { link: url }
-    key = @b.bridge_cache_key(entry)
+    entry = { link: url, id: 'test' }
+    key = 'embedly:test'
     assert !Rails.cache.exist?(key)
     output = @b.parse_entry(entry)
     assert Rails.cache.exist?(key)
-    assert_equal output, @b.parse_entry({ link: url })
-  end
-
-  test "should notify the watchbot when some link is online" do
-    Bridge::Embedly.any_instance.expects(:send_to_watchbot).once
-    entry = { link: 'http://twitter.com/caiosba/123456' }
-    @b.notify_available(entry)
-  end
-
-  test "should not notify watchbot if configuration option is not set" do
-    Bridge::Watchbot.any_instance.expects(:request).never
-    Rails.logger.expects(:info).with('Not sending to WatchBot because its URL is not set on the configuration file')
-    stub_config('watchbot_url', nil)
-    @b.send_to_watchbot({ link: 'http://twitter.com/caiosba/123456' })
-  end
-
-  test "should send link to watchbot" do
-    Rails.logger.expects(:info).with('Sent to the WatchBot')
-    @b.send_to_watchbot({ link: 'https://twitter.com/caiosba/123456', source: 'milestone' })
-    WebMock.assert_requested :post, BRIDGE_CONFIG['watchbot_url'], body: 'url=https%3A%2F%2Ftwitter.com%2Fcaiosba%2F123456%23milestone'
-  end
-
-  test "should remove screenshot of embed" do
-    dir = File.join(Rails.root, 'public', 'screenshots', 'link')
-    FileUtils.mkdir_p(dir) unless File.exists?(dir)
-    path = File.join(dir, '183773d82423893d9409faf05941bdbd63eb0b5c.png')
-    FileUtils.touch(path)
-    assert File.exists?(path)
-    @b.remove_embed_screenshot({ link: 'https://twitter.com/caiosba/status/548252845238398976' })
-    assert !File.exists?(path)
+    assert_equal output, @b.parse_entry({ link: url, id: 'test' })
   end
 
   test "should alter Twitter response by adding ID" do
-    embed = @b.parse_entries([{ link: 'https://twitter.com/caiosba/status/290093908564779009' }]).first[:oembed]
+    embed = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }]).first[:oembed]
     assert_equal '290093908564779009', embed['twitter_id']
+  end
+
+  test "should wait if rate limit is reached" do
+    Twitter::REST::Client.any_instance.stubs(:status).raises(Twitter::Error::TooManyRequests)
+    Bridge::Embedly.any_instance.expects(:sleep).once
+    @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }]).first[:oembed]
+  end
+
+  test "should not wait if rate limit is not reached" do
+    Bridge::Embedly.any_instance.expects(:sleep).never
+    @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }]).first[:oembed]
   end
 end

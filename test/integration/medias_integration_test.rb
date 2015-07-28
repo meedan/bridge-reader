@@ -2,7 +2,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'test_helper')
 
 class MediasIntegrationTest < ActionDispatch::IntegrationTest
   test "should lazy-load Instagram image" do
-    with_testing_page '<script type="text/javascript" src="/medias/embed/ooew/test.js"></script>' do
+    with_testing_page '<script type="text/javascript" src="/medias/embed/google_spreadsheet/test.js"></script>' do
       within_frame 0 do
         within_frame 1 do
           assert page.find('img.art-bd-img').visible? # Assert that Instagram image is visible
@@ -15,7 +15,7 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
   test "should have custom css" do
     with_testing_style 'body { background: red !important; }' do
       visit '/'
-      url = current_url + 'medias/embed/ooew/test.js'
+      url = current_url + 'medias/embed/google_spreadsheet/test.js'
       with_testing_page ('<script type="text/javascript" src="' + url + '" data-custom-css="/test/test.css"></script>') do
         within_frame 0 do
           assert page.has_css?('link.bridgembed-custom-css', visible: false)
@@ -28,7 +28,7 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should open share menu" do
     js do
-      visit '/medias/embed/ooew/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      visit '/medias/embed/google_spreadsheet/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
       assert !page.has_text?('SHARE ON TWITTER')
       page.click_link('Share')
       sleep 2.seconds
@@ -38,7 +38,7 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should share on Twitter" do
     js do
-      visit '/medias/embed/ooew/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      visit '/medias/embed/google_spreadsheet/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
       page.click_link('Share')
       page.click_link('Share on Twitter')
       twitter = page.driver.window_handles.last
@@ -50,14 +50,14 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should display RTL text" do
     js do
-      visit '/medias/embed/ooew/first/6f975c79aa6644919907e3b107babf56803f57c7.html'
+      visit '/medias/embed/google_spreadsheet/first/6f975c79aa6644919907e3b107babf56803f57c7.html'
       assert_equal 'rtl', page.evaluate_script('getComputedStyle(document.getElementsByTagName("P")[0]).getPropertyValue("direction")')
     end
   end
 
   test "should display LTR text" do
     js do
-      visit '/medias/embed/ooew/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      visit '/medias/embed/google_spreadsheet/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
       assert_equal 'ltr', page.evaluate_script('getComputedStyle(document.getElementsByTagName("P")[0]).getPropertyValue("direction")')
     end
   end

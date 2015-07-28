@@ -39,7 +39,7 @@ module MediasHelper
 
   def short_url_for(project, collection, item)
     require 'bitly'
-    url = URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/#{project}/#{collection}/#{item}").to_s
+    url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, collection, item].join('/')
     begin
       bitly = Bitly.client.shorten(url)
       bitly.short_url
