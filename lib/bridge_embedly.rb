@@ -69,14 +69,9 @@ module Bridge
     def alter_twitter_oembed(oembed)
       id = oembed[:link].match(/status\/([0-9]+)/)
       unless id.nil?
-        oembed['twitter_id'] = id[1]
         Retryable.retryable tries: 5, sleep: 3 do
           begin
-            client = connect_to_twitter
-            tweet = client.status(id[1])
-            geo = tweet.geo
-            oembed['coordinates'] = [geo.latitude, geo.longitude] if tweet.geo?
-            oembed['created_at'] = tweet.created_at
+            oembed = add_twitter_info(oembed)
           rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
             oembed['unavailable'] = true
           rescue Twitter::Error::TooManyRequests => error
@@ -87,13 +82,19 @@ module Bridge
       oembed
     end
 
-    def connect_to_twitter
-      Twitter::REST::Client.new do |config|
+    def add_twitter_info(oembed)
+      id = oembed[:link].match(/status\/([0-9]+)/)
+      oembed['twitter_id'] = id[1]
+      client = Twitter::REST::Client.new do |config|
         config.consumer_key        = BRIDGE_CONFIG['twitter_consumer_key']
         config.consumer_secret     = BRIDGE_CONFIG['twitter_consumer_secret']
         config.access_token        = BRIDGE_CONFIG['twitter_access_token']
         config.access_token_secret = BRIDGE_CONFIG['twitter_access_token_secret']
       end
+      tweet = client.status(id[1])
+      oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
+      oembed['created_at'] = tweet.created_at
+      oembed
     end
 
     def alter_instagram_oembed(oembed)

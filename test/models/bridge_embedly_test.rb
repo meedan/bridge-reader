@@ -25,10 +25,6 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     assert_kind_of Embedly::EmbedlyObject, embeds.last[:oembed]
   end
 
-  test "should connect to Twitter" do
-    assert_kind_of Twitter::REST::Client, @b.connect_to_twitter
-  end
-
   test "should alter Twitter response by adding coordinates" do
     embed = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }]).first[:oembed]
     assert_kind_of Float, embed['coordinates'].first

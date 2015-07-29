@@ -37,7 +37,7 @@ module Sources
     def notify_availability(entry, available)
       if available
         url = entry[:link] + '#' + entry[:source].get_title
-        Bridge::Watchbot.new(@config['watchbot']).send(url)
+        self.notify_watchbot(url)
       end
 
       index = entry[:index]
@@ -55,8 +55,12 @@ module Sources
     def notify_new_item(worksheet, entry)
       if entry.blank? && worksheet.present?
         url = get_worksheet.spreadsheet.human_url + '#' + worksheet
-        Bridge::Watchbot.new(@config['watchbot']).send(url)
+        self.notify_watchbot(url)
       end
+    end
+
+    def notify_watchbot(url)
+      Bridge::Watchbot.new(@config['watchbot']).send(url)
     end
 
     def parse_notification(collection, item, payload = {})
@@ -176,9 +180,7 @@ module Sources
         entry[:source] = self
         notify_availability(entry, false)
         
-        generate_cache(self, self.project, worksheet, '')
-        remove_screenshot(self.project, worksheet, '')
-        generate_screenshot(self.project, worksheet, '')
+        self.refresh_cache_milestone
 
         clear_cache(self.project, worksheet, hash)
         remove_screenshot(self.project, worksheet, hash)
@@ -201,6 +203,11 @@ module Sources
       end
 
       @entries = entries
+      self.refresh_cache_milestone
+    end
+
+    def refresh_cache_milestone
+      worksheet = self.get_worksheet.title
       generate_cache(self, self.project, worksheet, '')
       remove_screenshot(self.project, worksheet, '')
       generate_screenshot(self.project, worksheet, '')

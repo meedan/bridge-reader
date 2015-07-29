@@ -74,7 +74,10 @@ class MediasController < ApplicationController
   end
 
   def get_params
-    @project = (BRIDGE_PROJECTS.keys & [params[:project].to_s]).first
+    BRIDGE_PROJECTS.keys.each do |project|
+      @project = project if params[:project].to_s === project
+    end
+    
     @collection = params[:collection].to_s
     @item = params[:item].to_s
 

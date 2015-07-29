@@ -83,6 +83,10 @@ module Sources
       http = Net::HTTP.new(uri.hostname, uri.port)
       http.use_ssl = uri.scheme == 'https'
       response = http.request(request)
+      parse_response(response)
+    end
+
+    def parse_response(response)
       response.code.to_i === 200 ? JSON.parse(response.body)['data'] : nil
     end
   end
