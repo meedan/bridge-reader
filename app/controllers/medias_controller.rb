@@ -77,8 +77,8 @@ class MediasController < ApplicationController
       @project = project if params[:project].to_s === project
     end
     
-    @collection = params[:collection].to_s
-    @item = params[:item].to_s
+    @collection = sanitize_for_filename(params[:collection])
+    @item = sanitize_for_filename(params[:item])
 
     (render_error('Project not found', 'NOT_FOUND', 404) and return) if @project.blank?
   end

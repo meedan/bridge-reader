@@ -176,4 +176,9 @@ class MediasControllerTest < ActionController::TestCase
     get :embed, project: 'google_spreadsheet'
     assert_response 404
   end
+
+  test "should sanitize params" do
+    get :embed, project: 'google_spreadsheet', collection: 'test/../..'
+    assert_equal 'test', assigns(:collection)
+  end
 end
