@@ -56,9 +56,7 @@ module Bridge
 
     def generate_screenshot(project, collection, item, css = '')
       output = screenshot_path(project, collection, item)
-      if File.exists?(output)
-        output
-      else
+      unless File.exists?(output)
         url = self.screenshot_url(project, collection, item, css)
         
         frames = []
@@ -80,6 +78,7 @@ module Bridge
         
         screenshoter.take_screenshot!(url: url, output: output, wait_for_element: element, frames_path: frames, sleep: 20) ? output : nil
       end
+      output
     end
 
     protected

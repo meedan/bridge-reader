@@ -1,17 +1,21 @@
 require 'google_drive'
 require 'bridge_cache'
 require 'bridge_watchbot'
+require 'bridge_google_authentication'
 
 module Sources
   class GoogleSpreadsheet < Base
     include Bridge::Cache
+    include Bridge::GoogleAuthentication
 
     # First, the methods overwritten from Source::Base
 
     def initialize(project, config = {})
       @project = project
       @config = config
-      authenticate
+      authenticate do
+        get_spreadsheet(@config['google_spreadsheet_id'])
+      end
       super
     end
 
@@ -68,24 +72,6 @@ module Sources
       link = uri.to_s.gsub('#' + uri.fragment, '')
       get_worksheet(uri.fragment)
       notify_link_condition(link, payload['condition'])
-    end
-
-    # Specific Google Spreadsheets code
-    
-    def authenticate
-      return @session unless @session.nil?
-      begin
-        access_token = Rails.cache.fetch('!google_access_token') do
-          generate_google_access_token
-        end
-        @session = GoogleDrive.login_with_oauth(access_token)
-        get_spreadsheet(@config['google_spreadsheet_id'])
-      rescue Google::APIClient::AuthorizationError
-        access_token = generate_google_access_token
-        Rails.cache.write('!google_access_token', access_token)
-        @session = GoogleDrive.login_with_oauth(access_token)
-        get_spreadsheet(@config['google_spreadsheet_id'])
-      end
     end
 
     def get_spreadsheet(id = '')
@@ -211,29 +197,6 @@ module Sources
       generate_cache(self, self.project, worksheet, '')
       remove_screenshot(self.project, worksheet, '')
       generate_screenshot(self.project, worksheet, '')
-    end
-
-    private
-
-    def generate_google_access_token
-      require 'google/api_client'
-      require 'google/api_client/client_secrets'
-      require 'google/api_client/auth/installed_app'
-      
-      client = Google::APIClient.new(
-        :application_name => 'Bridgembed',
-        :application_version => '1.0.0'
-      )
-      
-      key = Google::APIClient::KeyUtils.load_from_pkcs12(@config['google_pkcs12_path'], @config['google_pkcs12_secret'])
-      client.authorization = Signet::OAuth2::Client.new(
-          :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-          :audience => 'https://accounts.google.com/o/oauth2/token',
-          :scope => ['https://www.googleapis.com/auth/drive', 'https://spreadsheets.google.com/feeds/'],
-          :issuer => @config['google_issuer'],
-          :signing_key => key)
-      client.authorization.fetch_access_token!
-      client.authorization.access_token
     end
   end
 end

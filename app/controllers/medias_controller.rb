@@ -38,9 +38,8 @@ class MediasController < ApplicationController
     css = URI.parse(params[:css].to_s).to_s
 
     @image = generate_screenshot(@project, @collection, @item, css)
-    @path = screenshot_path(@project, @collection, @item)
 
-    send_data File.read(@path), type: 'image/png', disposition: 'inline'
+    send_data File.read(@image), type: 'image/png', disposition: 'inline'
   end
 
   def render_embed_as_js
