@@ -77,8 +77,7 @@ class MediasController < ApplicationController
       @project = project if params[:project].to_s === project
     end
     
-    @collection = sanitize_for_filename(params[:collection])
-    @item = sanitize_for_filename(params[:item])
+    sanitize_parameters(params[:collection], params[:item])
 
     (render_error('Project not found', 'NOT_FOUND', 404) and return) if @project.blank?
   end
@@ -102,5 +101,10 @@ class MediasController < ApplicationController
 
   def set_headers
     response.headers['Cache-Control'] = 'no-transform,public,max-age=600,s-maxage=300'
+  end
+
+  def sanitize_parameters(collection, item)
+    @collection = params[:collection].to_s.gsub(/[^0-9A-Za-z_-]/, '')
+    @item = params[:item].to_s.gsub(/[^0-9A-Za-z_-]/, '')
   end
 end

@@ -19,8 +19,4 @@ class ApplicationController < ActionController::Base
     },
     status: status
   end
-
-  def sanitize_for_filename(str)
-    str.to_s.gsub(/[^a-zA-Z0-9_-]/, '')
-  end
 end
