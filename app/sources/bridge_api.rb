@@ -33,8 +33,28 @@ module Sources
       self.make_request("projects/#{@project}/channels").to_a.collect{ |c| c['id'] }
     end
 
-    def parse_notification(collection, item, payload = {})
-      # TODO
+    def parse_notification(channel, translation_id, payload = {})
+      if payload['condition'] == 'created' || payload['condition'] == 'updated'
+        self.update_cache_for_saved_translation(channel, payload['translation'])
+      elsif payload['condition'] == 'destroyed'
+        self.update_cache_for_removed_translation(channel, translation_id)
+      end
+
+      generate_cache(self, self.project, channel, '', BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, channel, '')
+    end
+
+    def update_cache_for_saved_translation(channel, translation)
+      Rails.cache.delete('embedly:' + translation['id'].to_s)
+      @entries = [translation]
+      generate_cache(self, self.project, channel, translation['id'].to_s, BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, channel, translation['id'].to_s)
+      @entries = nil
+    end
+
+    def update_cache_for_removed_translation(channel, translation_id)
+      clear_cache(self.project, channel, translation_id.to_s) 
+      remove_screenshot(self.project, channel, translation_id.to_s)
     end
 
     def translation_to_hash(translation)
