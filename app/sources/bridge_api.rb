@@ -79,7 +79,7 @@ module Sources
     def make_request(endpoint, params = {})
       uri = URI.join(@config['bridge_api_host'], 'api/', endpoint)
       request = Net::HTTP::Get.new(uri.path + '?' + format_params(params))
-      # request['Authorization'] = 'Token token=' + @config['token'].to_s
+      request['Authorization'] = 'Token token=' + @config['bridge_api_token'].to_s
       http = Net::HTTP.new(uri.hostname, uri.port)
       http.use_ssl = uri.scheme == 'https'
       response = http.request(request)
