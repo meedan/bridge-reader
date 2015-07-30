@@ -41,9 +41,10 @@ module Bridge
       version = `#{path} --version`
       if (version.chomp =~ /^[0-9.]+$/).nil?
         path = `which phantomjs`
+        version = `#{path.chomp} --version`
       end
 
-      raise 'PhantomJS not found!' if version.empty?
+      raise 'PhantomJS not found!' if (version.chomp =~ /^[0-9.]+$/).nil?
 
       options = { phantomjs: path.chomp, timeout: 40 }
 
