@@ -4,7 +4,7 @@ require 'smartshot'
 module Bridge
   module Cache
     def clear_cache(project, collection, item)
-      FileUtils.rm(cache_path(project, collection, item))
+      FileUtils.rm_rf(cache_path(project, collection, item))
     end
 
     def cache_path(project, collection, item)

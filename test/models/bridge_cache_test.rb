@@ -73,4 +73,11 @@ class BridgeCacheTest < ActiveSupport::TestCase
     @b.generate_screenshot('google_spreadsheet', 'test', '')
     assert @b.screenshot_exists?('google_spreadsheet', 'test', '')
   end
+
+  test "should not crash if file does not exist" do
+    assert !@b.cache_exists?('1', '2', '3')
+    assert_nothing_raised do
+      @b.clear_cache('1', '2', '3')
+    end
+  end
 end
