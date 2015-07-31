@@ -130,14 +130,17 @@ module Sources
             text: worksheet[row, 3],
             lang: 'en',
             timestamp: '',
-            comments: [
-              {
-                commenter_name: worksheet[row, 7],
-                commenter_url: worksheet[row, 8],
-                comment: worksheet[row, 4],
-                timestamp: ''
-              }
-            ]
+            comments:
+              worksheet[row, 4].blank? ?
+                [] :
+                [
+                  {
+                    commenter_name: worksheet[row, 7],
+                    commenter_url: worksheet[row, 8],
+                    comment: worksheet[row, 4],
+                    timestamp: ''
+                  }
+                ]
           }
         ],
         source: self, 

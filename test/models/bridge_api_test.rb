@@ -89,7 +89,7 @@ class BridgeApiTest < ActiveSupport::TestCase
   protected
 
   def single_translation_object
-    '{"id":1,"lang":"pt_BR","published":1438111529,"author":{"id":"1666372892","name":"Marcelo Souza","link":"https://twitter.com/intent/user?user_id=1666372892"},"text":"#CriseGrega - Morte ou Renascimento da União Européia?","rating":{"myRating":null,"greatCount":0},"embed_url":"http://bridgembed/medias/embed/eye-on-greece/GreeceCrisis/1","source":{"lang":"en_US","text":"#GreeceCrisis – Death or Rebirth of the EU? http://t.co/3gJl6dDxZf\nSee more by James Galbraith on Project Syndicate http://t.co/U6S7hyaOTM","published":1438095303,"link":"https://twitter.com/ProSyn/status/626088494448795649"}}'
+    '{"id":1,"lang":"pt_BR","published":1438111529,"author":{"id":"1666372892","name":"Marcelo Souza","link":"https://twitter.com/intent/user?user_id=1666372892"},"text":"#CriseGrega - Morte ou Renascimento da União Européia?","rating":{"myRating":null,"greatCount":0},"embed_url":"http://bridgembed/medias/embed/eye-on-greece/GreeceCrisis/1","source":{"lang":"en_US","text":"#GreeceCrisis – Death or Rebirth of the EU? http://t.co/3gJl6dDxZf\nSee more by James Galbraith on Project Syndicate http://t.co/U6S7hyaOTM","published":1438095303,"link":"https://twitter.com/ProSyn/status/626088494448795649"},"comments":[{"id":1,"text":"A comment","published":1438111529,"author":{"id":"1666372892","name":"Marcelo Souza","link":"https://twitter.com/intent/user?user_id=1666372892"}}]}'
   end
 
   private

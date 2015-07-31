@@ -58,7 +58,7 @@ module Sources
     end
 
     def translation_to_hash(translation)
-      {
+      hash = {
         id: translation['id'].to_s,
         source_text: translation['source']['text'],
         source_lang: translation['source']['lang'],
@@ -71,19 +71,26 @@ module Sources
             text: translation['text'],
             lang: translation['lang'],
             timestamp: translation['published'],
-            comments: [
-              {
-                commenter_name: '',
-                commenter_url: '',
-                comment: '',
-                timestamp: ''
-              }
-            ]
+            comments: self.comments_from_translation(translation)
           }
         ],
         source: self,
         index: translation['id'].to_s
       }
+      hash
+    end
+
+    def comments_from_translation(translation)
+      comments = []
+      translation['comments'].each do |comment|
+        comments << {
+          commenter_name: comment['author']['name'],
+          commenter_url: comment['author']['link'],
+          comment: comment['text'],
+          timestamp: comment['published']
+        }
+      end
+      comments
     end
 
     protected
