@@ -48,8 +48,18 @@ module MediasHelper
     end
   end
 
-  def get_text_direction(translation, provider)
-    direction = parse_translation(translation, provider).direction
+  def get_translation_direction(translation, provider)
+    text = parse_translation(translation, provider)
+    get_text_direction(text)
+  end
+
+  def get_comment_direction(comment)
+    text = parse_text(comment[:comment])
+    get_text_direction(text)
+  end
+
+  def get_text_direction(text)
+    direction = text.direction
     direction == 'bidi' ? 'rtl' : direction
   end
 end

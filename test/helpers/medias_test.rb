@@ -48,14 +48,26 @@ class MediasHelperTest < ActionView::TestCase
   end
 
   test "should return direction for rtl text" do
-    assert_equal 'rtl', get_text_direction({ text: 'مسيحيو الشرق الأوسط المختفين' }, 'other')
+    assert_equal 'rtl', get_translation_direction({ text: 'مسيحيو الشرق الأوسط المختفين' }, 'other')
   end
 
   test "should return direction for ltr text" do
-    assert_equal 'ltr', get_text_direction({ text: 'Left to right text' }, 'other')
+    assert_equal 'ltr', get_translation_direction({ text: 'Left to right text' }, 'other')
   end
 
   test "should return direction for bi-directional text" do
-    assert_equal 'rtl', get_text_direction({ text: 'ﻢﺴﻴﺤﻳﻭ ﺎﻠﺷﺮﻗ ﺍﻷﻮﺴﻃ ﺎﻠﻤﺨﺘﻔﻴﻧ with English' }, 'other')
+    assert_equal 'rtl', get_translation_direction({ text: 'ﻢﺴﻴﺤﻳﻭ ﺎﻠﺷﺮﻗ ﺍﻷﻮﺴﻃ ﺎﻠﻤﺨﺘﻔﻴﻧ with English' }, 'other')
+  end
+
+  test "should return direction for rtl comment" do
+    assert_equal 'rtl', get_comment_direction({ comment: 'مسيحيو الشرق الأوسط المختفين' })
+  end
+
+  test "should return direction for ltr comment" do
+    assert_equal 'ltr', get_comment_direction({ comment: 'Left to right text' })
+  end
+
+  test "should return direction for bi-directional comment" do
+    assert_equal 'rtl', get_comment_direction({ comment: 'ﻢﺴﻴﺤﻳﻭ ﺎﻠﺷﺮﻗ ﺍﻷﻮﺴﻃ ﺎﻠﻤﺨﺘﻔﻴﻧ with English' })
   end
 end
