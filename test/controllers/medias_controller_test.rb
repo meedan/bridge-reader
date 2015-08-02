@@ -181,4 +181,14 @@ class MediasControllerTest < ActionController::TestCase
     get :embed, project: 'google_spreadsheet', collection: 'test/../..'
     assert_equal 'test', assigns(:collection)
   end
+
+  test "should return error if item is not found" do
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'notfound'
+    assert_response 404
+  end
+
+  test "should return error if collection is not found" do
+    get :embed, project: 'google_spreadsheet', collection: 'teste'
+    assert_response 404
+  end
 end

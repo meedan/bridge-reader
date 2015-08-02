@@ -20,11 +20,16 @@ module Bridge
     end
 
     def generate_cache(object, project, collection, item, site = BRIDGE_CONFIG['bridgembed_host'])
+      # Check first if item exists
+      level = get_level(project, collection, item)
+      entries = get_entries_from_source(object, collection, item, level)
+      return if entries.blank?
+
       path = cache_path(project, collection, item)
       dir = File.dirname(path)
       FileUtils.mkdir_p(dir) unless File.exists?(dir)
       new_item = !File.exists?(path)
-      save_cache_file(object, project, collection, item, site)
+      save_cache_file(object, project, collection, item, level, entries, site)
       object.notify_new_item(collection, item) if new_item
     end
 
@@ -97,15 +102,14 @@ module Bridge
     def get_entries_from_source(object, collection, item, level)
       embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
       entries = object.send("get_#{level}", collection, item)
-      embedly.send("parse_#{level}", entries)
+      entries.blank? ? [] : embedly.send("parse_#{level}", entries)
     end
 
-    def save_cache_file(object, project, collection, item, site = nil)
+    def save_cache_file(object, project, collection, item, level, entries, site = nil)
       path = self.get_components(project, collection, item).join('-')
-      level = get_level(project, collection, item)
       av = ActionView::Base.new(Rails.root.join('app', 'views'))
-      av.assign(entries: get_entries_from_source(object, collection, item, level),
-                project: project, collection: collection, item: item, site: site, level: level, path: path)
+      av.assign(entries: entries, project: project, collection: collection,
+                item: item, site: site, level: level, path: path)
       ActionView::Base.send :include, MediasHelper
       f = File.new(cache_path(project, collection, item), 'w+')
       f.puts(av.render(template: "medias/embed-#{level}.html.erb", layout: "layouts/application.html.erb"))

@@ -24,13 +24,13 @@ module Sources
     end
 
     def get_item(worksheet, hash)
-      get_worksheet(worksheet)
+      return if get_worksheet(worksheet).blank?
       link = get_entries(hash)
       link.blank? ? nil : link.first
     end
 
     def get_collection(worksheet, hash = nil, force = false)
-      get_worksheet(worksheet, force)
+      return if get_worksheet(worksheet, force).blank?
       get_entries(nil, force)
     end
 
@@ -92,6 +92,10 @@ module Sources
         @worksheet = get_spreadsheet.worksheet_by_title(get_title(title))
       end
       @worksheet
+    end
+
+    def reset_entries
+      @entries = nil
     end
 
     def get_entries(link = nil, force = false)

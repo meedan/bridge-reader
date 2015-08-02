@@ -60,7 +60,11 @@ class MediasController < ApplicationController
 
     logger.info "Rendering cache file #{@cachepath}"
 
-    render text: File.read(@cachepath)
+    if File.exists?(@cachepath)
+      render text: File.read(@cachepath)
+    else
+      render_error('Item not found (deleted, maybe?)', 'NOT_FOUND', 404)
+    end
   end
 
   def allow_iframe
