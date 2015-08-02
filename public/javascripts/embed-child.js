@@ -17,6 +17,7 @@ var Bridge = {};
 
   // Alert parent window when the height changes
   var htmlHeight = 0;
+  if (!Bridge.path) Bridge.path = document.location.pathname.replace('/medias/embed/', '').replace('/', '-');
   var checkHTMLHeight = function() {
     var height = document.getElementsByTagName('BODY')[0].offsetHeight;
     if (height !== htmlHeight) {
