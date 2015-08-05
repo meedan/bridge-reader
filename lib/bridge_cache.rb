@@ -62,7 +62,9 @@ module Bridge
 
     def generate_screenshot(project, collection, item, css = '')
       output = screenshot_path(project, collection, item)
-      unless File.exists?(output)
+      if BRIDGE_CONFIG['cache_embeds'] && File.exists?(output)
+        # Cache file will be returned
+      else
         url = self.screenshot_url(project, collection, item, css)
         
         frames = []

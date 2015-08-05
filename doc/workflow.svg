@@ -2,6 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -21,6 +22,45 @@
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mend"
+       style="overflow:visible;">
+      <path
+         id="path6951"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.4) rotate(180) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path6948"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.4) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path6945"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
     <marker
        inkscape:stockid="Arrow2Mend"
        orient="auto"
@@ -1625,21 +1665,22 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0142751"
-     inkscape:cx="555.85052"
-     inkscape:cy="302.18625"
+     inkscape:zoom="1.0635164"
+     inkscape:cx="602.94985"
+     inkscape:cy="313.06458"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1301"
-     inkscape:window-height="744"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-bottom="0"
+     inkscape:snap-bbox="true" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -1859,9 +1900,9 @@
     <path
        inkscape:connector-curvature="0"
        id="path3758"
-       d="M 539.12291,447.01669 C 301.1474,453.15353 36.685135,443.16712 38.697849,238.15445"
+       d="M 539.12291,447.01669 C 349.09348,451.91711 142.17497,446.53666 67.535737,339.78267 48.703609,312.84771 38.292338,279.45935 38.697849,238.15445"
        style="fill:none;stroke:#000000;stroke-width:3.63912988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       sodipodi:nodetypes="cc" />
+       sodipodi:nodetypes="csc" />
     <path
        inkscape:connector-curvature="0"
        id="path3811"
@@ -1871,34 +1912,34 @@
     <text
        sodipodi:linespacing="125%"
        id="text3813"
-       y="245.59778"
-       x="364.39029"
+       y="263.67279"
+       x="614.73914"
        style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        xml:space="preserve"
        transform="scale(0.96489704,1.03638)"><tspan
-         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         y="245.59778"
-         x="364.39029"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:end;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:end;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="263.67279"
+         x="621.43726"
          sodipodi:role="line"
-         id="tspan3832">gets item's static HTML</tspan><tspan
-         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         y="267.33368"
-         x="364.39029"
+         id="tspan3832">gets item's static </tspan><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:end;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:end;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="285.40869"
+         x="614.73914"
          sodipodi:role="line"
          id="tspan7846">file from cache</tspan><tspan
-         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         y="289.06958"
-         x="364.39029"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:end;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:end;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="307.14459"
+         x="614.73914"
          sodipodi:role="line"
-         id="tspan7848" /><tspan
-         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         y="310.80548"
-         x="364.39029"
+         id="tspan7850" /><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:end;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:end;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="328.88049"
+         x="621.43726"
          sodipodi:role="line"
-         id="tspan7850">saves item's static HTML</tspan><tspan
-         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         y="332.54138"
-         x="364.39029"
+         id="tspan9593">saves item's static </tspan><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:end;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:end;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="350.61639"
+         x="614.73914"
          sodipodi:role="line"
          id="tspan7852">file to cache (filesystem)</tspan></text>
     <path
@@ -1910,16 +1951,21 @@
     <text
        sodipodi:linespacing="125%"
        id="text3849"
-       y="117.81093"
-       x="91.744446"
+       y="100.44276"
+       x="83.4534"
        style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        xml:space="preserve"
        transform="scale(0.96489704,1.03638)"><tspan
          id="tspan3855"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         y="117.81093"
-         x="91.744446"
-         sodipodi:role="line">requests embeddable item from Bridgembed</tspan></text>
+         y="100.44276"
+         x="83.4534"
+         sodipodi:role="line">requests embeddable item </tspan><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="122.17866"
+         x="83.4534"
+         sodipodi:role="line"
+         id="tspan8817">from Bridgembed</tspan></text>
     <g
        id="g3626"
        transform="matrix(0.41685668,0,0,0.41682646,8.678926,293.09991)">
@@ -2041,10 +2087,10 @@
        id="path5778"
        sodipodi:nodetypes="ccccsccscccc"
        style="fill:#fbf6cc;fill-opacity:1;stroke:#b88100;stroke-width:1"
-       d="m 790.08961,-57.033507 c -17.76713,3.032442 -24.28175,11.874534 -25.67045,28.129269 -14.72427,0.530934 -26.50775,12.099165 -26.50775,26.2812189 0.99045,16.9694491 16.65413,29.3851361 34.41107,25.4848121 5.18719,6.748986 14.43835,11.762219 25.73172,13.058928 15.86788,1.827634 30.91891,-4.227053 37.60711,-14.182054 14.82644,9.801854 26.12998,7.718956 39.33281,-2.848662 10.01696,-11.027088 8.77122,-27.5677107 -2.77742,-36.889679 -3.25732,-2.634248 -6.99454,-4.400625 -10.90531,-5.350179 0.85772,-6.59583 -0.92927,-13.528596 -5.56504,-19.256554 -10.71135,-11.445707 -28.17215,-14.24332 -40.79294,-3.614435 -5.96323,-7.412653 -15.05102,-11.374233 -24.8638,-10.812665 z" />
+       d="m 834.45627,-81.681652 c -17.76713,3.032442 -24.28175,11.874534 -25.67045,28.129269 -14.72427,0.530934 -26.50775,12.099165 -26.50775,26.281219 0.99045,16.969449 16.65413,29.385136 34.41107,25.484812 5.18719,6.748986 14.43835,11.762219 25.73172,13.058928 15.86788,1.827634 30.91891,-4.227053 37.60711,-14.182054 14.82644,9.801854 26.12998,7.718956 39.33281,-2.848662 10.01696,-11.027088 8.77122,-27.567711 -2.77742,-36.889679 -3.25732,-2.634248 -6.99454,-4.400625 -10.90531,-5.350179 0.85772,-6.59583 -0.92927,-13.528596 -5.56504,-19.256554 -10.71135,-11.445707 -28.17215,-14.24332 -40.79294,-3.614435 -5.96323,-7.412653 -15.05102,-11.374233 -24.8638,-10.812665 z" />
     <g
        style="opacity:0.4"
-       transform="matrix(5.3718114e-4,0,0,5.3714219e-4,774.07265,-41.397768)"
+       transform="matrix(5.3718114e-4,0,0,5.3714219e-4,818.43931,-66.045913)"
        id="Livello_x0020_1">
       <metadata
          id="CorelCorpID_0Corel-Layer" />
@@ -2075,69 +2121,58 @@
        xml:space="preserve"
        style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
        x="30.307005"
-       y="-5.1092715"
+       y="-10.341515"
        id="text5993"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          x="30.307005"
-         y="-5.1092715"
+         y="-10.341515"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
          id="tspan5995">web page includes Bridgembed's script tag</tspan><tspan
          sodipodi:role="line"
          x="30.307005"
-         y="16.626627"
+         y="11.394384"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan5997">in its body (one script tag per item - right now</tspan><tspan
+         id="tspan5997">in its body (one script tag per embeddable </tspan><tspan
          sodipodi:role="line"
          x="30.307005"
-         y="38.362526"
+         y="33.130283"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan3413">        an item can be a milestone (collection of</tspan><tspan
+         id="tspan3415">       right now projects, collections and </tspan><tspan
          sodipodi:role="line"
          x="30.307005"
-         y="60.098423"
+         y="54.86618"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan3415">        links) or a single link)</tspan></text>
+         id="tspan9599">       single items can be embedded</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:3.63912988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)"
-       d="M 645.30027,46.867335 C 656.7999,13.129483 685.32912,3.231342 721.59897,4.169275"
+       d="m 567.49327,36.022151 c -11.17666,-73.174884 79.46588,-79.129322 64.46759,-3.261027"
        id="path7781"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
-    <path
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path7783"
-       d="m 754.33596,22.993062 c -11.49963,33.737851 -40.02885,43.635993 -76.29869,42.69806"
-       style="fill:none;stroke:#000000;stroke-width:3.63912988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Mend)" />
     <text
        transform="scale(0.96489704,1.03638)"
        xml:space="preserve"
        style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="762.17426"
-       y="71.723083"
+       x="697.80121"
+       y="-58.60733"
        id="text7785"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="762.17426"
-         y="71.723083"
+         x="697.80121"
+         y="-58.60733"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan7803">returns sheet's data if </tspan><tspan
+         id="tspan7813">returns content</tspan><tspan
          sodipodi:role="line"
-         x="762.17426"
-         y="93.458984"
+         x="697.80121"
+         y="-36.871429"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan7811">content on cache</tspan><tspan
+         id="tspan8402">from Google </tspan><tspan
          sodipodi:role="line"
-         x="762.17426"
-         y="115.19488"
+         x="697.80121"
+         y="-15.135531"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan7805">is not up-to-date </tspan><tspan
-         sodipodi:role="line"
-         x="762.17426"
-         y="136.93079"
-         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan7813">or doesn't exist</tspan></text>
+         id="tspan8404">Spreadsheet</tspan></text>
     <g
        id="g7838"
        transform="matrix(0.97224711,0,0,0.9721766,132.2305,-77.269906)">
@@ -2181,7 +2216,7 @@
          x="360.68939"
          y="400.58914"
          style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
-         id="tspan7856">returns HTML static file </tspan><tspan
+         id="tspan7856">returns static file </tspan><tspan
          sodipodi:role="line"
          x="360.68939"
          y="422.32504"
@@ -2252,6 +2287,236 @@
          x="689.96393"
          sodipodi:role="line"
          id="tspan3419">or if modified</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path5778-8"
+       sodipodi:nodetypes="ccccsccscccc"
+       style="fill:#ffffff;stroke:#fb4f0a;stroke-opacity:1"
+       d="m 864.98592,63.284464 c -17.3496,2.9614 -23.71116,11.59634 -25.06722,27.470257 -14.37826,0.51849 -25.88486,11.815699 -25.88486,25.665499 0.96719,16.57189 16.26279,28.6967 33.60248,24.88776 5.0653,6.59087 14.0991,11.48665 25.127,12.75298 15.495,1.78482 30.1924,-4.12802 36.7234,-13.8498 14.4781,9.57222 25.516,7.53812 38.4086,-2.78192 9.7815,-10.76875 8.5651,-26.92186 -2.7122,-36.02543 -3.1808,-2.572529 -6.8302,-4.297529 -10.649,-5.224839 0.8375,-6.4413 -0.9075,-13.211637 -5.4343,-18.805407 -10.4596,-11.17756 -27.5101,-13.90963 -39.8344,-3.52975 -5.8231,-7.23899 -14.6973,-11.10776 -24.2795,-10.55935 z" />
+    <g
+       sketch:type="MSPage"
+       id="Page-1"
+       transform="matrix(0.24306406,0,0,0.24306406,851.33622,77.267659)"
+       style="fill:none;stroke:none">
+      <g
+         sketch:type="MSLayerGroup"
+         id="mark"
+         style="fill:#fb4f0a">
+        <path
+           sketch:type="MSShapeGroup"
+           id="Shape"
+           d="m 0,0 0,53.8 77.2,49.4 128.3,0 L 288,53.6 288,0.2 286.9,1.9 192.7,60.2 90,60.2 0,0 z"
+           inkscape:connector-curvature="0" />
+        <path
+           sketch:type="MSShapeGroup"
+           id="path9709"
+           d="m 90,193.6 102.7,0 94.2,58.3 1.1,1.8 0,-53.4 -82.5,-49.7 -128.3,0 L 0,200 0,253.8 90,193.6 z"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+    <g
+       id="g4055"
+       transform="matrix(0.94940049,0,0,0.94940049,468.95175,-194.4192)">
+      <g
+         id="g4037"
+         transform="translate(-526.28356,8.6956368)">
+        <text
+           transform="scale(0.96486204,1.0364176)"
+           id="text4039"
+           y="304.74969"
+           x="999.24261"
+           style="font-size:18.0404644px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:4.88744688;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans"
+           xml:space="preserve"><tspan
+             style="text-align:center;text-anchor:middle;stroke-width:4.88744688"
+             y="304.74969"
+             x="999.24261"
+             sodipodi:role="line"
+             id="tspan4043">Bridge</tspan></text>
+        <text
+           transform="scale(0.96486204,1.0364176)"
+           xml:space="preserve"
+           style="font-size:18.0404644px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+           x="999.24261"
+           y="304.74969"
+           id="text4045"><tspan
+             style="text-align:center;text-anchor:middle"
+             sodipodi:role="line"
+             x="999.24261"
+             y="304.74969"
+             id="tspan4049">Bridge</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:3.6400001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
+       d="M 667.36569,53.593564 780.74716,-4.5760548"
+       id="path5964"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path8344"
+       d="m 698.82269,110.31385 104.13043,2.89868"
+       style="fill:none;stroke:#000000;stroke-width:3.6400001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
+       sodipodi:nodetypes="cc" />
+    <text
+       transform="scale(0.96489704,1.03638)"
+       xml:space="preserve"
+       style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="588.80634"
+       y="-76.028122"
+       id="text8355"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan8367"
+         sodipodi:role="line"
+         x="588.80634"
+         y="-76.028122"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold">Resolves </tspan><tspan
+         sodipodi:role="line"
+         x="588.80634"
+         y="-54.292221"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         id="tspan8389">source of</tspan><tspan
+         sodipodi:role="line"
+         x="588.80634"
+         y="-32.556328"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         id="tspan8391">data</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text8406"
+       y="72.755882"
+       x="712.10632"
+       style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.96489704,1.03638)"><tspan
+         id="tspan8412"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="72.755882"
+         x="712.10632"
+         sodipodi:role="line">returns content</tspan><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="94.491783"
+         x="712.10632"
+         sodipodi:role="line"
+         id="tspan8419">from Bridge API</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:3.6400001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 212.55672,436.41653 c 0,0 -34.18971,2.66052 -59.84021,-13.2164 -51.5818,-31.92766 -58.067632,-83.05575 -58.067632,-83.05575"
+       id="path8429"
+       inkscape:connector-curvature="0"
+       transform="translate(-148.98088,-101.19676)"
+       sodipodi:nodetypes="csc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:3.6400001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="M 222.3015,449.40786 C 168.80797,467.0043 52.935781,446.90416 19.718516,345.07401"
+       id="path8431"
+       inkscape:connector-curvature="0"
+       transform="translate(-148.98088,-101.19676)"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:3.6400001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="M 353.37646,140.848 C 372.1329,101.19061 402.42744,61.99812 503.23719,71.8332"
+       id="path8819"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path9589"
+       d="m 353.37646,143.37694 c 18.75644,39.65739 49.05098,78.84988 149.86073,69.0148"
+       style="fill:none;stroke:#000000;stroke-width:3.6400001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)" />
+    <text
+       transform="scale(0.96489704,1.03638)"
+       xml:space="preserve"
+       style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="435.97226"
+       y="53.828232"
+       id="text9601"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan9605"
+         sodipodi:role="line"
+         x="435.97226"
+         y="53.828232"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold">project</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text9609"
+       y="129.45793"
+       x="419.62354"
+       style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.96489704,1.03638)"><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="129.45793"
+         x="419.62354"
+         sodipodi:role="line"
+         id="tspan9611">collection</tspan></text>
+    <text
+       transform="scale(0.96489704,1.03638)"
+       xml:space="preserve"
+       style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="451.81003"
+       y="197.47708"
+       id="text9613"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan9615"
+         sodipodi:role="line"
+         x="451.81003"
+         y="197.47708"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold">item</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text9617"
+       y="240.76199"
+       x="54.332241"
+       style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.96489704,1.03638)"><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="240.76199"
+         x="54.332241"
+         sodipodi:role="line"
+         id="tspan9619">JavaScript</tspan><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="262.49786"
+         x="54.332241"
+         sodipodi:role="line"
+         id="tspan9627">(.js)</tspan></text>
+    <text
+       transform="scale(0.96489704,1.03638)"
+       xml:space="preserve"
+       style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-37.118309"
+       y="242.18896"
+       id="text9621"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan9623"
+         sodipodi:role="line"
+         x="-37.118309"
+         y="242.18896"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold">HTML </tspan><tspan
+         sodipodi:role="line"
+         x="-37.118309"
+         y="263.92484"
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         id="tspan9625">(.html)</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text9629"
+       y="248.84818"
+       x="-111.70926"
+       style="font-size:33.74531174px;font-style:normal;font-weight:normal;line-height:125%;fill:#555753;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       xml:space="preserve"
+       transform="scale(0.96489704,1.03638)"><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="248.84818"
+         x="-111.70926"
+         sodipodi:role="line"
+         id="tspan9637">PNG</tspan><tspan
+         style="font-size:24.15099907px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:89.99999762%;writing-mode:lr-tb;text-anchor:start;fill:#555753;font-family:Burst My Bubble;-inkscape-font-specification:Burst My Bubble Bold"
+         y="270.58408"
+         x="-111.70926"
+         sodipodi:role="line"
+         id="tspan9641">(.png)</tspan></text>
   </g>
   <style
      id="style6194"
