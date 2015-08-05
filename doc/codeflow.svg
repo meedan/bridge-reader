@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1264.7943"
+   height="1125.8052"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="codeflow.svg"
+   inkscape:export-filename="/home/caiosba/Meedan/bridgembed/doc/codeflow.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible">
+      <path
+         id="path3784"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Send"
+       style="overflow:visible">
+      <path
+         id="path3790"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.2,0,0,-0.2,-1.2,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.284916,0,30.08928)"
+       r="15.821514"
+       fy="42.07798"
+       fx="24.306795"
+       cy="42.07798"
+       cx="24.306795"
+       id="radialGradient4548"
+       xlink:href="#linearGradient4542"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient259">
+      <stop
+         style="stop-color:#fafafa;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop260" />
+      <stop
+         style="stop-color:#bbbbbb;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop261" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient269">
+      <stop
+         style="stop-color:#a3a3a3;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop270" />
+      <stop
+         style="stop-color:#4c4c4c;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop271" />
+    </linearGradient>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       fy="114.5684"
+       fx="20.892099"
+       r="5.256"
+       cy="114.5684"
+       cx="20.892099"
+       id="aigrd2">
+      <stop
+         id="stop15566"
+         style="stop-color:#F0F0F0"
+         offset="0" />
+      <stop
+         id="stop15568"
+         style="stop-color:#9a9a9a;stop-opacity:1.0000000;"
+         offset="1.0000000" />
+    </radialGradient>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       fy="64.567902"
+       fx="20.892099"
+       r="5.257"
+       cy="64.567902"
+       cx="20.892099"
+       id="aigrd3">
+      <stop
+         id="stop15573"
+         style="stop-color:#F0F0F0"
+         offset="0" />
+      <stop
+         id="stop15575"
+         style="stop-color:#9a9a9a;stop-opacity:1.0000000;"
+         offset="1.0000000" />
+    </radialGradient>
+    <linearGradient
+       id="linearGradient15662">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1.0000000;"
+         offset="0.0000000"
+         id="stop15664" />
+      <stop
+         style="stop-color:#f8f8f8;stop-opacity:1.0000000;"
+         offset="1.0000000"
+         id="stop15666" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4542"
+       inkscape:collect="always">
+      <stop
+         id="stop4544"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop4546"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient5048">
+      <stop
+         id="stop5050"
+         offset="0"
+         style="stop-color:black;stop-opacity:0;" />
+      <stop
+         style="stop-color:black;stop-opacity:1;"
+         offset="0.5"
+         id="stop5056" />
+      <stop
+         id="stop5052"
+         offset="1"
+         style="stop-color:black;stop-opacity:0;" />
+    </linearGradient>
+    <inkscape:perspective
+       id="perspective78"
+       inkscape:persp3d-origin="24 : 16 : 1"
+       inkscape:vp_z="48 : 24 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 24 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.53028713"
+     inkscape:cx="632.39716"
+     inkscape:cy="562.90259"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1301"
+     inkscape:window-height="744"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(295.09772,-12.13038)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2985"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(47.820881,0,0,47.820881,-160.05885,-322.02307)"><flowRegion
+         id="flowRegion2987"><rect
+           id="rect2989"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara2991"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">Bridgembed Flow</flowPara></flowRoot>    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,-81.324598,-85.623788)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot2993"
+       xml:space="preserve"><flowRegion
+         id="flowRegion2995"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect2997" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara2999">:project/:collection/:item</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 279.00911,96.090276 c 10.9537,-21.713256 36.14695,-33.070477 81.04,-30.100568"
+       id="path3001"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4585"
+       d="m 279.00911,115.7063 c 10.9537,21.71326 36.14695,33.07048 81.04,30.10057"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 278.43026,105.35199 84.2237,0"
+       id="path4587"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4773"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,279.30337,-124.40721)"><flowRegion
+         id="flowRegion4775"><rect
+           id="rect4777"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara4779"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">.html</flowPara></flowRoot>    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,279.30337,-84.40721)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot4781"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4783"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect4785" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara4787">.js</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4789"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,279.30337,-44.40721)"><flowRegion
+         id="flowRegion4791"><rect
+           id="rect4793"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara4795"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">.png</flowPara></flowRoot>    <path
+       inkscape:connector-curvature="0"
+       id="path4816"
+       d="m 138.70425,120.05699 0,84.2237"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4818"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,0.45394202,38.376212)"><flowRegion
+         id="flowRegion4820"><rect
+           id="rect4822"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara4824"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">routes.rb</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 138.70425,248.05699 0,84.2237"
+       id="path4826"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,-86.896446,164.37621)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot4828"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4830"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect4832" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara4834">MediasController::embed</flowPara></flowRoot>    <path
+       inkscape:connector-curvature="0"
+       id="path4836"
+       d="m 138.70425,368.05699 0,84.2237"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4842"
+       width="93.740768"
+       height="93.740768"
+       x="-320.41049"
+       y="422.82715"
+       transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)" />
+    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,14.517414,322.43905)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot4844"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4846"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect4848" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara4850">cache</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara4852">exists?</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 211.08353,525.54836 84.2237,0"
+       id="path4862"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path4864"
+       sodipodi:cx="350.78738"
+       sodipodi:cy="522.12909"
+       sodipodi:rx="41.677711"
+       sodipodi:ry="41.677711"
+       d="m 392.4651,522.12909 c 0,23.01796 -18.65975,41.67771 -41.67772,41.67771 -23.01796,0 -41.67771,-18.65975 -41.67771,-41.67771 0,-23.01797 18.65975,-41.67771 41.67771,-41.67771 23.01797,0 41.67772,18.65974 41.67772,41.67771 z" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4872"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,-6025.5668,317.89919)"><flowRegion
+         id="flowRegion4874"><rect
+           id="rect4876"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara4880"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Candara;-inkscape-font-specification:Candara">return</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara4884">it</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 138.70425,598.05699 0,84.2237"
+       id="path4886"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,147.96821,311.59676)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot4888"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4890"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect4892" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara4894">yes</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4896"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,58.824219,449.03878)"><flowRegion
+         id="flowRegion4898"><rect
+           id="rect4900"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara4902"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">no</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4904"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,-20.131061,510.37621)"><flowRegion
+         id="flowRegion4906"><rect
+           id="rect4908"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara4910"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">1. get_object</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara9902">2. generate_cache</flowPara></flowRoot>    <path
+       inkscape:connector-curvature="0"
+       id="path4912"
+       d="m 211.08353,700.59867 84.2237,0"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4914"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,217.11739,511.02366)"><flowRegion
+         id="flowRegion4916"><rect
+           id="rect4918"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara4922"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">Bridge::Source::&lt;Type Class&gt;.new(&lt;Project config from YML&gt;)</flowPara></flowRoot>    <rect
+       ry="2.4606476"
+       y="478.31418"
+       x="601.4989"
+       height="87.629807"
+       width="74.609344"
+       id="rect15391"
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:block;overflow:visible" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot9682"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,522.7535,334.39683)"><flowRegion
+         id="flowRegion9684"><rect
+           id="rect9686"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara9688"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">.YML</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot9690"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,351.33358,255.90189)"><flowRegion
+         id="flowRegion9692"><rect
+           id="rect9694"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara9696"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">config/projects/&lt;env&gt;/&lt;project&gt;.html</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 538.33709,676.10508 0,-160.92227 46.30857,0"
+       id="path9698"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path9884"
+       d="m 736.14566,676.10508 0,-160.92227 -46.30857,0"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot9886"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,217.42143,408.3843)"><flowRegion
+         id="flowRegion9888"><rect
+           id="rect9890"
+           width="8.7977219"
+           height="10.758607"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara9892"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:Candara;-inkscape-font-specification:Candara">BridgeApi</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara9896">GoogleSpreadsheet</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;text-anchor:end;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara9900">(...)</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 135.20425,749.04107 0,28.94285 390.14968,0 0,-56.72799"
+       id="path9904"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,83.136212,607.64562)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot10098"
+       xml:space="preserve"><flowRegion
+         id="flowRegion10100"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect10102" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara10104">get_&lt;project|collection|item&gt;</flowPara></flowRoot>    <path
+       inkscape:connector-curvature="0"
+       id="path10106"
+       d="m 542.7465,719.75593 0,84.2237"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)" />
+    <rect
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:block;overflow:visible"
+       id="rect10108"
+       width="74.609344"
+       height="87.629807"
+       x="505.44186"
+       y="815.20898"
+       ry="2.4606476" />
+    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,422.24518,671.22316)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot10110"
+       xml:space="preserve"><flowRegion
+         id="flowRegion10112"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect10114" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara10116">.JSON</flowPara></flowRoot>    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,644.83609,666.89042)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot10118"
+       xml:space="preserve"><flowRegion
+         id="flowRegion10120"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect10122" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara10124">lib/bridge_embedly.rb</flowPara></flowRoot>    <path
+       inkscape:connector-curvature="0"
+       id="path10126"
+       d="m 726.63805,856.87631 -138.2237,0"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       sodipodi:nodetypes="cc" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot10128"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,522.65552,697.11558)"><flowRegion
+         id="flowRegion10130"><rect
+           id="rect10132"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara10134"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">parse_&lt;project|collection|item&gt;</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 781.79314,907.30563 0,84.2237"
+       id="path10136"
+       inkscape:connector-curvature="0" />
+    <path
+       d="m 761.48197,1004.4151 c -18.2743,3.1193 -24.97488,12.2144 -26.40322,28.9344 -15.14457,0.5461 -27.26442,12.4454 -27.26442,27.0334 1.01873,17.4551 17.12953,30.2261 35.39334,26.2141 5.33526,6.9422 14.8505,12.0989 26.46624,13.4327 16.32083,1.8799 31.80149,-4.348 38.68061,-14.5879 15.24966,10.0823 26.87586,7.9398 40.45556,-2.9302 10.3029,-11.3427 9.0216,-28.3567 -2.8567,-37.9455 -3.3503,-2.7096 -7.1942,-4.5265 -11.2166,-5.5033 0.8822,-6.7846 -0.9558,-13.9158 -5.7239,-19.8076 -11.0171,-11.7733 -28.97632,-14.651 -41.95737,-3.7179 -6.13345,-7.6248 -15.48066,-11.6998 -25.57354,-11.1222 z"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       sodipodi:nodetypes="ccccsccscccc"
+       id="path5816"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot11559"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,643.46988,868.45727)"><flowRegion
+         id="flowRegion11561"><rect
+           id="rect11563"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara11565"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">Embed.ly</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot11567"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,702.51329,743.42415)"><flowRegion
+         id="flowRegion11569"><rect
+           id="rect11571"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara11573"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">call Embed.ly</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara11575">if not cached</flowPara></flowRoot>    <path
+       inkscape:connector-curvature="0"
+       id="path11577"
+       d="m 781.79314,839.47963 0,-118.2237"
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       sodipodi:nodetypes="cc" />
+    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,702.51329,559.43377)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot11579"
+       xml:space="preserve"><flowRegion
+         id="flowRegion11581"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect11583" /></flowRegion><flowPara
+         id="flowPara11587"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">notifies if URL</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara11591">is offline</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot11593"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,-384.64572,669.62942)"><flowRegion
+         id="flowRegion11595"><rect
+           id="rect11597"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara11599"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">app/views/medias/embed-&lt;project|collection|item&gt;.&lt;format&gt;.erb</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 410.30908,859.02389 84.2237,0"
+       id="path11601"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,323.23793,694.02772)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot11603"
+       xml:space="preserve"><flowRegion
+         id="flowRegion11605"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect11607" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara11609">renders</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Mend)"
+       d="m 542.7465,909.75593 0,84.22367"
+       id="path11611"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot11613"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(25.499764,0,0,25.499764,357.23793,756.02772)"><flowRegion
+         id="flowRegion11615"><rect
+           id="rect11617"
+           width="493.18625"
+           height="123.87542"
+           x="3.4731426"
+           y="6.9462852" /></flowRegion><flowPara
+         id="flowPara11619"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">saves at</flowPara></flowRoot>    <flowRoot
+       transform="matrix(25.499764,0,0,25.499764,302.22325,840.04885)"
+       style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot11621"
+       xml:space="preserve"><flowRegion
+         id="flowRegion11623"><rect
+           y="6.9462852"
+           x="3.4731426"
+           height="123.87542"
+           width="493.18625"
+           id="rect11625" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara11627">public/&lt;cache|screenshots&gt;/</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara11629">&lt;:project(.html|.js|.png)&gt;/</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara11631">&lt;:collection(.html|.js|.png)&gt;/</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
+         id="flowPara11633">&lt;:item(.html|.js|.png)&gt;</flowPara></flowRoot>  </g>
+</svg>

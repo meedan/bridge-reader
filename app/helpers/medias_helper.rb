@@ -11,10 +11,10 @@ module MediasHelper
     text.html_safe.chomp
   end
 
-  def parse_translation(translation)
-    provider, text = translation[:provider], translation[:translation]
+  def parse_translation(translation, provider)
+    text = translation[:text]
     text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
-    text = parse_text(text).encode('UTF-8', :invalid => :replace)
+    text = parse_text(text).encode('UTF-8', invalid: :replace)
     text.html_safe
   end
 
@@ -27,18 +27,19 @@ module MediasHelper
     text.gsub(/@([a-zA-Z0-9_]+)/, '<a href="http://instagram.com/\1" target="_blank">@\1</a>')
   end
 
-  def include_twitter_tags_if_needed(entries, type, id, site)
-    if entries.size == 1 && type == 'link'
-      url = URI.join(site, 'medias/', 'embed/', type + '/', "#{id}.png")
+  def include_twitter_tags(project, collection, item, level, site)
+    if level === 'item'
+      image = URI.join(site, 'medias/', 'embed/', project + '/', collection + '/', "#{item}.png")
+
       tag(:meta, name: 'twitter:card', content: 'photo') + "\n" +
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) + "\n" +
-      tag(:meta, name: 'twitter:image', content: url.to_s) + "\n"
+      tag(:meta, name: 'twitter:image', content: image.to_s) + "\n"
     end
   end
 
-  def short_url_for(type, id)
+  def short_url_for(project, collection, item)
     require 'bitly'
-    url = URI.join(BRIDGE_CONFIG['bridgembed_host'], "/medias/embed/#{type}/#{id}").to_s
+    url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, collection, item].join('/')
     begin
       bitly = Bitly.client.shorten(url)
       bitly.short_url
@@ -47,8 +48,28 @@ module MediasHelper
     end
   end
 
-  def get_text_direction(translation)
-    direction = parse_translation(translation).direction
+  def get_translation_direction(translation, provider)
+    text = parse_translation(translation, provider)
+    get_text_direction(text)
+  end
+
+  def get_comment_direction(comment)
+    text = parse_text(comment[:comment])
+    get_text_direction(text)
+  end
+
+  def get_text_direction(text)
+    direction = text.direction
     direction == 'bidi' ? 'rtl' : direction
+  end
+
+  def include_google_analytics_tag
+    code = BRIDGE_CONFIG['google_analytics_code']
+    if code.blank?
+      ''
+    else
+      content = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', '%s', 'auto');ga('send', 'pageview');"
+      javascript_tag(content % code)
+    end
   end
 end

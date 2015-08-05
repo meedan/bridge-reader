@@ -8,19 +8,19 @@ A Bridge component, in Ruby On Rails, to generate embeds for media items.
 
 ![Workflow](doc/workflow.png?raw=true "Workflow")
 
+![Code Flow](doc/codeflow.png?raw=true "Code Flow")
+
 ### Installing the system
 
 * Copy config/bridgembed.yml.example to config/bridgembed.yml and set the configurations
+* Set the projects at config/projects
 * Copy config/database.yml.example to config/database.yml and configure your database
 * Install the dependencies: `bundle install`
+* Copy `config/initializers/secret_token.rb.example` to `config/initializers/secret_token.rb`
+* Run `rake secret` and add the resulting key to `config/initializers/secret_token.rb`
+* Add the google certificate `google.p12` (ask a Meedani for a copy) in your home directory.
 * Run `rake db:migrate`
 * Start the server
-
-### Using the system
-
-* Render a worksheet as a milestone by calling `http://yourhostname/medias/embed/milestone/<worksheet title>`.
-* Embed a worksheet by adding a script tag like `<script src="http://yourhostname/medias/embed/milestone/<worksheet title>.js"></script>` to your HTML page. 
-* Embed single links by just replacing `milestone` by `link` above, and use the link SHA1 hash instead of the milestone title.
 
 ### Editing the Sass
 

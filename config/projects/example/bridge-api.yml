@@ -1,0 +1,3 @@
+type: bridge_api
+bridge_api_host: 'http://localhost:3000/'
+bridge_api_token:

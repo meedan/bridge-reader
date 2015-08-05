@@ -1,12 +1,9 @@
 require 'embedly'
 require 'json'
-require 'bridge_cache'
-require 'bridge_watchbot'
 require 'twitter'
 
 module Bridge
   class Embedly
-    include Bridge::Cache
 
     def initialize(key)
       connect_to_api(key)
@@ -14,15 +11,6 @@ module Bridge
 
     def connect_to_api(key = '')
       @api ||= ::Embedly::API.new(key: key, user_agent: 'Mozilla/5.0 (compatible; Bridge/1.0; bridge@meedanlabs.com)')
-    end
-
-    def objects_from_urls(urls = [])
-      @oembeds ||= connect_to_api.oembed(urls: urls).collect do |oembed|
-        oembed[:link] = oembed[:url]
-        function = "alter_#{oembed.provider_name.underscore}_oembed"
-        (oembed = self.send(function, oembed)) if self.respond_to?(function)
-        oembed
-      end
     end
 
     def call_oembed(link)
@@ -35,11 +23,8 @@ module Bridge
     end
 
     def parse_entry(entry)
-      Rails.cache.fetch(bridge_cache_key(entry)) do
-        link = entry[:link]
-        Rails.cache.delete_matched(/^#{link}:/)
-        remove_embed_screenshot(entry)
-        oembed = call_oembed(link)
+      Rails.cache.fetch('embedly:' + entry[:id]) do
+        oembed = call_oembed(entry[:link])
         entry[:provider] = provider = oembed.provider_name.to_s.underscore
         entry[:oembed] = self.alter_oembed(oembed, provider)
         entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
@@ -47,33 +32,29 @@ module Bridge
       end
     end
 
-    def remove_embed_screenshot(entry)
-      id = Digest::SHA1.hexdigest(entry[:link])
-      remove_screenshot('link', id)
-    end
-
-    def parse_entries(entries = [])
-      unless @entries
-        @entries = []
-        entries.each do |entry|
-          entry = parse_entry(entry)
-          @entries << entry unless entry[:oembed]['unavailable']
-        end
+    def parse_collection(entries)
+      parsed = []
+      entries.each_with_index do |entry, i|
+        entry = parse_item(entry)
+        parsed << entry unless entry[:oembed]['unavailable']
       end
-      @entries
+      parsed
     end
 
-    def send_to_watchbot(entry)
-      Bridge::Watchbot.new.send(entry[:link] + '#' + entry[:source].to_s)
+    def parse_item(entry)
+      parse_entry(entry)
+    end
+
+    def parse_project(collections)
+      collections
     end
 
     def notify_available(entry)
-      send_to_watchbot(entry)
-      entry[:source].notify_availability(entry[:index], true) unless entry[:source].nil?
+      entry[:source].notify_availability(entry, true) unless entry[:source].nil?
     end
 
     def notify_unavailable(entry)
-      entry[:source].notify_availability(entry[:index], false) unless entry[:source].nil?
+      entry[:source].notify_availability(entry, false) unless entry[:source].nil?
     end
 
     def alter_oembed(oembed, provider)
@@ -88,29 +69,32 @@ module Bridge
     def alter_twitter_oembed(oembed)
       id = oembed[:link].match(/status\/([0-9]+)/)
       unless id.nil?
-        oembed['twitter_id'] = id[1]
         Retryable.retryable tries: 5, sleep: 3 do
           begin
-            client = connect_to_twitter
-            tweet = client.status(id[1])
-            geo = tweet.geo
-            oembed['coordinates'] = [geo.latitude, geo.longitude] if tweet.geo?
-            oembed['created_at'] = tweet.created_at
+            oembed = add_twitter_info(oembed)
           rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
             oembed['unavailable'] = true
+          rescue Twitter::Error::TooManyRequests => error
+            sleep error.rate_limit.reset_in.to_i
           end
         end
       end
       oembed
     end
 
-    def connect_to_twitter
-      Twitter::REST::Client.new do |config|
+    def add_twitter_info(oembed)
+      id = oembed[:link].match(/status\/([0-9]+)/)
+      oembed['twitter_id'] = id[1]
+      client = Twitter::REST::Client.new do |config|
         config.consumer_key        = BRIDGE_CONFIG['twitter_consumer_key']
         config.consumer_secret     = BRIDGE_CONFIG['twitter_consumer_secret']
         config.access_token        = BRIDGE_CONFIG['twitter_access_token']
         config.access_token_secret = BRIDGE_CONFIG['twitter_access_token_secret']
       end
+      tweet = client.status(id[1])
+      oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
+      oembed['created_at'] = tweet.created_at
+      oembed
     end
 
     def alter_instagram_oembed(oembed)

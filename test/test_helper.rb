@@ -18,7 +18,7 @@ class ActiveSupport::TestCase
   def setup
     clear_cache
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
-                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'validator.w3.org', 'docs.google.com',
+                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com',
                                          '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com']
     WebMock.stub_request(:post, 'http://watch.bot/links')
     Capybara.register_driver :poltergeist do |app|
@@ -41,24 +41,16 @@ class ActiveSupport::TestCase
 
   def clear_cache
     Rails.cache.delete_matched /^[^\!]/
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'milestone', 'test.html')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.html')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14.html')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', 'c291f649aa5625b81322207177a41e2c4a08f09d.html')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'invalid')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', 'anotherthing.html')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', '6f975c79aa6644919907e3b107babf56803f57c7.png')
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache', 'link', '6f975c79aa6644919907e3b107babf56803f57c7.html')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'cache')
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots')
   end
 
   def cache_file_exists?
-    File.exists?(File.join(Rails.root, 'public', 'cache', 'milestone', 'test.html'))
+    File.exists?(File.join(Rails.root, 'public', 'cache', 'google_spreadsheet', 'test.html'))
   end
 
   def create_cache
-    dir = File.join(Rails.root, 'public', 'cache', 'milestone')
+    dir = File.join(Rails.root, 'public', 'cache', 'google_spreadsheet')
     FileUtils.mkdir_p(dir) unless File.exists?(dir)
     FileUtils.touch(File.join(dir, 'test.html'))
   end

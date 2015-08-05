@@ -1,6 +1,4 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'test_helper')
-require 'w3c_validators'
-include W3CValidators
 
 class MediasControllerTest < ActionController::TestCase
 
@@ -11,7 +9,7 @@ class MediasControllerTest < ActionController::TestCase
 
   test "should generate cache path" do
     assert !cache_file_exists?
-    get :embed, type: 'milestone', id: 'test'
+    get :embed, project: 'google_spreadsheet', collection: 'test'
     assert_kind_of String, assigns(:cachepath)
     assert cache_file_exists?
   end
@@ -20,7 +18,7 @@ class MediasControllerTest < ActionController::TestCase
     stub_config :cache_embeds, true
     create_cache
     assert cache_file_exists?
-    get :embed, type: 'milestone', id: 'test'
+    get :embed, project: 'google_spreadsheet', collection: 'test'
     assert assigns(:cache)
   end
 
@@ -28,7 +26,7 @@ class MediasControllerTest < ActionController::TestCase
     stub_config :cache_embeds, false
     create_cache
     assert cache_file_exists?
-    get :embed, type: 'milestone', id: 'test'
+    get :embed, project: 'google_spreadsheet', collection: 'test'
     assert !assigns(:cache)
   end
 
@@ -36,46 +34,35 @@ class MediasControllerTest < ActionController::TestCase
     clear_cache
     stub_config :cache_embeds, true
     assert !cache_file_exists?
-    get :embed, type: 'milestone', id: 'test'
+    get :embed, project: 'google_spreadsheet', collection: 'test'
     assert !assigns(:cache)
   end
 
   test "should output valid markup" do
-    @validator = MarkupValidator.new
+    require 'html_validation'
+    h = PageValidations::HTMLValidation.new
     clear_cache
-    get :embed, type: 'milestone', id: 'test'
-    file = File.join(Rails.root, 'public', 'cache', 'milestone', 'test.html')
-    results = @validator.validate_file(file)
-    if results.errors.length > 0
-      results.errors.each do |err|
-        puts err.to_s
-      end
-    end
-    assert_equal 0, results.errors.length
+    get :embed, project: 'google_spreadsheet', collection: 'test'
+    file = File.join(Rails.root, 'public', 'cache', 'google_spreadsheet', 'test.html')
+    v = h.validation(File.read(file), BRIDGE_CONFIG['bridgembed_host'])
+    assert v.valid?, v.exceptions
   end
 
   test "should render javascript" do
-    get :embed, type: 'milestone', id: 'test', format: :js
-    assert_equal 'http://test.host/medias/embed/milestone/test', assigns(:url)
-    assert_equal 'http://test.host/medias/embed/milestone/test.js', assigns(:caller)
-  end
-
-  test "should list all milestones on index" do
-    get :all
-    assert_kind_of Bridge::GoogleSpreadsheet, assigns(:spreadsheet)
-    assert_kind_of Array, assigns(:worksheets)
-    assert_not_nil assigns(:worksheets).first.title
+    get :embed, project: 'google_spreadsheet', collection: 'test', format: :js
+    assert_equal 'http://test.host/medias/embed/google_spreadsheet/test', assigns(:url)
+    assert_equal 'http://test.host/medias/embed/google_spreadsheet/test.js', assigns(:caller)
   end
 
   test "should return error if signature is not verified" do
-    post :notify
+    post :notify, project: 'google_spreadsheet'
     assert_response 400
     assert_equal Bridge::ErrorCodes::INVALID_SIGNATURE, JSON.parse(@response.body)['data']['code'] 
   end
 
   test "should return error if exception is thrown" do
     Rack::Utils.expects(:secure_compare).returns(true)
-    post :notify
+    post :notify, project: 'google_spreadsheet'
     assert_response 400
     assert_equal Bridge::ErrorCodes::EXCEPTION, JSON.parse(@response.body)['data']['code'] 
   end
@@ -83,109 +70,125 @@ class MediasControllerTest < ActionController::TestCase
   test "should return success when notified" do
     payload = { link: 'http://instagram.com/p/pwcow7AjL3/#test', condition: 'check404', timestamp: Time.now }.to_json
     sig = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), BRIDGE_CONFIG['secret_token'], payload)
-    @request.headers['X-Watchbot-Signature'] = sig
-    post :notify, payload
+    @request.headers['X-Signature'] = sig
+    @request.env['RAW_POST_DATA'] = payload
+    post :notify, project: 'google_spreadsheet'
+    @request.env.delete('RAW_POST_DATA')
     assert_response :success
   end
 
-  test "should receive link" do
-    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
-    assert_equal 'c291f649aa5625b81322207177a41e2c4a08f09d', assigns(:id)
-    assert_match /link\/c291f649aa5625b81322207177a41e2c4a08f09d\.html$/, assigns(:cachepath)
+  test "should receive item" do
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
+    assert_equal 'c291f649aa5625b81322207177a41e2c4a08f09d', assigns(:item)
+    assert_match /test\/c291f649aa5625b81322207177a41e2c4a08f09d\.html$/, assigns(:cachepath)
   end
 
   test "should render Twitter metatags" do
-    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
   end
 
   test "should not render Twitter metatags" do
-    get :embed, type: 'milestone', id: 'test', format: :html
+    get :embed, project: 'google_spreadsheet', collection: 'test', format: :html
     assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
     assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
     assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
   end
 
-  test "should not have object if type is not supported" do
-    get :embed, type: 'invalid', id: 'invalid', format: :html
+  test "should not have object if project is not supported" do
+    get :embed, project: 'invalid', collection: 'invalid', format: :html
     assert_nil assigns(:object) 
+    assert_response 404
   end
 
-  test "should get error if type is not supported" do
-    get :embed, type: 'invalid', id: 'invalid', format: :html
-    assert_response 400
-  end
-
-  test "should not render png if type is not link" do
-    get :embed, type: 'milestone', id: 'invalid', format: :png
-    assert_response 400 
-  end
-
-  test "should render png for links" do
-    path = File.join(Rails.root, 'public', 'screenshots', 'link', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
+  test "should render png for items" do
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
     assert !File.exists?(path)
-    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
     assert File.exists?(path)
   end
 
-  test "should sanitize params" do
-    get :embed, type: :link, id: 'another @thing!'
-    assert_equal 'link', assigns(:type)
-    assert_equal 'anotherthing', assigns(:id)
+  test "should render png for collections" do
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test.png')
+    assert !File.exists?(path)
+    get :embed, project: 'google_spreadsheet', collection: 'test', format: :png
+    assert File.exists?(path)
   end
 
   test "should render cached png" do
     Smartshot::Screenshot.expects(:new).never
-    path = File.join(Rails.root, 'public', 'screenshots', 'link', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
+    FileUtils.mkdir_p(File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test'))
     FileUtils.touch(path)
     assert File.exists?(path)
-    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
   end
 
   test "should render png for Twitter" do
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    get :embed, type: 'link', id: id, format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
     assert FileUtils.compare_file(generated, output)
   end
 
   test "should render png for Instagram" do
     id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    get :embed, type: 'link', id: id, format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
     assert FileUtils.compare_file(generated, output)
   end
 
   test "should render png with custom CSS" do
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
-    generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
-    get :embed, type: 'link', id: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
-    FileUtils.cp(generated, "/tmp/#{id}.png")
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
+    FileUtils.cp(generated, "/tmp/#{id}-custom-css.png")
     assert FileUtils.compare_file(generated, output)
   end
 
   test "should render png with RTL text" do
     id = '6f975c79aa6644919907e3b107babf56803f57c7'
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
-    generated = File.join(Rails.root, 'public', 'screenshots', 'link', "#{id}.png")
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first', "#{id}.png")
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first', "#{id}.png")
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    get :embed, type: 'link', id: id, format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
     assert FileUtils.compare_file(generated, output)
   end
 
   test "should set custom cache header" do
-    get :embed, type: 'link', id: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
+    get :embed, project: 'google_spreadsheet'
     assert_match /no-transform/, @response.headers['Cache-Control']
+  end
+
+  test "should return error if type is not supported" do
+    BRIDGE_PROJECTS.stubs(:[]).returns({ type: 'invalid' })
+    get :embed, project: 'google_spreadsheet'
+    assert_response 404
+  end
+
+  test "should sanitize params" do
+    get :embed, project: 'google_spreadsheet', collection: 'test/../..'
+    assert_equal 'test', assigns(:collection)
+  end
+
+  test "should return error if item is not found" do
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'notfound'
+    assert_response 404
+  end
+
+  test "should return error if collection is not found" do
+    get :embed, project: 'google_spreadsheet', collection: 'teste'
+    assert_response 404
   end
 end

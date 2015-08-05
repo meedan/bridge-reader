@@ -1,0 +1,8 @@
+type: google_spreadsheet
+google_spreadsheet_id:
+google_issuer:
+google_pkcs12_path:
+google_pkcs12_secret:
+watchbot:
+  url:
+  token:

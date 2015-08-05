@@ -9,13 +9,12 @@ class BridgeWatchbotTest < ActiveSupport::TestCase
   end
 
   test "should initialize" do
-    bot = Bridge::Watchbot.new
+    bot = Bridge::Watchbot.new('url' => 'http://localhost:3001')
     assert_kind_of String, bot.instance_variable_get(:@url)
     assert_kind_of URI, bot.instance_variable_get(:@uri)
   end
 
   test "should not send if url not set" do
-    stub_config('watchbot_url', nil)
     Rails.logger.expects(:info).with('Not sending to WatchBot because its URL is not set on the configuration file')
     Bridge::Watchbot.any_instance.expects(:request).never
     bot = Bridge::Watchbot.new
@@ -24,9 +23,7 @@ class BridgeWatchbotTest < ActiveSupport::TestCase
 
   test "should send if url is set" do
     Rails.logger.expects(:info).with('Sent to the WatchBot')
-    Bridge::Watchbot.any_instance.expects(:request).once
-    bot = Bridge::Watchbot.new
+    bot = Bridge::Watchbot.new('url' => 'http://watch.bot/links')
     bot.send('http://meedan.com')
   end
-
 end

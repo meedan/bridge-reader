@@ -9,7 +9,7 @@
     <title>Bridge Embed</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <%= include_twitter_tags_if_needed(@entries, @type, @id, @site) %>
+    <%= include_twitter_tags(@project, @collection, @item, @level, @site) %>
     <%= stylesheet_link_tag '/stylesheets/bridge', media: 'all' %>
     <%= javascript_include_tag 'jquery-2.1.3.min' %>
     <%= javascript_include_tag 'embed-child' %>
@@ -18,18 +18,19 @@
   </head>
 
   <body class="bridgeEmbed">
-      
-    <% @entries.each do |entry| %>
-      <%= render partial: 'medias/single_embed', locals: { entry: entry } %> 
-    <%end %>
-    
+    <%= yield %>
+
+    <script type="text/javascript">
+      Bridge.project = '<%= @project %>';
+      Bridge.collection = '<%= @collection %>';
+      Bridge.item = '<%= @item %>';
+      Bridge.path = '<%= @path %>';
+    </script>
+
     <div id="bridgeEmbed__footer">
       <a href="http://meedan.com/bridge" target="_blank">Powered by Bridge</a>
     </div>
 
-    <script type="text/javascript">
-      Bridge.type = '<%= @type %>';
-      Bridge.id = '<%= @id %>';
-    </script>
+    <%= include_google_analytics_tag %>
   </body>
 </html>

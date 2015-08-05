@@ -6,18 +6,16 @@
   $(document).ready(function() {
     // Expand share menu
 
-    $('.bridgeEmbed__share-menu').hide();
     $('.bridgeEmbed__share').on('click', function() {
-      $(this).toggleClass('expanded');
-      $(this).next('.bridgeEmbed__share-menu').slideToggle();
+      $(this).toggleClass('bridgeEmbed__share-expanded');
+      $(this).next('.bridgeEmbed__share-menu').toggleClass('bridgeEmbed__share-menu-expanded');
       return false;
     });
 
     // Expand embed code
 
-    $('.bridgeEmbed__embed-code').hide();
     $('.bridgeEmbed__link-embed-code').on('click', function() {
-      $(this).next('textarea').slideToggle();
+      $(this).next('textarea').toggleClass('bridgeEmbed__embed-code-expanded');
       return false;
     });
   });

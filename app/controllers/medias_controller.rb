@@ -1,5 +1,3 @@
-require 'bridge_google_spreadsheet'
-require 'bridge_embedly'
 require 'bridge_cache'
 require 'bridge_error_codes'
 
@@ -7,20 +5,11 @@ class MediasController < ApplicationController
   include Bridge::Cache
 
   after_action :allow_iframe, only: :embed
+  before_filter :get_params, only: [:embed, :notify]
   before_filter :get_host
-  before_filter :get_params, only: :embed
   before_filter :set_headers
 
-  TYPES = ['milestone', 'link']
-
-  def all
-    @spreadsheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'])
-    @worksheets = @spreadsheet.get_worksheets
-  end
-
   def embed
-    render_error('Type not supported', 'INVALID_TYPE') and return if @type.nil?
-
     respond_to do |format|
       format.html { render_embed_as_html           }
       format.js   { render_embed_as_js             }
@@ -32,7 +21,8 @@ class MediasController < ApplicationController
     begin
       payload = request.raw_post
       if verify_signature(payload)
-        parse_notification(payload)
+        get_object and return
+        @object.parse_notification(@collection, @item, JSON.parse(payload))
         render_success
       else
         render_error 'Signature could not be verified', 'INVALID_SIGNATURE'
@@ -45,34 +35,36 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_png
-    render_error('Link is mandatory', 'PARAMETERS_MISSING') and return unless @type == 'link'
-
     css = URI.parse(params[:css].to_s).to_s
 
-    @image = generate_screenshot(@type, @id, css)
-    @path = screenshot_path(@type, @id)
+    @image = generate_screenshot(@project, @collection, @item, css)
 
-    send_data File.read(@path), type: 'image/png', disposition: 'inline'
+    send_data File.read(@image), type: 'image/png', disposition: 'inline'
   end
 
   def render_embed_as_js
     @caller = request.original_url
     @url = @caller.gsub(/\.js$/, '')
+    @path = [@project, @collection, @item].reject(&:blank?).join('-')
   end
 
   def render_embed_as_html
-    @cachepath = legacy_cache_path(@id) || cache_path(@type, @id)
+    @cachepath = cache_path(@project, @collection, @item)
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      get_object
-      generate_cache(@object, @type, @id, @site)
+      get_object and return
+      generate_cache(@object, @project, @collection, @item, @site)
       @cache = false
     end
 
     logger.info "Rendering cache file #{@cachepath}"
 
-    render text: File.read(@cachepath)
+    if File.exists?(@cachepath)
+      render text: File.read(@cachepath)
+    else
+      render_error('Item not found (deleted, maybe?)', 'NOT_FOUND', 404)
+    end
   end
 
   def allow_iframe
@@ -81,32 +73,27 @@ class MediasController < ApplicationController
 
   def verify_signature(payload)
     signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), BRIDGE_CONFIG['secret_token'].to_s, payload)
-    Rack::Utils.secure_compare(signature, request.headers['X-Watchbot-Signature'].to_s)
-  end
-
-  def parse_notification(payload)
-    notification = JSON.parse(payload)
-    uri = URI.parse(Rack::Utils.unescape(notification['link']))
-    link = uri.to_s.gsub('#' + uri.fragment, '')
-
-    @worksheet = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'], uri.fragment)
-
-    @worksheet.notify_link_condition(link, notification['condition'])
+    Rack::Utils.secure_compare(signature, request.headers['X-Signature'].to_s)
   end
 
   def get_params
-    @type = (TYPES & [params[:type].to_s]).first
-    @id = params[:id].to_s.gsub(/[^a-zA-Z0-9_-]/, '')
+    BRIDGE_PROJECTS.keys.each do |project|
+      @project = project if params[:project].to_s === project
+    end
+    
+    sanitize_parameters(params[:collection], params[:item])
+
+    (render_error('Project not found', 'NOT_FOUND', 404) and return) if @project.blank?
   end
 
   def get_object
-    case @type.to_s
-    when 'milestone'
-      @object = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'], @id)
-    when 'link'
-      @object = Bridge::GoogleSpreadsheet.new(BRIDGE_CONFIG['google_spreadsheet_id'])
-      @link = @object.get_link(@id)
+    begin
+      klass = 'Sources::' + BRIDGE_PROJECTS[@project]['type'].camelize
+      @object = klass.constantize.new(@project, BRIDGE_PROJECTS[@project].except('type'))
+    rescue NameError
+      render_error('Type not found', 'NOT_FOUND', 404) and return true
     end
+    false
   end
 
   def get_host
@@ -118,5 +105,10 @@ class MediasController < ApplicationController
 
   def set_headers
     response.headers['Cache-Control'] = 'no-transform,public,max-age=600,s-maxage=300'
+  end
+
+  def sanitize_parameters(collection, item)
+    @collection = params[:collection].to_s.gsub(/[^0-9A-Za-z_-]/, '')
+    @item = params[:item].to_s.gsub(/[^0-9A-Za-z_-]/, '')
   end
 end

@@ -23,7 +23,7 @@ gem 'string-direction'
   gem 'simplecov', require: false, group: :test
   gem 'codeclimate-test-reporter', group: :test, require: nil
   gem 'mocha'
-  gem 'w3c_validators'
+  gem 'html_validation'
   gem 'webmock'
   gem 'capybara'
   gem 'poltergeist'

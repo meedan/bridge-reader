@@ -1,8 +1,9 @@
 module Bridge
   class Watchbot
    
-    def initialize
-      @url = BRIDGE_CONFIG['watchbot_url']
+    def initialize(config = {})
+      @config = config
+      @url = @config['url']
       @uri = URI.parse(@url) unless @url.blank?
     end
 
@@ -22,7 +23,7 @@ module Bridge
     def request(link)
       request = Net::HTTP::Post.new(@uri.path)
       request.set_form_data({ url: link })
-      request['Authorization'] = 'Token token=' + BRIDGE_CONFIG['watchbot_token'].to_s
+      request['Authorization'] = 'Token token=' + @config['token'].to_s
       http = Net::HTTP.new(@uri.hostname, @uri.port)
       http.use_ssl = @uri.scheme == 'https'
       http.request(request)
