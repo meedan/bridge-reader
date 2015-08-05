@@ -10,6 +10,7 @@ development: &default
   bridgembed_host_private:
   cache_embeds: true
   secret_token:
+  google_analytics_code: 'UA-12345678-1'
 
 test:
   <<: *default

@@ -70,4 +70,14 @@ class MediasHelperTest < ActionView::TestCase
   test "should return direction for bi-directional comment" do
     assert_equal 'rtl', get_comment_direction({ comment: 'ﻢﺴﻴﺤﻳﻭ ﺎﻠﺷﺮﻗ ﺍﻷﻮﺴﻃ ﺎﻠﻤﺨﺘﻔﻴﻧ with English' })
   end
+
+  test "should add Google Analytics tag" do
+    stub_config 'google_analytics_code', 'UA-12345678-1'
+    assert_match /script/, include_google_analytics_tag
+  end
+
+  test "should not add Google Analytics tag" do
+    stub_config 'google_analytics_code', ''
+    assert_equal '', include_google_analytics_tag
+  end
 end
