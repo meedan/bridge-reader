@@ -80,4 +80,9 @@ class MediasHelperTest < ActionView::TestCase
     stub_config 'google_analytics_code', ''
     assert_equal '', include_google_analytics_tag
   end
+
+  test "should parse Twitter with two hashtags with underline" do
+    translation = { text: 'This is a #hash_tag and #another_hash_tag' }
+    assert_equal '<p>This is a <a href="https://twitter.com/hashtag/hash_tag" target="_blank">#hash_tag</a> and <a href="https://twitter.com/hashtag/another_hash_tag" target="_blank">#another_hash_tag</a></p>', parse_translation(translation, 'twitter')
+  end
 end
