@@ -2,16 +2,34 @@
   box-sizing: border-box; }
 
 .embeds {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: wrap row;
-  justify-content: center;
+  -webkit-flex-flow: wrap row;
+      -ms-flex-flow: wrap row;
+          flex-flow: wrap row;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   flex-align: center;
-  align-items: center; }
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center; }
 
 .embeds .embed-wrapper {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: auto; }
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-flex-shrink: 1;
+      -ms-flex-negative: 1;
+          flex-shrink: 1;
+  -webkit-flex-basis: auto;
+      -ms-flex-preferred-size: auto;
+          flex-basis: auto; }
 
 body {
   font-family: 'Lato', sans-serif;
@@ -87,7 +105,8 @@ body {
 .bridgeEmbed__item-geodata {
   right: 55px;
   font-size: 10px;
-  transition: 0.5s; }
+  -webkit-transition: 0.5s;
+          transition: 0.5s; }
   .bridgeEmbed__item-geodata a {
     text-decoration: none; }
   .bridgeEmbed__item-geodata .icon {
@@ -129,9 +148,6 @@ body {
 
 .bridgeEmbed__share-menu, .bridgeEmbed__share-menu {
   -webkit-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
-  -moz-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
-  -ms-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
-  -o-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
   transition: all 1s cubic-bezier(0, 1, 0.5, 1);
   display: block;
   padding: 0;
@@ -163,9 +179,6 @@ body {
       color: #ff4f00; }
   .bridgeEmbed__share-menu textarea, .bridgeEmbed__share-menu textarea {
     -webkit-transition: height 0.4s;
-    -moz-transition: height 0.4s;
-    -ms-transition: height 0.4s;
-    -o-transition: height 0.4s;
     transition: height 0.4s;
     display: none;
     margin: 0;
@@ -265,9 +278,6 @@ body {
 
 .bridgeEmbed__share-menu, .bridgeEmbed__share-menu {
   -webkit-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
-  -moz-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
-  -ms-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
-  -o-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
   transition: all 1s cubic-bezier(0, 1, 0.5, 1);
   display: block;
   padding: 0;
@@ -299,9 +309,6 @@ body {
       color: #ff4f00; }
   .bridgeEmbed__share-menu textarea, .bridgeEmbed__share-menu textarea {
     -webkit-transition: height 0.4s;
-    -moz-transition: height 0.4s;
-    -ms-transition: height 0.4s;
-    -o-transition: height 0.4s;
     transition: height 0.4s;
     display: none;
     margin: 0;
@@ -350,7 +357,8 @@ body {
   .description a {
     border-radius: 4px;
     padding: 0 0.4em;
-    transition: 0.4s; }
+    -webkit-transition: 0.4s;
+            transition: 0.4s; }
 
 .embeds {
   background-color: white; }
@@ -359,7 +367,9 @@ body {
     padding-top: 2vh; }
   @media (max-width: 1399px) {
     .embeds {
-      flex-flow: column nowrap; }
+      -webkit-flex-flow: column nowrap;
+          -ms-flex-flow: column nowrap;
+              flex-flow: column nowrap; }
       .embeds .embed-wrapper {
         height: auto;
         padding: 2em 1em;
@@ -368,7 +378,10 @@ body {
           height: 100%; } }
   @media (min-width: 1400px) {
     .embeds {
-      align-items: flex-start; }
+      -webkit-box-align: start;
+      -webkit-align-items: flex-start;
+          -ms-flex-align: start;
+              align-items: flex-start; }
       .embeds .embed-wrapper {
         height: 98vh;
         padding: 2vh 1em;
