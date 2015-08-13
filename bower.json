@@ -10,7 +10,6 @@
     "tests"
   ],
   "devDependencies": {
-    "bridge-style": "https://github.com/meedan/bridge-style.git#master",
     "meedan-style": "https://github.com/meedan/meedan-style.git#master"
   }
 }

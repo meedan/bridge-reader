@@ -1,53 +1,49 @@
+////
+/// Meedan Gulp configuration 
+/// [1] BrowserSync management w/ Rails proxy
+/// [2] Sass compilation task w/ autoprefixer
+/// [3] Watch task, refresh on all Sass edits
+/// [4] Default task
+
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+var prefix = require('gulp-autoprefixer');
 var sass = require('gulp-sass');
-var scssFiles = "app/assets/sass/**/*.scss";
+var scssPath = "./app/assets/sass";
+var scssFiles = scssPath + "/**/*.scss";
 var cssCompileDir = "public/stylesheets";
 var bowerDir = "vendor/assets/bower_components";
 
-// Browsersync configuration
-// 
-// Proxy to the default rails port.
-// Warning: The rails server must be booted to this port before you can run this app.
-var serverConfig = {
-  proxy: "localhost:3000"
-};
-
-// A Browsersync task 
-// 
-// Starting the server.
-gulp.task('browser-sync', function () {
-  browserSync(serverConfig);
+/// [1]
+gulp.task('browser-sync', ['sass'], function () {
+  browserSync({
+    server: {
+      baseDir: './public',
+      proxy: "localhost:3000"
+    }
+  });
 });
 
-// A Sass task
-// 
-// Run this when any SCSS files change & BrowserSync should auto-update browsers (without a full refresh).
+/// [2] 
 gulp.task('sass', function () {
   return gulp.src(scssFiles)
     .pipe(sass({
-      includePaths: [bowerDir],
-      errLogToConsole: true
+      includePaths: [scssPath, bowerDir],
+      onError: browserSync.notify
+    }))
+    .pipe(prefix(['last 15 versions', '> 1%'], {
+      cascade: true
     }))
     .pipe(gulp.dest(cssCompileDir))
-    .pipe(reload({
+    .pipe(browserSync.reload({
       stream: true
     }));
 });
 
-// Another Browsersync task  
-// 
-// We "manually" do a "full refresh" of  the browser instead of stream-injection (used in the Sass task)
-// This is e.g. for when you edit the html
-// via http://www.browsersync.io/docs/gulp/
-// 
-gulp.task('bs-reload', function () {
-  browserSync.reload();
+/// [3] 
+gulp.task('watch', function () {
+  gulp.watch(scssFiles, ['sass']);
 });
 
-// Default task to be run with `gulp` on CLI
-gulp.task('default', ['sass', 'browser-sync'], function () {
-  gulp.watch(scssFiles, ['sass']);
-  // gulp.watch("public/**/*.html", ['bs-reload']);
-});
+/// [4]
+gulp.task('default', ['browser-sync', 'watch']);

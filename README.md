@@ -28,16 +28,19 @@ A Bridge component, in Ruby On Rails, to generate embeds for media items.
 * At the top level of the sass theme, there is a central Sass file that `@imports` other sass files.
 * Some of these Sass files are managed with Bower (which is added to the path in the gulpfile).
 * The bower libraries are not in version control, you must first install them with `bundle exec rake bower:install` (or just `bower install`).
-* Make sure you run the rails app (per above) and hit the route to trigger the cached embed codes. You should see the cached html filed like this: `public/cache/first_1424035717.html`
+* Make sure you run the rails app (per above) and hit the route to trigger the cached embed codes. 
 * `gulp` to start watching the Sass files.
-* Navigate directly to the cached file like this: (exact path depends on your timestamped cache): `http://localhost:3000/cache/first_1424035717.html`
-* Load the page and you should see confirmation that browser sync loaded in the browser. 
+* Navigate to `http://localhost:3001/dev/4col-basic.html` *NOTE: Rails server runs on a different port, and BrowserSync proxies the connection ... Unfortunately it seems to be failing in the case of the js embeds for unknown reasons (See #100229448). For now you must manually check the embed URLs in your dev match the port of your Rails host. — CB 2015 August 12*
+* You should see confirmation that browser sync loaded in the browser. 
 * Save your sass file it should injet the new CSS without a full page load. 
+* It should refresh when you change any of the Sass files.
 * Open the "external" link on your phones and tablets on the same network.
 
 ## Editing the HTML
 
 If you need to edit the template (ie by editing the view files, which contain erb) you'll need to disable caching, rebuild the template, then probably turn caching back on to keep working with the stylesheet. In bridgeembed.yml set `cache_embeds: true`.
+
+To flush the cache once, use `rake bridgembed:clear_all_cache`.
 
 ### Running the tests
 
