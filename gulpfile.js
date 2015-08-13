@@ -13,12 +13,8 @@ var scssPath = "./app/assets/sass";
 var scssFiles = scssPath + "/**/*.scss";
 var cssCompileDir = "public/stylesheets";
 var bowerDir = "vendor/assets/bower_components";
-// var httpProxy = require('http-proxy');
 
-//  var proxy = httpProxy.createProxyServer({
-//    target: 'http://localhost:3000/'
-//  });
-/// [1] 
+/// [1]
 gulp.task('browser-sync', ['sass'], function () {
   browserSync({
     server: {
