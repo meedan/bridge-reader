@@ -37,7 +37,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest(cssCompileDir))
     .pipe(browserSync.reload({
       stream: true
-    }))
+    }));
 });
 
 /// [3] 
