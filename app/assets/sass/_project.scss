@@ -40,7 +40,7 @@
   @extend %flex-container;
   background-color: white;
 
-  .embed-wrapper {
+  .embed {
     @extend %flex-item;
   }
 
@@ -53,10 +53,9 @@
   @media (max-width: 600px) {
     flex-flow: column nowrap;
 
-    .embeds {
+    .embed {
       height: auto;
       padding: 1em 1em 1em 1em;
-      border: 2px solid red;
       width: 100%;
       html, body { 
         // Ensure scrollbars don't appear.
@@ -70,9 +69,7 @@
   @media (min-width: 601px) {
     @extend %scrollbars;
     align-items: flex-start;
-    .embeds {
-      // max-height: 98vh;
-      border: 2px solid red !important;
+    .embed {
       height: 98vh;
       padding: 2vh 1em;
       overflow: scroll;
