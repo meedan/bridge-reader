@@ -364,24 +364,26 @@ body {
   .embeds .header {
     margin-top: 4vh;
     padding-top: 2vh; }
-  @media (max-width: 1399px) {
+  @media (max-width: 600px) {
     .embeds {
       -webkit-flex-flow: column nowrap;
           -ms-flex-flow: column nowrap;
               flex-flow: column nowrap; }
-      .embeds .embed-wrapper {
+      .embeds .embeds {
         height: auto;
-        padding: 2em 1em;
+        padding: 1em 1em 1em 1em;
+        border: 2px solid red;
         width: 100%; }
-        .embeds .embed-wrapper html, .embeds .embed-wrapper body {
+        .embeds .embeds html, .embeds .embeds body {
           height: 100%; } }
-  @media (min-width: 1400px) {
+  @media (min-width: 601px) {
     .embeds {
       -webkit-box-align: start;
       -webkit-align-items: flex-start;
           -ms-flex-align: start;
               align-items: flex-start; }
-      .embeds .embed-wrapper {
+      .embeds .embeds {
+        border: 2px solid red !important;
         height: 98vh;
         padding: 2vh 1em;
         overflow: scroll; } }

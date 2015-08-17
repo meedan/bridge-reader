@@ -50,12 +50,13 @@
     }
 
   // Small screens only
-  @media (max-width: 1399px) {
+  @media (max-width: 600px) {
     flex-flow: column nowrap;
 
-    .embed-wrapper {
+    .embeds {
       height: auto;
-      padding: 2em 1em;
+      padding: 1em 1em 1em 1em;
+      border: 2px solid red;
       width: 100%;
       html, body { 
         // Ensure scrollbars don't appear.
@@ -66,10 +67,12 @@
   }
 
   // Larger screens only
-  @media (min-width: 1400px) {
+  @media (min-width: 601px) {
     @extend %scrollbars;
     align-items: flex-start;
-    .embed-wrapper {
+    .embeds {
+      // max-height: 98vh;
+      border: 2px solid red !important;
       height: 98vh;
       padding: 2vh 1em;
       overflow: scroll;

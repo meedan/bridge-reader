@@ -13,13 +13,14 @@ var scssPath = "./app/assets/sass";
 var scssFiles = scssPath + "/**/*.scss";
 var cssCompileDir = "public/stylesheets";
 var bowerDir = "vendor/assets/bower_components";
+var debug = require('gulp-debug');
 
 /// [1]
 gulp.task('browser-sync', ['sass'], function () {
   browserSync({
     server: {
       baseDir: './public',
-      proxy: "localhost:3000"
+      proxy: "http://localhost:3000"
     }
   });
 });
@@ -35,6 +36,7 @@ gulp.task('sass', function () {
       cascade: true
     }))
     .pipe(gulp.dest(cssCompileDir))
+    .pipe(debug())
     .pipe(browserSync.reload({
       stream: true
     }));
