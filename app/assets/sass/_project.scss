@@ -63,13 +63,13 @@ body.project {
   @extend %theme--firefly;
   @extend %scrollbars;
 
-  & > header {
+  &>header {
     @extend %project--description;
     font-weight: 700;
     color: $bridge-orange;
   }
 
-  & > footer {
+  &>footer {
     @extend %project--description;
     border-top: 1px solid $light-keyboard-grey;
     bottom: 0;
@@ -80,7 +80,7 @@ body.project {
     @media (min-width: $width--column * 4) {
       @include layout--multicolumn-project;
     }
-    & > header {
+    &>header {
       @extend %project--channel-header;  
     }
   }

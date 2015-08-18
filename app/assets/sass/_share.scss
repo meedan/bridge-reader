@@ -17,7 +17,7 @@
 ///
 /// Different ways you can share the embed.
 %share-menu {
-  @include transition(all 1s cubic-bezier(0, 1, 0.5, 1));
+  @include transition(max-height 0.2s ease);
 
   display: block;
   padding: 0;
@@ -26,9 +26,10 @@
   top: 20px;
   z-index: 3;
   background: white;
-  width: 100%;
+  width: 90%;
   max-height: 0;
   overflow-y: hidden;
+  max-width: 300px;
 
   li {
     border: 1px solid $light-keyboard-grey;

@@ -9,6 +9,7 @@
 @import "share";
 
 $max-width: 500px;
+$border--translation: 3px solid $bridge-orange;
 
 /// Bridge Embed item
 ///
@@ -55,12 +56,12 @@ $max-width: 500px;
 /// Contained by a single p.
 %translation {
   margin: 0 4px;
-  border-left: 4px solid $bridge-orange;
+  border-left: $border--translation;
   &.rtl {
     direction: rtl;
     text-align: right;
     border-left-width: 0;
-    border-right: 4px solid $bridge-orange;
+    border-right: $border--translation;
   }
 
   p {
