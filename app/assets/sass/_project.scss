@@ -69,7 +69,7 @@ $height--description: 40px;
 // 
 // Four column version.
 //  
-// NOTE: For a dynamic version, the width should probably be set by .js, based on the number of columns. — 2015 August 19 CGB 
+// NOTE: For a dynamic version, the width should probably be set by .js, based on the number of columns. For now the media queries are only being used to resize a four-column layout. — 2015 August 19 CGB 
 .project {
   @extend %theme--firefly;
   @extend %scrollbars;
