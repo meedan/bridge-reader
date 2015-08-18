@@ -6,7 +6,7 @@ $height--description: 40px;
 /// A Bridge Project Page Description and CTA
 ///
 /// The call to action on a project page with (eg a page with multiple bridge channels, like the guardian demo).
-%project-page-description {
+%project--description {
   position: fixed;
   font-size: 1em;
   background-color: white;
@@ -14,50 +14,52 @@ $height--description: 40px;
   width: 100%;
   border-bottom: 1px solid $light-keyboard-grey;
   z-index: 2;
+}
 
-  &.top {
-    font-weight: 700;
-    color: $bridge-orange;
+/// The channel headers in the columns
+/// 
+%project--channel-header {
+  padding: 1em;
+  top:0;
+  width: 100%;
+  background: $light-keyboard-grey;
+  color: $firefly80;
+  h1, h2, h3, h4 { 
+    color: inherit;
+    text-align: left; 
   }
-
-  &.bottom {
-    border-top: 1px solid $light-keyboard-grey;
-    bottom: 0;
-    border-bottom-width: 0;
+  a {
+    color: inherit;
   }
 }
 
-@mixin project($columns: 4) {
+/// Firefly theme for the project page
+/// 
+%theme--firefly {
   background-color: $firefly80;
+  color: $firefly80;
+  .embed {
+    background: white;
+  }
+}
+
+/// Layout for the multicolumn embed page
+/// 
+@mixin layout--multicolumn-project($columns: 4) {
   display: flex;
   padding: 1em;
   width: $width--embed-column * $columns;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
+  
   .embed {
-    margin: 40px 10px 0;
+    margin: 40px 10px 40px;
     overflow: scroll;
-    background: white;
     padding: 1em;
     width: $width--embed-column;
-
     html, body { 
       height: 100%;
-    }
-  }
-
-  .header {
-    padding: 16px;
-    top:0;
-    background: $light-keyboard-grey;
-    color: white;
-    width: 100%;
-    h2, h3 { 
-      text-align: left; 
-    }
-    * {
-      color: inherit;
     }
   }
 }
@@ -68,10 +70,36 @@ $height--description: 40px;
 // Four column version.
 //  
 // NOTE: For a dynamic version, the width should probably be set by .js, based on the number of columns. — 2015 August 19 CGB 
-.embeds {
-  @include project(4);
-}
+.project {
+  @extend %theme--firefly;
+  @extend %scrollbars;
+  .top {
+    @extend %project--description;
+    font-weight: 700;
+    color: $bridge-orange;
+  }
 
-.description {
-  @extend %project-page-description;
+  .bottom {
+    @extend %project--description;
+    border-top: 1px solid $light-keyboard-grey;
+    bottom: 0;
+    border-bottom-width: 0;
+  }
+
+  .embeds {
+    .header {
+      @extend %project--channel-headers;  
+    }
+    
+    .description {
+      @extend %project---chrome;
+    }
+
+    @media (min-width: $width--embed-column * 3) {
+      @include layout--multicolumn-project(3);
+    }
+    @media (min-width: $width--embed-column * 4) {
+      @include layout--multicolumn-project(4);
+    }
+  }
 }

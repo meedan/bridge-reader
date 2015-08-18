@@ -39,6 +39,14 @@ body {
   background-size: cover;
   background-repeat: no-repeat; }
 
+.project ::-webkit-scrollbar {
+  width: 3px;
+  height: 3px; }
+
+.project ::-webkit-scrollbar-thumb {
+  background-color: #d1d6db;
+  border-radius: 3px; }
+
 .bridgeEmbed__item-geodata {
   position: absolute;
   top: 20px;
@@ -83,7 +91,7 @@ body {
   width: 40px;
   height: 40px;
   margin: 100px auto;
-  background-color: #333;
+  background-color: #404d59;
   border-radius: 100%;
   -webkit-animation: scaleout 1s infinite ease-in-out;
   animation: scaleout 1s infinite ease-in-out; }
@@ -299,7 +307,7 @@ body {
   .bridgeEmbed__share span {
     display: none; }
 
-.description {
+.project .top, .project .bottom {
   position: fixed;
   font-size: 1em;
   background-color: white;
@@ -307,40 +315,56 @@ body {
   width: 100%;
   border-bottom: 1px solid #d1d6db;
   z-index: 2; }
-  .top.description {
-    font-weight: 700;
-    color: #ff4f00; }
-  .bottom.description {
-    border-top: 1px solid #d1d6db;
-    bottom: 0;
-    border-bottom-width: 0; }
 
-.embeds {
+.project {
   background-color: #404d59;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 1em;
-  width: 1600px;
-  height: 100vh;
-  max-height: 100vh;
-  overflow: hidden; }
-  .embeds .embed {
-    margin: 40px 10px 0;
-    overflow: scroll;
-    background: white;
+  color: #404d59; }
+  .project .embed {
+    background: white; }
+
+.project .top {
+  font-weight: 700;
+  color: #ff4f00; }
+
+.project .bottom {
+  border-top: 1px solid #d1d6db;
+  bottom: 0;
+  border-bottom-width: 0; }
+
+@media (min-width: 1200px) {
+  .project .embeds {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
     padding: 1em;
-    width: 400px; }
-    .embeds .embed html, .embeds .embed body {
-      height: 100%; }
-  .embeds .header {
-    padding: 16px;
-    top: 0;
-    background: #d1d6db;
-    color: white;
-    width: 100%; }
-    .embeds .header h2, .embeds .header h3 {
-      text-align: left; }
-    .embeds .header * {
-      color: inherit; }
+    width: 1200px;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden; }
+    .project .embeds .embed {
+      margin: 40px 10px 40px;
+      overflow: scroll;
+      padding: 1em;
+      width: 400px; }
+      .project .embeds .embed html, .project .embeds .embed body {
+        height: 100%; } }
+
+@media (min-width: 1600px) {
+  .project .embeds {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 1em;
+    width: 1600px;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden; }
+    .project .embeds .embed {
+      margin: 40px 10px 40px;
+      overflow: scroll;
+      padding: 1em;
+      width: 400px; }
+      .project .embeds .embed html, .project .embeds .embed body {
+        height: 100%; } }
