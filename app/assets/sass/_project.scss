@@ -1,6 +1,4 @@
-$width--embed-column: 400px;
-$width--embed-column-count: 4;
-$width--embed-container: $width--embed-column * $width--embed-column-count;
+$width--column: 300px;
 $height--description: 40px;
 
 /// A Bridge Project Page Description and CTA
@@ -34,52 +32,44 @@ $height--description: 40px;
 }
 
 /// Firefly theme for the project page
-/// 
+/// With transitions ... for possible future stylesheet switching CGB
 %theme--firefly {
-  background-color: $firefly80;
+  background-color: $firefly20;
+  transition: background-color 0.5s ease;
   color: $firefly80;
-  .embed {
-    background: white;
-  }
 }
 
 /// Layout for the multicolumn embed page
 /// 
-@mixin layout--multicolumn-project($columns: 4) {
+/// This assumes it is on an inner container that is not the body. The width is set to a fixed number of pixels in order to force an y-axis overflow (Tweetdeck style).
+@mixin layout--multicolumn-project {
   display: flex;
   padding: 1em;
-  width: $width--embed-column * $columns;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
   
-  .embed {
-    margin: 40px 10px 40px;
+  & > .embed--channel {
     overflow: scroll;
-    padding: 1em;
-    width: $width--embed-column;
+    max-width: 600px;
     html, body { 
       height: 100%;
     }
   }
 }
 
-
-// Bridge Multicolumn Project Page Embeds
-// 
-// Four column version.
-//  
-// NOTE: For a dynamic version, the width should probably be set by .js, based on the number of columns. For now the media queries are only being used to resize a four-column layout. — 2015 August 19 CGB 
-.project {
+body.project {
+  margin: 0;
   @extend %theme--firefly;
   @extend %scrollbars;
-  .top {
+
+  & > header {
     @extend %project--description;
     font-weight: 700;
     color: $bridge-orange;
   }
 
-  .bottom {
+  & > footer {
     @extend %project--description;
     border-top: 1px solid $light-keyboard-grey;
     bottom: 0;
@@ -87,19 +77,11 @@ $height--description: 40px;
   }
 
   .embeds {
-    .header {
-      @extend %project--channel-headers;  
+    @media (min-width: $width--column * 4) {
+      @include layout--multicolumn-project;
     }
-    
-    .description {
-      @extend %project---chrome;
-    }
-
-    @media (min-width: $width--embed-column * 3) {
-      @include layout--multicolumn-project(3);
-    }
-    @media (min-width: $width--embed-column * 4) {
-      @include layout--multicolumn-project(4);
+    & > header {
+      @extend %project--channel-header;  
     }
   }
 }
