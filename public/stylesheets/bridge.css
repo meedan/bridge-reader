@@ -2,12 +2,12 @@
   box-sizing: border-box; }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', 'open sans', arial, 'helvetica neue', helvetica, sans-serif;
   font-weight: 300;
   color: #283743;
   line-height: 1.4;
   padding: 0;
-  font-size: 14px; }
+  font-size: 16px; }
   body h1 {
     font-size: 14px;
     font-weight: 700;
@@ -182,23 +182,22 @@ body.project ::-webkit-scrollbar-thumb {
 .bridgeEmbed__item {
   position: relative;
   overflow: hidden;
-  padding: 0.3em;
-  margin: 2em auto 0;
-  max-width: 500px;
+  padding: 0.6em 0.4em 1em;
+  margin: 1em auto 0;
+  max-width: 505px;
   height: 100%;
   background-color: white;
-  border-radius: 4px;
-  max-width: 600px; }
+  border-radius: 4px; }
   .bridgeEmbed__item > iframe {
     margin: 0 auto;
-    max-width: 500px !important; }
+    max-width: 505px !important; }
   .bridgeEmbed__item:first-of-type {
     margin-top: 0; }
 
 .bridgeEmbed__item .byline {
   font-weight: 400;
-  margin-top: 0.5em;
-  padding: 0.6em 1em 1em;
+  margin-top: 0.6em;
+  padding: 0.6em 1em 0.6em;
   margin: 0;
   font-weight: 700;
   color: #ff4f00; }
@@ -207,15 +206,17 @@ body.project ::-webkit-scrollbar-thumb {
 
 .bridgeEmbed__item .bridgeEmbed__item-translation {
   margin: 0 4px;
-  border-left: 3px solid #ff4f00; }
+  border-left: 3px solid #ff4f00;
+  font-weight: 400;
+  line-height: 1.4; }
   .bridgeEmbed__item .rtl.bridgeEmbed__item-translation {
     direction: rtl;
     text-align: right;
     border-left-width: 0;
     border-right: 3px solid #ff4f00; }
   .bridgeEmbed__item .bridgeEmbed__item-translation p {
-    max-width: 500px;
-    padding: 1em 1em;
+    max-width: 505px;
+    padding: 0.6em 1em;
     margin: 0; }
   .bridgeEmbed__item .bridgeEmbed__item-translation p:empty {
     display: none; }
@@ -228,7 +229,7 @@ body.project ::-webkit-scrollbar-thumb {
   font-weight: 200;
   padding: 0.6em 1em;
   margin: 4px;
-  max-width: 500px;
+  max-width: 505px;
   font-weight: 400; }
   .bridgeEmbed__item .bridgeEmbed__item-comment .byline {
     padding: 0; }
@@ -342,6 +343,8 @@ body.project {
 
 body.project {
   margin: 0; }
+  body.project #bridgeEmbed__footer {
+    display: none; }
   body.project > header {
     font-weight: 700;
     color: #ff4f00; }

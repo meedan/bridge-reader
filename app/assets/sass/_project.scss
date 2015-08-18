@@ -63,6 +63,11 @@ body.project {
   @extend %theme--firefly;
   @extend %scrollbars;
 
+  // Hide the footer on project pages
+  #bridgeEmbed__footer {
+    display: none;
+  }
+
   &>header {
     @extend %project--description;
     font-weight: 700;
@@ -77,6 +82,7 @@ body.project {
   }
 
   .embeds {
+    // BREAKPOINT: When big enough to fit four columns
     @media (min-width: $width--column * 4) {
       @include layout--multicolumn-project;
     }
