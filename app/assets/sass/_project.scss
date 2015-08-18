@@ -1,17 +1,19 @@
+$width--embed-column: 400px;
+$width--embed-column-count: 4;
+$width--embed-container: $width--embed-column * $width--embed-column-count;
+$height--description: 40px;
+
 /// A Bridge Project Page Description and CTA
 ///
 /// The call to action on a project page with (eg a page with multiple bridge channels, like the guardian demo).
 %project-page-description {
   position: fixed;
-  font-size: smaller;
+  font-size: 1em;
   background-color: white;
-  padding: 0.6em 1em;
+  padding: 8px;
   width: 100%;
   border-bottom: 1px solid $light-keyboard-grey;
   z-index: 2;
-  p {
-    padding: 0;
-  }
 
   &.top {
     font-weight: 700;
@@ -23,59 +25,51 @@
     bottom: 0;
     border-bottom-width: 0;
   }
+}
 
-  a {
-    border-radius: 4px;
-    padding: 0 0.4em;
-    transition: 0.4s;
+@mixin project($columns: 4) {
+  background-color: $firefly80;
+  display: flex;
+  padding: 1em;
+  width: $width--embed-column * $columns;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  .embed {
+    margin: 40px 10px 0;
+    overflow: scroll;
+    background: white;
+    padding: 1em;
+    width: $width--embed-column;
+
+    html, body { 
+      height: 100%;
+    }
+  }
+
+  .header {
+    padding: 16px;
+    top:0;
+    background: $light-keyboard-grey;
+    color: white;
+    width: 100%;
+    h2, h3 { 
+      text-align: left; 
+    }
+    * {
+      color: inherit;
+    }
   }
 }
 
 
 // Bridge Multicolumn Project Page Embeds
 // 
-// When the page is wide enough, 
-// Apply the project page styles.
+// Four column version.
+//  
+// NOTE: For a dynamic version, the width should probably be set by .js, based on the number of columns. — 2015 August 19 CGB 
 .embeds {
-  background-color: $firefly2;
-  @extend %scrollbars;
-  overflow: scroll-y;
-  
-  .embed {
-    height: 98vh;
-    padding: 2vh 1em;
-    margin: 1em .5em;
-    display: inline-block;
-    vertical-align: top;
-    overflow: scroll-x;
-    min-width: 400px;
-    border: 1px solid red;
-    clear: none;
-    z-index: 1;
-    background: white;
-    margin: 0;
-    height: 98vh;
-    padding: 1em 1em 0em 1em;
-    // width: 100%;
-
-    html, body { 
-      height: 100%;
-    }
-  }
-  
-  
-  .header {
-    padding: 2vh;
-    top:0;
-    background: rgba($keyboard-grey, 0.8);
-    color: white;
-    width: 100%;
-    * {
-      color: inherit;
-    }
-    display: block;
-  }
-
+  @include project(4);
 }
 
 .description {

@@ -39,14 +39,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat; }
 
-.embeds ::-webkit-scrollbar {
-  width: 3px;
-  height: 3px; }
-
-.embeds ::-webkit-scrollbar-thumb {
-  background-color: #d1d6db;
-  border-radius: 3px; }
-
 .bridgeEmbed__item-geodata {
   position: absolute;
   top: 20px;
@@ -309,14 +301,12 @@ body {
 
 .description {
   position: fixed;
-  font-size: smaller;
+  font-size: 1em;
   background-color: white;
-  padding: 0.6em 1em;
+  padding: 8px;
   width: 100%;
   border-bottom: 1px solid #d1d6db;
   z-index: 2; }
-  .description p {
-    padding: 0; }
   .top.description {
     font-weight: 700;
     color: #ff4f00; }
@@ -324,38 +314,33 @@ body {
     border-top: 1px solid #d1d6db;
     bottom: 0;
     border-bottom-width: 0; }
-  .description a {
-    border-radius: 4px;
-    padding: 0 0.4em;
-    -webkit-transition: 0.4s;
-            transition: 0.4s; }
 
 .embeds {
-  background-color: #fafbfb;
-  overflow: scroll-y; }
+  background-color: #404d59;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1em;
+  width: 1600px;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden; }
   .embeds .embed {
-    height: 98vh;
-    padding: 2vh 1em;
-    margin: 1em 0.5em;
-    display: inline-block;
-    vertical-align: top;
-    overflow: scroll-x;
-    min-width: 400px;
-    border: 1px solid red;
-    clear: none;
-    z-index: 1;
+    margin: 40px 10px 0;
+    overflow: scroll;
     background: white;
-    margin: 0;
-    height: 98vh;
-    padding: 1em 1em 0em 1em; }
+    padding: 1em;
+    width: 400px; }
     .embeds .embed html, .embeds .embed body {
       height: 100%; }
   .embeds .header {
-    padding: 2vh;
+    padding: 16px;
     top: 0;
-    background: rgba(171, 181, 189, 0.8);
+    background: #d1d6db;
     color: white;
-    width: 100%;
-    display: block; }
+    width: 100%; }
+    .embeds .header h2, .embeds .header h3 {
+      text-align: left; }
     .embeds .header * {
       color: inherit; }
