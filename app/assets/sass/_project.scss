@@ -8,7 +8,7 @@
   padding: 0.6em 1em;
   width: 100%;
   border-bottom: 1px solid $light-keyboard-grey;
-
+  z-index: 2;
   p {
     padding: 0;
   }
@@ -37,44 +37,45 @@
 // When the page is wide enough, 
 // Apply the project page styles.
 .embeds {
-  @extend %flex-container;
-  background-color: white;
-
+  background-color: $firefly2;
+  @extend %scrollbars;
+  overflow: scroll-y;
+  
   .embed {
-    @extend %flex-item;
-  }
+    height: 98vh;
+    padding: 2vh 1em;
+    margin: 1em .5em;
+    display: inline-block;
+    vertical-align: top;
+    overflow: scroll-x;
+    min-width: 400px;
+    border: 1px solid red;
+    clear: none;
+    z-index: 1;
+    background: white;
+    margin: 0;
+    height: 98vh;
+    padding: 1em 1em 0em 1em;
+    // width: 100%;
 
+    html, body { 
+      height: 100%;
+    }
+  }
+  
+  
   .header {
-      margin-top: 4vh;
-      padding-top: 2vh;
+    padding: 2vh;
+    top:0;
+    background: rgba($keyboard-grey, 0.8);
+    color: white;
+    width: 100%;
+    * {
+      color: inherit;
     }
-
-  // Small screens only
-  @media (max-width: 600px) {
-    flex-flow: column nowrap;
-
-    .embed {
-      height: auto;
-      padding: 1em 1em 1em 1em;
-      width: 100%;
-      html, body { 
-        // Ensure scrollbars don't appear.
-        // I am not sure why this is necessary — CGB 2015 August 1
-        height: 100%;
-      }
-    }
+    display: block;
   }
 
-  // Larger screens only
-  @media (min-width: 601px) {
-    @extend %scrollbars;
-    align-items: flex-start;
-    .embed {
-      height: 98vh;
-      padding: 2vh 1em;
-      overflow: scroll;
-    }
-  }
 }
 
 .description {

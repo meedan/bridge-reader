@@ -1,36 +1,6 @@
 * {
   box-sizing: border-box; }
 
-.embeds {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: wrap row;
-      -ms-flex-flow: wrap row;
-          flex-flow: wrap row;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  flex-align: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center; }
-
-.embeds .embed {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -webkit-flex-shrink: 1;
-      -ms-flex-negative: 1;
-          flex-shrink: 1;
-  -webkit-flex-basis: auto;
-      -ms-flex-preferred-size: auto;
-          flex-basis: auto; }
-
 body {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
@@ -343,7 +313,8 @@ body {
   background-color: white;
   padding: 0.6em 1em;
   width: 100%;
-  border-bottom: 1px solid #d1d6db; }
+  border-bottom: 1px solid #d1d6db;
+  z-index: 2; }
   .description p {
     padding: 0; }
   .top.description {
@@ -360,28 +331,31 @@ body {
             transition: 0.4s; }
 
 .embeds {
-  background-color: white; }
+  background-color: #fafbfb;
+  overflow: scroll-y; }
+  .embeds .embed {
+    height: 98vh;
+    padding: 2vh 1em;
+    margin: 1em 0.5em;
+    display: inline-block;
+    vertical-align: top;
+    overflow: scroll-x;
+    min-width: 400px;
+    border: 1px solid red;
+    clear: none;
+    z-index: 1;
+    background: white;
+    margin: 0;
+    height: 98vh;
+    padding: 1em 1em 0em 1em; }
+    .embeds .embed html, .embeds .embed body {
+      height: 100%; }
   .embeds .header {
-    margin-top: 4vh;
-    padding-top: 2vh; }
-  @media (max-width: 600px) {
-    .embeds {
-      -webkit-flex-flow: column nowrap;
-          -ms-flex-flow: column nowrap;
-              flex-flow: column nowrap; }
-      .embeds .embed {
-        height: auto;
-        padding: 1em 1em 1em 1em;
-        width: 100%; }
-        .embeds .embed html, .embeds .embed body {
-          height: 100%; } }
-  @media (min-width: 601px) {
-    .embeds {
-      -webkit-box-align: start;
-      -webkit-align-items: flex-start;
-          -ms-flex-align: start;
-              align-items: flex-start; }
-      .embeds .embed {
-        height: 98vh;
-        padding: 2vh 1em;
-        overflow: scroll; } }
+    padding: 2vh;
+    top: 0;
+    background: rgba(171, 181, 189, 0.8);
+    color: white;
+    width: 100%;
+    display: block; }
+    .embeds .header * {
+      color: inherit; }
