@@ -199,14 +199,19 @@ body.project ::-webkit-scrollbar-thumb {
   margin-top: 0.5em;
   padding: 0.6em 1em 1em;
   margin: 0;
-  font-weight: 700; }
+  font-weight: 700;
+  color: #ff4f00; }
+  .bridgeEmbed__item .byline a {
+    color: #ff4f00; }
 
 .bridgeEmbed__item .bridgeEmbed__item-translation {
   margin: 0 4px;
   border-left: 4px solid #ff4f00; }
   .bridgeEmbed__item .rtl.bridgeEmbed__item-translation {
     direction: rtl;
-    text-align: right; }
+    text-align: right;
+    border-left-width: 0;
+    border-right: 4px solid #ff4f00; }
   .bridgeEmbed__item .bridgeEmbed__item-translation p {
     max-width: 500px;
     padding: 1em 1em;
@@ -222,7 +227,8 @@ body.project ::-webkit-scrollbar-thumb {
   font-weight: 200;
   padding: 0.6em 1em;
   margin: 4px;
-  max-width: 500px; }
+  max-width: 500px;
+  font-weight: 400; }
   .bridgeEmbed__item .bridgeEmbed__item-comment .byline {
     padding: 0; }
 

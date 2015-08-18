@@ -43,6 +43,10 @@ $max-width: 500px;
   padding: 0.6em 1em 1em;
   margin: 0;
   font-weight: 700;
+  color: $bridge-orange;
+  a {
+    color: $bridge-orange;
+  }
 }
 
 /// Bridge Translation
@@ -55,6 +59,8 @@ $max-width: 500px;
   &.rtl {
     direction: rtl;
     text-align: right;
+    border-left-width: 0;
+    border-right: 4px solid $bridge-orange;
   }
 
   p {
@@ -84,7 +90,7 @@ $max-width: 500px;
   padding: 0.6em 1em;
   margin: 4px;
   max-width: $max-width;
-
+  font-weight: 400;
   .byline {
     padding: 0;
   }
