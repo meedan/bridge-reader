@@ -2,6 +2,17 @@ $width--column: 300px;
 $height--description: 40px;
 $breakpoint--desktop-min-width: $width--column * 4;
 
+%punctuation-hack-bang-link {
+  a:last-of-type {
+    &:after {
+      content: ".";
+    }
+    &:hover:after {
+      content: "!";
+    }
+  }
+}
+
 /// A Bridge Project Page Description and CTA
 ///
 /// The call to action on a project page with (eg a page with multiple bridge channels, like the guardian demo).
@@ -14,6 +25,7 @@ $breakpoint--desktop-min-width: $width--column * 4;
   border-bottom: 1px solid $light-keyboard-grey;
   z-index: 2;
   top: 0;
+  @extend %punctuation-hack-bang-link;
 }
 
 /// The channel headers in the columns
