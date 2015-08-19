@@ -305,7 +305,8 @@ header.title h1 {
   overflow: auto; }
 
 body {
-  margin: 0; }
+  margin: 0;
+  background-color: #e7e8ea; }
 
 header.title {
   width: 100%;
