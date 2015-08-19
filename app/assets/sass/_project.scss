@@ -1,10 +1,11 @@
 $width--column: 300px;
 $height--description: 40px;
+$breakpoint--desktop-min-width: $width--column * 4;
 
 /// A Bridge Project Page Description and CTA
 ///
 /// The call to action on a project page with (eg a page with multiple bridge channels, like the guardian demo).
-%project--page-header {
+%project--fixed-page-header {
   position: fixed;
   font-size: 1em;
   background-color: white;
@@ -17,16 +18,25 @@ $height--description: 40px;
 
 /// The channel headers in the columns
 /// 
-%project--channel-header {
-  padding: 1em;
-  top:0;
+%project--fixed-channel-header {
+  position: fixed;
+  background: white;
   width: 100%;
-  margin-top: 1em;
-  background-color: $firefly80;
-  color: white;
+  top: 0;
+  padding-top: 2em;
+  border-bottom: 1px solid $light-keyboard-grey;
+  border-left: 1px solid $light-keyboard-grey;
+  color: $firefly80;
   h1, h2, h3, h4 { 
     color: inherit;
-    text-align: left; 
+    text-align: left;
+    font-weight: 800;
+    padding: 0 0 0 16px;
+
+  }
+  h3 {
+    color: $bridge-orange;
+    font-size: 0.8em;
   }
   a {
     color: inherit;
@@ -41,21 +51,35 @@ $height--description: 40px;
   color: $firefly80;
 }
 
+/// Single column layout
+/// 
+/// For viewports smaller than four columns
+@mixin layout--single-column-project($width: 100%) {
+  @media (max-width: $breakpoint--desktop-min-width) {
+    .embed--channel {
+      border-bottom: 1px solid $light-keyboard-grey;
+      padding-bottom: 4em;
+    }
+  }
+}
+
 /// Layout for the multicolumn embed page
 /// 
 /// This assumes it is on an inner container that is not the body. The width is set to a fixed number of pixels in order to force an y-axis overflow (Tweetdeck style).
-@mixin layout--multicolumn-project($width: 25%) {
-  display: flex;
-  padding: 1em;
+@mixin layout--multi-column-project($width: 25%) {
+  @extend %flex-container;
+  padding: 0;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
   
   &>.embed--channel {
+    @extend %flex-item;
     overflow: scroll;
     width: $width;
+    margin-top: 8em;
     &>header {
-      @extend %project--channel-header;  
+      @extend %project--fixed-channel-header;
     }
     html, body { 
       height: 100%;
@@ -63,32 +87,23 @@ $height--description: 40px;
   }
 }
 
+// The main project CSS
+// Base styles are overridden in breakpoints
 body.project {
   margin: 0;
   @extend %theme--firefly;
-  @extend %fancy-scrollbars;
+  @extend %no-scrollbars;
 
-  // Hide the footer on project pages
-  #bridgeEmbed__footer {
-    display: none;
-  }
-
-  // Make the byline brighter on project pages
-  .byline {
-    color: $bridge-orange;
-    a {
-      color: $bridge-orange;
-    }
-  }
-
+  // The primary header
   &>header {
-    @extend %project--page-header;
-    font-weight: 700;
+    font-weight: 800;
     color: $bridge-orange;
+    @extend %project--fixed-page-header;
   }
 
+  // The primary footer
   &>footer {
-    @extend %project--page-header;
+    @extend %project--fixed-page-header;
     border-top: 1px solid $light-keyboard-grey;
     bottom: 0;
     top: auto;
@@ -97,8 +112,8 @@ body.project {
   }
   .embeds {
     // BREAKPOINT: When big enough to fit four columns
-    @media (min-width: $width--column * 3) {
-      @include layout--multicolumn-project(25%);
+    @media (min-width: $breakpoint--desktop-min-width) {
+      @include layout--multi-column-project(25%);
     }
   }
 }
