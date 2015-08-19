@@ -87,6 +87,9 @@ footer.call-to-action  {
   background-color: white;
   width: 100%;
   z-index: 2;
+  a {
+    color: $firefly80;
+  }
 }
 
 // Typography: headers

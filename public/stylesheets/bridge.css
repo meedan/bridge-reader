@@ -352,6 +352,8 @@ footer.call-to-action {
   background-color: white;
   width: 100%;
   z-index: 2; }
+  footer.call-to-action a {
+    color: #404d59; }
 
 h2, h3 {
   margin: 0;
