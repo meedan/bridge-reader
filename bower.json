@@ -11,8 +11,5 @@
   ],
   "devDependencies": {
     "meedan-style": "https://github.com/meedan/meedan-style.git#master"
-  },
-  "dependencies": {
-    "headhesive": "~1.2.4"
   }
 }
