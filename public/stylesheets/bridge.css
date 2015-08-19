@@ -9,10 +9,10 @@ body {
   padding: 0;
   font-size: 16px; }
 
-.project > footer a:last-of-type:after {
+footer.call-to-action a:last-of-type:after {
   content: "."; }
 
-.project > footer a:last-of-type:hover:after {
+footer.call-to-action a:last-of-type:hover:after {
   content: "!"; }
 
 .bridgeEmbed__share {
@@ -20,7 +20,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat; }
 
-.project ::-webkit-scrollbar {
+.project .embeds ::-webkit-scrollbar {
   display: none; }
 
 .bridgeEmbed__item-geodata {
@@ -295,10 +295,26 @@ body {
   min-height: 0;
   overflow: auto; }
 
-header {
-  font-size: 1em;
-  padding: 0.3em 1em;
-  background-color: white; }
+header.title {
+  width: 100%;
+  background-color: white;
+  color: #ff4f00;
+  position: fixed;
+  text-align: center;
+  font-size: 12px;
+  height: 40px; }
+  header.title h1 {
+    font-size: 14px;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    margin-right: -50%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%); }
+
+body {
+  margin: 0; }
 
 .project {
   margin: 0;
@@ -306,42 +322,50 @@ header {
   background-color: #e7e8ea;
   -webkit-transition: background-color 0.5s ease;
           transition: background-color 0.5s ease;
-  color: #404d59; }
-  .project .column header {
-    padding: 0.4em 0.6em;
-    background-color: white;
-    position: fixed;
-    width: 100%;
-    border-bottom: 1px solid #d1d6db; }
-    .project .column header h2, .project .column header h3 {
-      margin: 0;
-      font-weight: 800;
-      width: 100%;
-      border-right: 1px solid #d1d6db; }
-    .project .column header h2 {
-      color: #d1d6db; }
-    .project .column header h3 {
-      margin-top: 1em;
-      color: #ff4f00; }
-  .project > footer {
-    border-top: 1px solid #d1d6db;
-    bottom: 0;
-    top: auto;
-    border-bottom-width: 0;
-    position: fixed;
-    background-color: white;
-    width: 100%;
-    padding: 0.2em 1em; }
+  color: #404d59;
+  height: 90vh; }
   .project .embeds {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    height: 100vh;
-    border: 1px solid white; }
+    height: 90vh; }
     .project .embeds .column {
-      padding-top: 3em;
+      padding: 50px 0;
       min-width: 300px; }
       .project .embeds .column html, .project .embeds .column body {
         height: 100%; }
+  .project .column header {
+    top: 40px;
+    padding: 0.4em 0.6em;
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    margin: 0;
+    border: 1px solid #d1d6db; }
+
+footer.call-to-action {
+  border-top: 1px solid #d1d6db;
+  bottom: 0;
+  border-bottom-width: 0;
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  padding: 0.2em 1em;
+  background-color: white;
+  width: 100%;
+  z-index: 2; }
+
+h2, h3 {
+  margin: 0;
+  font-weight: 800;
+  width: 100%;
+  font-size: 16px;
+  border-right: 1px solid #d1d6db; }
+
+h2 {
+  color: #abb5bd; }
+
+h3 {
+  color: #ff4f00; }
