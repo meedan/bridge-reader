@@ -287,6 +287,15 @@ footer.call-to-action a:last-of-type:hover:after {
   .bridgeEmbed__share span {
     display: none; }
 
+header.title h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%); }
+
 .project .embeds .column {
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 300px;
@@ -294,6 +303,9 @@ footer.call-to-action a:last-of-type:hover:after {
           flex: 1 1 300px;
   min-height: 0;
   overflow: auto; }
+
+body {
+  margin: 0; }
 
 header.title {
   width: 100%;
@@ -305,45 +317,29 @@ header.title {
   height: 40px; }
   header.title h1 {
     font-size: 14px;
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    margin-right: -50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%); }
+    top: 25%; }
 
-body {
-  margin: 0; }
+.column header {
+  top: 40px;
+  padding: 0.4em 0.6em;
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  margin: 0;
+  border: 1px solid #d1d6db; }
 
 .project {
-  margin: 0;
-  padding: 0;
-  background-color: #e7e8ea;
-  -webkit-transition: background-color 0.5s ease;
-          transition: background-color 0.5s ease;
-  color: #404d59;
-  height: 90vh; }
+  color: #404d59; }
   .project .embeds {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    height: 90vh; }
+    height: 95vh; }
     .project .embeds .column {
       padding: 120px 0;
       min-width: 300px; }
-      .project .embeds .column html, .project .embeds .column body {
-        height: 100%; }
-  .project .column header {
-    top: 40px;
-    padding: 0.4em 0.6em;
-    background-color: white;
-    position: fixed;
-    width: 100%;
-    margin: 0;
-    border: 1px solid #d1d6db; }
 
 footer.call-to-action {
   border-top: 1px solid #d1d6db;
@@ -362,9 +358,7 @@ h2, h3 {
   font-weight: 800;
   width: 100%;
   font-size: 16px;
-  border-right: 1px solid #d1d6db; }
-
-h2 {
+  border-right: 1px solid #d1d6db;
   color: #abb5bd; }
 
 h3 {
