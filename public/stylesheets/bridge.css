@@ -332,7 +332,7 @@ body {
     display: flex;
     height: 90vh; }
     .project .embeds .column {
-      padding: 50px 0;
+      padding: 120px 0;
       min-width: 300px; }
       .project .embeds .column html, .project .embeds .column body {
         height: 100%; }

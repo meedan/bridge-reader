@@ -52,7 +52,7 @@ body {
     height: 90vh;
     
     .column {
-      padding: 50px 0;
+      padding: $top-offset*3 0;
       @extend %layout--flex-item-scrolling;
       min-width: 300px;
       html, body { 
