@@ -337,9 +337,11 @@ header.title {
     display: -ms-flexbox;
     display: flex;
     height: 95vh; }
-    .project .columns .column .embeds {
-      padding: 120px 1em;
-      min-width: 300px; }
+    .project .columns .column {
+      border-right: 1px solid #d1d6db; }
+      .project .columns .column .embeds {
+        padding: 120px 1em;
+        min-width: 300px; }
 
 footer.call-to-action {
   border-top: 1px solid #d1d6db;

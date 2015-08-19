@@ -64,7 +64,8 @@ header.title {
     height: 95vh;
     
     .column {
-      @extend %layout--flex-item-scrolling;  
+      @extend %layout--flex-item-scrolling;
+      border-right: 1px solid $light-keyboard-grey;
       .embeds {
         padding: $top-offset*3 1em;
         min-width: 300px;
