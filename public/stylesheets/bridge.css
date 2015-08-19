@@ -1,36 +1,6 @@
 * {
   box-sizing: border-box; }
 
-body.project .embeds {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: wrap row;
-      -ms-flex-flow: wrap row;
-          flex-flow: wrap row;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  flex-align: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center; }
-
-body.project .embeds > .embed--channel {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -webkit-flex-shrink: 1;
-      -ms-flex-negative: 1;
-          flex-shrink: 1;
-  -webkit-flex-basis: auto;
-      -ms-flex-preferred-size: auto;
-          flex-basis: auto; }
-
 body {
   font-family: 'Lato', 'open sans', arial, 'helvetica neue', helvetica, sans-serif;
   font-weight: 300;
@@ -38,36 +8,20 @@ body {
   line-height: 1.4;
   padding: 0;
   font-size: 16px; }
-  body h1 {
-    font-size: 14px;
-    font-weight: 700;
-    width: 100%;
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    line-height: 1.7; }
-  body h2 {
-    padding: 0;
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center; }
-  body h3 {
-    color: #abb5bd;
-    font-weight: 300;
-    font-size: 12px;
-    padding: 0;
-    width: 100%;
-    text-align: center;
-    text-transform: uppercase; }
-  body a {
-    font-weight: 400;
-    color: #404d59; }
+
+body.project > footer a:last-of-type:after {
+  content: "."; }
+
+body.project > footer a:last-of-type:hover:after {
+  content: "!"; }
 
 .bridgeEmbed__share {
   display: inline-block;
   background-size: cover;
   background-repeat: no-repeat; }
+
+body.project ::-webkit-scrollbar {
+  display: none; }
 
 .bridgeEmbed__item-geodata {
   position: absolute;
@@ -333,69 +287,37 @@ body {
   .bridgeEmbed__share span {
     display: none; }
 
-body.project > header a:last-of-type:after, body.project > footer a:last-of-type:after {
-  content: "."; }
-
-body.project > header a:last-of-type:hover:after, body.project > footer a:last-of-type:hover:after {
-  content: "!"; }
-
-body.project > header, body.project > footer {
-  position: fixed;
-  font-size: 1em;
-  background-color: white;
-  padding: 8px;
-  width: 100%;
-  border-bottom: 1px solid #d1d6db;
-  z-index: 2;
-  top: 0; }
-
-body.project .embeds > .embed--channel > header {
-  position: fixed;
-  background: white;
-  width: 100%;
-  top: 0;
-  padding-top: 2em;
-  border-bottom: 1px solid #d1d6db;
-  border-left: 1px solid #d1d6db;
-  color: #404d59; }
-  body.project .embeds > .embed--channel > header h1, body.project .embeds > .embed--channel > header h2, body.project .embeds > .embed--channel > header h3, body.project .embeds > .embed--channel > header h4 {
-    color: inherit;
-    text-align: left;
-    font-weight: 800;
-    padding: 0 0 0 16px; }
-  body.project .embeds > .embed--channel > header h3 {
-    color: #ff4f00;
-    font-size: 0.8em; }
-  body.project .embeds > .embed--channel > header a {
-    color: inherit; }
-
 body.project {
+  margin: 0;
+  padding: 2em;
   background-color: #e7e8ea;
   -webkit-transition: background-color 0.5s ease;
           transition: background-color 0.5s ease;
   color: #404d59; }
-
-body.project {
-  margin: 0; }
-  body.project > header {
-    font-weight: 800;
-    color: #ff4f00; }
   body.project > footer {
     border-top: 1px solid #d1d6db;
     bottom: 0;
     top: auto;
-    -webkit-transition: top 2s ease;
-            transition: top 2s ease;
-    border-bottom-width: 0; }
-  @media (min-width: 1200px) {
-    body.project .embeds {
-      padding: 0;
-      height: 100vh;
-      max-height: 100vh;
-      overflow: hidden; }
-      body.project .embeds > .embed--channel {
-        overflow: scroll;
-        width: 25%;
-        margin-top: 8em; }
-        body.project .embeds > .embed--channel html, body.project .embeds > .embed--channel body {
-          height: 100%; } }
+    border-bottom-width: 0;
+    position: fixed;
+    background-color: white;
+    width: 100%; }
+  body.project .embeds {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 80vh;
+    border: 1px solid white;
+    overflow: auto; }
+    body.project .embeds .embed--channel {
+      min-height: 0;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 300px;
+          -ms-flex: 1 1 300px;
+              flex: 1 1 300px;
+      overflow: auto;
+      min-width: 300px; }
+      body.project .embeds .embed--channel html, body.project .embeds .embed--channel body {
+        height: 100%; }

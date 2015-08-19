@@ -1,131 +1,57 @@
-$width--column: 300px;
-$height--description: 40px;
-$breakpoint--desktop-min-width: $width--column * 4;
-
-%punctuation-hack-bang-link {
-  a:last-of-type {
-    &:after {
-      content: ".";
-    }
-    &:hover:after {
-      content: "!";
-    }
-  }
-}
-
-/// A Bridge Project Page Description and CTA
-///
-/// The call to action on a project page with (eg a page with multiple bridge channels, like the guardian demo).
-%project--fixed-page-header {
-  position: fixed;
-  font-size: 1em;
-  background-color: white;
-  padding: 8px;
-  width: 100%;
-  border-bottom: 1px solid $light-keyboard-grey;
-  z-index: 2;
-  top: 0;
-  @extend %punctuation-hack-bang-link;
-}
-
-/// The channel headers in the columns
+/// Layout: Flex columns
 /// 
-%project--fixed-channel-header {
-  position: fixed;
-  background: white;
-  width: 100%;
-  top: 0;
-  padding-top: 2em;
-  border-bottom: 1px solid $light-keyboard-grey;
-  border-left: 1px solid $light-keyboard-grey;
-  color: $firefly80;
-  h1, h2, h3, h4 { 
-    color: inherit;
-    text-align: left;
-    font-weight: 800;
-    padding: 0 0 0 16px;
-
-  }
-  h3 {
-    color: $bridge-orange;
-    font-size: 0.8em;
-  }
-  a {
-    color: inherit;
+/// Applied at larger breakpoints. 
+/// @parameter: $width - Usually a percentage. Can be set to a fixed number of pixels in order to force an y-axis overflow (Tweetdeck style).
+@mixin layout--flex-columns($column-width: 25%) {
+  .embeds {
+    width: 100%;
+    display: flex;
+    // flex-flow: row nowrap;
+    // justify-content: left;
+    // flex-align: center;
+    // align-items: flex-start;
+    height: 80vh;
+    border: 1px solid white;
+    overflow: auto;
+    .embed--channel {
+      min-height: 0;
+      flex: 1 1 300px;
+      overflow: auto;
+      min-width: 300px;
+    
+      // Special treatment for a certain column:
+      // &:nth-of-type(1) {
+      //   flex: 2;
+      // }
+      html, body { 
+        height: 100%;
+      }
+    }
   }
 }
 
-/// Firefly theme for the project page
-/// With transitions ... for possible future stylesheet switching CGB
-%theme--firefly {
+// The mainline styles
+// 
+body.project {
+  margin: 0;
+  padding: 2em;
   background-color: $firefly10;
   transition: background-color 0.5s ease;
   color: $firefly80;
-}
-
-/// Single column layout
-/// 
-/// For viewports smaller than four columns
-@mixin layout--single-column-project($width: 100%) {
-  @media (max-width: $breakpoint--desktop-min-width) {
-    .embed--channel {
-      border-bottom: 1px solid $light-keyboard-grey;
-      padding-bottom: 4em;
-    }
-  }
-}
-
-/// Layout for the multicolumn embed page
-/// 
-/// This assumes it is on an inner container that is not the body. The width is set to a fixed number of pixels in order to force an y-axis overflow (Tweetdeck style).
-@mixin layout--multi-column-project($width: 25%) {
-  @extend %flex-container;
-  padding: 0;
-  height: 100vh;
-  max-height: 100vh;
-  overflow: hidden;
-  
-  &>.embed--channel {
-    @extend %flex-item;
-    overflow: scroll;
-    width: $width;
-    margin-top: 8em;
-    &>header {
-      @extend %project--fixed-channel-header;
-    }
-    html, body { 
-      height: 100%;
-    }
-  }
-}
-
-// The main project CSS
-// Base styles are overridden in breakpoints
-body.project {
-  margin: 0;
-  @extend %theme--firefly;
-  @extend %no-scrollbars;
-
-  // The primary header
-  &>header {
-    font-weight: 800;
-    color: $bridge-orange;
-    @extend %project--fixed-page-header;
-  }
+  @extend %hide-scrollbars;
 
   // The primary footer
+  // 
   &>footer {
-    @extend %project--fixed-page-header;
     border-top: 1px solid $light-keyboard-grey;
     bottom: 0;
     top: auto;
-    transition: top 2s ease;
     border-bottom-width: 0;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    @extend %punctuation--bang-link;
   }
-  .embeds {
-    // BREAKPOINT: When big enough to fit four columns
-    @media (min-width: $breakpoint--desktop-min-width) {
-      @include layout--multi-column-project(25%);
-    }
-  }
+
+  @include layout--flex-columns(25%);
 }

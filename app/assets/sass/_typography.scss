@@ -11,34 +11,19 @@
   line-height: 1.4;
   padding: 0;
   font-size: 16px;
-  h1 {
-    font-size: 14px;
-    font-weight: 700;
-    width: 100%;
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    line-height: 1.7;
-  }
-  h2 {
-    padding: 0;
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center;
-  }
-  h3 {
-    color: $keyboard-grey;
-    font-weight: 300;
-    font-size: 12px;
-    padding: 0;
-    width: 100%;
-    text-align: center;
-    text-transform: uppercase;
-  }
-  a {
-    font-weight: 400;
-    color: $firefly80;
+}
+
+/// Punctuation hack
+/// Add a period, then replace it with a bang on hover.
+/// Applied to the last link in the element.
+%punctuation--bang-link {
+  a:last-of-type {
+    &:after {
+      content: ".";
+    }
+    &:hover:after {
+      content: "!";
+    }
   }
 }
 
