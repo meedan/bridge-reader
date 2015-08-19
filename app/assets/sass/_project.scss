@@ -4,7 +4,7 @@ $height--description: 40px;
 /// A Bridge Project Page Description and CTA
 ///
 /// The call to action on a project page with (eg a page with multiple bridge channels, like the guardian demo).
-%project--description {
+%project--page-header {
   position: fixed;
   font-size: 1em;
   background-color: white;
@@ -12,6 +12,7 @@ $height--description: 40px;
   width: 100%;
   border-bottom: 1px solid $light-keyboard-grey;
   z-index: 2;
+  top: 0;
 }
 
 /// The channel headers in the columns
@@ -20,8 +21,9 @@ $height--description: 40px;
   padding: 1em;
   top:0;
   width: 100%;
-  background: $light-keyboard-grey;
-  color: $firefly80;
+  margin-top: 1em;
+  background-color: $firefly80;
+  color: white;
   h1, h2, h3, h4 { 
     color: inherit;
     text-align: left; 
@@ -34,7 +36,7 @@ $height--description: 40px;
 /// Firefly theme for the project page
 /// With transitions ... for possible future stylesheet switching CGB
 %theme--firefly {
-  background-color: $firefly20;
+  background-color: $firefly10;
   transition: background-color 0.5s ease;
   color: $firefly80;
 }
@@ -42,16 +44,19 @@ $height--description: 40px;
 /// Layout for the multicolumn embed page
 /// 
 /// This assumes it is on an inner container that is not the body. The width is set to a fixed number of pixels in order to force an y-axis overflow (Tweetdeck style).
-@mixin layout--multicolumn-project {
+@mixin layout--multicolumn-project($width: 25%) {
   display: flex;
   padding: 1em;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
   
-  & > .embed--channel {
+  &>.embed--channel {
     overflow: scroll;
-    max-width: 600px;
+    width: $width;
+    &>header {
+      @extend %project--channel-header;  
+    }
     html, body { 
       height: 100%;
     }
@@ -61,33 +66,39 @@ $height--description: 40px;
 body.project {
   margin: 0;
   @extend %theme--firefly;
-  @extend %scrollbars;
+  @extend %fancy-scrollbars;
 
   // Hide the footer on project pages
   #bridgeEmbed__footer {
     display: none;
   }
 
+  // Make the byline brighter on project pages
+  .byline {
+    color: $bridge-orange;
+    a {
+      color: $bridge-orange;
+    }
+  }
+
   &>header {
-    @extend %project--description;
+    @extend %project--page-header;
     font-weight: 700;
     color: $bridge-orange;
   }
 
   &>footer {
-    @extend %project--description;
+    @extend %project--page-header;
     border-top: 1px solid $light-keyboard-grey;
     bottom: 0;
+    top: auto;
+    transition: top 2s ease;
     border-bottom-width: 0;
   }
-
   .embeds {
     // BREAKPOINT: When big enough to fit four columns
-    @media (min-width: $width--column * 4) {
-      @include layout--multicolumn-project;
-    }
-    &>header {
-      @extend %project--channel-header;  
+    @media (min-width: $width--column * 3) {
+      @include layout--multicolumn-project(25%);
     }
   }
 }

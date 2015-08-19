@@ -43,10 +43,6 @@ $border--translation: 3px solid $bridge-orange;
   padding: 0.6em 1em 0.6em;
   margin: 0;
   font-weight: 700;
-  color: $bridge-orange;
-  a {
-    color: $bridge-orange;
-  }
 }
 
 /// Bridge Translation
@@ -67,7 +63,7 @@ $border--translation: 3px solid $bridge-orange;
 
   p {
     max-width: $max-width;
-    padding: 0.6em 1em;
+    padding: 0 1em 0.6em;
     margin: 0;
   }
 

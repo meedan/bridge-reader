@@ -2,7 +2,7 @@
 /// 
 /// Used by embeds, when needed. See the project section.
 /// @group bridge-style
-%scrollbars {
+%fancy-scrollbars {
   ::-webkit-scrollbar {
     width: 3px;
     height: 3px;
@@ -11,5 +11,11 @@
   ::-webkit-scrollbar-thumb {
     background-color: $light-keyboard-grey;
     border-radius: 3px;
+  }
+}
+
+%hide-scrollbars {
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
