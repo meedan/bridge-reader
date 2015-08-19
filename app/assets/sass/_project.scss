@@ -1,28 +1,26 @@
+/// Flex item that scrolls (channel in a project page)
+/// 
+/// The min-height 0 is required for reasons I don't understand. — 2015 August CGB
+/// With flex, only 'auto' seems to trigger the scroll, not scroll-x.
+%layout--flex-item-scrolling {
+  flex: 1 1 300px;
+  min-height: 0;
+  overflow: auto;
+}
+
 /// Layout: Flex columns
 /// 
-/// Applied at larger breakpoints. 
 /// @parameter: $width - Usually a percentage. Can be set to a fixed number of pixels in order to force an y-axis overflow (Tweetdeck style).
 @mixin layout--flex-columns($column-width: 25%) {
   .embeds {
     width: 100%;
     display: flex;
-    // flex-flow: row nowrap;
-    // justify-content: left;
-    // flex-align: center;
-    // align-items: flex-start;
-    height: 80vh;
+    height: 100vh;
     border: 1px solid white;
-    overflow: auto;
-    .embed--channel {
-      min-height: 0;
-      flex: 1 1 300px;
-      overflow: auto;
+    .column {
+      padding-top: 3em;
+      @extend %layout--flex-item-scrolling;
       min-width: 300px;
-    
-      // Special treatment for a certain column:
-      // &:nth-of-type(1) {
-      //   flex: 2;
-      // }
       html, body { 
         height: 100%;
       }
@@ -30,16 +28,47 @@
   }
 }
 
+// All headers 
+// (Page and column headers)
+header {
+  font-size: 1em;
+  padding: 0.3em 1em;
+  background-color: white;
+}
+
 // The mainline styles
 // 
-body.project {
+.project {
   margin: 0;
-  padding: 2em;
+  padding: 0;
   background-color: $firefly10;
   transition: background-color 0.5s ease;
   color: $firefly80;
   @extend %hide-scrollbars;
+  .column header {
+    padding: 0.4em 0.6em;
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    border-bottom: 1px solid $light-keyboard-grey;
 
+    h2, h3 {
+      margin: 0;
+      font-weight: 800;
+      width: 100%;
+      border-right: 1px solid $light-keyboard-grey;
+
+    }
+
+    h2 {
+      color: $light-keyboard-grey;
+
+    }
+    h3 {
+      margin-top: 1em;
+      color: $bridge-orange;
+    }
+  }
   // The primary footer
   // 
   &>footer {
@@ -50,6 +79,7 @@ body.project {
     position: fixed;
     background-color: white;
     width: 100%;
+    padding: 0.2em 1em;
     @extend %punctuation--bang-link;
   }
 

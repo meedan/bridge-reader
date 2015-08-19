@@ -9,10 +9,10 @@ body {
   padding: 0;
   font-size: 16px; }
 
-body.project > footer a:last-of-type:after {
+.project > footer a:last-of-type:after {
   content: "."; }
 
-body.project > footer a:last-of-type:hover:after {
+.project > footer a:last-of-type:hover:after {
   content: "!"; }
 
 .bridgeEmbed__share {
@@ -20,7 +20,7 @@ body.project > footer a:last-of-type:hover:after {
   background-size: cover;
   background-repeat: no-repeat; }
 
-body.project ::-webkit-scrollbar {
+.project ::-webkit-scrollbar {
   display: none; }
 
 .bridgeEmbed__item-geodata {
@@ -287,37 +287,61 @@ body.project ::-webkit-scrollbar {
   .bridgeEmbed__share span {
     display: none; }
 
-body.project {
+.project .embeds .column {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 300px;
+      -ms-flex: 1 1 300px;
+          flex: 1 1 300px;
+  min-height: 0;
+  overflow: auto; }
+
+header {
+  font-size: 1em;
+  padding: 0.3em 1em;
+  background-color: white; }
+
+.project {
   margin: 0;
-  padding: 2em;
+  padding: 0;
   background-color: #e7e8ea;
   -webkit-transition: background-color 0.5s ease;
           transition: background-color 0.5s ease;
   color: #404d59; }
-  body.project > footer {
+  .project .column header {
+    padding: 0.4em 0.6em;
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    border-bottom: 1px solid #d1d6db; }
+    .project .column header h2, .project .column header h3 {
+      margin: 0;
+      font-weight: 800;
+      width: 100%;
+      border-right: 1px solid #d1d6db; }
+    .project .column header h2 {
+      color: #d1d6db; }
+    .project .column header h3 {
+      margin-top: 1em;
+      color: #ff4f00; }
+  .project > footer {
     border-top: 1px solid #d1d6db;
     bottom: 0;
     top: auto;
     border-bottom-width: 0;
     position: fixed;
     background-color: white;
-    width: 100%; }
-  body.project .embeds {
+    width: 100%;
+    padding: 0.2em 1em; }
+  .project .embeds {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    height: 80vh;
-    border: 1px solid white;
-    overflow: auto; }
-    body.project .embeds .embed--channel {
-      min-height: 0;
-      -webkit-box-flex: 1;
-      -webkit-flex: 1 1 300px;
-          -ms-flex: 1 1 300px;
-              flex: 1 1 300px;
-      overflow: auto;
+    height: 100vh;
+    border: 1px solid white; }
+    .project .embeds .column {
+      padding-top: 3em;
       min-width: 300px; }
-      body.project .embeds .embed--channel html, body.project .embeds .embed--channel body {
+      .project .embeds .column html, .project .embeds .column body {
         height: 100%; }
