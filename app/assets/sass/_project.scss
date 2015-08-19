@@ -1,82 +1,108 @@
-/// A Bridge Project Page Description and CTA
-///
-/// The call to action on a project page with (eg a page with multiple bridge channels, like the guardian demo).
-%project-page-description {
-  position: fixed;
-  font-size: smaller;
-  background-color: white;
-  padding: 0.6em 1em;
+$top-offset: 40px;
+
+// Vertically center something 
+// with absolute positioning and transform
+%layout--vertical-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) 
+}
+
+/// Flex item that scrolls (channel in a project page)
+/// 
+/// The min-height 0 is required for reasons I don't understand. — 2015 August CGB
+/// Also, with flex, only 'auto' seems to trigger the scroll, not scroll-x.
+%layout--flex-item-scrolling {
+  flex: 1 1 300px;
+  min-height: 0;
+  overflow: auto;
+}
+
+body {
+  margin: 0;
+  // background-color: $firefly10;
+}
+
+// Page header with title
+header.title {
   width: 100%;
-  border-bottom: 1px solid $light-keyboard-grey;
-
-  p {
-    padding: 0;
-  }
-
-  &.top {
-    font-weight: 700;
-    color: $bridge-orange;
-  }
-
-  &.bottom {
-    border-top: 1px solid $light-keyboard-grey;
-    bottom: 0;
-    border-bottom-width: 0;
-  }
-
-  a {
-    border-radius: 4px;
-    padding: 0 0.4em;
-    transition: 0.4s;
+  background-color: white;
+  color: $bridge-orange;
+  position: fixed;
+  text-align: center;
+  font-size: 12px;
+  height: $top-offset;
+  h1 {
+    font-size: 14px;
+    @extend %layout--vertical-center;
+    top: 25%;
   }
 }
 
-
-// Bridge Multicolumn Project Page Embeds
-// 
-// When the page is wide enough, 
-// Apply the project page styles.
-.embeds {
-  @extend %flex-container;
+// Column Header
+.column header {
+  top: $top-offset;
+  padding: 0.4em 0.6em;
   background-color: white;
+  position: fixed;
+  width: 100%;
+  margin: 0;
+  border: 1px solid $light-keyboard-grey; 
+}
 
-  .embed-wrapper {
-    @extend %flex-item;
-  }
 
-  .header {
-      margin-top: 4vh;
-      padding-top: 2vh;
-    }
-
-  // Small screens only
-  @media (max-width: 1399px) {
-    flex-flow: column nowrap;
-
-    .embed-wrapper {
-      height: auto;
-      padding: 2em 1em;
-      width: 100%;
-      html, body { 
-        // Ensure scrollbars don't appear.
-        // I am not sure why this is necessary — CGB 2015 August 1
-        height: 100%;
+// Project collection of columns (channels)
+.project {
+  color: $firefly80;
+  
+  .columns {
+    @extend %hide-scrollbars;
+    width: 100%;
+    display: flex;
+    height: 95vh;
+    
+    .column {
+      @extend %layout--flex-item-scrolling;
+      border-right: 1px solid $light-keyboard-grey;
+      .embeds {
+        padding: $top-offset*3 1em;
+        min-width: 300px;
       }
     }
   }
+}
 
-  // Larger screens only
-  @media (min-width: 1400px) {
-    @extend %scrollbars;
-    align-items: flex-start;
-    .embed-wrapper {
-      height: 98vh;
-      padding: 2vh 1em;
-      overflow: scroll;
-    }
+// The primary footer
+// 
+footer.call-to-action  {
+  border-top: 1px solid $light-keyboard-grey;
+  bottom: 0;
+  border-bottom-width: 0;
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  padding: 0.2em 1em;
+  @extend %punctuation--bang-link;
+  background-color: white;
+  width: 100%;
+  z-index: 2;
+  a {
+    color: $firefly80;
   }
 }
 
-.description {
-  @extend %project-page-description;
+// Typography: headers
+h2, h3 {
+  margin: 0;
+  font-weight: 800;
+  width: 100%;
+  font-size: 16px;
+  border-right: 1px solid $light-keyboard-grey;
+  color: $keyboard-grey;
+}
+
+h3 {
+  color: $bridge-orange;
 }

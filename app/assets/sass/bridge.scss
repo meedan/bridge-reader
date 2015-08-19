@@ -3,6 +3,12 @@
 /// Most styles are written directly to this repository.
 /// Some are in the bower component, `meedan-style` in `vendor/assets/bower_components`
 /// NOTE: screenshot.css is rendered as a stand-alone file.
+/// 
+$width--column: 300px;
+$height--description: 40px;
+$breakpoint--desktop-min-width: $width--column * 4;
+$top-offset--channel: 60px;
+
 @import "meedan-style/layout";
 @import "meedan-style/colors";
 @import "colors";
