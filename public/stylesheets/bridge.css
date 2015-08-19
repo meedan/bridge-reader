@@ -20,7 +20,7 @@ footer.call-to-action a:last-of-type:hover:after {
   background-size: cover;
   background-repeat: no-repeat; }
 
-.project .embeds ::-webkit-scrollbar {
+.project .columns ::-webkit-scrollbar {
   display: none; }
 
 .bridgeEmbed__item-geodata {
@@ -296,7 +296,7 @@ header.title h1 {
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
 
-.project .embeds .column {
+.project .columns .column {
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 300px;
       -ms-flex: 1 1 300px;
@@ -330,15 +330,15 @@ header.title {
 
 .project {
   color: #404d59; }
-  .project .embeds {
+  .project .columns {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     height: 95vh; }
-    .project .embeds .column {
-      padding: 120px 0;
+    .project .columns .column .embeds {
+      padding: 120px 1em;
       min-width: 300px; }
 
 footer.call-to-action {
