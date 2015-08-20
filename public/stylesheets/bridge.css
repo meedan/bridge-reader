@@ -368,3 +368,7 @@ h2, h3 {
 
 h3 {
   color: #ff4f00; }
+
+h4 {
+  padding: 0;
+  margin: 0; }
