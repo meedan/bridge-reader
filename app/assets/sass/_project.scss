@@ -72,6 +72,12 @@ header.title {
   .project {
     color: $firefly80;
     border-right: 1px solid $light-keyboard-grey;
+
+    @media (max-width: $breakpoint) {
+      .column {
+        padding-bottom: 2em;
+      }
+    }
     @media (min-width: $breakpoint) {
       .columns {
         width: 100%;
