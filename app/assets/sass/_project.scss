@@ -73,11 +73,19 @@ header.title {
     color: $firefly80;
     border-right: 1px solid $light-keyboard-grey;
 
+    // BELOW the breakpoint
     @media (max-width: $breakpoint) {
+      .columns {
+        // When stacked account for footer.
+        padding-bottom: 5em;
+      }
       .column {
+        border-bottom: 2px solid black;
         padding-bottom: 2em;
       }
     }
+
+    // ABOVE the breakpoint
     @media (min-width: $breakpoint) {
       .columns {
         width: 100%;

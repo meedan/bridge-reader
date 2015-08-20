@@ -332,7 +332,10 @@ header.title {
   color: #404d59;
   border-right: 1px solid #d1d6db; }
   @media (max-width: 900px) {
+    .project .columns {
+      padding-bottom: 5em; }
     .project .column {
+      border-bottom: 2px solid black;
       padding-bottom: 2em; } }
   @media (min-width: 900px) {
     .project .columns {
