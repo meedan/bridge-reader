@@ -36,9 +36,10 @@ header.title {
   font-size: 12px;
   height: $top-offset;
   h1 {
-    font-size: 16px;
+    color: black;
+    font-size: 18px;
     @extend %layout--vertical-center;
-    top: 25%;
+    top: 20%;
   }
 }
 

@@ -317,8 +317,9 @@ header.title {
   font-size: 12px;
   height: 40px; }
   header.title h1 {
-    font-size: 16px;
-    top: 25%; }
+    color: black;
+    font-size: 18px;
+    top: 20%; }
 
 .column header {
   top: 40px;
