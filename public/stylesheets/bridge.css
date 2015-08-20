@@ -326,7 +326,7 @@ header.title {
       display: block;
       min-height: 110px;
       top: 40px;
-      width: 25vw; } }
+      width: 33.333333vw; } }
 
 .project {
   color: #404d59;
@@ -346,7 +346,8 @@ header.title {
             -ms-flex: 1 1 300px;
                 flex: 1 1 300px;
         min-height: 0;
-        overflow: auto; }
+        overflow: auto;
+        border-right: 1px solid #d1d6db; }
         .project .columns .column .embeds {
           padding: 200px 1em;
           min-width: 300px; } }
