@@ -8,6 +8,10 @@ body {
   line-height: 1.4;
   padding: 0;
   font-size: 16px; }
+  body a {
+    color: #283743; }
+    body a:hover {
+      color: #6f7a82; }
 
 footer.call-to-action a:last-of-type:after {
   content: "."; }
@@ -159,7 +163,7 @@ footer.call-to-action a:last-of-type:hover:after {
   position: relative;
   overflow: hidden;
   padding: 0.6em 0.4em 1em;
-  margin: 1em auto 0;
+  margin: 2em auto 0;
   max-width: 505px;
   height: 100%;
   background-color: white;
