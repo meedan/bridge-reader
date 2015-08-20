@@ -49,7 +49,17 @@ header.title {
   position: fixed;
   width: 100%;
   margin: 0;
-  border: 1px solid $light-keyboard-grey; 
+  border: 1px solid $light-keyboard-grey;
+  display: block;
+  h4 {
+    color: $keyboard-grey;
+    font-style: italic;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    max-width: 400px;
+    min-height: 50px;
+  }
 }
 
 
@@ -96,15 +106,22 @@ footer.call-to-action  {
 // Typography: headers
 h2, h3 {
   margin: 0;
-  font-weight: 800;
   width: 100%;
   font-size: 16px;
   border-right: 1px solid $light-keyboard-grey;
   color: $keyboard-grey;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+h2 {
+  color: $keyboard-grey;
+  font-weight: 400;
 }
 
 h3 {
   color: $bridge-orange;
+  font-weight: 800;
 }
 
 h4 {

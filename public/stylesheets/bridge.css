@@ -327,7 +327,16 @@ header.title {
   position: fixed;
   width: 100%;
   margin: 0;
-  border: 1px solid #d1d6db; }
+  border: 1px solid #d1d6db;
+  display: block; }
+  .column header h4 {
+    color: #abb5bd;
+    font-style: italic;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    max-width: 400px;
+    min-height: 50px; }
 
 .project {
   color: #404d59; }
@@ -360,14 +369,20 @@ footer.call-to-action {
 
 h2, h3 {
   margin: 0;
-  font-weight: 800;
   width: 100%;
   font-size: 16px;
   border-right: 1px solid #d1d6db;
-  color: #abb5bd; }
+  color: #abb5bd;
+  line-height: 1.6;
+  font-weight: 400; }
+
+h2 {
+  color: #abb5bd;
+  font-weight: 400; }
 
 h3 {
-  color: #ff4f00; }
+  color: #ff4f00;
+  font-weight: 800; }
 
 h4 {
   padding: 0;
