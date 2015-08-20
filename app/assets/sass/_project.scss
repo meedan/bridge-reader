@@ -1,9 +1,9 @@
 $top-offset: 40px;
-$breakpoint: 800px;
+$breakpoint: 900px;
 
 // Vertically center something 
 // with absolute positioning and transform
-%layout--vertical-center {
+@mixin layout--vertical-center {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -11,11 +11,15 @@ $breakpoint: 800px;
   transform: translate(-50%, -50%) 
 }
 
+.project .columns {
+  @extend %hide-scrollbars;
+}
+
 /// Flex item that scrolls (channel in a project page)
 /// 
 /// The min-height 0 is required for reasons I don't understand. — 2015 August CGB
 /// Also, with flex, only 'auto' seems to trigger the scroll, not scroll-x.
-%layout--flex-item-scrolling {
+@mixin layout--flex-item-scrolling {
   flex: 1 1 300px;
   min-height: 0;
   overflow: auto;
@@ -26,62 +30,65 @@ body#bridge__project {
   background-color: $firefly10;
 }
 
-// Page header
 header.title {
-  width: 100%;
   background-color: white;
   color: $bridge-orange;
-  position: fixed;
-  text-align: center;
   font-size: 12px;
   height: $top-offset;
+  position: relative;
+  
   h1 {
     color: black;
     font-size: 18px;
-    @extend %layout--vertical-center;
-    top: 20%;
+    @include layout--vertical-center;
+      top: 20%;
+  }
+  @media(min-width: $breakpoint) {
+    width: 100%;
+    position: fixed;
+    text-align: center;
+  
   }
 }
 
-// Column Header
-.column header {
-  top: $top-offset;
-  padding: 0.4em 0.6em;
-  background-color: white;
-  position: fixed;
-  margin: 0;
-  border: 1px solid $light-keyboard-grey;
-  display: block;
-  width: 100%;
-  min-height: 110px;
-}
-
-
-// Project collection of columns (channels)
-.project {
-  color: $firefly80;
-  
-  .columns {
-    @extend %hide-scrollbars;
+  // Column Header
+  .column header {
+    padding: 0.4em 0.6em;
+    background-color: white;
     width: 100%;
-    display: flex;
-    height: 95vh;
-    min-width: 1000px;
-    // position: relative;
-    .column {
-      @extend %layout--flex-item-scrolling;  
-      // @media (min-width: $breakpoint) {
-        
-      // }
-      
-      border-right: 1px solid $light-keyboard-grey;
-      .embeds {
-        padding: $top-offset*5 1em;
-        min-width: 300px;
+    @media(min-width: $breakpoint) {
+      position: fixed;
+      margin: 0;
+      border: 1px solid $light-keyboard-grey;
+      display: block;
+      min-height: 110px;
+      top: $top-offset;
+      width: 25vw; 
+    }
+  }
+
+
+  // Project collection of columns (channels)
+  .project {
+    color: $firefly80;
+    border-right: 1px solid $light-keyboard-grey;
+    @media (min-width: $breakpoint) {
+      .columns {
+        width: 100%;
+        display: flex;
+        height: 95vh;
+        min-width: 1000px;
+        // position: relative;
+        .column {
+          @include layout--flex-item-scrolling;    
+          .embeds {
+            padding: $top-offset*5 1em;
+            min-width: 300px;
+          }
+        }
       }
     }
   }
-}
 
 // The primary footer
 // 
@@ -102,32 +109,25 @@ footer.call-to-action  {
   }
 }
 
-// Typography: headers
-h2, h3 {
-  margin: 0;
+h2.channel--title {
+  margin: 0 0.5em 0 0;
   width: 100%;
   font-size: 16px;
-  color: $keyboard-grey;
-  // line-height: 1.6;
-  font-weight: 400;
-}
-
-h2 {
   color: $bridge-orange;
   font-weight: 800;
-  width: auto;
-  margin-right: 0.5em;
 }
 
-h3 {
+.channel--description {
   font-weight: 500;
   color: $keyboard-grey;
   font-style: italic;
   margin-top: 5px;
   font-size: 14px;
   font-weight: 400;
-  max-width: 30vw;
   line-height: 1.4;
+  @media (min-width: $breakpoint) {
+    max-width: 30vw;
+  }
 }
 
 .channel--language-pair {
