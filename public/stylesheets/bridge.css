@@ -317,26 +317,20 @@ header.title {
   font-size: 12px;
   height: 40px; }
   header.title h1 {
-    font-size: 14px;
-    top: 25%; }
+    color: black;
+    font-size: 18px;
+    top: 20%; }
 
 .column header {
   top: 40px;
   padding: 0.4em 0.6em;
   background-color: white;
   position: fixed;
-  width: 100%;
   margin: 0;
   border: 1px solid #d1d6db;
-  display: block; }
-  .column header h4 {
-    color: #abb5bd;
-    font-style: italic;
-    margin-top: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    max-width: 400px;
-    min-height: 50px; }
+  display: block;
+  width: 100%;
+  min-height: 110px; }
 
 .project {
   color: #404d59; }
@@ -372,19 +366,26 @@ h2, h3 {
   margin: 0;
   width: 100%;
   font-size: 16px;
-  border-right: 1px solid #d1d6db;
   color: #abb5bd;
-  line-height: 1.6;
   font-weight: 400; }
 
 h2 {
-  color: #abb5bd;
-  font-weight: 400; }
+  color: #ff4f00;
+  font-weight: 800;
+  width: auto;
+  margin-right: 0.5em; }
 
 h3 {
-  color: #ff4f00;
-  font-weight: 800; }
+  font-weight: 500;
+  color: #abb5bd;
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  max-width: 30vw;
+  line-height: 1.4; }
 
-h4 {
-  padding: 0;
-  margin: 0; }
+.channel--language-pair {
+  margin: 5px 0;
+  font-size: 14px;
+  font-weight: 600; }

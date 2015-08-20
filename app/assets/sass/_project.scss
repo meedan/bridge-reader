@@ -26,7 +26,7 @@ body#bridge__project {
   background-color: $firefly10;
 }
 
-// Page header with title
+// Page header
 header.title {
   width: 100%;
   background-color: white;
@@ -36,9 +36,10 @@ header.title {
   font-size: 12px;
   height: $top-offset;
   h1 {
-    font-size: 14px;
+    color: black;
+    font-size: 18px;
     @extend %layout--vertical-center;
-    top: 25%;
+    top: 20%;
   }
 }
 
@@ -48,19 +49,11 @@ header.title {
   padding: 0.4em 0.6em;
   background-color: white;
   position: fixed;
-  width: 100%;
   margin: 0;
   border: 1px solid $light-keyboard-grey;
   display: block;
-  h4 {
-    color: $keyboard-grey;
-    font-style: italic;
-    margin-top: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    max-width: 400px;
-    min-height: 50px;
-  }
+  width: 100%;
+  min-height: 110px;
 }
 
 
@@ -74,6 +67,7 @@ header.title {
     display: flex;
     height: 95vh;
     min-width: 1000px;
+    // position: relative;
     .column {
       @extend %layout--flex-item-scrolling;  
       // @media (min-width: $breakpoint) {
@@ -113,23 +107,32 @@ h2, h3 {
   margin: 0;
   width: 100%;
   font-size: 16px;
-  border-right: 1px solid $light-keyboard-grey;
   color: $keyboard-grey;
-  line-height: 1.6;
+  // line-height: 1.6;
   font-weight: 400;
 }
 
 h2 {
-  color: $keyboard-grey;
-  font-weight: 400;
+  color: $bridge-orange;
+  font-weight: 800;
+  width: auto;
+  margin-right: 0.5em;
 }
 
 h3 {
-  color: $bridge-orange;
-  font-weight: 800;
+  font-weight: 500;
+  color: $keyboard-grey;
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  max-width: 30vw;
+  line-height: 1.4;
 }
 
-h4 {
-  padding: 0;
-  margin: 0;
+.channel--language-pair {
+  // padding: 5px 0 0 0;
+  margin: 5px 0;
+  font-size: 14px;
+  font-weight: 600;
 }
