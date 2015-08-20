@@ -1,5 +1,5 @@
 $top-offset: 40px;
-$breakpoint: 900px;
+$breakpoint: 1000px;
 
 // Vertically center something 
 // with absolute positioning and transform
@@ -36,18 +36,18 @@ header.title {
   font-size: 12px;
   height: $top-offset;
   position: relative;
-  
+
+  //LARGER than the breakpoint
+  @media(min-width: $breakpoint) {
+    width: 100%;
+    position: fixed;
+    text-align: center;
+  }
   h1 {
     color: black;
     font-size: 18px;
     @include layout--vertical-center;
       top: 20%;
-  }
-  @media(min-width: $breakpoint) {
-    width: 100%;
-    position: fixed;
-    text-align: center;
-  
   }
 }
 
@@ -72,6 +72,20 @@ header.title {
   .project {
     color: $firefly80;
     border-right: 1px solid $light-keyboard-grey;
+
+    // BELOW the breakpoint
+    @media (max-width: $breakpoint) {
+      .columns {
+        // When stacked account for footer.
+        padding-bottom: 5em;
+      }
+      .column {
+        border-bottom: 2px solid black;
+        padding-bottom: 2em;
+      }
+    }
+
+    // ABOVE the breakpoint
     @media (min-width: $breakpoint) {
       .columns {
         width: 100%;
@@ -127,6 +141,8 @@ h2.channel--title {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
+
+  //LARGER than the breakpoint
   @media (min-width: $breakpoint) {
     max-width: 30vw;
   }

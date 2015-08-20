@@ -297,6 +297,11 @@ header.title {
   font-size: 12px;
   height: 40px;
   position: relative; }
+  @media (min-width: 1000px) {
+    header.title {
+      width: 100%;
+      position: fixed;
+      text-align: center; } }
   header.title h1 {
     color: black;
     font-size: 18px;
@@ -308,17 +313,12 @@ header.title {
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
     top: 20%; }
-  @media (min-width: 900px) {
-    header.title {
-      width: 100%;
-      position: fixed;
-      text-align: center; } }
 
 .column header {
   padding: 0.4em 0.6em;
   background-color: white;
   width: 100%; }
-  @media (min-width: 900px) {
+  @media (min-width: 1000px) {
     .column header {
       position: fixed;
       margin: 0;
@@ -331,7 +331,13 @@ header.title {
 .project {
   color: #404d59;
   border-right: 1px solid #d1d6db; }
-  @media (min-width: 900px) {
+  @media (max-width: 1000px) {
+    .project .columns {
+      padding-bottom: 5em; }
+    .project .column {
+      border-bottom: 2px solid black;
+      padding-bottom: 2em; } }
+  @media (min-width: 1000px) {
     .project .columns {
       width: 100%;
       display: -webkit-box;
@@ -381,7 +387,7 @@ h2.channel--title {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4; }
-  @media (min-width: 900px) {
+  @media (min-width: 1000px) {
     .channel--description {
       max-width: 30vw; } }
 
