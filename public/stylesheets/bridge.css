@@ -304,8 +304,9 @@ header.title h1 {
   min-height: 0;
   overflow: auto; }
 
-body {
-  margin: 0; }
+body#bridge__project {
+  margin: 0;
+  background-color: #e7e8ea; }
 
 header.title {
   width: 100%;
@@ -326,7 +327,16 @@ header.title {
   position: fixed;
   width: 100%;
   margin: 0;
-  border: 1px solid #d1d6db; }
+  border: 1px solid #d1d6db;
+  display: block; }
+  .column header h4 {
+    color: #abb5bd;
+    font-style: italic;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    max-width: 400px;
+    min-height: 50px; }
 
 .project {
   color: #404d59; }
@@ -336,11 +346,12 @@ header.title {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    height: 95vh; }
+    height: 95vh;
+    min-width: 1000px; }
     .project .columns .column {
       border-right: 1px solid #d1d6db; }
       .project .columns .column .embeds {
-        padding: 120px 1em;
+        padding: 200px 1em;
         min-width: 300px; }
 
 footer.call-to-action {
@@ -359,11 +370,21 @@ footer.call-to-action {
 
 h2, h3 {
   margin: 0;
-  font-weight: 800;
   width: 100%;
   font-size: 16px;
   border-right: 1px solid #d1d6db;
-  color: #abb5bd; }
+  color: #abb5bd;
+  line-height: 1.6;
+  font-weight: 400; }
+
+h2 {
+  color: #abb5bd;
+  font-weight: 400; }
 
 h3 {
-  color: #ff4f00; }
+  color: #ff4f00;
+  font-weight: 800; }
+
+h4 {
+  padding: 0;
+  margin: 0; }
