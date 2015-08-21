@@ -66,16 +66,23 @@
   };
   checkFrameVisibility();
 
+  var all = document.getElementsByTagName("*");
   if (!window.addEventListener) {
     window.attachEvent('onmessage', messageCallback);
     window.attachEvent('onscroll', resizeOrScrollCallback);
     window.attachEvent('onresize', resizeOrScrollCallback);
     window.attachEvent('onload', resizeOrScrollCallback);
+    for (var i=0; i < all.length; i++) {
+      all[i].attachEvent('onscroll', resizeOrScrollCallback);
+    }
   }
   else {
     window.addEventListener('message', messageCallback, false);
     window.addEventListener('scroll', resizeOrScrollCallback, false);
     window.addEventListener('resize', resizeOrScrollCallback, false);
     window.addEventListener('load', resizeOrScrollCallback, false);
+    for (var i=0; i < all.length; i++) {
+      all[i].addEventListener('scroll', resizeOrScrollCallback, false);
+    }
   }
 }());

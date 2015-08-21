@@ -1,0 +1,156 @@
+$top-offset: 40px;
+$breakpoint: 1000px;
+
+// Vertically center something 
+// with absolute positioning and transform
+@mixin layout--vertical-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) 
+}
+
+.project .columns {
+  @extend %hide-scrollbars;
+}
+
+/// Flex item that scrolls (channel in a project page)
+/// 
+/// The min-height 0 is required for reasons I don't understand. — 2015 August CGB
+/// Also, with flex, only 'auto' seems to trigger the scroll, not scroll-x.
+@mixin layout--flex-item-scrolling {
+  flex: 1 1 300px;
+  min-height: 0;
+  overflow: auto;
+}
+
+body#bridge__project {
+  margin: 0;
+  background-color: $firefly10;
+}
+
+header.title {
+  background-color: white;
+  color: $bridge-orange;
+  font-size: 12px;
+  height: $top-offset;
+  position: relative;
+
+  //LARGER than the breakpoint
+  @media(min-width: $breakpoint) {
+    width: 100%;
+    position: fixed;
+    text-align: center;
+  }
+  h1 {
+    color: black;
+    font-size: 18px;
+    @include layout--vertical-center;
+      top: 20%;
+  }
+}
+
+  // Column Header
+  .column header {
+    padding: 0.4em 0.6em;
+    background-color: white;
+    width: 100%;
+    @media(min-width: $breakpoint) {
+      position: fixed;
+      margin: 0;
+      border: 1px solid $light-keyboard-grey;
+      display: block;
+      min-height: 110px;
+      top: $top-offset;
+      width: 33.333333vw; 
+    }
+  }
+
+
+  // Project collection of columns (channels)
+  .project {
+    color: $firefly80;
+    border-right: 1px solid $light-keyboard-grey;
+
+    // BELOW the breakpoint
+    @media (max-width: $breakpoint) {
+      .columns {
+        // When stacked account for footer.
+        padding-bottom: 5em;
+      }
+      .column {
+        border-bottom: 2px solid black;
+        padding-bottom: 2em;
+      }
+    }
+
+    // ABOVE the breakpoint
+    @media (min-width: $breakpoint) {
+      .columns {
+        width: 100%;
+        display: flex;
+        height: 95vh;
+        min-width: 1000px;
+        // position: relative;
+        
+        .column {
+          @include layout--flex-item-scrolling;    
+          border-right: 1px solid $light-keyboard-grey;
+          .embeds {
+            padding: $top-offset*5 1em;
+            min-width: 300px;
+          }
+        }
+      }
+    }
+  }
+
+// The primary footer
+// 
+footer.call-to-action  {
+  border-top: 1px solid $light-keyboard-grey;
+  bottom: 0;
+  border-bottom-width: 0;
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  padding: 0.2em 1em;
+  @extend %punctuation--bang-link;
+  background-color: white;
+  width: 100%;
+  z-index: 2;
+  a {
+    color: $firefly80;
+  }
+}
+
+h2.channel--title {
+  margin: 0 0.5em 0 0;
+  width: 100%;
+  font-size: 16px;
+  color: $bridge-orange;
+  font-weight: 800;
+}
+
+.channel--description {
+  font-weight: 500;
+  color: $keyboard-grey;
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+
+  //LARGER than the breakpoint
+  @media (min-width: $breakpoint) {
+    max-width: 30vw;
+  }
+}
+
+.channel--language-pair {
+  // padding: 5px 0 0 0;
+  margin: 5px 0;
+  font-size: 14px;
+  font-weight: 600;
+}

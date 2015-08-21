@@ -1,0 +1,38 @@
+////
+/// This is in the bridge-style component. 
+/// 
+/// This is bridge typography
+/// @since 0.7
+
+%typography-default {
+  font-family: 'Lato', 'open sans', arial, 'helvetica neue', helvetica, sans-serif;
+  font-weight: 300;
+  color: $firefly90;
+  line-height: 1.4;
+  padding: 0;
+  font-size: 16px;
+  a {
+    color: $firefly90;
+    &:hover {
+      color: $firefly60;
+    }
+  }
+}
+
+/// Punctuation hack
+/// Add a period, then replace it with a bang on hover.
+/// Applied to the last link in the element.
+%punctuation--bang-link {
+  a:last-of-type {
+    &:after {
+      content: ".";
+    }
+    &:hover:after {
+      content: "!";
+    }
+  }
+}
+
+body {
+  @extend %typography-default;
+}
