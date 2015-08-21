@@ -74,8 +74,8 @@ module Bridge
         unless link.nil?
           case link[:provider]
           when 'twitter'
-            frames  = [0, 'twitter-widget-0']
-            element = ['.EmbeddedTweet-tweet img.Avatar:last-child']
+            frames  = [0]
+            element = ['.twitter-tweet-rendered']
           when 'instagram'
             frames  = [0]
             element = ['img.art-bd-img']
