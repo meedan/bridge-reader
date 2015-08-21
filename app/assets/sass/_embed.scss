@@ -18,7 +18,7 @@ $border--translation: 3px solid $bridge-orange;
   position: relative;
   overflow: hidden;
   padding: 0.6em 0.4em 1em;
-  margin: 2em auto 0;
+  margin: 1em auto 0;
   max-width: $max-width;
   height: 100%;
   background-color: white;
@@ -110,6 +110,21 @@ $border--translation: 3px solid $bridge-orange;
 
 .bridgeEmbed__item {
   @extend %embed-item;
+  .byline {
+    @extend %translator-byline;
+  }
+}
+
+.bridgeEmbed__item-translation {
+  @extend %translation;
+}
+
+.bridgeEmbed__item-comment {
+  @extend %translator-annotation;
+
+  &:empty {
+    display: none;
+  }
 }
 
 #bridgeEmbed__footer {
