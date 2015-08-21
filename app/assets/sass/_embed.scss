@@ -110,20 +110,6 @@ $border--translation: 3px solid $bridge-orange;
 
 .bridgeEmbed__item {
   @extend %embed-item;
-  .byline {
-    @extend %translator-byline;
-  }
-  .bridgeEmbed__item-translation {
-    @extend %translation;
-  }
-
-  .bridgeEmbed__item-comment {
-    @extend %translator-annotation;
-
-    &:empty {
-      display: none;
-    }
-  }
 }
 
 #bridgeEmbed__footer {
