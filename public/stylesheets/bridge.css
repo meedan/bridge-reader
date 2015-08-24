@@ -69,8 +69,8 @@ footer.call-to-action a:last-of-type:hover:after {
 
 .bridgeEmbed__item:first-of-type .bridgeEmbed__item-embedly-card {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   margin: 100px auto;
   background-color: #404d59;
   border-radius: 100%;
@@ -163,7 +163,7 @@ footer.call-to-action a:last-of-type:hover:after {
   position: relative;
   overflow: hidden;
   padding: 0.6em 0.4em 1em;
-  margin: 2em auto 0;
+  margin: 1em auto 0;
   max-width: 505px;
   height: 100%;
   background-color: white;
@@ -181,26 +181,26 @@ footer.call-to-action a:last-of-type:hover:after {
   margin: 0;
   font-weight: 700; }
 
-.bridgeEmbed__item .bridgeEmbed__item-translation {
+.bridgeEmbed__item-translation {
   margin: 0 4px;
   border-left: 3px solid #ff4f00;
   font-weight: 400;
   line-height: 1.4; }
-  .bridgeEmbed__item .rtl.bridgeEmbed__item-translation {
+  .rtl.bridgeEmbed__item-translation {
     direction: rtl;
     text-align: right;
     border-left-width: 0;
     border-right: 3px solid #ff4f00; }
-  .bridgeEmbed__item .bridgeEmbed__item-translation p {
+  .bridgeEmbed__item-translation p {
     max-width: 505px;
     padding: 0 1em 0.6em;
     margin: 0; }
-  .bridgeEmbed__item .bridgeEmbed__item-translation p:empty {
+  .bridgeEmbed__item-translation p:empty {
     display: none; }
-  .bridgeEmbed__item .bridgeEmbed__item-translation p {
+  .bridgeEmbed__item-translation p {
     margin: 0; }
 
-.bridgeEmbed__item .bridgeEmbed__item-comment {
+.bridgeEmbed__item-comment {
   font-size: smaller;
   background-color: #fff6f1;
   font-weight: 200;
@@ -208,10 +208,10 @@ footer.call-to-action a:last-of-type:hover:after {
   margin: 4px;
   max-width: 505px;
   font-weight: 400; }
-  .bridgeEmbed__item .bridgeEmbed__item-comment .byline {
+  .bridgeEmbed__item-comment .byline {
     padding: 0; }
 
-.bridgeEmbed__item .bridgeEmbed__item-comment:empty {
+.bridgeEmbed__item-comment:empty {
   display: none; }
 
 #bridgeEmbed__footer {
@@ -297,7 +297,6 @@ body#bridge__project {
 
 header.title {
   background-color: white;
-  color: #ff4f00;
   font-size: 12px;
   height: 40px;
   position: relative; }
@@ -306,7 +305,8 @@ header.title {
       width: 100%;
       position: fixed;
       text-align: center; } }
-  header.title h1 {
+  header.title h1.project--title {
+    padding: 1em;
     color: black;
     font-size: 18px;
     position: absolute;
@@ -317,6 +317,9 @@ header.title {
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
     top: 20%; }
+    @media (max-width: 550px) {
+      header.title h1.project--title {
+        font-size: 12px; } }
 
 .column header {
   padding: 0.4em 0.6em;
