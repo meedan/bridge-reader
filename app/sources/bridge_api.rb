@@ -30,7 +30,7 @@ module Sources
     end
 
     def get_project(channel = nil, translation_id = nil)
-      self.make_request("projects/#{@project}/channels").to_a
+      self.make_request("projects/#{@project}/channels").to_a.select{ |c| c['translations_count'] > 0 }
     end
 
     def parse_notification(channel, translation_id, payload = {})
@@ -42,6 +42,8 @@ module Sources
 
       generate_cache(self, self.project, channel, '', BRIDGE_CONFIG['bridgembed_host'])
       remove_screenshot(self.project, channel, '')
+      generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, '', '')
     end
 
     def update_cache_for_saved_translation(channel, translation)
