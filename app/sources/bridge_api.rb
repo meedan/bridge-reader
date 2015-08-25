@@ -30,7 +30,7 @@ module Sources
     end
 
     def get_project(channel = nil, translation_id = nil)
-      self.make_request("projects/#{@project}/channels").to_a.collect{ |c| c['id'] }
+      self.make_request("projects/#{@project}/channels").to_a
     end
 
     def parse_notification(channel, translation_id, payload = {})

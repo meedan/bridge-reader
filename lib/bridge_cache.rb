@@ -119,7 +119,7 @@ module Bridge
     end
 
     def screenshot_url(project, collection, item, css = '')
-      url = [BRIDGE_CONFIG['bridgembed_host_private'], 'medias', 'embed', project, collection, item].join('/') + "?#{Time.now.to_i}"
+      url = [BRIDGE_CONFIG['bridgembed_host_private'], 'medias', 'embed', project, URI.encode(collection), item].join('/') + "?#{Time.now.to_i}"
       url += "#css=#{css}" unless css.blank?
       url
     end

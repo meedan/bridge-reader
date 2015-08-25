@@ -191,4 +191,9 @@ class MediasControllerTest < ActionController::TestCase
     get :embed, project: 'google_spreadsheet', collection: 'teste'
     assert_response 404
   end
+
+  test "should sanitize Arabic params" do
+    get :embed, project: 'google_spreadsheet', collection: 'عوده_الوايت_نايتس'
+    assert_equal 'عوده_الوايت_نايتس', assigns(:collection)
+  end
 end

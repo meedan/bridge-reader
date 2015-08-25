@@ -31,7 +31,7 @@ module MediasHelper
 
   def include_twitter_tags(project, collection, item, level, site)
     if level === 'item'
-      image = URI.join(site, 'medias/', 'embed/', project + '/', collection + '/', "#{item}.png")
+      image = URI.join(site, 'medias/', 'embed/', project + '/', URI.encode(collection) + '/', "#{item}.png")
 
       tag(:meta, name: 'twitter:card', content: 'photo') + "\n" +
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) + "\n" +

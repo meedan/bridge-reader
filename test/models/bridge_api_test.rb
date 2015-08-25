@@ -44,7 +44,7 @@ class BridgeApiTest < ActiveSupport::TestCase
 
   test "should get project" do
     stub_request_project
-    assert_equal ['fake', 'fake2', 'fake3'], @b.get_project
+    assert_equal ['fake', 'fake2', 'fake3'], @b.get_project.collect{ |c| c['id'] }
   end
 
   test "should update cache for created translation" do

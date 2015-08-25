@@ -108,7 +108,7 @@ class MediasController < ApplicationController
   end
 
   def sanitize_parameters(collection, item)
-    @collection = params[:collection].to_s.gsub(/[^0-9A-Za-z_-]/, '')
+    @collection = params[:collection].to_s.gsub(/[^0-9A-Za-z_\-\u0600-\u06ff\u0750-\u077f\ufb50-\ufc3f\ufe70-\ufefc]/, '')
     @item = params[:item].to_s.gsub(/[^0-9A-Za-z_-]/, '')
   end
 end
