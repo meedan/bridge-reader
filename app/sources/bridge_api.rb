@@ -24,7 +24,7 @@ module Sources
 
     def get_collection(channel, translation_id = nil, force = false)
       if @translations.nil? || force
-        @translations = self.make_request('translations', { channel_uuid: channel })
+        @translations = self.make_request('translations', { channel_uuid: URI.encode(channel) })
       end
       @translations.to_a.collect{ |t| translation_to_hash(t) }
     end
