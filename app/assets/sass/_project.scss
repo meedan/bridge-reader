@@ -1,5 +1,6 @@
 $top-offset: 40px;
 $breakpoint: 1000px;
+$column-width: 300px;
 
 // Vertically center something 
 // with absolute positioning and transform
@@ -20,7 +21,7 @@ $breakpoint: 1000px;
 /// The min-height 0 is required for reasons I don't understand. — 2015 August CGB
 /// Also, with flex, only 'auto' seems to trigger the scroll, not scroll-x.
 @mixin layout--flex-item-scrolling {
-  flex: 1 1 300px;
+  flex: 1 1 $column-width;
   min-height: 0;
   overflow: auto;
 }
@@ -28,18 +29,19 @@ $breakpoint: 1000px;
 body#bridge__project {
   margin: 0;
   background-color: $firefly10;
+  border: 10px solid pink;
 }
 
 header.title {
   background-color: white;
   font-size: 12px;
-  height: $top-offset;
+  // height: $top-offset;
   position: relative;
   
   //LARGER than the breakpoint
   @media(min-width: $breakpoint) {
     width: 100%;
-    position: fixed;
+    // position: fixed;
     text-align: center;
   }
   h1.project--title {
@@ -57,51 +59,61 @@ header.title {
 
 // Column Header
 .column header {
+    border: 10px solid red;
   padding: 0.4em 0.6em;
   background-color: white;
   width: 100%;
-  @media(min-width: $breakpoint) {
-    position: fixed;
-    margin: 0;
-    border: 1px solid $light-keyboard-grey;
-    display: block;
-    min-height: 110px;
-    top: $top-offset;
-  }
+  // @media(min-width: $breakpoint) {
+  //   position: fixed;
+  //   margin: 0;
+  //   border: 1px solid $light-keyboard-grey;
+  //   display: block;
+  //   min-height: 110px;
+  //   top: $top-offset;
+  // }
 }
 
 // Project collection of columns (channels)
 .project {
+  border: 10px solid aqua;
   color: $firefly80;
   border-right: 1px solid $light-keyboard-grey;
 
+
   // BELOW the breakpoint
-  @media (max-width: $breakpoint) {
-    .columns {
-      // When stacked account for footer.
-      padding-bottom: $top-offset;
-      margin-bottom: 2em;
-    }
-    .column {
-      border-bottom: 2px solid $firefly80;
-      padding-bottom: 2em;
-    }
-  }
+  // @media (max-width: $breakpoint) {
+  //   .columns {
+  //     // When stacked account for footer.
+  //     padding-bottom: $top-offset;
+  //     margin-bottom: 2em;
+  //   }
+  //   .column {
+  //     border-bottom: 2px solid $firefly80;
+  //     padding-bottom: 2em;
+  //   }
+  // }
 
   // ABOVE the breakpoint
   @media (min-width: $breakpoint) {
+    border: 10px solid blue;
     .columns {
+      border: 10px solid purple;
       width: 100%;
       display: flex;
-      height: 95vh;
+      align-items: stretch;
+      height: 600px;
       min-width: 1000px;
-      // position: relative;
+      position: relative;
+      overflow: hidden;
       
       .column {
+        border: 10px solid green;
         @include layout--flex-item-scrolling;    
+        min-height: min-content; 
+          overflow: auto;
         border-right: 1px solid $light-keyboard-grey;
         .embeds {
-          padding: $top-offset*5 1em;
+          padding: $top-offset*3 1em;
           min-width: 300px;
         }
       }
