@@ -1,3 +1,28 @@
-<% @entries.each do |collection| %>
-  <h2><%= link_to collection, "/medias/embed/#{@project}/#{collection}" %></h2>
-<% end %>
+<header class="title">  
+  <h1 class="project--title"><%= @entries.first['project'] unless @entries.empty? %></h1>
+</header>
+
+<div class="project">
+  <div class="columns">
+    
+    <% @entries.last(3).each do |collection| %>
+
+      <div class="column">
+        <header>
+          <h2 class="channel--title"><%= collection['name'] %></h2>
+          <div class="channel--description"><%= collection['name'] %></div>
+          <div class="channel--language-pair"></div>
+        </header>
+        <div class="embeds">
+          <script type="text/javascript" src="/medias/embed/<%= @project %>/<%= URI.encode(collection['id']) %>.js"></script>
+        </div>
+      </div> <!-- column -->
+
+    <% end %>
+
+  </div> <!-- columns -->
+</div> <!-- /project -->
+
+<footer class="call-to-action">
+  <p>Translations by Meedan&rsquo;s translations team. <a class="patreon" href="http://meedan.com" target = "_blank">Learn more</a> or <a class="translate" href="mailto:hello@meedan.com">translate with us</a></p>
+</footer>

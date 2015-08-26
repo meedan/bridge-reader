@@ -24,13 +24,13 @@ module Sources
 
     def get_collection(channel, translation_id = nil, force = false)
       if @translations.nil? || force
-        @translations = self.make_request('translations', { channel_uuid: channel })
+        @translations = self.make_request('translations', { channel_uuid: URI.encode(channel) })
       end
       @translations.to_a.collect{ |t| translation_to_hash(t) }
     end
 
     def get_project(channel = nil, translation_id = nil)
-      self.make_request("projects/#{@project}/channels").to_a.collect{ |c| c['id'] }
+      self.make_request("projects/#{@project}/channels").to_a.select{ |c| c['translations_count'] > 0 }
     end
 
     def parse_notification(channel, translation_id, payload = {})
@@ -42,6 +42,8 @@ module Sources
 
       generate_cache(self, self.project, channel, '', BRIDGE_CONFIG['bridgembed_host'])
       remove_screenshot(self.project, channel, '')
+      generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, '', '')
     end
 
     def update_cache_for_saved_translation(channel, translation)

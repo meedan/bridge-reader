@@ -5,10 +5,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bridge Embed</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bridge Embed | <%= @project %></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= include_twitter_tags(@project, @collection, @item, @level, @site) %>
     <%= stylesheet_link_tag '/stylesheets/bridge', media: 'all' %>
     <%= javascript_include_tag 'jquery-2.1.3.min' %>
@@ -17,7 +17,7 @@
     <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
   </head>
 
-  <body class="bridgeEmbed">
+  <body class="bridgeEmbed" id="bridge__<%= @level %>">
     <%= yield %>
 
     <script type="text/javascript">

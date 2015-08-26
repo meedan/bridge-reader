@@ -44,16 +44,18 @@ class BridgeApiTest < ActiveSupport::TestCase
 
   test "should get project" do
     stub_request_project
-    assert_equal ['fake', 'fake2', 'fake3'], @b.get_project
+    assert_equal ['fake2', 'fake3'], @b.get_project.collect{ |c| c['id'] }
   end
 
   test "should update cache for created translation" do
     stub_request_many_translations
     assert !File.exists?(@b.cache_path('bridge-api', 'GreeceCrisis', '1'))
     assert !File.exists?(@b.cache_path('bridge-api', 'GreeceCrisis', ''))
+    assert !File.exists?(@b.cache_path('bridge-api', '', ''))
     @b.parse_notification('GreeceCrisis', '1', { 'condition' => 'created', 'translation' => JSON.parse(single_translation_object) })
     assert File.exists?(@b.cache_path('bridge-api', 'GreeceCrisis', '1'))
     assert File.exists?(@b.cache_path('bridge-api', 'GreeceCrisis', ''))
+    assert File.exists?(@b.cache_path('bridge-api', '', ''))
   end
 
   test "should update cache for updated translation" do
@@ -62,13 +64,16 @@ class BridgeApiTest < ActiveSupport::TestCase
     @b.generate_cache(@b, 'bridge-api', 'GreeceCrisis', '')
     file1 = @b.cache_path('bridge-api', 'GreeceCrisis', '1')
     file2 = @b.cache_path('bridge-api', 'GreeceCrisis', '')
+    file3 = @b.cache_path('bridge-api', '', '')
     assert File.exists?(file1)
     assert File.exists?(file2)
+    assert !File.exists?(file3)
     time1 = File.mtime(file1)
     time2 = File.mtime(file2)
     @b.parse_notification('GreeceCrisis', '1', { 'condition' => 'updated', 'translation' => JSON.parse(single_translation_object) })
     assert File.mtime(file1) > time1
     assert File.mtime(file2) > time2
+    assert File.exists?(file3)
   end
 
   test "should update cache for removed translation" do
@@ -77,12 +82,15 @@ class BridgeApiTest < ActiveSupport::TestCase
     @b.generate_cache(@b, 'bridge-api', 'GreeceCrisis', '')
     file1 = @b.cache_path('bridge-api', 'GreeceCrisis', '1')
     file2 = @b.cache_path('bridge-api', 'GreeceCrisis', '')
+    file3 = @b.cache_path('bridge-api', '', '')
     assert File.exists?(file1)
     assert File.exists?(file2)
+    assert !File.exists?(file3)
     time = File.mtime(file2)
     @b.parse_notification('GreeceCrisis', '1', { 'condition' => 'destroyed', 'translation' => JSON.parse(single_translation_object) })
     assert !File.exists?(file1)
     assert File.exists?(file2)
+    assert File.exists?(file3)
     assert File.mtime(file2) > time
   end
 
@@ -109,7 +117,7 @@ class BridgeApiTest < ActiveSupport::TestCase
   end
 
   def stub_request_project
-    body = '{"type":"channels","data":[{"id":"fake","name":"Fake User Author","topic":4,"category":"Other","followed":false},{"id":"fake2","name":"Fake User Mention","topic":4,"category":"Other","followed":false},{"id":"fake3","name":"Fake List","topic":4,"category":"Other","followed":false}]}'
+    body = '{"type":"channels","data":[{"id":"fake","name":"Fake User Author","topic":4,"category":"Other","followed":false,"translations_count":0},{"id":"fake2","name":"Fake User Mention","topic":4,"category":"Other","followed":false,"translations_count":2},{"id":"fake3","name":"Fake List","topic":4,"category":"Other","followed":false,"translations_count":3}]}'
     WebMock.stub_request(:get, 'http://bridge.api/api/projects/bridge-api/channels').to_return(body: body, status: 200)
   end
 end

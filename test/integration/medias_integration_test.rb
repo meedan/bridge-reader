@@ -139,4 +139,11 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
       post '/medias/notify/project/collection/item_THAT-is_v4l1d'
     end
   end
+
+  test "should validate Arabic collection on notify" do
+    assert_nothing_raised do
+      encoded = URI.encode('/medias/notify/project/عوده_الوايت_نايتس')
+      post encoded 
+    end
+  end
 end

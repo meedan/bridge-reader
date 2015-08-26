@@ -35,7 +35,7 @@ module Sources
     end
 
     def get_project(worksheet = nil, hash = nil)
-      @collections ||= get_worksheets.map(&:title)
+      @collections ||= get_worksheets.map(&:title).collect{ |title| { 'name' => title, 'id' => title, 'project' => @project } }
     end
 
     def notify_availability(entry, available)
