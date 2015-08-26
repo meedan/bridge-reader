@@ -1,7 +1,7 @@
 $top-offset: 40px;
 $breakpoint: 1000px;
 $column-width: 300px;
-$header-height: 10vh;
+$header-height: 7vh;
 
 // Vertically center something 
 // with absolute positioning and transform
@@ -28,6 +28,7 @@ $header-height: 10vh;
 }
 
 body#bridge__project {
+  min-height: 600px;
   margin: 0;
   background-color: $firefly10;
   // border: 10px solid pink;
@@ -36,8 +37,9 @@ body#bridge__project {
 header.title {
   background-color: white;
   font-size: 12px;
-  height: $header-height;
+  // height: $header-height;
   position: relative;
+  border-bottom: 1px solid $light-keyboard-grey;
   
   //LARGER than the breakpoint
   @media(min-width: $breakpoint) {
@@ -46,22 +48,33 @@ header.title {
     text-align: center;
   }
   h1.project--title {
-    padding: 1em;
+    float:left;
+    margin: 0;
+    padding: 1em 0 0 0;
     color: black;
     font-size: 18px;
+
     // At smaller sizes, fit the title better
     @media (max-width: 550px) {
       font-size: 12px;
     }
-    @include layout--vertical-center;
-      top: 20%;
+    // @include layout--vertical-center;
+    // top: 20%;
+  }
+  h2.project--description{
+    margin: 0;
+    padding: 1em 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
   }
   .project--avatar{
-    position: absolute;
-    right: 5px;
-    top: 5px;
+    // position: absolute;
+    max-width: 30px;
+    // right: 5px;
+    // top: 5px;
     z-index: 2;
     border-radius: 100%;
+    margin: 0.5em;
   }
 }
 
@@ -110,17 +123,16 @@ header.title {
       width: 100%;
       display: flex;
       align-items: stretch;
-      height: 80vh;
+      height: 85vh;
       min-width: 1000px;
       position: relative;
       overflow: hidden;
-      
+
       .column {
         // border: 10px solid green;
         @include layout--flex-item-scrolling;    
-        min-height: min-content; 
-        overflow: auto;
         border-right: 1px solid $light-keyboard-grey;
+
         .embeds {
           padding: 1em;
           min-width: 300px;

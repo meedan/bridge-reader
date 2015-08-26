@@ -292,45 +292,44 @@ footer.call-to-action a:last-of-type:hover:after {
     display: none; }
 
 body#bridge__project {
+  min-height: 600px;
   margin: 0;
   background-color: #e7e8ea; }
 
 header.title {
   background-color: white;
   font-size: 12px;
-  height: 10vh;
-  position: relative; }
+  position: relative;
+  border-bottom: 1px solid #d1d6db; }
   @media (min-width: 1000px) {
     header.title {
       width: 100%;
       text-align: center; } }
   header.title h1.project--title {
-    padding: 1em;
+    float: left;
+    margin: 0;
+    padding: 1em 0 0 0;
     color: black;
-    font-size: 18px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-    top: 20%; }
+    font-size: 18px; }
     @media (max-width: 550px) {
       header.title h1.project--title {
         font-size: 12px; } }
+  header.title h2.project--description {
+    margin: 0;
+    padding: 1em 0 0 0;
+    font-size: 14px;
+    font-weight: 400; }
   header.title .project--avatar {
-    position: absolute;
-    right: 5px;
-    top: 5px;
+    max-width: 30px;
     z-index: 2;
-    border-radius: 100%; }
+    border-radius: 100%;
+    margin: 0.5em; }
 
 .column header {
   padding: 0.4em 0.6em;
   background-color: white;
   width: 100%;
-  height: 10vh; }
+  height: 7vh; }
 
 .project {
   color: #404d59;
@@ -346,7 +345,7 @@ header.title {
       -webkit-align-items: stretch;
           -ms-flex-align: stretch;
               align-items: stretch;
-      height: 80vh;
+      height: 85vh;
       min-width: 1000px;
       position: relative;
       overflow: hidden; }
@@ -356,10 +355,6 @@ header.title {
             -ms-flex: 1 1 300px;
                 flex: 1 1 300px;
         min-height: 0;
-        overflow: auto;
-        min-height: -webkit-min-content;
-        min-height: -moz-min-content;
-        min-height: min-content;
         overflow: auto;
         border-right: 1px solid #d1d6db; }
         .project .columns .column .embeds {
