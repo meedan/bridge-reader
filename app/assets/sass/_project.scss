@@ -67,10 +67,8 @@ header.title {
     display: block;
     min-height: 110px;
     top: $top-offset;
-    width: 33.333333vw; 
   }
 }
-
 
 // Project collection of columns (channels)
 .project {
@@ -81,10 +79,11 @@ header.title {
   @media (max-width: $breakpoint) {
     .columns {
       // When stacked account for footer.
-      padding-bottom: 5em;
+      padding-bottom: $top-offset;
+      margin-bottom: 2em;
     }
     .column {
-      border-bottom: 2px solid black;
+      border-bottom: 2px solid $firefly80;
       padding-bottom: 2em;
     }
   }

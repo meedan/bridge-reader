@@ -2,7 +2,7 @@
   box-sizing: border-box; }
 
 body {
-  font-family: 'Lato', 'open sans', arial, 'helvetica neue', helvetica, sans-serif;
+  font-family: 'Lato', 'Open Sans', 'Arial', 'Helvetica Neue', 'Helvetica', sans-serif;
   font-weight: 300;
   color: #283743;
   line-height: 1.4;
@@ -332,17 +332,17 @@ header.title {
       border: 1px solid #d1d6db;
       display: block;
       min-height: 110px;
-      top: 40px;
-      width: 33.333333vw; } }
+      top: 40px; } }
 
 .project {
   color: #404d59;
   border-right: 1px solid #d1d6db; }
   @media (max-width: 1000px) {
     .project .columns {
-      padding-bottom: 5em; }
+      padding-bottom: 40px;
+      margin-bottom: 2em; }
     .project .column {
-      border-bottom: 2px solid black;
+      border-bottom: 2px solid #404d59;
       padding-bottom: 2em; } }
   @media (min-width: 1000px) {
     .project .columns {
