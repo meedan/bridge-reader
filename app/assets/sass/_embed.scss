@@ -128,7 +128,8 @@ $border--translation: 3px solid $bridge-orange;
 }
 
 #bridgeEmbed__footer {
-  display: block;
+  // FIXME 2015 August CGB
+  display: none;
   padding: 4em 2em;
   text-align: center;
   text-transform: uppercase;
