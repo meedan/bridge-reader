@@ -1,6 +1,7 @@
 $top-offset: 40px;
 $breakpoint: 1000px;
 $column-width: 300px;
+$header-height: 10vh;
 
 // Vertically center something 
 // with absolute positioning and transform
@@ -29,13 +30,13 @@ $column-width: 300px;
 body#bridge__project {
   margin: 0;
   background-color: $firefly10;
-  border: 10px solid pink;
+  // border: 10px solid pink;
 }
 
 header.title {
   background-color: white;
   font-size: 12px;
-  // height: $top-offset;
+  height: $header-height;
   position: relative;
   
   //LARGER than the breakpoint
@@ -55,14 +56,22 @@ header.title {
     @include layout--vertical-center;
       top: 20%;
   }
+  .project--avatar{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 2;
+    border-radius: 100%;
+  }
 }
 
 // Column Header
 .column header {
-    border: 10px solid red;
+  // border: 10px solid red;
   padding: 0.4em 0.6em;
   background-color: white;
   width: 100%;
+  height: $header-height;
   // @media(min-width: $breakpoint) {
   //   position: fixed;
   //   margin: 0;
@@ -75,7 +84,7 @@ header.title {
 
 // Project collection of columns (channels)
 .project {
-  border: 10px solid aqua;
+  // border: 10px solid aqua;
   color: $firefly80;
   border-right: 1px solid $light-keyboard-grey;
 
@@ -95,25 +104,25 @@ header.title {
 
   // ABOVE the breakpoint
   @media (min-width: $breakpoint) {
-    border: 10px solid blue;
+    // border: 10px solid blue;
     .columns {
-      border: 10px solid purple;
+      // border: 10px solid purple;
       width: 100%;
       display: flex;
       align-items: stretch;
-      height: 600px;
+      height: 80vh;
       min-width: 1000px;
       position: relative;
       overflow: hidden;
       
       .column {
-        border: 10px solid green;
+        // border: 10px solid green;
         @include layout--flex-item-scrolling;    
         min-height: min-content; 
-          overflow: auto;
+        overflow: auto;
         border-right: 1px solid $light-keyboard-grey;
         .embeds {
-          padding: $top-offset*3 1em;
+          padding: 1em;
           min-width: 300px;
         }
       }

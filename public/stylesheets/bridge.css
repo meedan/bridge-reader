@@ -293,12 +293,12 @@ footer.call-to-action a:last-of-type:hover:after {
 
 body#bridge__project {
   margin: 0;
-  background-color: #e7e8ea;
-  border: 10px solid pink; }
+  background-color: #e7e8ea; }
 
 header.title {
   background-color: white;
   font-size: 12px;
+  height: 10vh;
   position: relative; }
   @media (min-width: 1000px) {
     header.title {
@@ -319,51 +319,52 @@ header.title {
     @media (max-width: 550px) {
       header.title h1.project--title {
         font-size: 12px; } }
+  header.title .project--avatar {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 2;
+    border-radius: 100%; }
 
 .column header {
-  border: 10px solid red;
   padding: 0.4em 0.6em;
   background-color: white;
-  width: 100%; }
+  width: 100%;
+  height: 10vh; }
 
 .project {
-  border: 10px solid aqua;
   color: #404d59;
   border-right: 1px solid #d1d6db; }
   @media (min-width: 1000px) {
-    .project {
-      border: 10px solid blue; }
-      .project .columns {
-        border: 10px solid purple;
-        width: 100%;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: stretch;
-        -webkit-align-items: stretch;
-            -ms-flex-align: stretch;
-                align-items: stretch;
-        height: 600px;
-        min-width: 1000px;
-        position: relative;
-        overflow: hidden; }
-        .project .columns .column {
-          border: 10px solid green;
-          -webkit-box-flex: 1;
-          -webkit-flex: 1 1 300px;
-              -ms-flex: 1 1 300px;
-                  flex: 1 1 300px;
-          min-height: 0;
-          overflow: auto;
-          min-height: -webkit-min-content;
-          min-height: -moz-min-content;
-          min-height: min-content;
-          overflow: auto;
-          border-right: 1px solid #d1d6db; }
-          .project .columns .column .embeds {
-            padding: 120px 1em;
-            min-width: 300px; } }
+    .project .columns {
+      width: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: stretch;
+      -webkit-align-items: stretch;
+          -ms-flex-align: stretch;
+              align-items: stretch;
+      height: 80vh;
+      min-width: 1000px;
+      position: relative;
+      overflow: hidden; }
+      .project .columns .column {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 300px;
+            -ms-flex: 1 1 300px;
+                flex: 1 1 300px;
+        min-height: 0;
+        overflow: auto;
+        min-height: -webkit-min-content;
+        min-height: -moz-min-content;
+        min-height: min-content;
+        overflow: auto;
+        border-right: 1px solid #d1d6db; }
+        .project .columns .column .embeds {
+          padding: 1em;
+          min-width: 300px; } }
 
 footer.call-to-action {
   border-top: 1px solid #d1d6db;
