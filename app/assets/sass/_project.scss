@@ -1,4 +1,3 @@
-$top-offset: 40px;
 $breakpoint: 1000px;
 $column-width: 300px;
 $header-height: 7vh;
@@ -21,14 +20,14 @@ body#bridge__project {
   min-height: 600px;
   margin: 0;
   background-color: $firefly10;
+  // background-color: $bridge-orange;
+  // background-color: $firefly80;
   // border: 10px solid pink;
 }
 
 header.title {
   background-color: white;
   font-size: 14px;
-  font-weight: 500;
-  // height: $header-height;
   padding: 0.8em;
   position: relative;
   border-bottom: 1px solid $light-keyboard-grey;
@@ -55,46 +54,43 @@ header.title {
     margin: 0;
     padding: 0;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 800;
   }
 }
 
 // Column Header
 .column header {
-  // border: 10px solid red;
   padding: 0.4em 0.6em;
   background-color: white;
   width: 100%;
   height: $header-height;
-  // @media(min-width: $breakpoint) {
-  //   position: fixed;
-  //   margin: 0;
-  //   border: 1px solid $light-keyboard-grey;
-  //   display: block;
-  //   min-height: 110px;
-  //   top: $top-offset;
-  // }
+  @media(min-width: $breakpoint) {
+    position: fixed;
+    margin: 0;
+    border: 1px solid $light-keyboard-grey;
+    display: block;
+    min-height: $header-height;
+  }
+
 }
 
 // Project collection of columns (channels)
 .project {
   // border: 10px solid aqua;
   color: $firefly80;
-  border-right: 1px solid $light-keyboard-grey;
-
-
+  
   // BELOW the breakpoint
-  // @media (max-width: $breakpoint) {
-  //   .columns {
-  //     // When stacked account for footer.
-  //     padding-bottom: $top-offset;
-  //     margin-bottom: 2em;
-  //   }
-  //   .column {
-  //     border-bottom: 2px solid $firefly80;
-  //     padding-bottom: 2em;
-  //   }
-  // }
+  @media (max-width: $breakpoint) {
+    .columns {
+      // When stacked account for footer.
+      padding-bottom: $header-height;
+      margin-bottom: 2em;
+    }
+    .column {
+      border-bottom: 2px solid rgba(black, 0.5);
+      padding-bottom: 2em;
+    }
+  }
 
   // ABOVE the breakpoint
   @media (min-width: $breakpoint) {
@@ -104,7 +100,7 @@ header.title {
       width: 100%;
       display: flex;
       align-items: stretch;
-      height: 85vh;
+      height: 100vh - $header-height;
       min-width: 1000px;
       position: relative;
       overflow: hidden;
@@ -112,11 +108,10 @@ header.title {
       .column {
         // border: 10px solid green;
         @include layout--flex-item-scrolling;    
-        border-right: 1px solid $light-keyboard-grey;
+        border-right: 1px solid rgba(white, 0.5);
 
         .embeds {
-          padding: 1em;
-          min-width: 300px;
+          padding: $header-height 0;  
         }
       }
     }
@@ -143,12 +138,10 @@ footer.call-to-action  {
   p {
     float: left;
     width: 50%;
+    font-weight: 400;
   }
   .project--avatar{
-    // position: absolute;
     max-width: 30px;
-    // right: 5px;
-    // top: 5px;
     z-index: 2;
     border-radius: 100%;
     margin: 0.5em;
