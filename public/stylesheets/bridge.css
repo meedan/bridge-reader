@@ -47,7 +47,7 @@ footer.call-to-action a:last-of-type:hover:after {
     .bridgeEmbed__item-geodata:hover:after {
       content: "Map this"; }
     .bridgeEmbed__item-geodata:hover a {
-      color: #1d5ca2;
+      color: #404d59;
       text-decoration: underline;
       padding: 0.3em; }
     .bridgeEmbed__item-geodata:hover .icon {
