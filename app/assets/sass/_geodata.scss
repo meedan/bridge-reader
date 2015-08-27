@@ -23,12 +23,11 @@
 
     &:after {
       content: "Map this";
-
       @extend %icon-geodata;
     }
 
     a {
-      color: $another-blue;
+      color: $firefly80;
       text-decoration: underline;
       padding: 0.3em;
     }

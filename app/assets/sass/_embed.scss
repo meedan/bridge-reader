@@ -9,6 +9,7 @@
 @import "share";
 
 $max-width: 505px;
+$side-margin: 4px;
 $border--translation: 3px solid $bridge-orange;
 
 /// Bridge Embed item
@@ -50,7 +51,7 @@ $border--translation: 3px solid $bridge-orange;
 /// The actual target language content: The translation itself.
 /// Contained by a single p.
 %translation {
-  margin: 0 4px;
+  margin: 0 $side-margin;
   border-left: $border--translation;
   font-weight: 400;
   line-height: 1.4;
@@ -86,7 +87,7 @@ $border--translation: 3px solid $bridge-orange;
   background-color: $light-bridge-orange;
   font-weight: 200;
   padding: 0.6em 1em;
-  margin: 4px;
+  margin: 1em $side-margin 0;
   max-width: $max-width;
   font-weight: 400;
   .byline {
@@ -128,7 +129,8 @@ $border--translation: 3px solid $bridge-orange;
 }
 
 #bridgeEmbed__footer {
-  display: block;
+  // FIXME 2015 August CGB
+  display: none;
   padding: 4em 2em;
   text-align: center;
   text-transform: uppercase;
