@@ -39,8 +39,6 @@
 }
 
 .bridgeEmbed__item-geodata {
-  // FIXME
-  display: none!important;
   @extend %pin-to-top;
   right: 55px;
   @extend %show-on-hover;
