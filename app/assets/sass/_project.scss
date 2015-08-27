@@ -165,6 +165,14 @@ footer.call-to-action  {
   width: 100%;
   padding: 0.2em 1em;
   z-index: 2;
+
+  .logo {
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    display: inline-block;
+    vertical-align: text-bottom;
+  }
   a {
     color: $firefly80;
     &:hover {
@@ -173,7 +181,7 @@ footer.call-to-action  {
   }
   p {
     float: left;
-    width: 60%;
+    width: 70%;
     font-weight: 400;
   }
   .project--avatar{
