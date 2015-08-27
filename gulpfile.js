@@ -19,9 +19,9 @@ var debug = require('gulp-debug');
 gulp.task('browser-sync', ['sass'], function () {
   browserSync({
     server: {
-      baseDir: './public',
-      proxy: "http://localhost:3000"
-    }
+      baseDir: './public'
+    },
+    startPath: 'medias/embed/test'
   });
 });
 

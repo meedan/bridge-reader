@@ -23,12 +23,11 @@
 
     &:after {
       content: "Map this";
-
       @extend %icon-geodata;
     }
 
     a {
-      color: $another-blue;
+      color: $firefly80;
       text-decoration: underline;
       padding: 0.3em;
     }
@@ -40,12 +39,11 @@
 }
 
 .bridgeEmbed__item-geodata {
+  // FIXME
+  display: none!important;
   @extend %pin-to-top;
-
   right: 55px;
-
   @extend %show-on-hover;
-
   font-size: 10px;
   transition: 0.5s;
 

@@ -1,28 +1,36 @@
 <header class="title">  
   <h1 class="project--title"><%= @entries.first['project'] unless @entries.empty? %></h1>
+  <h2 class="project--description">Translations related to <%= @entries.first['project'] unless @entries.empty? %></h2>
 </header>
 
 <div class="project">
   <div class="columns">
-    
     <% @entries.last(3).each do |collection| %>
-
       <div class="column">
         <header>
           <h2 class="channel--title"><%= collection['name'] %></h2>
-          <div class="channel--description"><%= collection['name'] %></div>
-          <div class="channel--language-pair"></div>
+          <!-- <div class="channel--description"><%= collection['name'] %></div> -->
         </header>
         <div class="embeds">
           <script type="text/javascript" src="/medias/embed/<%= @project %>/<%= URI.encode(collection['id']) %>.js"></script>
         </div>
-      </div> <!-- column -->
-
+      </div>
     <% end %>
-
-  </div> <!-- columns -->
-</div> <!-- /project -->
+  </div>
+</div>
 
 <footer class="call-to-action">
-  <p>Translations by Meedan&rsquo;s translations team. <a class="patreon" href="http://meedan.com" target = "_blank">Learn more</a> or <a class="translate" href="mailto:hello@meedan.com">translate with us</a></p>
+  <p><img class="logo" src="/images/bridge-logo-small.png"> <a class="bridge" href="http://speakbridge.io">Bridge</a>: Social Translation for Social Media. Follow us on <a class="facebook" href="http://facebook.com/speakbridge">Facebook</a> and <a class="twitter" href="http://twitter.com/speakbridge">Twitter</a>.</p>
+  <div class="project--translators">
+    <em>Translators:</em>
+    <a href="http://www.twitter.com/norayounis">
+      <img class="project--avatar" src="/images/nora.png">
+    </a>
+    <a href="http://www.twitter.com/sarah_othmann">
+      <img class="project--avatar" src="/images/tom.png">
+    </a>
+    <a href="http://www.twitter.com/tom_el_rumi">
+      <img class="project--avatar" src="/images/sarah.png">
+    </a>
+  </div>
 </footer>

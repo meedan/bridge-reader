@@ -9,8 +9,10 @@ $height--description: 40px;
 $breakpoint--desktop-min-width: $width--column * 4;
 $top-offset--channel: 60px;
 
-@import "meedan-style/layout";
-@import "meedan-style/colors";
+* {
+  box-sizing: border-box;
+}
+
 @import "colors";
 @import "typography";
 @import "icons";
