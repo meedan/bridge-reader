@@ -19,7 +19,10 @@ $header-height: 7vh;
 body#bridge__project {
   min-height: 600px;
   margin: 0;
-  background-color: $firefly10;
+  background-color: white;
+  @media(min-width: $breakpoint) {
+    background-color: $firefly10;
+  }
   // background-color: $bridge-orange;
   // background-color: $firefly80;
   // border: 10px solid pink;
@@ -30,13 +33,14 @@ header.title {
   font-size: 14px;
   padding: 0.8em;
   position: relative;
-  border-bottom: 1px solid $light-keyboard-grey;
-  
+  overflow: hidden;
+
   //LARGER than the breakpoint
   @media(min-width: $breakpoint) {
     width: 100%;
     text-align: center;
   }
+
   h1.project--title {
     float:left;
     margin: 0;
@@ -44,17 +48,23 @@ header.title {
     color: black;
     font-weight: 800;
     font-size: 18px;
-
-    // At smaller sizes, fit the title better
-    @media (max-width: 550px) {
-      font-size: 12px;
-    }
   }
+
   h2.project--description{
     margin: 0;
     padding: 0;
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 500;
+    float: right;
+  }
+
+  // At smaller sizes, fit the title better
+  @media (max-width: 550px) {
+    h1, h2 {
+      font-size: 12px;
+      width: 100%;
+      display: block;  
+    }
   }
 }
 
@@ -63,15 +73,14 @@ header.title {
   padding: 0.4em 0.6em;
   background-color: white;
   width: 100%;
-  height: $header-height;
+  // min-height: 50px;
   @media(min-width: $breakpoint) {
     position: fixed;
     margin: 0;
     border: 1px solid $light-keyboard-grey;
     display: block;
-    min-height: $header-height;
+    // min-height: $header-height;
   }
-
 }
 
 // Project collection of columns (channels)
@@ -111,7 +120,7 @@ header.title {
         border-right: 1px solid rgba(white, 0.5);
 
         .embeds {
-          padding: $header-height 0;  
+          padding: 2.5em 0;  
         }
       }
     }
@@ -129,15 +138,13 @@ footer.call-to-action  {
   width: 100%;
   padding: 0.2em 1em;
   @extend %punctuation--bang-link;
-  background-color: white;
-  width: 100%;
   z-index: 2;
   a {
     color: $firefly80;
   }
   p {
     float: left;
-    width: 50%;
+    width: 60%;
     font-weight: 400;
   }
   .project--avatar{
@@ -165,6 +172,7 @@ h2.channel--title {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
+  min-height: 4em;
 
   //LARGER than the breakpoint
   @media (min-width: $breakpoint) {
