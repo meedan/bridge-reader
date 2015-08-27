@@ -183,4 +183,10 @@ footer.call-to-action  {
     margin: 0.5em;
     float: right;
   }
+
+  @media (max-width: $breakpoint) {
+    p { 
+      font-size: 12px;
+    }
+  }
 }

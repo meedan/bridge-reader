@@ -367,3 +367,6 @@ footer.call-to-action {
     border-radius: 100%;
     margin: 0.5em;
     float: right; }
+  @media (max-width: 1000px) {
+    footer.call-to-action p {
+      font-size: 12px; } }
