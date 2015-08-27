@@ -4,7 +4,6 @@
 /// @group bridge-style
 /// @since v0.6
 @import "scrollbars";
-// @import "geodata";
 @import "loading";
 @import "share";
 
@@ -145,4 +144,9 @@ $border--translation: 3px solid $bridge-orange;
 
 .bridgeEmbed__item:first-of-type .bridgeEmbed__item-embedly-card {
   @extend %loading;
+}
+
+.bridgeEmbed__item-geodata {
+  // FIXME 2015 August CGB
+  display: none;
 }
