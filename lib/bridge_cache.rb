@@ -82,11 +82,17 @@ module Bridge
           end
         end
 
-        FileUtils.mkdir_p(File.dirname(output))
-        
-        screenshoter.take_screenshot!(url: URI.encode(url), output: output, wait_for_element: element, frames_path: frames, sleep: 20) ? output : nil
+        self.take_screenshot(url, element, frames, output)
       end
       output
+    end
+
+    def take_screenshot(url, element, frames, output)
+      FileUtils.mkdir_p(File.dirname(output))
+      tmp = Tempfile.new(['screenshot', '.png']).path
+      screenshoter.take_screenshot!(url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20)
+      FileUtils.cp(tmp, output)
+      FileUtils.rm(tmp)
     end
 
     protected
