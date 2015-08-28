@@ -159,19 +159,8 @@ body {
   .bridgeEmbed__item-comment .byline {
     padding: 0; }
 
-.bridgeEmbed__item-comment:empty {
-  display: none; }
-
 #bridgeEmbed__footer {
-  display: none;
-  padding: 4em 2em;
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 100;
-  font-size: 10px; }
-  #bridgeEmbed__footer a {
-    color: #ff4f00;
-    text-decoration: none; }
+  display: none; }
 
 .bridgeEmbed__item-geodata {
   display: none; }
