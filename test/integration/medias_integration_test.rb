@@ -14,8 +14,7 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should have custom css" do
     with_testing_style 'body { background: red !important; }' do
-      visit '/'
-      url = current_url + 'medias/embed/google_spreadsheet/test.js'
+      url = BRIDGE_CONFIG['bridgembed_host_private'] + '/medias/embed/google_spreadsheet/test.js'
       with_testing_page ('<script type="text/javascript" src="' + url + '" data-custom-css="/test/test.css"></script>') do
         within_frame 0 do
           assert page.has_css?('link.bridgembed-custom-css', visible: false)
