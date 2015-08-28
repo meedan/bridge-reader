@@ -1,21 +1,33 @@
 /// Bridge.scss
 /// This is the main stylesheet loaded by Bridge Embeds.
-/// Most styles are written directly to this repository.
-/// Some are in the bower component, `meedan-style` in `vendor/assets/bower_components`
-/// NOTE: screenshot.css is rendered as a stand-alone file.
+/// NOTE: screenshot.css is rendered as a stand-alone file
 /// 
 $width--column: 300px;
 $height--description: 40px;
 $breakpoint--desktop-min-width: $width--column * 4;
 $top-offset--channel: 60px;
 
+// README: http://www.paulirish.com/2012/box-sizing-border-box-ftw/
 * {
   box-sizing: border-box;
 }
 
 @import "colors";
 @import "typography";
-@import "icons";
+@import "embed__scrollbars";
+@import "embed__loading";
+@import "embed__icons";
+@import "embed__share";
 @import "embed";
-@import "share";
 @import "project";
+
+// Temporary styles
+#bridgeEmbed__footer {
+  // FIXME 2015 August 27 CGB
+  display: none;
+}
+
+.bridgeEmbed__item-geodata {
+  // FIXME 2015 August 27 CGB
+  display: none;
+}

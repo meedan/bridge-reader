@@ -3,13 +3,10 @@
 ///
 /// @group bridge-style
 /// @since v0.6
-@import "scrollbars";
-@import "loading";
-@import "share";
 
-$max-width: 505px;
-$side-margin: 4px;
-$border--translation: 3px solid $bridge-orange;
+$embed--max-width: 505px;
+$embed--side-margin: 4px;
+$embed--translation-border: 3px solid $bridge-orange;
 
 /// Bridge Embed item
 ///
@@ -19,14 +16,14 @@ $border--translation: 3px solid $bridge-orange;
   overflow: hidden;
   padding: 0.6em 0.4em 1em;
   margin: 1em auto 0;
-  max-width: $max-width;
+  max-width: $embed--max-width;
   height: 100%;
   background-color: white;
   border-radius: 5px;
 
   & > iframe {
     margin: 0 auto;
-    max-width: $max-width !important;
+    max-width: $embed--max-width !important;
   }
 
   &:first-of-type {
@@ -36,8 +33,8 @@ $border--translation: 3px solid $bridge-orange;
 
 /// Bridge Translator byline
 ///
-/// The byline says who the post is written by: The author of the post with avatar + related attributes of the translation owner + metadata about translation.
-%translator-byline {
+/// The byline says who the post is translated by: The author of the post with avatar + related attributes of the translation owner + metadata about translation.
+%embed--translator-byline {
   font-weight: 400;
   margin-top: 0.6em;
   padding: 0.6em 1em 0.6em;
@@ -49,20 +46,20 @@ $border--translation: 3px solid $bridge-orange;
 ///
 /// The actual target language content: The translation itself.
 /// Contained by a single p.
-%translation {
-  margin: 0 $side-margin;
-  border-left: $border--translation;
+%embed--translation {
+  margin: 0 $embed--side-margin;
+  border-left: $embed--translation-border;
   font-weight: 400;
   line-height: 1.4;
   &.rtl {
     direction: rtl;
     text-align: right;
     border-left-width: 0;
-    border-right: $border--translation;
+    border-right: $embed--translation-border;
   }
 
   p {
-    max-width: $max-width;
+    max-width: $embed--max-width;
     padding: 0 1em 0.6em;
     margin: 0;
   }
@@ -81,13 +78,13 @@ $border--translation: 3px solid $bridge-orange;
 /// A translator's commentary on a translation: A translator-oriented comment.
 /// There is usually one annotation.
 /// The annotation is not always by the translator of a given translation.
-%translator-annotation {
+%embed--translator-annotation {
   font-size: smaller;
   background-color: $light-bridge-orange;
   font-weight: 200;
   padding: 0.6em 1em;
-  margin: 1em $side-margin 0;
-  max-width: $max-width;
+  margin: 1em $embed--side-margin 0;
+  max-width: $embed--max-width;
   font-weight: 400;
   .byline {
     padding: 0;
@@ -97,29 +94,18 @@ $border--translation: 3px solid $bridge-orange;
 .bridgeEmbed__item {
   @extend %embed-item;
   .byline {
-    @extend %translator-byline;
+    @extend %embed--translator-byline;
   }
 }
 
 .bridgeEmbed__item-translation {
-  @extend %translation;
+  @extend %embed--translation;
 }
 
 .bridgeEmbed__item-comment {
-  @extend %translator-annotation;
+  @extend %embed--translator-annotation;
 }
 
 .bridgeEmbed__item:first-of-type .bridgeEmbed__item-embedly-card {
   @extend %loading;
-}
-
-// Temporary styles
-#bridgeEmbed__footer {
-  // FIXME 2015 August CGB
-  display: none;
-}
-
-.bridgeEmbed__item-geodata {
-  // FIXME 2015 August CGB
-  display: none;
 }
