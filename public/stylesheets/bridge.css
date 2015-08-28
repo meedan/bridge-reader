@@ -311,8 +311,14 @@ footer.call-to-action {
       vertical-align: top;
       margin: 0 0.1em; }
   @media (max-width: 1000px) {
-    footer.call-to-action p {
-      font-size: 12px; } }
+    footer.call-to-action {
+      position: static; }
+      footer.call-to-action .project--translators, footer.call-to-action p {
+        float: left;
+        margin-left: 10px;
+        font-size: 12px;
+        width: 100%;
+        line-height: 2em; } }
 
 #bridgeEmbed__footer {
   display: none; }
