@@ -1,6 +1,7 @@
 /// Minimalist scrollbars
 /// 
 /// Used by embeds, when needed. See the project section.
+/// Limitations: Webkit only. Firefox does not allow manipulation of this element. 
 /// @group bridge-style
 %fancy-scrollbars {
   ::-webkit-scrollbar {
