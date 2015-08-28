@@ -84,7 +84,7 @@ module Bridge
 
         FileUtils.mkdir_p(File.dirname(output))
         
-        screenshoter.take_screenshot!(url: url, output: output, wait_for_element: element, frames_path: frames, sleep: 20) ? output : nil
+        screenshoter.take_screenshot!(url: URI.encode(url), output: output, wait_for_element: element, frames_path: frames, sleep: 20) ? output : nil
       end
       output
     end
