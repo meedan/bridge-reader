@@ -1,6 +1,6 @@
 ////
-/// This is in the bridge-style component. 
-/// 
+/// This is in the bridge-style component.
+///
 /// This is bridge typography
 /// @since 0.7
 %typography-default {
@@ -19,4 +19,10 @@
 
 body {
   @extend %typography-default;
+}
+
+em{
+  font-size: 0.8em;
+  margin: 0;
+  padding: 0;
 }
