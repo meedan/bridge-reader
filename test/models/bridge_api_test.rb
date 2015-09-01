@@ -94,6 +94,23 @@ class BridgeApiTest < ActiveSupport::TestCase
     assert File.mtime(file2) > time
   end
 
+  test "should create project" do
+    project = File.join(Rails.root, 'config', 'projects', 'test', 'test.yml')
+    assert !File.exists?(project)
+    assert !BRIDGE_PROJECTS.has_key?('test')
+    @b.parse_notification(nil, nil, { 'project' => { 'slug' => 'test' }, 'condition' => 'created' })
+    exists = File.exists?(project)
+    FileUtils.rm(project)
+    assert exists
+    assert BRIDGE_PROJECTS.has_key?('test')
+  end
+
+  test "should not create project" do
+    project = File.join(Rails.root, 'config', 'projects', 'test', 'test.yml')
+    @b.parse_notification(nil, nil, { 'project' => { 'slug' => 'test' } })
+    assert !File.exists?(project)
+  end
+
   protected
 
   def single_translation_object
