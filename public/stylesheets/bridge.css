@@ -12,6 +12,11 @@ body {
     body a:hover {
       color: #6f7a82; }
 
+em {
+  font-size: 0.8em;
+  margin: 0;
+  padding: 0; }
+
 .project .columns ::-webkit-scrollbar {
   display: none; }
 
@@ -280,6 +285,8 @@ footer.call-to-action {
   width: 100%;
   padding: 0.2em 1em;
   z-index: 2; }
+  footer.call-to-action sup {
+    font-size: 0.5em; }
   footer.call-to-action .logo {
     width: 20px;
     height: 20px;
