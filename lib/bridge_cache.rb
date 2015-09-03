@@ -100,6 +100,7 @@ module Bridge
     end
 
     def notify_cc_service(project, collection, item, format = nil)
+      return if BRIDGE_CONFIG['cc_deville_host'].blank?
       url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, URI.encode(collection), item].reject{ |part| part.blank? }.join('/')
       url += '.' + format unless format.blank?
       cc = Bridge::CcDeville.new(BRIDGE_CONFIG['cc_deville_host'], BRIDGE_CONFIG['cc_deville_token'], BRIDGE_CONFIG['cc_deville_httpauth'])

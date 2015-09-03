@@ -132,4 +132,10 @@ class BridgeCacheTest < ActiveSupport::TestCase
     Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/1.png').returns(201)
     @b.remove_screenshot('1', '', '')
   end
+
+  test "should not request cc-deville if configuration is blank" do
+    stub_config 'cc_deville_host', ''
+    Bridge::CcDeville.expects(:new).never
+    @b.clear_cache('1', '', '')
+  end
 end
