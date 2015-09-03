@@ -11,6 +11,9 @@ development: &default
   cache_embeds: true
   secret_token:
   google_analytics_code: 'UA-12345678-1'
+  cc_deville_host:
+  cc_deville_token:
+  cc_deville_httpauth: 'username:password'
 
 test:
   <<: *default

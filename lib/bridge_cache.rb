@@ -1,10 +1,12 @@
 require 'bridge_embedly'
+require 'bridge_cc_deville'
 require 'smartshot'
 
 module Bridge
   module Cache
     def clear_cache(project, collection, item)
       FileUtils.rm_rf(cache_path(project, collection, item))
+      notify_cc_service(project, collection, item)
     end
 
     def cache_path(project, collection, item)
@@ -31,10 +33,12 @@ module Bridge
       new_item = !File.exists?(path)
       save_cache_file(object, project, collection, item, level, entries, site)
       object.notify_new_item(collection, item) if new_item
+      notify_cc_service(project, collection, item)
     end
 
     def remove_screenshot(project, collection, item)
       FileUtils.rm_rf(screenshot_path(project, collection, item))
+      notify_cc_service(project, collection, item, 'png')
     end
 
     def screenshot_path(project, collection, item)
@@ -93,6 +97,13 @@ module Bridge
       screenshoter.take_screenshot!(url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20)
       FileUtils.cp(tmp, output)
       FileUtils.rm(tmp)
+    end
+
+    def notify_cc_service(project, collection, item, format = nil)
+      url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, URI.encode(collection), item].reject{ |part| part.blank? }.join('/')
+      url += '.' + format unless format.blank?
+      cc = Bridge::CcDeville.new(BRIDGE_CONFIG['cc_deville_host'], BRIDGE_CONFIG['cc_deville_token'], BRIDGE_CONFIG['cc_deville_httpauth'])
+      cc.clear_cache(url)
     end
 
     protected
