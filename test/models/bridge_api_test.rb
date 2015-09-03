@@ -111,6 +111,17 @@ class BridgeApiTest < ActiveSupport::TestCase
     assert !File.exists?(project)
   end
 
+  test "should update project cache" do
+    stub_request_project
+    @b.generate_cache(@b, 'bridge-api', '', '')
+    file = @b.cache_path('bridge-api', '', '')
+    assert File.exists?(file)
+    time = File.mtime(file)
+    @b.parse_notification('', '', { 'condition' => 'updated', 'project' => { 'id' => 1 } })
+    assert File.exists?(file)
+    assert File.mtime(file) > time
+  end
+
   protected
 
   def single_translation_object

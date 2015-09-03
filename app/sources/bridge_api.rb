@@ -53,6 +53,8 @@ module Sources
         to = File.join(dir, slug + '.yml')
         FileUtils.ln_s(from, to)
         BRIDGE_PROJECTS[slug] = BRIDGE_PROJECTS['bridge-api']
+      elsif payload['condition'] == 'updated'
+        generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
       end
     end
 
