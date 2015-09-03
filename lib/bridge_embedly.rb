@@ -18,15 +18,20 @@ module Bridge
       Retryable.retryable tries: 5, sleep: 3 do
         oembed = connect_to_api.oembed(url: link).first
       end
+      raise oembed.error_message if oembed.type === 'error'
       oembed[:link] = link
       oembed
     end
 
     def parse_entry(entry)
       Rails.cache.fetch('embedly:' + entry[:id]) do
-        oembed = call_oembed(entry[:link])
-        entry[:provider] = provider = oembed.provider_name.to_s.underscore
-        entry[:oembed] = self.alter_oembed(oembed, provider)
+        begin
+          oembed = call_oembed(entry[:link])
+          entry[:provider] = provider = oembed.provider_name.to_s.underscore
+          entry[:oembed] = self.alter_oembed(oembed, provider)
+        rescue
+          entry[:oembed] = { 'unavailable' => true }
+        end
         entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
         entry.except(:source)
       end
