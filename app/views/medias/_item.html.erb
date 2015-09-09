@@ -9,7 +9,7 @@
   %>
     
   <!-- Item Geodata -->
-  <% unless entry[:oembed].coordinates.nil? %>
+  <% if entry[:oembed].respond_to?(:coordinates) && !entry[:oembed].coordinates.nil? %>
     <div class="bridgeEmbed__item-geodata">
       <a href="http://www.openstreetmap.org/?mlat=<%= entry[:oembed].coordinates[0] %>&mlon=<%= entry[:oembed].coordinates[1] %>&zoom=11#map=11/<%= entry[:oembed].coordinates[0] %>/<%= entry[:oembed].coordinates[1] %>" target="_blank">
         <i class="icon"></i>

@@ -62,7 +62,7 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
 
   test "should not crash if oembed has no provider" do
     assert_nothing_raised do
-      @b.parse_collection([{ link: 'https://nothing.nothing', id: 'test' }]).first[:oembed]
+      @b.parse_collection([{ link: 'http://ca.ios.ba', id: 'test' }]).first[:oembed]
     end
   end
 
@@ -90,5 +90,13 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
   test "should not wait if rate limit is not reached" do
     Bridge::Embedly.any_instance.expects(:sleep).never
     @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }]).first[:oembed]
+  end
+
+  test "should return unavailable and not crash if source post was removed" do
+    entry = { link: 'https://twitter.com/statuses/634221052374188032', id: 'test' }
+    assert_nothing_raised do
+      entry = @b.parse_entry(entry)
+    end
+    assert entry[:oembed]['unavailable']
   end
 end

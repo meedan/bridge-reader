@@ -34,12 +34,31 @@ module Sources
     end
 
     def parse_notification(channel, translation_id, payload = {})
-      if payload['condition'] == 'created' || payload['condition'] == 'updated'
+      if !payload['project'].blank?
+        self.handle_project(payload)
+      elsif payload['condition'] == 'created' || payload['condition'] == 'updated'
         self.update_cache_for_saved_translation(channel, payload['translation'])
       elsif payload['condition'] == 'destroyed'
         self.update_cache_for_removed_translation(channel, translation_id)
       end
 
+      refresh_cache(channel) unless channel.blank?
+    end
+
+    def handle_project(payload)
+      if payload['condition'] == 'created'
+        slug = payload['project']['slug']
+        dir = File.join(Rails.root, 'config', 'projects', Rails.env)
+        from = File.join(dir, 'bridge-api.yml')
+        to = File.join(dir, slug + '.yml')
+        FileUtils.ln_s(from, to)
+        BRIDGE_PROJECTS[slug] = BRIDGE_PROJECTS['bridge-api']
+      elsif payload['condition'] == 'updated'
+        generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+      end
+    end
+
+    def refresh_cache(channel)
       generate_cache(self, self.project, channel, '', BRIDGE_CONFIG['bridgembed_host'])
       remove_screenshot(self.project, channel, '')
       generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])

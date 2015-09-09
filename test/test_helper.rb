@@ -18,9 +18,10 @@ class ActiveSupport::TestCase
   def setup
     clear_cache
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
-                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com',
+                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com', /cc.test.meedan.com.*speakbridge\.io/,
                                          '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com']
     WebMock.stub_request(:post, 'http://watch.bot/links')
+    WebMock.stub_request(:delete, /http:\/\/cc\.test\.meedan\.com\/purge\?url=(http|localhost):.*/)
     Capybara.register_driver :poltergeist do |app|
       Capybara::Poltergeist::Driver.new(app, js_errors: false)
     end
