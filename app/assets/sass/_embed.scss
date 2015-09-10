@@ -109,3 +109,11 @@ $embed--translation-border: 3px solid $bridge-orange;
 .bridgeEmbed__item .bridgeEmbed__item-embedly-card {
   @extend %loading;
 }
+
+.breadcrumb {
+  padding: 1.2em 1em 0em 1em;
+  font-size: 0.7em;
+  text-align: center;
+  color: $firefly40;
+  // border: 1px solid red;
+}
