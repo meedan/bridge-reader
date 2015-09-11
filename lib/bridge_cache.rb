@@ -25,7 +25,7 @@ module Bridge
       # Check first if item exists
       level = get_level(project, collection, item)
       entries = get_entries_from_source(object, collection, item, level)
-      return if entries.blank?
+      clear_cache(project, collection, item) and return if entries.blank?
 
       path = cache_path(project, collection, item)
       dir = File.dirname(path)
