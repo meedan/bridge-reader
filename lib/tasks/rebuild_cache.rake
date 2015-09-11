@@ -17,6 +17,7 @@ namespace :bridgembed do
       next if object.nil?
 
       object.get_project.each do |collection|
+        collection = collection['name']
         items = object.get_collection(collection, nil, true)
         
         puts "[#{Time.now}] - - - Building cache for collection #{collection} (#{items.size} items)"
