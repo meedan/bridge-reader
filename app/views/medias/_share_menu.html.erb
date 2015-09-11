@@ -31,12 +31,11 @@
     %>
   </li>
 
-
-    <!-- Permalink-->
+  <!-- Permalink-->
 
   <li>
     <%= link_to 'Permalink', '#', class: 'bridgeEmbed__link-embed-code' %>
-    <textarea class="bridgeEmbed__embed-code" rows="2" readonly>
+    <textarea class="bridgeEmbed__embed-code" rows="1" readonly>
       <%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %>
     </textarea>
   </li>

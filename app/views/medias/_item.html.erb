@@ -56,12 +56,13 @@
         </div>
       </div>
     <% end %>
-      <div class="breadcrumb">
-      <%project_path= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project].join('/')%>
-      <%collection_path= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection].join('/')%>
-      <%=translation[:translator_name]%>'s translation for <%= link_to @collection, collection_path, class: 'bridgeEmbed__link-embed-code' %> is part of the
+
+    <div class="breadcrumb">
+      <% project_path = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project].join('/') %>
+      <% collection_path = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection].join('/') %>
+      <%= translation[:translator_name]%>'s translation for <%= link_to @collection, collection_path, class: 'bridgeEmbed__link-embed-code' %> is part of the
       <%= link_to @project, project_path, class: 'bridgeEmbed__link-embed-code' %> project on <a href="http://speakbridge.io">Bridge</a>.
-      </div>
+    </div>
   <% end %>
 
 </div>
