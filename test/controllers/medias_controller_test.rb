@@ -196,4 +196,9 @@ class MediasControllerTest < ActionController::TestCase
     get :embed, project: 'google_spreadsheet', collection: 'عوده_الوايت_نايتس'
     assert_equal 'عوده_الوايت_نايتس', assigns(:collection)
   end
+
+  test "should return error for screenshot that doesn't exist" do
+    get :embed, project: 'google_spreadsheet', collection: 'teste', format: :png
+    assert_response 404
+  end
 end
