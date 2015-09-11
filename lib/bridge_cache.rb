@@ -7,6 +7,7 @@ module Bridge
     def clear_cache(project, collection, item)
       FileUtils.rm_rf(cache_path(project, collection, item))
       notify_cc_service(project, collection, item)
+      true
     end
 
     def cache_path(project, collection, item)
