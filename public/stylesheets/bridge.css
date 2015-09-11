@@ -166,6 +166,12 @@ em {
   .bridgeEmbed__item-comment .byline {
     padding: 0; }
 
+.breadcrumb {
+  padding: 1.2em 1em 0em 1em;
+  font-size: 0.7em;
+  text-align: center;
+  color: #9fa6ac; }
+
 .project .columns {
   color: #404d59; }
 
