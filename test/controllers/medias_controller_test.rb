@@ -40,6 +40,7 @@ class MediasControllerTest < ActionController::TestCase
 
   test "should output valid markup" do
     require 'html_validation'
+    PageValidations::HTMLValidation.show_warnings = false
     h = PageValidations::HTMLValidation.new
     clear_cache
     get :embed, project: 'google_spreadsheet', collection: 'test'
