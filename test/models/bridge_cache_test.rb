@@ -89,47 +89,47 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should request cc-deville to clear cache for single item when generating cache" do
     id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/google_spreadsheet/test/' + id).returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet/test/' + id).returns(201)
     @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
   end
 
   test "should request cc-deville to clear cache for single item when removing cache" do
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/1/2/3').returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/1/2/3').returns(201)
     @b.clear_cache('1', '2', '3')
   end
 
   test "should request cc-deville to clear cache for single item when removing screenshot" do
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/1/2/3.png').returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/1/2/3.png').returns(201)
     @b.remove_screenshot('1', '2', '3')
   end
 
   test "should request cc-deville to clear cache for collection when generating cache" do
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/google_spreadsheet/test').returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet/test').returns(201)
     @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
   end
 
   test "should request cc-deville to clear cache for collection when removing cache" do
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/1/2').returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/1/2').returns(201)
     @b.clear_cache('1', '2', '')
   end
 
   test "should request cc-deville to clear cache for collection when removing screenshot" do
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/1/2.png').returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/1/2.png').returns(201)
     @b.remove_screenshot('1', '2', '')
   end
 
   test "should request cc-deville to clear cache for project when generating cache" do
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/google_spreadsheet').returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet').returns(201)
     @b.generate_cache(@b, 'google_spreadsheet', '', '')
   end
 
   test "should request cc-deville to clear cache for project when removing cache" do
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/1').returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/1').returns(201)
     @b.clear_cache('1', '', '')
   end
 
   test "should request cc-deville to clear cache for project when removing screenshot" do
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with('http://localhost:3002/medias/embed/1.png').returns(201)
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/1.png').returns(201)
     @b.remove_screenshot('1', '', '')
   end
 
