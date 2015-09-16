@@ -320,7 +320,7 @@ footer.call-to-action {
       text-decoration: none;
       border-bottom-width: 0; }
     footer.call-to-action .project--translators .project--avatar {
-      max-width: 30px;
+      max-width: 25px;
       z-index: 2;
       border-radius: 100%;
       vertical-align: top;
