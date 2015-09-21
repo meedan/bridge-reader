@@ -49,10 +49,11 @@ class MediasControllerTest < ActionController::TestCase
     assert v.valid?, v.exceptions
   end
 
-  test "should render javascript" do
+  test "should render JavaScript" do
     get :embed, project: 'google_spreadsheet', collection: 'test', format: :js
     assert_equal 'http://test.host/medias/embed/google_spreadsheet/test', assigns(:url)
     assert_equal 'http://test.host/medias/embed/google_spreadsheet/test.js', assigns(:caller)
+    assert_equal '/medias/embed/google_spreadsheet/test.js', assigns(:caller_path)
   end
 
   test "should return error if signature is not verified" do
@@ -201,5 +202,12 @@ class MediasControllerTest < ActionController::TestCase
   test "should return error for screenshot that doesn't exist" do
     get :embed, project: 'google_spreadsheet', collection: 'teste', format: :png
     assert_response 404
+  end
+
+  test "should remove parameters from caller JavaScript" do
+    get :embed, project: 'google_spreadsheet', collection: 'test', format: :js, t: 123456
+    assert_equal 'http://test.host/medias/embed/google_spreadsheet/test', assigns(:url)
+    assert_equal 'http://test.host/medias/embed/google_spreadsheet/test.js', assigns(:caller)
+    assert_equal '/medias/embed/google_spreadsheet/test.js', assigns(:caller_path)
   end
 end

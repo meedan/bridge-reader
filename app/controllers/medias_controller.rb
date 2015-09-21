@@ -52,8 +52,9 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_js
-    @caller = request.original_url
-    @url = @caller.gsub(/\.js$/, '')
+    @caller = request.original_url.gsub(/\?.*$/, '')
+    @caller_path = request.fullpath.gsub(/\?.*$/, '')
+    @url = @caller.gsub(/\.js.*$/, '')
     @path = [@project, @collection, @item].reject(&:blank?).join('-')
   end
 

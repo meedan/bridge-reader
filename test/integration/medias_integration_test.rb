@@ -2,7 +2,8 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'test_helper')
 
 class MediasIntegrationTest < ActionDispatch::IntegrationTest
   test "should lazy-load Instagram image" do
-    with_testing_page '<script type="text/javascript" src="/medias/embed/google_spreadsheet/test.js"></script>' do
+    url = BRIDGE_CONFIG['bridgembed_host_private'] + '/medias/embed/google_spreadsheet/test.js'
+    with_testing_page '<script type="text/javascript" src="' + url + '"></script>' do
       within_frame 0 do
         within_frame 1 do
           assert page.find('img.art-bd-img').visible? # Assert that Instagram image is visible
@@ -143,6 +144,32 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
     assert_nothing_raised do
       encoded = URI.encode('/medias/notify/project/عوده_الوايت_نايتس')
       post encoded 
+    end
+  end
+
+  test "should be loaded through AJAX" do
+    url = BRIDGE_CONFIG['bridgembed_host_private'] + '/medias/embed/google_spreadsheet/test.js'
+
+    html = '<script src="//code.jquery.com/jquery-1.10.2.js"></script>' + 
+           '<div id="embed"></div>' +
+           '<a href="#" id="trigger">Embed</a>' +
+           '<script>' +
+           '  $("#trigger").click(function() {' +
+           '     $.ajax({' +
+           '       url: "/",' +
+           '     }).done(function() {' +
+           '       $("#embed").html("<script src=\"' + url + '\" type=\"text/javascript\"><\/script>");' +
+           #'       $("#embed").html("<iframe src=\"' + url + '\"><\/iframe>");' +
+           '     });' +
+           '     return false;' +
+           '  });' +
+           '</script>'
+
+    with_testing_page (html) do
+      assert !page.has_css?('#embed iframe')
+      page.click_link 'Embed'
+      sleep 10.seconds
+      assert page.has_css?('#embed iframe')
     end
   end
 end

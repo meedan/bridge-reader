@@ -18,7 +18,8 @@ class ActiveSupport::TestCase
   def setup
     clear_cache
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
-                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com', /cc.test.meedan.com.*speakbridge\.io/,
+                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com',
+                                         /cc.test.meedan.com.*speakbridge\.io/, 'speakbridge.io',
                                          '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com']
     WebMock.stub_request(:post, 'http://watch.bot/links')
     WebMock.stub_request(:delete, /http:\/\/cc\.test\.meedan\.com\/purge\?url=#{Regexp.escape(BRIDGE_CONFIG['bridgembed_host'])}.*/)
@@ -71,8 +72,7 @@ class ActiveSupport::TestCase
     f = File.open(File.join(dir, name), 'w+')
     f.puts '<!DOCTYPE html><html><head></head><body><h1>Test</h1>' + content + '</body></html>'
     f.close
-    visit '/test/' + name
-    assert page.find('iframe').visible?
+    visit '/test/' + name + '?_=' + Time.now.to_i.to_s
     yield
     FileUtils.rm(File.join(dir, name), force: true)
     FileUtils.rmdir(dir)

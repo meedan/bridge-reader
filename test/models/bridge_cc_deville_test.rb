@@ -15,6 +15,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
   test "should clear cache from Varnish" do
     # FIXME: Assumption that this path exists
     url = 'https://speakbridge.io/medias/embed/test/749262715138323/193'
+    Net::HTTP.get_response(URI.parse(url))
 
     status = @b.get_status(url)
     varnish = status['data']['caches'].first
