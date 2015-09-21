@@ -35,9 +35,7 @@
 
   <li>
     <%= link_to 'Permalink', '#', class: 'bridgeEmbed__link-embed-code' %>
-    <textarea class="bridgeEmbed__embed-code" rows="2" readonly>
-      <%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %>
-    </textarea>
+    <textarea class="bridgeEmbed__embed-code" rows="3" readonly><%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %></textarea>
   </li>
 
 </ul>
