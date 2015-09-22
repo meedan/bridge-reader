@@ -156,7 +156,7 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
            '<script>' +
            '  $("#trigger").click(function() {' +
            '     $.ajax({' +
-           '       url: "/",' +
+           '       url: "/"' +
            '     }).done(function() {' +
            '       $("#embed").html("<script src=\"' + url + '\" type=\"text/javascript\"><\/script>");' +
            #'       $("#embed").html("<iframe src=\"' + url + '\"><\/iframe>");' +
@@ -170,6 +170,39 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
       page.click_link 'Embed'
       sleep 10.seconds
       assert page.has_css?('#embed iframe')
+    end
+  end
+
+  test "should be loaded through AJAX using jQuery 1.4.4" do
+    url = BRIDGE_CONFIG['bridgembed_host_private'] + '/medias/embed/google_spreadsheet/test'
+
+    html = '<script src="//code.jquery.com/jquery-1.4.4.min.js"></script>' +
+           '<div id="embed"></div>' +
+           '<a href="#" id="trigger">Embed</a>' +
+           '<script>' +
+           '  $("#trigger").click(function() {' +
+           '     $.ajax({' +
+           '       url: "/",' +
+           '       dataType: "html",' +
+           '       success: function() {' +
+           '         var url = "' + url + '",' +
+           '             src = url + ".js",' +
+           '             id = url.replace(/^.*\/medias\/embed\/([^.?]+)(\.|$|\?).*/, "$1").split("/").join("-"),' +
+           '             script = "<script type=\"text/javascript\" src=\"" + src + "\"><\/script>",' +
+           '             blockquote = "<blockquote id=\"bridge-embed-placeholder-" + id + "\" class=\"bridge-embed-placeholder\"><\/blockquote>";' +
+           '         $("#embed").html(blockquote + script);' +
+           '       }'+
+           '     });' +
+           '     return false;' +
+           '  });' +
+           '</script>'
+
+    with_testing_page (html) do
+      assert !page.has_css?('#embed iframe')
+      page.click_link 'Embed'
+      sleep 10.seconds
+      assert page.has_css?('#embed iframe')
+      assert !page.has_css?('blockquote')
     end
   end
 end
