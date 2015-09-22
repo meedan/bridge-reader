@@ -6,24 +6,32 @@
   'use strict';
 
   var scripts = document.getElementsByTagName('SCRIPT'),
-      script = null,
+      placeholder = null,
       url = '<%= @url %>';
   
   for (var i = 0; i < scripts.length; i++) {
     if ((scripts[i].getAttribute('src') == '<%= @caller %>' || scripts[i].getAttribute('src') == '<%= @caller_path %>') &&
          scripts[i].parentNode.tagName != 'HEAD') {
-      script = scripts[i];
-      var css = script.getAttribute('data-custom-css');
+      placeholder = scripts[i];
+      var css = placeholder.getAttribute('data-custom-css');
       if (css) {
         url += '#css=' + css;
       }
     }
   }
 
-  if (script == null) {
-    return;
+  // If the caller script cannot be found, try to find a placeholder
+
+  var blockquote = document.getElementById('bridge-embed-placeholder-<%= @path %>');
+  if (!placeholder) {
+    if (blockquote) {
+      placeholder = blockquote;
+    }
+    else {
+      return;
+    }
   }
-  
+
   var frame = document.createElement('iframe'),
       attrs = {
         src: url,
@@ -38,7 +46,11 @@
   }
   frame.innerHTML = 'Your browser does not support iframes';
   
-  script.parentNode.insertBefore(frame, script.nextSibling);
+  placeholder.parentNode.insertBefore(frame, placeholder.nextSibling);
+
+  if (blockquote) {
+    blockquote.parentNode.removeChild(blockquote);
+  }
 
   var messageCallback = function(e) {
     if (e && e.data && typeof e.data === 'string') {
