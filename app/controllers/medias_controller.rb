@@ -35,16 +35,26 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_png
-    css = URI.parse(params[:css].to_s).to_s
+    html = cache_path(@project, @collection, @item)
 
-    @image = generate_screenshot(@project, @collection, @item, css)
+    unless File.exists?(html)
+      get_object and return
+      generate_cache(@object, @project, @collection, @item, @site)
+    end
 
-    send_data File.read(@image), type: 'image/png', disposition: 'inline'
+    if File.exists?(html)
+      css = URI.parse(params[:css].to_s).to_s
+      @image = generate_screenshot(@project, @collection, @item, css)
+      send_data File.read(@image), type: 'image/png', disposition: 'inline'
+    else
+      render_error('Item not found (deleted, maybe?)', 'NOT_FOUND', 404)
+    end
   end
 
   def render_embed_as_js
-    @caller = request.original_url
-    @url = @caller.gsub(/\.js$/, '')
+    @caller = request.original_url.gsub(/\?.*$/, '')
+    @caller_path = request.fullpath.gsub(/\?.*$/, '')
+    @url = @caller.gsub(/\.js.*$/, '')
     @path = [@project, @collection, @item].reject(&:blank?).join('-')
   end
 

@@ -3,11 +3,14 @@
 <a href="#" class="bridgeEmbed__share" title="Share"><span>Share</span></a>
 
 <ul class="bridgeEmbed__share-menu">
+
+  <!-- Permalink-->
+
+  <li>
+    <%= link_to 'Permalink', '#', class: 'bridgeEmbed__link-embed-code' %>
+    <textarea class="bridgeEmbed__embed-code" rows="3" readonly><%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %></textarea>
+  </li>
   
-  <!-- Screenshot -->
-
-  <li><%= link_to 'Screenshot', "/medias/embed/#{@project}/#{@collection}/#{item}.png", target: 'blank', class: 'bridgeEmbed__link-screenshot' %></li>
-
   <!-- Embed Code -->
 
   <li>
@@ -30,4 +33,9 @@
         target: '_blank'
     %>
   </li>
+
+  <!-- Screenshot -->
+
+  <li><%= link_to 'Screenshot', "/medias/embed/#{@project}/#{@collection}/#{item}.png", target: 'blank', class: 'bridgeEmbed__link-screenshot' %></li>
+
 </ul>

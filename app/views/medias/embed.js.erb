@@ -6,21 +6,51 @@
   'use strict';
 
   var scripts = document.getElementsByTagName('SCRIPT'),
+      placeholder = null,
       url = '<%= @url %>';
-
+  
   for (var i = 0; i < scripts.length; i++) {
-    if (scripts[i].getAttribute('src') == '<%= @caller %>') {
-      var css = scripts[i].getAttribute('data-custom-css');
+    if ((scripts[i].getAttribute('src') == '<%= @caller %>' || scripts[i].getAttribute('src') == '<%= @caller_path %>') &&
+         scripts[i].parentNode.tagName != 'HEAD') {
+      placeholder = scripts[i];
+      var css = placeholder.getAttribute('data-custom-css');
       if (css) {
         url += '#css=' + css;
       }
     }
   }
 
-  var frame = '<iframe src="' + url + '" width="100%" frameborder="0" scrolling="no" id="bridge-embed-iframe-<%= @path %>" seamless>' +
-              'Your browser does not support iframes' +
-              '</iframe>';
-  document.write(frame);
+  // If the caller script cannot be found, try to find a placeholder
+
+  var blockquote = document.getElementById('bridge-embed-placeholder-<%= @path %>');
+  if (!placeholder) {
+    if (blockquote) {
+      placeholder = blockquote;
+    }
+    else {
+      return;
+    }
+  }
+
+  var frame = document.createElement('iframe'),
+      attrs = {
+        src: url,
+        width: '100%',
+        frameborder: 0,
+        scrolling: 'no',
+        id: 'bridge-embed-iframe-<%= @path %>',
+        seamless: ''
+      };
+  for (var attr in attrs) {
+    frame.setAttribute(attr, attrs[attr]);
+  }
+  frame.innerHTML = 'Your browser does not support iframes';
+  
+  placeholder.parentNode.insertBefore(frame, placeholder.nextSibling);
+
+  if (blockquote) {
+    blockquote.parentNode.removeChild(blockquote);
+  }
 
   var messageCallback = function(e) {
     if (e && e.data && typeof e.data === 'string') {
@@ -64,7 +94,7 @@
     }
     setTimeout(checkFrameVisibility, 100);
   };
-  checkFrameVisibility();
+  setTimeout(checkFrameVisibility, 1000);
 
   var all = document.getElementsByTagName("*");
   if (!window.addEventListener) {

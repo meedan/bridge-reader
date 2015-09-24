@@ -57,6 +57,13 @@
       </div>
     <% end %>
 
+    <div class="breadcrumb">
+      <% project_path = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project].join('/') %>
+      This translation is part of the 
+      <%= link_to @project, project_path, target: '_blank' %> 
+      project on 
+      <a href="http://speakbridge.io" target="_blank">Bridge</a>.
+    </div>
   <% end %>
 
 </div>

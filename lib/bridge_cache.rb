@@ -7,6 +7,7 @@ module Bridge
     def clear_cache(project, collection, item)
       FileUtils.rm_rf(cache_path(project, collection, item))
       notify_cc_service(project, collection, item)
+      true
     end
 
     def cache_path(project, collection, item)
@@ -25,7 +26,7 @@ module Bridge
       # Check first if item exists
       level = get_level(project, collection, item)
       entries = get_entries_from_source(object, collection, item, level)
-      return if entries.blank?
+      clear_cache(project, collection, item) and return if entries.blank?
 
       path = cache_path(project, collection, item)
       dir = File.dirname(path)

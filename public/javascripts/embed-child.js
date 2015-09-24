@@ -32,11 +32,13 @@ var Bridge = {};
   var isElementOnViewPort = function(el, data) {
     var rect = el.getBoundingClientRect(),
         h = data[0], w = data[1], tp = data[2], left = data[3];
-  
+
+    var offset = 500;
+
     return (
       rect.top + tp >= 0 &&
       rect.left + left >= 0 &&
-      rect.bottom + tp <= h &&
+      rect.bottom + tp <= (h + offset) &&
       rect.right + left <= w
     );
   };
