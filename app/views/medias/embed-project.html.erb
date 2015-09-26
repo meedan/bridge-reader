@@ -1,6 +1,6 @@
 <header class="title">
   <h1 class="project--title"><%= @entries.first['project'] unless @entries.empty? %></h1>
-  <h2 class="project--description">Translations related to <%= @entries.first['project'] unless @entries.empty? %></h2>
+  <h2 class="project--description"><%= @entries.first['project_summary'] %></h2>
 </header>
 
 <div class="project">
