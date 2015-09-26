@@ -17,6 +17,8 @@ gem 'smartshot'
 gem 'twitter_web_intents'
 gem 'bitly'
 gem 'string-direction'
+gem 'poltergeist'
+gem 'mini_magick'
 
 # Test gems
 # group :test do
@@ -26,5 +28,4 @@ gem 'string-direction'
   gem 'html_validation'
   gem 'webmock'
   gem 'capybara'
-  gem 'poltergeist'
 # end

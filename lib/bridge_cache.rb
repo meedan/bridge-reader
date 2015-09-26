@@ -71,6 +71,7 @@ module Bridge
         # Cache file will be returned
       else
         url = self.screenshot_url(project, collection, item, css)
+        level = self.get_level(project, collection, item)
         
         frames = []
         element = ['body']
@@ -87,17 +88,41 @@ module Bridge
           end
         end
 
-        self.take_screenshot(url, element, frames, output)
+        self.take_screenshot(url, element, frames, output, level)
       end
       output
     end
 
-    def take_screenshot(url, element, frames, output)
+    def take_screenshot(url, element, frames, output, level)
       FileUtils.mkdir_p(File.dirname(output))
       tmp = Tempfile.new(['screenshot', '.png']).path
-      screenshoter.take_screenshot!(url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20)
-      FileUtils.cp(tmp, output)
+      options = { url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20 }
+
+      options = options.merge(selector: '.bridgeEmbed__item-translation-and-comment', full: false) if level === 'item'
+
+      screenshoter.take_screenshot!(options)
+      level === 'item' ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)
       FileUtils.rm(tmp)
+    end
+
+    def post_process_screenshot(tmp, output)
+      image = MiniMagick::Image.open(tmp)
+
+      w, h = image.width, image.height
+      ratio = w.to_f / h.to_f
+      extent = [w, h]
+
+      if ratio < 2
+        w = h * 2
+      elsif ratio > 2
+        h = w / 2
+      end
+
+      image.combine_options do |c|
+        c.gravity 'center'
+        c.extent [w, h].join('x')
+      end
+      image.write(output)
     end
 
     def notify_cc_service(project, collection, item, format = nil)
