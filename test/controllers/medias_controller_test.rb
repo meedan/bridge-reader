@@ -228,4 +228,18 @@ class MediasControllerTest < ActionController::TestCase
     FileUtils.cp(generated, '/tmp/ratiogt2.png')
     assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
   end
+
+  test "should render png for Instagram video" do
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    assert_nothing_raised do
+      get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
+    end
+  end
+
+  test "should render png for Twitter 2" do
+    id = '09ba77abe84d84fb6531255b458980cd4af9ea9a'
+    assert_nothing_raised do
+      get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
+    end
+  end
 end

@@ -84,11 +84,15 @@ module Bridge
             element = ['.twitter-tweet-rendered']
           when 'instagram'
             frames  = [0]
-            element = ['img.art-bd-img']
+            element = ['.art-bd']
           end
         end
 
-        self.take_screenshot(url, element, frames, output, level)
+        begin
+          self.take_screenshot(url, element, frames, output, level)
+        rescue
+          self.take_screenshot(url, ['body'], [], output, level)
+        end
       end
       output
     end
