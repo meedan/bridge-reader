@@ -161,9 +161,10 @@ module Bridge
       av.assign(entries: entries, project: project, collection: collection,
                 item: item, site: site, level: level, path: path)
       ActionView::Base.send :include, MediasHelper
-      f = File.new(cache_path(project, collection, item), 'w+')
-      f.puts(av.render(template: "medias/embed-#{level}.html.erb", layout: "layouts/application.html.erb"))
-      f.close
+      content = av.render(template: "medias/embed-#{level}.html.erb", layout: "layouts/application.html.erb")
+      File.atomic_write(cache_path(project, collection, item)) do |file|
+        file.write(content)
+      end
     end
 
     def screenshot_url(project, collection, item, css = '')

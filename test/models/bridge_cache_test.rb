@@ -138,4 +138,24 @@ class BridgeCacheTest < ActiveSupport::TestCase
     Bridge::CcDeville.expects(:new).never
     @b.clear_cache('1', '', '')
   end
+
+  test "should not save blank file" do
+    entry = {
+      oembed: {},
+      translations: [{ text: 'Test', comments: [] }] * 10
+    }
+    create_cache
+    assert_not_nil File.size?(@b.cache_path('google_spreadsheet', 'test', ''))
+    threads = []
+    blank = nil
+    threads << Thread.new do
+      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', [entry] * 20)
+    end
+    threads << Thread.new do
+      sleep 1
+      blank = File.size?(@b.cache_path('google_spreadsheet', 'test', ''))
+    end
+    threads.each{ |t| t.join }
+    assert_not_nil blank
+  end
 end

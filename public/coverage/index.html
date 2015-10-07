@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-09-28T15:52:24-03:00">2015-09-28T15:52:24-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-10-07T18:18:20-03:00">2015-10-07T18:18:20-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         30.34
+         41.38
        </span>
     </span> hits/line)
   </h2>
@@ -77,7 +77,7 @@
         <td>47</td>
         <td>47</td>
         <td>0</td>
-        <td>76.7</td>
+        <td>215.1</td>
       </tr>
       
       <tr>
@@ -87,7 +87,7 @@
         <td>19</td>
         <td>19</td>
         <td>0</td>
-        <td>17.3</td>
+        <td>17.5</td>
       </tr>
       
       <tr>
@@ -113,11 +113,11 @@
       <tr>
         <td class="strong"><a href="#edb00029fef603b122b883fe21c263cfafb2888c" class="src_link" title="lib/bridge_cache.rb">lib/bridge_cache.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>184</td>
+        <td>185</td>
         <td>114</td>
         <td>114</td>
         <td>0</td>
-        <td>33.1</td>
+        <td>33.3</td>
       </tr>
       
       <tr>
@@ -157,7 +157,7 @@
         <td>24</td>
         <td>24</td>
         <td>0</td>
-        <td>16.5</td>
+        <td>16.7</td>
       </tr>
       
       <tr>
@@ -314,7 +314,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         76.7
+         215.1
        </span>
     </span> hits/line)
   </h2>
@@ -346,7 +346,7 @@
         <td>47</td>
         <td>47</td>
         <td>0</td>
-        <td>76.7</td>
+        <td>215.1</td>
       </tr>
       
     </tbody>
@@ -361,7 +361,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         32.8
+         32.91
        </span>
     </span> hits/line)
   </h2>
@@ -389,11 +389,11 @@
       <tr>
         <td class="strong"><a href="#edb00029fef603b122b883fe21c263cfafb2888c" class="src_link" title="lib/bridge_cache.rb">lib/bridge_cache.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>184</td>
+        <td>185</td>
         <td>114</td>
         <td>114</td>
         <td>0</td>
-        <td>33.1</td>
+        <td>33.3</td>
       </tr>
       
       <tr>
@@ -433,7 +433,7 @@
         <td>24</td>
         <td>24</td>
         <td>0</td>
-        <td>16.5</td>
+        <td>16.7</td>
       </tr>
       
       <tr>
@@ -458,7 +458,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         23.67
+         23.69
        </span>
     </span> hits/line)
   </h2>
@@ -490,7 +490,7 @@
         <td>19</td>
         <td>19</td>
         <td>0</td>
-        <td>17.3</td>
+        <td>17.5</td>
       </tr>
       
       <tr>
@@ -1502,26 +1502,26 @@
           <code class="ruby">  def parse_text(text)</code>
         </li>
       
-        <li class="covered" data-hits="300" data-linenumber="9">
-          <span class="hits">300</span>
+        <li class="covered" data-hits="900" data-linenumber="9">
+          <span class="hits">900</span>
           
           <code class="ruby">    renderer = Redcarpet::Render::HTML.new(link_attributes: { target: &#39;_blank&#39; })</code>
         </li>
       
-        <li class="covered" data-hits="300" data-linenumber="10">
-          <span class="hits">300</span>
+        <li class="covered" data-hits="900" data-linenumber="10">
+          <span class="hits">900</span>
           
           <code class="ruby">    markdown = Redcarpet::Markdown.new(renderer, autolink: true, no_intra_emphasis: true)</code>
         </li>
       
-        <li class="covered" data-hits="300" data-linenumber="11">
-          <span class="hits">300</span>
+        <li class="covered" data-hits="900" data-linenumber="11">
+          <span class="hits">900</span>
           
           <code class="ruby">    text = markdown.render(text)</code>
         </li>
       
-        <li class="covered" data-hits="300" data-linenumber="12">
-          <span class="hits">300</span>
+        <li class="covered" data-hits="900" data-linenumber="12">
+          <span class="hits">900</span>
           
           <code class="ruby">    text.html_safe.chomp</code>
         </li>
@@ -1544,26 +1544,26 @@
           <code class="ruby">  def parse_translation(translation, provider)</code>
         </li>
       
-        <li class="covered" data-hits="188" data-linenumber="16">
-          <span class="hits">188</span>
+        <li class="covered" data-hits="788" data-linenumber="16">
+          <span class="hits">788</span>
           
           <code class="ruby">    text = translation[:text]</code>
         </li>
       
-        <li class="covered" data-hits="188" data-linenumber="17">
-          <span class="hits">188</span>
+        <li class="covered" data-hits="788" data-linenumber="17">
+          <span class="hits">788</span>
           
           <code class="ruby">    text = self.send(&quot;#{provider}_parse_translation&quot;, text) if !provider.blank? &amp;&amp; self.respond_to?(&quot;#{provider}_parse_translation&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="188" data-linenumber="18">
-          <span class="hits">188</span>
+        <li class="covered" data-hits="788" data-linenumber="18">
+          <span class="hits">788</span>
           
           <code class="ruby">    text = parse_text(text).encode(&#39;UTF-8&#39;, invalid: :replace)</code>
         </li>
       
-        <li class="covered" data-hits="188" data-linenumber="19">
-          <span class="hits">188</span>
+        <li class="covered" data-hits="788" data-linenumber="19">
+          <span class="hits">788</span>
           
           <code class="ruby">    text.html_safe</code>
         </li>
@@ -1646,8 +1646,8 @@
           <code class="ruby">  def include_twitter_tags(project, collection, item, level, site)</code>
         </li>
       
-        <li class="covered" data-hits="52" data-linenumber="33">
-          <span class="hits">52</span>
+        <li class="covered" data-hits="53" data-linenumber="33">
+          <span class="hits">53</span>
           
           <code class="ruby">    if level === &#39;item&#39;</code>
         </li>
@@ -1706,26 +1706,26 @@
           <code class="ruby">  def short_url_for(project, collection, item)</code>
         </li>
       
-        <li class="covered" data-hits="61" data-linenumber="43">
-          <span class="hits">61</span>
+        <li class="covered" data-hits="81" data-linenumber="43">
+          <span class="hits">81</span>
           
           <code class="ruby">    require &#39;bitly&#39;</code>
         </li>
       
-        <li class="covered" data-hits="61" data-linenumber="44">
-          <span class="hits">61</span>
+        <li class="covered" data-hits="81" data-linenumber="44">
+          <span class="hits">81</span>
           
           <code class="ruby">    url = [BRIDGE_CONFIG[&#39;bridgembed_host&#39;], &#39;medias&#39;, &#39;embed&#39;, project, collection, item].join(&#39;/&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="61" data-linenumber="45">
-          <span class="hits">61</span>
+        <li class="covered" data-hits="81" data-linenumber="45">
+          <span class="hits">81</span>
           
           <code class="ruby">    begin</code>
         </li>
       
-        <li class="covered" data-hits="61" data-linenumber="46">
-          <span class="hits">61</span>
+        <li class="covered" data-hits="81" data-linenumber="46">
+          <span class="hits">81</span>
           
           <code class="ruby">      bitly = Bitly.client.shorten(url)</code>
         </li>
@@ -1742,8 +1742,8 @@
           <code class="ruby">    rescue</code>
         </li>
       
-        <li class="covered" data-hits="60" data-linenumber="49">
-          <span class="hits">60</span>
+        <li class="covered" data-hits="80" data-linenumber="49">
+          <span class="hits">80</span>
           
           <code class="ruby">      url</code>
         </li>
@@ -1772,14 +1772,14 @@
           <code class="ruby">  def get_translation_direction(translation, provider)</code>
         </li>
       
-        <li class="covered" data-hits="121" data-linenumber="54">
-          <span class="hits">121</span>
+        <li class="covered" data-hits="521" data-linenumber="54">
+          <span class="hits">521</span>
           
           <code class="ruby">    text = parse_translation(translation, provider)</code>
         </li>
       
-        <li class="covered" data-hits="121" data-linenumber="55">
-          <span class="hits">121</span>
+        <li class="covered" data-hits="521" data-linenumber="55">
+          <span class="hits">521</span>
           
           <code class="ruby">    get_text_direction(text)</code>
         </li>
@@ -1832,14 +1832,14 @@
           <code class="ruby">  def get_text_direction(text)</code>
         </li>
       
-        <li class="covered" data-hits="178" data-linenumber="64">
-          <span class="hits">178</span>
+        <li class="covered" data-hits="578" data-linenumber="64">
+          <span class="hits">578</span>
           
           <code class="ruby">    direction = text.direction</code>
         </li>
       
-        <li class="covered" data-hits="178" data-linenumber="65">
-          <span class="hits">178</span>
+        <li class="covered" data-hits="578" data-linenumber="65">
+          <span class="hits">578</span>
           
           <code class="ruby">    direction == &#39;bidi&#39; ? &#39;rtl&#39; : direction</code>
         </li>
@@ -1862,20 +1862,20 @@
           <code class="ruby">  def include_google_analytics_tag</code>
         </li>
       
-        <li class="covered" data-hits="54" data-linenumber="69">
-          <span class="hits">54</span>
+        <li class="covered" data-hits="55" data-linenumber="69">
+          <span class="hits">55</span>
           
           <code class="ruby">    code = BRIDGE_CONFIG[&#39;google_analytics_code&#39;]</code>
         </li>
       
-        <li class="covered" data-hits="54" data-linenumber="70">
-          <span class="hits">54</span>
+        <li class="covered" data-hits="55" data-linenumber="70">
+          <span class="hits">55</span>
           
           <code class="ruby">    if code.blank?</code>
         </li>
       
-        <li class="covered" data-hits="53" data-linenumber="71">
-          <span class="hits">53</span>
+        <li class="covered" data-hits="54" data-linenumber="71">
+          <span class="hits">54</span>
           
           <code class="ruby">      &#39;&#39;</code>
         </li>
@@ -1952,20 +1952,20 @@
           <code class="ruby">    def initialize(project, config = {})</code>
         </li>
       
-        <li class="covered" data-hits="93" data-linenumber="4">
-          <span class="hits">93</span>
+        <li class="covered" data-hits="94" data-linenumber="4">
+          <span class="hits">94</span>
           
           <code class="ruby">      @project = project</code>
         </li>
       
-        <li class="covered" data-hits="93" data-linenumber="5">
-          <span class="hits">93</span>
+        <li class="covered" data-hits="94" data-linenumber="5">
+          <span class="hits">94</span>
           
           <code class="ruby">      @config = config</code>
         </li>
       
-        <li class="covered" data-hits="93" data-linenumber="6">
-          <span class="hits">93</span>
+        <li class="covered" data-hits="94" data-linenumber="6">
+          <span class="hits">94</span>
           
           <code class="ruby">      raise &quot;Cannot directly instantiate this class&quot; if self.class == Base</code>
         </li>
@@ -3356,26 +3356,26 @@
           <code class="ruby">    def initialize(project, config = {})</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="14">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="14">
+          <span class="hits">73</span>
           
           <code class="ruby">      @project = project</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="15">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="15">
+          <span class="hits">73</span>
           
           <code class="ruby">      @config = config</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="16">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="16">
+          <span class="hits">73</span>
           
           <code class="ruby">      authenticate do</code>
         </li>
       
-        <li class="covered" data-hits="73" data-linenumber="17">
-          <span class="hits">73</span>
+        <li class="covered" data-hits="74" data-linenumber="17">
+          <span class="hits">74</span>
           
           <code class="ruby">        get_spreadsheet(@config[&#39;google_spreadsheet_id&#39;])</code>
         </li>
@@ -3386,8 +3386,8 @@
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="19">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="19">
+          <span class="hits">73</span>
           
           <code class="ruby">      super</code>
         </li>
@@ -3740,8 +3740,8 @@
           <code class="ruby">    def get_spreadsheet(id = &#39;&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="131" data-linenumber="78">
-          <span class="hits">131</span>
+        <li class="covered" data-hits="132" data-linenumber="78">
+          <span class="hits">132</span>
           
           <code class="ruby">      @spreadsheet ||= @session.spreadsheet_by_key(id)</code>
         </li>
@@ -4628,8 +4628,8 @@
           <code class="ruby">    def cache_path(project, collection, item)</code>
         </li>
       
-        <li class="covered" data-hits="169" data-linenumber="14">
-          <span class="hits">169</span>
+        <li class="covered" data-hits="172" data-linenumber="14">
+          <span class="hits">172</span>
           
           <code class="ruby">      self.file_path(project, collection, item, &#39;cache&#39;, &#39;html&#39;)</code>
         </li>
@@ -5498,20 +5498,20 @@
           <code class="ruby">    def save_cache_file(object, project, collection, item, level, entries, site = nil)</code>
         </li>
       
-        <li class="covered" data-hits="52" data-linenumber="159">
-          <span class="hits">52</span>
+        <li class="covered" data-hits="53" data-linenumber="159">
+          <span class="hits">53</span>
           
           <code class="ruby">      path = self.get_components(project, collection, item).join(&#39;-&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="52" data-linenumber="160">
-          <span class="hits">52</span>
+        <li class="covered" data-hits="53" data-linenumber="160">
+          <span class="hits">53</span>
           
           <code class="ruby">      av = ActionView::Base.new(Rails.root.join(&#39;app&#39;, &#39;views&#39;))</code>
         </li>
       
-        <li class="covered" data-hits="52" data-linenumber="161">
-          <span class="hits">52</span>
+        <li class="covered" data-hits="53" data-linenumber="161">
+          <span class="hits">53</span>
           
           <code class="ruby">      av.assign(entries: entries, project: project, collection: collection,</code>
         </li>
@@ -5522,133 +5522,139 @@
           <code class="ruby">                item: item, site: site, level: level, path: path)</code>
         </li>
       
-        <li class="covered" data-hits="52" data-linenumber="163">
-          <span class="hits">52</span>
+        <li class="covered" data-hits="53" data-linenumber="163">
+          <span class="hits">53</span>
           
           <code class="ruby">      ActionView::Base.send :include, MediasHelper</code>
         </li>
       
-        <li class="covered" data-hits="52" data-linenumber="164">
-          <span class="hits">52</span>
+        <li class="covered" data-hits="53" data-linenumber="164">
+          <span class="hits">53</span>
           
-          <code class="ruby">      f = File.new(cache_path(project, collection, item), &#39;w+&#39;)</code>
+          <code class="ruby">      content = av.render(template: &quot;medias/embed-#{level}.html.erb&quot;, layout: &quot;layouts/application.html.erb&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="52" data-linenumber="165">
-          <span class="hits">52</span>
+        <li class="covered" data-hits="53" data-linenumber="165">
+          <span class="hits">53</span>
           
-          <code class="ruby">      f.puts(av.render(template: &quot;medias/embed-#{level}.html.erb&quot;, layout: &quot;layouts/application.html.erb&quot;))</code>
+          <code class="ruby">      File.atomic_write(cache_path(project, collection, item)) do |file|</code>
         </li>
       
-        <li class="covered" data-hits="52" data-linenumber="166">
-          <span class="hits">52</span>
+        <li class="covered" data-hits="53" data-linenumber="166">
+          <span class="hits">53</span>
           
-          <code class="ruby">      f.close</code>
+          <code class="ruby">        file.write(content)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="167">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby">      end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="168">
           
           
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="169">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="169">
+        <li class="covered" data-hits="1" data-linenumber="170">
           <span class="hits">1</span>
           
           <code class="ruby">    def screenshot_url(project, collection, item, css = &#39;&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="15" data-linenumber="170">
+        <li class="covered" data-hits="15" data-linenumber="171">
           <span class="hits">15</span>
           
           <code class="ruby">      url = [BRIDGE_CONFIG[&#39;bridgembed_host_private&#39;], &#39;medias&#39;, &#39;embed&#39;, project, URI.encode(collection), item].join(&#39;/&#39;) + &quot;?#{Time.now.to_i}&quot;</code>
         </li>
       
-        <li class="covered" data-hits="15" data-linenumber="171">
+        <li class="covered" data-hits="15" data-linenumber="172">
           <span class="hits">15</span>
           
           <code class="ruby">      url += &quot;#css=#{css}&quot; unless css.blank?</code>
         </li>
       
-        <li class="covered" data-hits="15" data-linenumber="172">
+        <li class="covered" data-hits="15" data-linenumber="173">
           <span class="hits">15</span>
           
           <code class="ruby">      url</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="173">
+        <li class="never" data-hits="" data-linenumber="174">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="174">
+        <li class="never" data-hits="" data-linenumber="175">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="175">
+        <li class="covered" data-hits="1" data-linenumber="176">
           <span class="hits">1</span>
           
           <code class="ruby">    def get_components(project, collection, item)</code>
         </li>
       
-        <li class="covered" data-hits="260" data-linenumber="176">
-          <span class="hits">260</span>
+        <li class="covered" data-hits="264" data-linenumber="177">
+          <span class="hits">264</span>
           
           <code class="ruby">      [project, collection, item].reject(&amp;:empty?)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="177">
-          
-          
-          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="178">
           
           
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="179">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="179">
+        <li class="covered" data-hits="1" data-linenumber="180">
           <span class="hits">1</span>
           
           <code class="ruby">    def file_path(project, collection, item, basedir, extension)</code>
         </li>
       
-        <li class="covered" data-hits="208" data-linenumber="180">
-          <span class="hits">208</span>
+        <li class="covered" data-hits="211" data-linenumber="181">
+          <span class="hits">211</span>
           
           <code class="ruby">      path = self.get_components(project, collection, item)</code>
         </li>
       
-        <li class="covered" data-hits="208" data-linenumber="181">
-          <span class="hits">208</span>
+        <li class="covered" data-hits="211" data-linenumber="182">
+          <span class="hits">211</span>
           
           <code class="ruby">      File.join(Rails.root, &#39;public&#39;, basedir, path) + &#39;.&#39; + extension</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="182">
-          
-          
-          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="183">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="184">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="185">
           
           
           <code class="ruby">end</code>
@@ -6698,20 +6704,20 @@
           <code class="ruby">    def authenticate</code>
         </li>
       
-        <li class="covered" data-hits="73" data-linenumber="5">
-          <span class="hits">73</span>
+        <li class="covered" data-hits="74" data-linenumber="5">
+          <span class="hits">74</span>
           
           <code class="ruby">      return @session unless @session.nil?</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="6">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="6">
+          <span class="hits">73</span>
           
           <code class="ruby">      begin</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="7">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="7">
+          <span class="hits">73</span>
           
           <code class="ruby">        access_token = Rails.cache.fetch(&#39;!google_access_token&#39;) do</code>
         </li>
@@ -6728,14 +6734,14 @@
           <code class="ruby">        end</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="10">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="10">
+          <span class="hits">73</span>
           
           <code class="ruby">        @session = GoogleDrive.login_with_oauth(access_token)</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="11">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="11">
+          <span class="hits">73</span>
           
           <code class="ruby">        yield if block_given?</code>
         </li>
