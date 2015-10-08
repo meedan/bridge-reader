@@ -49,7 +49,7 @@ module Sources
       if payload['condition'] == 'created'
         slug = payload['project']['slug']
         dir = File.join(Rails.root, 'config', 'projects', Rails.env)
-        from = File.join(dir, 'bridge-api.yml')
+        from = 'bridge-api.yml'
         to = File.join(dir, slug + '.yml')
         FileUtils.ln_s(from, to)
         BRIDGE_PROJECTS[slug] = BRIDGE_PROJECTS['bridge-api']
