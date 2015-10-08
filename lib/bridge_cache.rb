@@ -49,12 +49,12 @@ module Bridge
     def screenshoter
       path = File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s)
       version = `#{path} --version`
-      if (version.chomp =~ /^[0-9.]+$/).nil?
+      if (version.chomp =~ /^[0-9.]+/).nil?
         path = `which phantomjs`
         version = `#{path.chomp} --version`
       end
 
-      raise 'PhantomJS not found!' if (version.chomp =~ /^[0-9.]+$/).nil?
+      raise 'PhantomJS not found!' if (version.chomp =~ /^[0-9.]+/).nil?
 
       options = { phantomjs: path.chomp, timeout: 40 }
 
