@@ -1,8 +1,5 @@
 <% content_for :head do %>
-<meta property="og:title" content="<%= @project.titleize %>" />
-<meta property="fb:app_id" content="616458698451927" />
 <meta property="og:type"   content="article" />
 <meta property="og:url"    content="<%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, @item].join('/') %>" />
-<meta property="og:image"  content="/images/bridge-logo.png" />
 <%end%>
 <%= render partial: 'medias/item', locals: { entry: @entries } %>
