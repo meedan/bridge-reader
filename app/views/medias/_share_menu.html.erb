@@ -10,7 +10,7 @@
     <%= link_to 'Permalink', '#', class: 'bridgeEmbed__link-embed-code' %>
     <textarea class="bridgeEmbed__embed-code" rows="3" readonly><%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %></textarea>
   </li>
-  
+
   <!-- Embed Code -->
 
   <li>
@@ -34,8 +34,19 @@
     %>
   </li>
 
+  <!-- Share on Facebook -->
+
+  <li>
+    <% url_embed = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/')%>
+    <% base_url = "https://www.facebook.com/dialog/share?"%>
+    <%= link_to 'Share on Facebook',"#{base_url}app_id=616458698451927&href=#{url_embed}&redirect_uri=#{url_embed}", class: 'bridgeEmbed__link-share-facebook', target: '_blank' %>
+  </li>
+
+
+
   <!-- Screenshot -->
 
-  <li><%= link_to 'Screenshot', "/medias/embed/#{@project}/#{@collection}/#{item}.png", target: 'blank', class: 'bridgeEmbed__link-screenshot' %></li>
+  <li>
+    <%= link_to 'Screenshot', "/medias/embed/#{@project}/#{@collection}/#{item}.png", target: 'blank', class: 'bridgeEmbed__link-screenshot' %></li>
 
 </ul>

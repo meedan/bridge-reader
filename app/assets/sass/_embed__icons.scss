@@ -6,8 +6,8 @@
 }
 
 /// Icon-base
-/// 
-/// @example 
+///
+/// @example
 ///   .translation {
 ///     @extend %icon-base;
 ///     @extend %icon-share;
@@ -24,7 +24,7 @@ $icon-size: 12px !default;
 
 /// Render-icon
 /// @type mixin
-/// @param: $icon-size 
+/// @param: $icon-size
 /// @param: $icon-name
 /// @example: @include render-icon(90px, share);
 @mixin render-icon($icon-size, $icon-name: share) {
@@ -32,4 +32,3 @@ $icon-size: 12px !default;
   width: $icon-size;
   height: $icon-size;
 }
-

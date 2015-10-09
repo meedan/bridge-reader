@@ -18,7 +18,7 @@
     border: 1px solid $light-keyboard-grey;
     border-bottom-width: 0;
     list-style: none;
-    padding: 0.5em;
+    padding: 1em;
 
     &:last-of-type {
       border-bottom-width: 1px;
@@ -27,7 +27,7 @@
 
   a {
     font-size: 12px;
-    line-height: 4;
+    line-height: 2em;
     padding: 0 0.5em;
     text-decoration: none;
     text-transform: uppercase;
@@ -51,7 +51,7 @@
     max-height: 0;
     overflow-y: hidden;
     &.bridgeEmbed__embed-code-expanded {
-      max-height: 8em;
+      max-height: 7em;
       display: block;
     }
   }
