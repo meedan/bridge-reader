@@ -49,12 +49,12 @@ module Bridge
     def screenshoter
       path = File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s)
       version = `#{path} --version`
-      if (version.chomp =~ /^[0-9.]+$/).nil?
+      if (version.chomp =~ /^[0-9.]+/).nil?
         path = `which phantomjs`
         version = `#{path.chomp} --version`
       end
 
-      raise 'PhantomJS not found!' if (version.chomp =~ /^[0-9.]+$/).nil?
+      raise 'PhantomJS not found!' if (version.chomp =~ /^[0-9.]+/).nil?
 
       options = { phantomjs: path.chomp, timeout: 40 }
 
@@ -71,6 +71,7 @@ module Bridge
         # Cache file will be returned
       else
         url = self.screenshot_url(project, collection, item, css)
+        level = self.get_level(project, collection, item)
         
         frames = []
         element = ['body']
@@ -83,21 +84,49 @@ module Bridge
             element = ['.twitter-tweet-rendered']
           when 'instagram'
             frames  = [0]
-            element = ['img.art-bd-img']
+            element = ['.art-bd']
           end
         end
 
-        self.take_screenshot(url, element, frames, output)
+        begin
+          self.take_screenshot(url, element, frames, output, level)
+        rescue
+          self.take_screenshot(url, ['body'], [], output, level)
+        end
       end
       output
     end
 
-    def take_screenshot(url, element, frames, output)
+    def take_screenshot(url, element, frames, output, level)
       FileUtils.mkdir_p(File.dirname(output))
       tmp = Tempfile.new(['screenshot', '.png']).path
-      screenshoter.take_screenshot!(url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20)
-      FileUtils.cp(tmp, output)
+      options = { url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20 }
+
+      options = options.merge(selector: '.bridgeEmbed__item-translation-and-comment', full: false) if level === 'item'
+
+      screenshoter.take_screenshot!(options)
+      level === 'item' ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)
       FileUtils.rm(tmp)
+    end
+
+    def post_process_screenshot(tmp, output)
+      image = MiniMagick::Image.open(tmp)
+
+      w, h = image.width, image.height
+      ratio = w.to_f / h.to_f
+      extent = [w, h]
+
+      if ratio < 2
+        w = h * 2
+      elsif ratio > 2
+        h = w / 2
+      end
+
+      image.combine_options do |c|
+        c.gravity 'center'
+        c.extent [w, h].join('x')
+      end
+      image.write(output)
     end
 
     def notify_cc_service(project, collection, item, format = nil)
@@ -132,9 +161,10 @@ module Bridge
       av.assign(entries: entries, project: project, collection: collection,
                 item: item, site: site, level: level, path: path)
       ActionView::Base.send :include, MediasHelper
-      f = File.new(cache_path(project, collection, item), 'w+')
-      f.puts(av.render(template: "medias/embed-#{level}.html.erb", layout: "layouts/application.html.erb"))
-      f.close
+      content = av.render(template: "medias/embed-#{level}.html.erb", layout: "layouts/application.html.erb")
+      File.atomic_write(cache_path(project, collection, item)) do |file|
+        file.write(content)
+      end
     end
 
     def screenshot_url(project, collection, item, css = '')

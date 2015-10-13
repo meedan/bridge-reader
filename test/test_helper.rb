@@ -56,6 +56,9 @@ class ActiveSupport::TestCase
     dir = File.join(Rails.root, 'public', 'cache', 'google_spreadsheet')
     FileUtils.mkdir_p(dir) unless File.exists?(dir)
     FileUtils.touch(File.join(dir, 'test.html'))
+    f = File.open(File.join(dir, 'test.html'), 'w+')
+    f.puts('Test')
+    f.close
   end
 
   def js

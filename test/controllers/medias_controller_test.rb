@@ -134,7 +134,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert FileUtils.compare_file(generated, output)
+    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
   end
 
   test "should render png for Instagram" do
@@ -143,7 +143,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert FileUtils.compare_file(generated, output)
+    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
   end
 
   test "should render png with custom CSS" do
@@ -154,7 +154,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
     FileUtils.cp(generated, "/tmp/#{id}-custom-css.png")
-    assert FileUtils.compare_file(generated, output)
+    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
   end
 
   test "should render png with RTL text" do
@@ -165,7 +165,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert FileUtils.compare_file(generated, output)
+    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
   end
 
   test "should set custom cache header" do
@@ -209,5 +209,37 @@ class MediasControllerTest < ActionController::TestCase
     assert_equal 'http://test.host/medias/embed/google_spreadsheet/test', assigns(:url)
     assert_equal 'http://test.host/medias/embed/google_spreadsheet/test.js', assigns(:caller)
     assert_equal '/medias/embed/google_spreadsheet/test.js', assigns(:caller_path)
+  end
+
+  test "should render png with ratio 2:1 if width / height < 2" do
+    id = '183773d82423893d9409faf05941bdbd63eb0b5c'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    output = File.join(Rails.root, 'test', 'data', 'ratiolt2.png')
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
+    FileUtils.cp(generated, '/tmp/ratiolt2.png')
+    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
+  end
+
+  test "should render png with ratio 2:1 if width / height > 2" do
+    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    output = File.join(Rails.root, 'test', 'data', 'ratiogt2.png')
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
+    FileUtils.cp(generated, '/tmp/ratiogt2.png')
+    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
+  end
+
+  test "should render png for Instagram video" do
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    assert_nothing_raised do
+      get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
+    end
+  end
+
+  test "should render png for Twitter 2" do
+    id = '09ba77abe84d84fb6531255b458980cd4af9ea9a'
+    assert_nothing_raised do
+      get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
+    end
   end
 end

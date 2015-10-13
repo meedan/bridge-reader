@@ -83,7 +83,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should take screenshot of Arabic path" do
     assert_nothing_raised do
-      @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', ['body'], [], '/tmp/arabic.png')
+      @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', ['body'], [], '/tmp/arabic.png', 'item')
     end
   end
 
@@ -137,5 +137,25 @@ class BridgeCacheTest < ActiveSupport::TestCase
     stub_config 'cc_deville_host', ''
     Bridge::CcDeville.expects(:new).never
     @b.clear_cache('1', '', '')
+  end
+
+  test "should not save blank file" do
+    entry = {
+      oembed: {},
+      translations: [{ text: 'Test', comments: [] }] * 10
+    }
+    create_cache
+    assert_not_nil File.size?(@b.cache_path('google_spreadsheet', 'test', ''))
+    threads = []
+    blank = nil
+    threads << Thread.new do
+      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', [entry] * 20)
+    end
+    threads << Thread.new do
+      sleep 1
+      blank = File.size?(@b.cache_path('google_spreadsheet', 'test', ''))
+    end
+    threads.each{ |t| t.join }
+    assert_not_nil blank
   end
 end
