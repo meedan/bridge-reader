@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-10-13T20:21:24-03:00">2015-10-13T20:21:24-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-10-13T20:48:54-03:00">2015-10-13T20:48:54-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         41.92
+         41.91
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>12</b> files in total.
-    <b>603</b> relevant lines. 
-    <span class="green"><b>603</b> lines covered</span> and
+    <b>605</b> relevant lines. 
+    <span class="green"><b>605</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -73,11 +73,11 @@
       <tr>
         <td class="strong"><a href="#255d8734f1b7ebd54e643d07715d4e7a73386401" class="src_link" title="app/helpers/medias_helper.rb">app/helpers/medias_helper.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>102</td>
-        <td>58</td>
-        <td>58</td>
+        <td>106</td>
+        <td>60</td>
+        <td>60</td>
         <td>0</td>
-        <td>187.6</td>
+        <td>182.2</td>
       </tr>
       
       <tr>
@@ -87,7 +87,7 @@
         <td>19</td>
         <td>19</td>
         <td>0</td>
-        <td>17.3</td>
+        <td>17.5</td>
       </tr>
       
       <tr>
@@ -117,7 +117,7 @@
         <td>114</td>
         <td>114</td>
         <td>0</td>
-        <td>33.4</td>
+        <td>33.6</td>
       </tr>
       
       <tr>
@@ -157,7 +157,7 @@
         <td>24</td>
         <td>24</td>
         <td>0</td>
-        <td>16.8</td>
+        <td>16.7</td>
       </tr>
       
       <tr>
@@ -314,15 +314,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         187.6
+         182.2
        </span>
     </span> hits/line)
   </h2>
   <a name="Helpers"></a>
   <div>
     <b>1</b> files in total.
-    <b>58</b> relevant lines. 
-    <span class="green"><b>58</b> lines covered</span> and
+    <b>60</b> relevant lines. 
+    <span class="green"><b>60</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -342,11 +342,11 @@
       <tr>
         <td class="strong"><a href="#255d8734f1b7ebd54e643d07715d4e7a73386401" class="src_link" title="app/helpers/medias_helper.rb">app/helpers/medias_helper.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>102</td>
-        <td>58</td>
-        <td>58</td>
+        <td>106</td>
+        <td>60</td>
+        <td>60</td>
         <td>0</td>
-        <td>187.6</td>
+        <td>182.2</td>
       </tr>
       
     </tbody>
@@ -361,7 +361,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         32.96
+         33.04
        </span>
     </span> hits/line)
   </h2>
@@ -393,7 +393,7 @@
         <td>114</td>
         <td>114</td>
         <td>0</td>
-        <td>33.4</td>
+        <td>33.6</td>
       </tr>
       
       <tr>
@@ -433,7 +433,7 @@
         <td>24</td>
         <td>24</td>
         <td>0</td>
-        <td>16.8</td>
+        <td>16.7</td>
       </tr>
       
       <tr>
@@ -458,7 +458,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         23.67
+         23.69
        </span>
     </span> hits/line)
   </h2>
@@ -490,7 +490,7 @@
         <td>19</td>
         <td>19</td>
         <td>0</td>
-        <td>17.3</td>
+        <td>17.5</td>
       </tr>
       
       <tr>
@@ -1445,8 +1445,8 @@
     <h3>app/helpers/medias_helper.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>58</b> relevant lines. 
-      <span class="green"><b>58</b> lines covered</span> and
+      <b>60</b> relevant lines. 
+      <span class="green"><b>60</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1913,55 +1913,55 @@
         <li class="covered" data-hits="53" data-linenumber="77">
           <span class="hits">53</span>
           
-          <code class="ruby">    image = level === &#39;item&#39; ? embed_url(site, project, collection, item, &#39;png&#39;) : &#39;/images/bridge-logo.png&#39;</code>
+          <code class="ruby">    safe_join(facebook_tags(site, project, collection, item, level).map(&amp;:html_safe), &quot;\n&quot;) + &quot;\n&quot; + (content_for(:facebook) || &#39;&#39;)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="78">
           
           
-          <code class="ruby">    safe_join([</code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="79">
           
           
-          <code class="ruby">      tag(:meta, name: &#39;og:title&#39;, content: embed_title(project, collection, item)),</code>
+          <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="80">
+        <li class="covered" data-hits="1" data-linenumber="80">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">      tag(:meta, name: &#39;fb:app_id&#39;, content: BRIDGE_CONFIG[&#39;facebook_app_id&#39;]),</code>
+          <code class="ruby">  def facebook_share_url(project, collection, item)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="81">
+        <li class="covered" data-hits="79" data-linenumber="81">
+          <span class="hits">79</span>
           
-          
-          <code class="ruby">      tag(:meta, name: &#39;og:image&#39;, content: image),</code>
+          <code class="ruby">    url = embed_url(BRIDGE_CONFIG[&#39;bridgembed_host&#39;], project, collection, item)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="82">
+        <li class="covered" data-hits="79" data-linenumber="82">
+          <span class="hits">79</span>
           
-          
-          <code class="ruby">      tag(:meta, name: &#39;og:type&#39;, content: &#39;article&#39;),</code>
+          <code class="ruby">    &#39;https://www.facebook.com/dialog/share?app_id=&#39; + BRIDGE_CONFIG[&#39;facebook_app_id&#39;] + &#39;&amp;href=&#39; + url + &#39;&amp;redirect_uri=&#39; + url</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="83">
           
           
-          <code class="ruby">      tag(:meta, name: &#39;og:url&#39;, content: embed_url(site, project, collection, item))</code>
-        </li>
-      
-        <li class="covered" data-hits="53" data-linenumber="84">
-          <span class="hits">53</span>
-          
-          <code class="ruby">    ].map(&amp;:html_safe), &quot;\n&quot;) + (content_for(:facebook) || &#39;&#39;)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="85">
-          
-          
           <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="84">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="85">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  private</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="86">
@@ -1973,19 +1973,19 @@
         <li class="covered" data-hits="1" data-linenumber="87">
           <span class="hits">1</span>
           
-          <code class="ruby">  def facebook_share_url(project, collection, item)</code>
+          <code class="ruby">  def embed_url(site, project, collection, item, format = &#39;&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="79" data-linenumber="88">
-          <span class="hits">79</span>
+        <li class="covered" data-hits="184" data-linenumber="88">
+          <span class="hits">184</span>
           
-          <code class="ruby">    url = embed_url(BRIDGE_CONFIG[&#39;bridgembed_host&#39;], project, collection, item)</code>
+          <code class="ruby">    format = &#39;.&#39; + format unless format.blank?</code>
         </li>
       
-        <li class="covered" data-hits="79" data-linenumber="89">
-          <span class="hits">79</span>
+        <li class="covered" data-hits="184" data-linenumber="89">
+          <span class="hits">184</span>
           
-          <code class="ruby">    &#39;https://www.facebook.com/dialog/share?app_id=&#39; + BRIDGE_CONFIG[&#39;facebook_app_id&#39;] + &#39;&amp;href=&#39; + url + &#39;&amp;redirect_uri=&#39; + url</code>
+          <code class="ruby">    [site, &#39;/medias/&#39;, &#39;embed/&#39;, project + &#39;/&#39;, URI.encode(collection) + &#39;/&#39;, item].join.gsub(/\/+/, &#39;/&#39;) + format</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="90">
@@ -2003,64 +2003,88 @@
         <li class="covered" data-hits="1" data-linenumber="92">
           <span class="hits">1</span>
           
-          <code class="ruby">  private</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="93">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="94">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def embed_url(site, project, collection, item, format = &#39;&#39;)</code>
-        </li>
-      
-        <li class="covered" data-hits="184" data-linenumber="95">
-          <span class="hits">184</span>
-          
-          <code class="ruby">    format = &#39;.&#39; + format unless format.blank?</code>
-        </li>
-      
-        <li class="covered" data-hits="184" data-linenumber="96">
-          <span class="hits">184</span>
-          
-          <code class="ruby">    [site, &#39;/medias/&#39;, &#39;embed/&#39;, project + &#39;/&#39;, URI.encode(collection) + &#39;/&#39;, item].join.gsub(/\/+/, &#39;/&#39;) + format</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="97">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="98">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="99">
-          <span class="hits">1</span>
-          
           <code class="ruby">  def embed_title(project, collection, item)</code>
         </li>
       
-        <li class="covered" data-hits="159" data-linenumber="100">
+        <li class="covered" data-hits="159" data-linenumber="93">
           <span class="hits">159</span>
           
           <code class="ruby">    [project, collection].reject{ |part| part.blank? }.map(&amp;:titleize).join(&#39; / &#39;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="101">
+        <li class="never" data-hits="" data-linenumber="94">
           
           
           <code class="ruby">  end</code>
         </li>
       
+        <li class="never" data-hits="" data-linenumber="95">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="96">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def facebook_tags(site, project, collection, item, level)</code>
+        </li>
+      
+        <li class="covered" data-hits="53" data-linenumber="97">
+          <span class="hits">53</span>
+          
+          <code class="ruby">    image = level === &#39;item&#39; ? embed_url(site, project, collection, item, &#39;png&#39;) : &#39;/images/bridge-logo.png&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="98">
+          
+          
+          <code class="ruby">    [</code>
+        </li>
+      
+        <li class="covered" data-hits="53" data-linenumber="99">
+          <span class="hits">53</span>
+          
+          <code class="ruby">      tag(:meta, name: &#39;og:title&#39;, content: embed_title(project, collection, item)),</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="100">
+          
+          
+          <code class="ruby">      tag(:meta, name: &#39;fb:app_id&#39;, content: BRIDGE_CONFIG[&#39;facebook_app_id&#39;]),</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="101">
+          
+          
+          <code class="ruby">      tag(:meta, name: &#39;og:image&#39;, content: image),</code>
+        </li>
+      
         <li class="never" data-hits="" data-linenumber="102">
+          
+          
+          <code class="ruby">      tag(:meta, name: &#39;og:type&#39;, content: &#39;article&#39;),</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="103">
+          
+          
+          <code class="ruby">      tag(:meta, name: &#39;og:url&#39;, content: embed_url(site, project, collection, item))</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="104">
+          
+          
+          <code class="ruby">    ]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="105">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="106">
           
           
           <code class="ruby">end</code>
@@ -2102,20 +2126,20 @@
           <code class="ruby">    def initialize(project, config = {})</code>
         </li>
       
-        <li class="covered" data-hits="93" data-linenumber="4">
-          <span class="hits">93</span>
+        <li class="covered" data-hits="94" data-linenumber="4">
+          <span class="hits">94</span>
           
           <code class="ruby">      @project = project</code>
         </li>
       
-        <li class="covered" data-hits="93" data-linenumber="5">
-          <span class="hits">93</span>
+        <li class="covered" data-hits="94" data-linenumber="5">
+          <span class="hits">94</span>
           
           <code class="ruby">      @config = config</code>
         </li>
       
-        <li class="covered" data-hits="93" data-linenumber="6">
-          <span class="hits">93</span>
+        <li class="covered" data-hits="94" data-linenumber="6">
+          <span class="hits">94</span>
           
           <code class="ruby">      raise &quot;Cannot directly instantiate this class&quot; if self.class == Base</code>
         </li>
@@ -3536,8 +3560,8 @@
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="72" data-linenumber="19">
-          <span class="hits">72</span>
+        <li class="covered" data-hits="73" data-linenumber="19">
+          <span class="hits">73</span>
           
           <code class="ruby">      super</code>
         </li>
@@ -4994,20 +5018,20 @@
           <code class="ruby">    def screenshoter</code>
         </li>
       
-        <li class="covered" data-hits="20" data-linenumber="50">
-          <span class="hits">20</span>
+        <li class="covered" data-hits="22" data-linenumber="50">
+          <span class="hits">22</span>
           
           <code class="ruby">      path = File.join(Rails.root, &#39;bin&#39;, &#39;phantomjs-&#39; + (1.size * 8).to_s)</code>
         </li>
       
-        <li class="covered" data-hits="20" data-linenumber="51">
-          <span class="hits">20</span>
+        <li class="covered" data-hits="22" data-linenumber="51">
+          <span class="hits">22</span>
           
           <code class="ruby">      version = `#{path} --version`</code>
         </li>
       
-        <li class="covered" data-hits="20" data-linenumber="52">
-          <span class="hits">20</span>
+        <li class="covered" data-hits="22" data-linenumber="52">
+          <span class="hits">22</span>
           
           <code class="ruby">      if (version.chomp =~ /^[0-9.]+/).nil?</code>
         </li>
@@ -5036,8 +5060,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="20" data-linenumber="57">
-          <span class="hits">20</span>
+        <li class="covered" data-hits="22" data-linenumber="57">
+          <span class="hits">22</span>
           
           <code class="ruby">      raise &#39;PhantomJS not found!&#39; if (version.chomp =~ /^[0-9.]+/).nil?</code>
         </li>
@@ -5048,8 +5072,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="59">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="21" data-linenumber="59">
+          <span class="hits">21</span>
           
           <code class="ruby">      options = { phantomjs: path.chomp, timeout: 40 }</code>
         </li>
@@ -5060,14 +5084,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="61">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="21" data-linenumber="61">
+          <span class="hits">21</span>
           
           <code class="ruby">      if Rails.env.test?</code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="62">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="21" data-linenumber="62">
+          <span class="hits">21</span>
           
           <code class="ruby">        options.merge! run_server: true</code>
         </li>
@@ -5084,8 +5108,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="65">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="21" data-linenumber="65">
+          <span class="hits">21</span>
           
           <code class="ruby">      Smartshot::Screenshot.new(options)</code>
         </li>
@@ -5258,8 +5282,8 @@
           <code class="ruby">        rescue</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="94">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="3" data-linenumber="94">
+          <span class="hits">3</span>
           
           <code class="ruby">          self.take_screenshot(url, [&#39;body&#39;], [], output, level)</code>
         </li>
@@ -5300,20 +5324,20 @@
           <code class="ruby">    def take_screenshot(url, element, frames, output, level)</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="101">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="19" data-linenumber="101">
+          <span class="hits">19</span>
           
           <code class="ruby">      FileUtils.mkdir_p(File.dirname(output))</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="102">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="19" data-linenumber="102">
+          <span class="hits">19</span>
           
           <code class="ruby">      tmp = Tempfile.new([&#39;screenshot&#39;, &#39;.png&#39;]).path</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="103">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="19" data-linenumber="103">
+          <span class="hits">19</span>
           
           <code class="ruby">      options = { url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20 }</code>
         </li>
@@ -5324,8 +5348,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="105">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="19" data-linenumber="105">
+          <span class="hits">19</span>
           
           <code class="ruby">      options = options.merge(selector: &#39;.bridgeEmbed__item-translation-and-comment&#39;, full: false) if level === &#39;item&#39;</code>
         </li>
@@ -5336,8 +5360,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="107">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="19" data-linenumber="107">
+          <span class="hits">19</span>
           
           <code class="ruby">      screenshoter.take_screenshot!(options)</code>
         </li>
@@ -6896,8 +6920,8 @@
           <code class="ruby">        yield if block_given?</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="12">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
           
           <code class="ruby">      rescue Google::APIClient::AuthorizationError</code>
         </li>

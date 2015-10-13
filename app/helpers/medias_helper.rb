@@ -74,14 +74,7 @@ module MediasHelper
   end
 
   def include_facebook_tags(project, collection, item, level, site)
-    image = level === 'item' ? embed_url(site, project, collection, item, 'png') : '/images/bridge-logo.png'
-    safe_join([
-      tag(:meta, name: 'og:title', content: embed_title(project, collection, item)),
-      tag(:meta, name: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
-      tag(:meta, name: 'og:image', content: image),
-      tag(:meta, name: 'og:type', content: 'article'),
-      tag(:meta, name: 'og:url', content: embed_url(site, project, collection, item))
-    ].map(&:html_safe), "\n") + (content_for(:facebook) || '')
+    safe_join(facebook_tags(site, project, collection, item, level).map(&:html_safe), "\n") + "\n" + (content_for(:facebook) || '')
   end
 
   def facebook_share_url(project, collection, item)
@@ -98,5 +91,16 @@ module MediasHelper
 
   def embed_title(project, collection, item)
     [project, collection].reject{ |part| part.blank? }.map(&:titleize).join(' / ')
+  end
+
+  def facebook_tags(site, project, collection, item, level)
+    image = level === 'item' ? embed_url(site, project, collection, item, 'png') : '/images/bridge-logo.png'
+    [
+      tag(:meta, name: 'og:title', content: embed_title(project, collection, item)),
+      tag(:meta, name: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
+      tag(:meta, name: 'og:image', content: image),
+      tag(:meta, name: 'og:type', content: 'article'),
+      tag(:meta, name: 'og:url', content: embed_url(site, project, collection, item))
+    ]
   end
 end
