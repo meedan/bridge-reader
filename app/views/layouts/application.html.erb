@@ -11,7 +11,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google" content="notranslate" />
+
     <%= include_twitter_tags(@project, @collection, @item, @level, @site) %>
+    <%= include_facebook_tags(@project, @collection, @item, @level, @site) %>
+
     <%= stylesheet_link_tag '/stylesheets/bridge', media: 'all' %>
     <%= javascript_include_tag 'jquery-2.1.3.min' %>
     <%= javascript_include_tag 'embed-child' %>

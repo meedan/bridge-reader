@@ -31,11 +31,9 @@ module MediasHelper
 
   def include_twitter_tags(project, collection, item, level, site)
     if level === 'item'
-      image = URI.join(site, 'medias/', 'embed/', project + '/', URI.encode(collection) + '/', "#{item}.png")
-
       tag(:meta, name: 'twitter:card', content: 'photo') + "\n" +
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) + "\n" +
-      tag(:meta, name: 'twitter:image', content: image.to_s) + "\n"
+      tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')) + "\n"
     end
   end
 
@@ -73,5 +71,32 @@ module MediasHelper
       content = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', '%s', 'auto');ga('send', 'pageview');"
       javascript_tag(content % code)
     end
+  end
+
+  def include_facebook_tags(project, collection, item, level, site)
+    image = level === 'item' ? embed_url(site, project, collection, item, 'png') : '/images/bridge-logo.png'
+    safe_join([
+      tag(:meta, name: 'og:title', content: embed_title(project, collection, item)),
+      tag(:meta, name: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
+      tag(:meta, name: 'og:image', content: image),
+      tag(:meta, name: 'og:type', content: 'article'),
+      tag(:meta, name: 'og:url', content: embed_url(site, project, collection, item))
+    ].map(&:html_safe), "\n") + (content_for(:facebook) || '')
+  end
+
+  def facebook_share_url(project, collection, item)
+    url = embed_url(BRIDGE_CONFIG['bridgembed_host'], project, collection, item)
+    'https://www.facebook.com/dialog/share?app_id=' + BRIDGE_CONFIG['facebook_app_id'] + '&href=' + url + '&redirect_uri=' + url
+  end
+
+  private
+
+  def embed_url(site, project, collection, item, format = '')
+    format = '.' + format unless format.blank?
+    [site, '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/\/+/, '/') + format
+  end
+
+  def embed_title(project, collection, item)
+    [project, collection].reject{ |part| part.blank? }.map(&:titleize).join(' / ')
   end
 end

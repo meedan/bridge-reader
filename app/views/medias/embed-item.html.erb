@@ -1,1 +1,5 @@
+<% content_for :facebook do %>
+  <meta property="og:description" content="<%= @entries[:translations].first[:text] %>" />
+<% end %>
+
 <%= render partial: 'medias/item', locals: { entry: @entries } %>

@@ -1,3 +1,7 @@
+<% content_for :facebook do %>
+  <meta property="og:description" content="Translations about: <%= @collection %>" />
+<% end %>
+
 <% @entries.each do |entry| %>
   <%= render partial: 'medias/item', locals: { entry: entry } %>
 <% end %>

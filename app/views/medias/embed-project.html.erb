@@ -1,3 +1,7 @@
+<% content_for :facebook do %>
+  <meta property="og:description" content="<%= @entries.first['project_summary'] %>" />
+<% end %>
+
 <header class="title">
   <h1 class="project--title"><%= @entries.first['project'] unless @entries.empty? %></h1>
   <h2 class="project--description"><%= @entries.first['project_summary'] %></h2>
