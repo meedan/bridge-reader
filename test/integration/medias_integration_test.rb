@@ -30,9 +30,11 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
     js do
       visit '/medias/embed/google_spreadsheet/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
       assert !page.has_text?('SHARE ON TWITTER')
+      assert !page.has_text?('SHARE ON FACEBOOK')
       page.click_link('Share')
       sleep 2.seconds
       assert page.has_text?('SHARE ON TWITTER')
+      assert page.has_text?('SHARE ON FACEBOOK')
     end
   end
 
@@ -44,6 +46,18 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
       twitter = page.driver.window_handles.last
       page.within_window twitter do
         assert_equal 'twitter.com', URI.parse(current_url).host
+      end
+    end
+  end
+
+  test "should share on Facebook" do
+    js do
+      visit '/medias/embed/google_spreadsheet/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      page.click_link('Share')
+      page.click_link('Share on Facebook')
+      fb = page.driver.window_handles.last
+      page.within_window fb do
+        assert_equal 'www.facebook.com', URI.parse(current_url).host
       end
     end
   end
