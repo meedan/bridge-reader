@@ -86,7 +86,7 @@ module MediasHelper
 
   def embed_url(site, project, collection, item, format = '')
     format = '.' + format unless format.blank?
-    [site, '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '/') + format
+    [site, '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/') + format
   end
 
   def embed_title(project, collection, item)
