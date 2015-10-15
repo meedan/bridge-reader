@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-10-13T23:30:38-03:00">2015-10-13T23:30:38-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-10-14T22:01:17-03:00">2015-10-14T22:01:17-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         43.43
+         43.34
        </span>
     </span> hits/line)
   </h2>
@@ -117,7 +117,7 @@
         <td>114</td>
         <td>114</td>
         <td>0</td>
-        <td>35.0</td>
+        <td>34.5</td>
       </tr>
       
       <tr>
@@ -361,7 +361,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         34.56
+         34.34
        </span>
     </span> hits/line)
   </h2>
@@ -393,7 +393,7 @@
         <td>114</td>
         <td>114</td>
         <td>0</td>
-        <td>35.0</td>
+        <td>34.5</td>
       </tr>
       
       <tr>
@@ -5018,20 +5018,20 @@
           <code class="ruby">    def screenshoter</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="50">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="20" data-linenumber="50">
+          <span class="hits">20</span>
           
           <code class="ruby">      path = File.join(Rails.root, &#39;bin&#39;, &#39;phantomjs-&#39; + (1.size * 8).to_s)</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="51">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="20" data-linenumber="51">
+          <span class="hits">20</span>
           
           <code class="ruby">      version = `#{path} --version`</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="52">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="20" data-linenumber="52">
+          <span class="hits">20</span>
           
           <code class="ruby">      if (version.chomp =~ /^[0-9.]+/).nil?</code>
         </li>
@@ -5060,8 +5060,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="57">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="20" data-linenumber="57">
+          <span class="hits">20</span>
           
           <code class="ruby">      raise &#39;PhantomJS not found!&#39; if (version.chomp =~ /^[0-9.]+/).nil?</code>
         </li>
@@ -5072,8 +5072,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="59">
-          <span class="hits">21</span>
+        <li class="covered" data-hits="19" data-linenumber="59">
+          <span class="hits">19</span>
           
           <code class="ruby">      options = { phantomjs: path.chomp, timeout: 40 }</code>
         </li>
@@ -5084,14 +5084,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="61">
-          <span class="hits">21</span>
+        <li class="covered" data-hits="19" data-linenumber="61">
+          <span class="hits">19</span>
           
           <code class="ruby">      if Rails.env.test?</code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="62">
-          <span class="hits">21</span>
+        <li class="covered" data-hits="19" data-linenumber="62">
+          <span class="hits">19</span>
           
           <code class="ruby">        options.merge! run_server: true</code>
         </li>
@@ -5108,8 +5108,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="65">
-          <span class="hits">21</span>
+        <li class="covered" data-hits="19" data-linenumber="65">
+          <span class="hits">19</span>
           
           <code class="ruby">      Smartshot::Screenshot.new(options)</code>
         </li>
@@ -5282,8 +5282,8 @@
           <code class="ruby">        rescue</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="94">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="1" data-linenumber="94">
+          <span class="hits">1</span>
           
           <code class="ruby">          self.take_screenshot(url, [&#39;body&#39;], [], output, level)</code>
         </li>
@@ -5324,20 +5324,20 @@
           <code class="ruby">    def take_screenshot(url, element, frames, output, level)</code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="101">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="17" data-linenumber="101">
+          <span class="hits">17</span>
           
           <code class="ruby">      FileUtils.mkdir_p(File.dirname(output))</code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="102">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="17" data-linenumber="102">
+          <span class="hits">17</span>
           
           <code class="ruby">      tmp = Tempfile.new([&#39;screenshot&#39;, &#39;.png&#39;]).path</code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="103">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="17" data-linenumber="103">
+          <span class="hits">17</span>
           
           <code class="ruby">      options = { url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20 }</code>
         </li>
@@ -5348,8 +5348,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="105">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="17" data-linenumber="105">
+          <span class="hits">17</span>
           
           <code class="ruby">      options = options.merge(selector: &#39;.bridgeEmbed__item-translation-and-comment&#39;, full: false) if level === &#39;item&#39;</code>
         </li>
@@ -5360,20 +5360,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="107">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="17" data-linenumber="107">
+          <span class="hits">17</span>
           
           <code class="ruby">      screenshoter.take_screenshot!(options)</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="108">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="16" data-linenumber="108">
+          <span class="hits">16</span>
           
           <code class="ruby">      level === &#39;item&#39; ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)</code>
         </li>
       
-        <li class="covered" data-hits="18" data-linenumber="109">
-          <span class="hits">18</span>
+        <li class="covered" data-hits="16" data-linenumber="109">
+          <span class="hits">16</span>
           
           <code class="ruby">      FileUtils.rm(tmp)</code>
         </li>
@@ -5396,8 +5396,8 @@
           <code class="ruby">    def post_process_screenshot(tmp, output)</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="113">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="113">
+          <span class="hits">12</span>
           
           <code class="ruby">      image = MiniMagick::Image.open(tmp)</code>
         </li>
@@ -5408,20 +5408,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="115">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="115">
+          <span class="hits">12</span>
           
           <code class="ruby">      w, h = image.width, image.height</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="116">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="116">
+          <span class="hits">12</span>
           
           <code class="ruby">      ratio = w.to_f / h.to_f</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="117">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="117">
+          <span class="hits">12</span>
           
           <code class="ruby">      extent = [w, h]</code>
         </li>
@@ -5432,14 +5432,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="119">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="119">
+          <span class="hits">12</span>
           
           <code class="ruby">      if ratio &lt; 2</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="120">
-          <span class="hits">6</span>
+        <li class="covered" data-hits="5" data-linenumber="120">
+          <span class="hits">5</span>
           
           <code class="ruby">        w = h * 2</code>
         </li>
@@ -5450,8 +5450,8 @@
           <code class="ruby">      elsif ratio &gt; 2</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="122">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="7" data-linenumber="122">
+          <span class="hits">7</span>
           
           <code class="ruby">        h = w / 2</code>
         </li>
@@ -5468,20 +5468,20 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="125">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="125">
+          <span class="hits">12</span>
           
           <code class="ruby">      image.combine_options do |c|</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="126">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="126">
+          <span class="hits">12</span>
           
           <code class="ruby">        c.gravity &#39;center&#39;</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="127">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="127">
+          <span class="hits">12</span>
           
           <code class="ruby">        c.extent [w, h].join(&#39;x&#39;)</code>
         </li>
@@ -5492,8 +5492,8 @@
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="129">
-          <span class="hits">14</span>
+        <li class="covered" data-hits="12" data-linenumber="129">
+          <span class="hits">12</span>
           
           <code class="ruby">      image.write(output)</code>
         </li>
