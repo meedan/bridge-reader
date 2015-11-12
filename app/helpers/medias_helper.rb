@@ -31,10 +31,12 @@ module MediasHelper
 
   def include_twitter_tags(project, collection, item, level, site)
     if level === 'item'
-      tag(:meta, name: 'twitter:card', content: 'photo') + "\n" +
-      tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) + "\n" +
-      tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')) + "\n" +
-      tag(:meta, name: 'twitter:title', content: embed_title) + "\n"
+      safe_join([
+        tag(:meta, name: 'twitter:card', content: 'photo'),
+        tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
+        tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')),
+        tag(:meta, name: 'twitter:title', content: embed_title)
+      ], "\n") + "\n"
     end
   end
 
