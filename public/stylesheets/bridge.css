@@ -213,6 +213,29 @@ header.title {
       font-size: 12px;
       width: 100%;
       display: block; } }
+  header.title .project--translators {
+    float: right;
+    margin: 1em; }
+    header.title .project--translators em {
+      line-height: 1.0; }
+    header.title .project--translators a {
+      text-decoration: none;
+      border-bottom-width: 0; }
+    header.title .project--translators .project--avatar {
+      max-width: 25px;
+      z-index: 2;
+      border-radius: 100%;
+      vertical-align: top;
+      margin: 0 0em; }
+  @media (max-width: 1000px) {
+    header.title {
+      position: static; }
+      header.title .project--translators, header.title p {
+        float: left;
+        margin-left: 10px;
+        font-size: 12px;
+        width: 100%;
+        line-height: 2em; } }
 
 @media (max-width: 1000px) {
   .columns {
@@ -311,24 +334,21 @@ footer.call-to-action {
     float: left;
     width: 70%;
     font-weight: 400; }
-  footer.call-to-action .project--translators {
+  footer.call-to-action .tos--links {
     float: right;
-    margin: 1em; }
-    footer.call-to-action .project--translators em {
-      line-height: 1.8; }
-    footer.call-to-action .project--translators a {
+    margin: 1em;
+    line-height: 0.7em;
+    padding-top: 0.7em;
+    text-align: right; }
+    footer.call-to-action .tos--links a {
       text-decoration: none;
-      border-bottom-width: 0; }
-    footer.call-to-action .project--translators .project--avatar {
-      max-width: 25px;
-      z-index: 2;
-      border-radius: 100%;
-      vertical-align: top;
-      margin: 0 0.1em; }
+      border-bottom-width: 0;
+      font-size: 0.7em;
+      font-weight: 300; }
   @media (max-width: 1000px) {
     footer.call-to-action {
       position: static; }
-      footer.call-to-action .project--translators, footer.call-to-action p {
+      footer.call-to-action .tos--links, footer.call-to-action p {
         float: left;
         margin-left: 10px;
         font-size: 12px;

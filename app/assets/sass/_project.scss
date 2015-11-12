@@ -66,6 +66,37 @@ header.title {
       display: block;
     }
   }
+
+  .project--translators {
+    float: right;
+    margin: 1em;
+    em {
+      line-height: 1.0;
+    }
+    a {
+      text-decoration: none;
+      border-bottom-width: 0;
+    }
+    .project--avatar {
+      max-width: 25px;
+      z-index: 2;
+      border-radius: 100%;
+      vertical-align: top;
+      margin: 0 0em;
+    }
+  }
+
+  // BELOW the breakpoint
+  @media (max-width: $breakpoint) {
+    position: static;
+    .project--translators, p {
+      float: left;
+      margin-left: 10px;
+      font-size: 12px;
+      width: 100%;
+      line-height: 2em;
+    }
+  }
 }
 
 // BELOW the breakpoint
@@ -189,35 +220,63 @@ footer.call-to-action  {
     font-weight: 400;
   }
 
-  .project--translators {
+  .tos--links{
+    // border: 1px solid red;
     float: right;
     margin: 1em;
-    em {
-      line-height: 1.8;
-    }
-    a {
-      text-decoration: none;
-      border-bottom-width: 0;
-    }
-    .project--avatar {
-      max-width: 25px;
-      z-index: 2;
-      border-radius: 100%;
-      vertical-align: top;
-      margin: 0 0.1em;
-    }
-  }
+    line-height: 0.7em;
+    padding-top: 0.7em;
+    text-align: right;
+      a {
+        text-decoration: none;
+        border-bottom-width: 0;
+        font-size: 0.7em;
+        font-weight: 300;
 
-  // BELOW the breakpoint
-  @media (max-width: $breakpoint) {
-    position: static;
-    .project--translators, p {
-      float: left;
-      margin-left: 10px;
-      font-size: 12px;
-      width: 100%;
-      line-height: 2em;
+      }
+    }
+
+    @media (max-width: $breakpoint) {
+      position: static;
+      .tos--links, p {
+        float: left;
+        margin-left: 10px;
+        font-size: 12px;
+        width: 100%;
+        line-height: 2em;
+      }
     }
 
   }
-}
+
+  // .project--translators {
+  //   float: right;
+  //   margin: 1em;
+  //   em {
+  //     line-height: 1.8;
+  //   }
+  //   a {
+  //     text-decoration: none;
+  //     border-bottom-width: 0;
+  //   }
+  //   .project--avatar {
+  //     max-width: 25px;
+  //     z-index: 2;
+  //     border-radius: 100%;
+  //     vertical-align: top;
+  //     margin: 0 0.1em;
+  //   }
+  // }
+  //
+  // // BELOW the breakpoint
+  // @media (max-width: $breakpoint) {
+  //   position: static;
+  //   .project--translators, p {
+  //     float: left;
+  //     margin-left: 10px;
+  //     font-size: 12px;
+  //     width: 100%;
+  //     line-height: 2em;
+  //   }
+  //
+  // }
