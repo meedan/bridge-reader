@@ -1,3 +1,5 @@
+<% content_for :embed_title do %>Translations of <%= @entries.first['project'].to_s.titleize %><% end %>
+
 <% content_for :facebook do %>
   <meta property="og:description" content="<%= @entries.first['project_summary'] %>" />
 <% end %>
