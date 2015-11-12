@@ -1,9 +1,3 @@
-<% content_for :embed_title do
-  translation = @entries[:translations].first
-  # 70 is the limit of a title for Twitter
-  translation.nil? ? '' : truncate("Translation of #{translation[:translator_name]}: #{translation[:text]}", length: 70, separator: ' ')
-end %>
-
 <% content_for :facebook do %>
   <meta property="og:description" content="<%= @entries[:translations].first[:text] %>" />
 <% end %>
