@@ -31,9 +31,12 @@ module MediasHelper
 
   def include_twitter_tags(project, collection, item, level, site)
     if level === 'item'
-      tag(:meta, name: 'twitter:card', content: 'photo') + "\n" +
-      tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']) + "\n" +
-      tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')) + "\n"
+      safe_join([
+        tag(:meta, name: 'twitter:card', content: 'photo'),
+        tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
+        tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')),
+        tag(:meta, name: 'twitter:title', content: embed_title)
+      ], "\n") + "\n"
     end
   end
 
@@ -82,6 +85,10 @@ module MediasHelper
     'https://www.facebook.com/dialog/share?app_id=' + BRIDGE_CONFIG['facebook_app_id'] + '&href=' + url + '&redirect_uri=' + url
   end
 
+  def embed_title
+    content_for(:embed_title) || 'Bridge Reader (Beta)'
+  end
+
   private
 
   def embed_url(site, project, collection, item, format = '')
@@ -89,14 +96,10 @@ module MediasHelper
     [site, '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/') + format
   end
 
-  def embed_title(project, collection, item)
-    [project, collection].reject{ |part| part.blank? }.map(&:titleize).join(' / ')
-  end
-
   def facebook_tags(site, project, collection, item, level)
     image = level === 'item' ? embed_url(site, project, collection, item, 'png') : '/images/bridge-logo.png'
     [
-      tag(:meta, name: 'og:title', content: embed_title(project, collection, item)),
+      tag(:meta, name: 'og:title', content: embed_title),
       tag(:meta, name: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
       tag(:meta, name: 'og:image', content: image),
       tag(:meta, name: 'og:type', content: 'article'),
