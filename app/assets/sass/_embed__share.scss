@@ -14,6 +14,11 @@
   overflow-y: hidden;
   max-width: 300px;
 
+  button {
+    display: inline !important;
+
+  }
+
   li {
     border: 1px solid $light-keyboard-grey;
     border-bottom-width: 0;
@@ -31,7 +36,7 @@
     padding: 0 0.5em;
     text-decoration: none;
     text-transform: uppercase;
-    display: inline-block;
+    display: inline;
     width: 100%;
     color: $firefly90;
 

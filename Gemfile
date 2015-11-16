@@ -19,6 +19,7 @@ gem 'bitly'
 gem 'string-direction'
 gem 'poltergeist'
 gem 'mini_magick'
+gem 'zeroclipboard-rails'
 
 # Test gems
 # group :test do

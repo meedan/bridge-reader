@@ -82,7 +82,8 @@ header.title {
       z-index: 2;
       border-radius: 100%;
       vertical-align: top;
-      margin: 0 0em;
+      margin: 0 -0.30em;
+      border: 1px solid white;
     }
   }
 
@@ -95,7 +96,16 @@ header.title {
       font-size: 12px;
       width: 100%;
       line-height: 2em;
+      .project--avatar {
+        max-width: 25px;
+        z-index: 2;
+        border-radius: 100%;
+        vertical-align: top;
+        margin: 0 0em;
+        border: 2px solid white;
+      }
     }
+
   }
 }
 

@@ -68,6 +68,8 @@ em {
   max-height: 0;
   overflow-y: hidden;
   max-width: 300px; }
+  .bridgeEmbed__share-menu button {
+    display: inline !important; }
   .bridgeEmbed__share-menu li {
     border: 1px solid #d1d6db;
     border-bottom-width: 0;
@@ -81,7 +83,7 @@ em {
     padding: 0 0.5em;
     text-decoration: none;
     text-transform: uppercase;
-    display: inline-block;
+    display: inline;
     width: 100%;
     color: #283743; }
     .bridgeEmbed__share-menu a:hover, .bridgeEmbed__share-menu a:active {
@@ -226,7 +228,8 @@ header.title {
       z-index: 2;
       border-radius: 100%;
       vertical-align: top;
-      margin: 0 0em; }
+      margin: 0 -0.3em;
+      border: 1px solid white; }
   @media (max-width: 1000px) {
     header.title {
       position: static; }
@@ -235,7 +238,14 @@ header.title {
         margin-left: 10px;
         font-size: 12px;
         width: 100%;
-        line-height: 2em; } }
+        line-height: 2em; }
+        header.title .project--translators .project--avatar, header.title p .project--avatar {
+          max-width: 25px;
+          z-index: 2;
+          border-radius: 100%;
+          vertical-align: top;
+          margin: 0 0em;
+          border: 2px solid white; } }
 
 @media (max-width: 1000px) {
   .columns {
