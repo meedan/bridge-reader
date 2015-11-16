@@ -1,8 +1,6 @@
 <% content_for :embed_title do %>Translations of <%= @entries.first['project'].to_s.titleize %><% end %>
-
-<% content_for :facebook do %>
-  <meta property="og:description" content="<%= @entries.first['project_summary'] %>" />
-<% end %>
+<% content_for :description do %><%= @entries.first['project_summary'] %><% end %>
+<% content_for :creator do %><% end %>
 
 <header class="title">
   <h1 class="project--title"><%= @entries.first['project'] unless @entries.empty? %></h1>

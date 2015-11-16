@@ -1,8 +1,6 @@
 <% content_for :embed_title do %>Translations of <%= @project.titleize %> / <%= @collection.titleize %><% end %>
-
-<% content_for :facebook do %>
-  <meta property="og:description" content="Translations about: <%= @collection %>" />
-<% end %>
+<% content_for :description do %>Translations of <%= @project.titleize %> / <%= @collection.titleize %><% end %>
+<% content_for :creator do %><% end %>
 
 <% @entries.each do |entry| %>
   <%= render partial: 'medias/item', locals: { entry: entry } %>

@@ -1,11 +1,25 @@
-<% content_for :embed_title do
-  translation = @entries[:translations].first
-  # 70 is the limit of a title for Twitter
-  translation.nil? ? '' : truncate("Translation of #{translation[:translator_name]}: #{translation[:text]}", length: 70, separator: ' ')
-end %>
+<% 
+translation = @entries[:translations].first
+author = @entries[:oembed].blank? ? nil : ('@' + @entries[:oembed][:author_name].to_s)
 
-<% content_for :facebook do %>
-  <meta property="og:description" content="<%= @entries[:translations].first[:text] %>" />
-<% end %>
+description = ''
+unless translation.nil?
+  prefix = author.nil? ? '' : "Translation of #{author}: "
+  description = prefix + translation[:text]
+end
+
+content_for :embed_title do
+  # 70 is the limit of a title for Twitter
+  truncate(description, length: 70, separator: ' ')
+end
+
+content_for :description do
+  description
+end
+
+content_for :creator do
+  author
+end
+%>
 
 <%= render partial: 'medias/item', locals: { entry: @entries } %>
