@@ -14,6 +14,10 @@
   overflow-y: hidden;
   max-width: 300px;
 
+  button {
+
+  }
+
   li {
     border: 1px solid $light-keyboard-grey;
     border-bottom-width: 0;
@@ -31,7 +35,7 @@
     padding: 0 0.5em;
     text-decoration: none;
     text-transform: uppercase;
-    display: inline-block;
+    display: inline;
     width: 100%;
     color: $firefly90;
 
@@ -40,19 +44,25 @@
     }
   }
 
-  textarea {
+  .embed-code-holder {
     display: none;
-    margin: 0;
-    font-size: small;
-    border: 1px solid $light-keyboard-grey;
-    width: 100%;
-    font-size: 10px;
-    font-family: monospace;
-    max-height: 0;
-    overflow-y: hidden;
-    &.bridgeEmbed__embed-code-expanded {
-      max-height: 7em;
+
+    textarea {
+      margin: 0;
+      font-size: small;
+      border: 1px solid $light-keyboard-grey;
+      width: 100%;
+      font-size: 10px;
+      font-family: monospace;
+      max-height: 0;
+      overflow-y: hidden;
+    }
+
+    &.embed-code-holder-expanded {
       display: block;
+      textarea {
+        max-height: 7em;
+      }
     }
   }
 

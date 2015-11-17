@@ -8,16 +8,23 @@
 
   <li>
     <%= link_to 'Permalink', '#', class: 'bridgeEmbed__link-embed-code' %>
-    <textarea class="bridgeEmbed__embed-code" rows="3" readonly><%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %></textarea>
+    <div class="embed-code-holder">
+      <textarea id="fe_text" rows="3" readonly><%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %></textarea>
+      <button class="btn" data-clipboard-action="copy" data-clipboard-target="#fe_text">
+        Copy to clipboard</button>
+    </div>
   </li>
 
   <!-- Embed Code -->
 
   <li>
-    <%= link_to 'Embed Code (copy & paste)', '#', class: 'bridgeEmbed__link-embed-code' %>
-    <textarea class="bridgeEmbed__embed-code" rows="4" readonly>
+    <%= link_to 'Embed Code', '#', class: 'bridgeEmbed__link-embed-code' %>
+    <div class="embed-code-holder">
+    <textarea id="fe_text_embed" rows="4" readonly>
       &lt;script type="text/javascript" src="<%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %>.js"&gt;&lt;/script&gt;
     </textarea>
+    <button class="btn" data-clipboard-action="copy" data-clipboard-target="#fe_text_embed">
+      Copy to clipboard</button>
   </li>
 
   <!-- Share on Twitter -->
