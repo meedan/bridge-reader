@@ -221,8 +221,6 @@ GEM
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.8.7.6)
-    zeroclipboard-rails (0.1.1)
-      railties (>= 3.1)
 
 PLATFORMS
   ruby
@@ -253,7 +251,3 @@ DEPENDENCIES
   twitter_web_intents
   webmock
   xml-simple
-  zeroclipboard-rails
-
-BUNDLED WITH
-   1.10.6
