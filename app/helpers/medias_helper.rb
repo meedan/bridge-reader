@@ -30,14 +30,14 @@ module MediasHelper
   end
 
   def include_twitter_tags(project, collection, item, level, site)
-    if level === 'item'
-      safe_join([
-        tag(:meta, name: 'twitter:card', content: 'photo'),
-        tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
-        tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')),
-        tag(:meta, name: 'twitter:title', content: embed_title)
-      ], "\n") + "\n"
-    end
+    safe_join([
+      tag(:meta, name: 'twitter:card', content: 'summary_large_image'),
+      tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
+      tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')),
+      tag(:meta, name: 'twitter:title', content: embed_title),
+      tag(:meta, name: 'twitter:description', content: content_for(:description)),
+      tag(:meta, name: 'twitter:creator', content: content_for(:creator))
+    ], "\n") + "\n"
   end
 
   def short_url_for(project, collection, item)
@@ -77,7 +77,7 @@ module MediasHelper
   end
 
   def include_facebook_tags(project, collection, item, level, site)
-    safe_join(facebook_tags(site, project, collection, item, level).map(&:html_safe), "\n") + "\n" + (content_for(:facebook) || '')
+    safe_join(facebook_tags(site, project, collection, item, level).map(&:html_safe), "\n")
   end
 
   def facebook_share_url(project, collection, item)
@@ -93,17 +93,18 @@ module MediasHelper
 
   def embed_url(site, project, collection, item, format = '')
     format = '.' + format unless format.blank?
-    [site, '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/') + format
+    [site, '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/').gsub(/\/$/, '') + format
   end
 
   def facebook_tags(site, project, collection, item, level)
     image = level === 'item' ? embed_url(site, project, collection, item, 'png') : '/images/bridge-logo.png'
     [
-      tag(:meta, name: 'og:title', content: embed_title),
-      tag(:meta, name: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
-      tag(:meta, name: 'og:image', content: image),
-      tag(:meta, name: 'og:type', content: 'article'),
-      tag(:meta, name: 'og:url', content: embed_url(site, project, collection, item))
+      tag(:meta, property: 'og:title', content: embed_title),
+      tag(:meta, property: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
+      tag(:meta, property: 'og:image', content: image),
+      tag(:meta, property: 'og:type', content: 'article'),
+      tag(:meta, property: 'og:url', content: embed_url(site, project, collection, item)),
+      tag(:meta, property: 'og:description', content: content_for(:description))
     ]
   end
 end

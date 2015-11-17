@@ -92,13 +92,6 @@ class MediasControllerTest < ActionController::TestCase
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
   end
 
-  test "should not render Twitter metatags" do
-    get :embed, project: 'google_spreadsheet', collection: 'test', format: :html
-    assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
-    assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
-    assert_no_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
-  end
-
   test "should not have object if project is not supported" do
     get :embed, project: 'invalid', collection: 'invalid', format: :html
     assert_nil assigns(:object) 
@@ -245,23 +238,23 @@ class MediasControllerTest < ActionController::TestCase
 
   test "should have Facebook metatags for project" do
     get :embed, project: 'google_spreadsheet', format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'og:title', 'content' => 'Translations of Google Spreadsheet' })
-    assert_tag(tag: 'meta', attributes: { 'name' => 'og:image', 'content' => /bridge-logo\.png/ })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => '' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /bridge-logo\.png/ })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description' })
   end
 
   test "should have Facebook metatags for collection" do
     get :embed, project: 'google_spreadsheet', collection: 'test', format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'og:title', 'content' => 'Translations of Google Spreadsheet / Test' })
-    assert_tag(tag: 'meta', attributes: { 'name' => 'og:image', 'content' => /bridge-logo\.png/ })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translations about: test' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet / Test' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /bridge-logo\.png/ })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translations of Google Spreadsheet / Test' })
   end
 
   test "should have Facebook metatags for item" do
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'og:title', 'content' => 'Translation of Caio Almeida: Vídeo do Instagram' })
-    assert_tag(tag: 'meta', attributes: { 'name' => 'og:image', 'content' => /#{id}\.png/ })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Vídeo do Instagram' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /#{id}\.png/ })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
   end
 end

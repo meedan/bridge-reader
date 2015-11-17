@@ -1,33 +1,10 @@
 <% content_for :embed_title do %>Translations of <%= @entries.first['project'].to_s.titleize %><% end %>
-
-<% content_for :facebook do %>
-  <meta property="og:description" content="<%= @entries.first['project_summary'] %>" />
-<% end %>
+<% content_for :description do %><%= @entries.first['project_summary'] %><% end %>
+<% content_for :creator do %><% end %>
 
 <header class="title">
   <h1 class="project--title"><%= @entries.first['project'] unless @entries.empty? %></h1>
   <h2 class="project--description"><%= @entries.first['project_summary'] %></h2>
-</header>
-
-<div class="project">
-  <div class="columns">
-    <% @entries.last(3).each do |collection| %>
-      <div class="column">
-        <header>
-          <h2 class="channel--title"><%= collection['name'] %></h2>
-          <!-- <div class="channel--description"><%= collection['name'] %></div> -->
-        </header>
-        <div class="embeds">
-          <script type="text/javascript" src="/medias/embed/<%= @project %>/<%= URI.encode(collection['id']) %>.js"></script>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<footer class="call-to-action">
-  <p><img class="logo" src="/images/bridge-logo-small.png"> <a class="bridge" href="http://speakbridge.io">Bridge</a><sup>BETA</sup> &mdash; Social Translation for Social Media. Follow us on <a class="facebook" href="http://facebook.com/speakbridge">Facebook</a> and <a class="twitter" href="http://twitter.com/speakbridge">Twitter</a>.
-    <br><em>Please note this is a beta project, and translation quality—and the content and reports being translated—may require additional verification.</em></p>
   <div class="project--translators">
     <em>Translators:</em>
     <a href="http://www.twitter.com/norayounis">
@@ -48,5 +25,70 @@
     <a href="http://twitter.com/anxiaostudio">
     <img class="project--avatar" src="/images/anxiao.png">
     </a>
+
+
+    <a href="http://twitter.com/marleyvincentl">
+    <img class="project--avatar" src="/images/mvlindsey.png">
+    </a>
+
+    <a href="http://twitter.com/deedottiedot">
+    <img class="project--avatar" src="/images/dsantos.png">
+    </a>
+
+    <a href="http://twitter.com/bam">
+    <img class="project--avatar" src="/images/boanerges.png">
+    </a>
+
+
   </div>
+</header>
+
+
+
+<!-- <div class='demo-area'>
+  <button class='my_clip_button' data-clipboard-target='fe_text'
+  data-clipboard-text='Default clipboard text from attribute' id='d_clip_button'
+  title='Click me to copy to clipboard.'>
+    <b>Copy To Clipboard...</b>
+  </button>
+  <h4>
+    <label for='fe_text'>Change Copy Text Here</label>
+  </h4>
+  <textarea cols='50' id='fe_text' rows='3'>Copy me!</textarea>
+  <h4>
+    <label for='testarea'>Paste Text Here</label>
+  </h4>
+  <textarea cols='50' id='testarea' rows='3'></textarea>
+  <p>
+    <button id='clear-test'>Clear Test Area</button>
+  </p>
+</div> -->
+
+
+
+
+<div class="project">
+  <div class="columns">
+    <% @entries.last(3).each do |collection| %>
+      <div class="column">
+        <header>
+          <h2 class="channel--title"><%= collection['name'] %></h2>
+
+          <!-- <div class="channel--description"><%= collection['name'] %></div> -->
+        </header>
+        <div class="embeds">
+          <script type="text/javascript" src="/medias/embed/<%= @project %>/<%= URI.encode(collection['id']) %>.js"></script>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<footer class="call-to-action">
+  <p><img class="logo" src="/images/bridge-logo-small.png"> <a class="bridge" href="http://speakbridge.io">Bridge</a><sup>BETA</sup> &mdash; Social Translation for Social Media. Follow us on <a class="facebook" href="http://facebook.com/speakbridge">Facebook</a> and <a class="twitter" href="http://twitter.com/speakbridge">Twitter</a>.
+    <br><em>Please note this is a beta project, and translation quality—and the content and reports being translated—may require additional verification.</em></p>
+    <div class = "tos--links">
+      <a href="https://meedan.com/en/bridge/bridge_tos.html" target="_blank">Terms of Service</a><br>
+      <a href="https://meedan.com/en/bridge/bridge_privacy.html" target="_blank">Privacy Policy</a>
+    </div>
 </footer>
