@@ -15,7 +15,6 @@
   max-width: 300px;
 
   button {
-    display: inline !important;
 
   }
 
@@ -45,19 +44,25 @@
     }
   }
 
-  textarea {
+  .embed-code-holder {
     display: none;
-    margin: 0;
-    font-size: small;
-    border: 1px solid $light-keyboard-grey;
-    width: 100%;
-    font-size: 10px;
-    font-family: monospace;
-    max-height: 0;
-    overflow-y: hidden;
-    &.bridgeEmbed__embed-code-expanded {
-      max-height: 7em;
+
+    textarea {
+      margin: 0;
+      font-size: small;
+      border: 1px solid $light-keyboard-grey;
+      width: 100%;
+      font-size: 10px;
+      font-family: monospace;
+      max-height: 0;
+      overflow-y: hidden;
+    }
+
+    &.embed-code-holder-expanded {
       display: block;
+      textarea {
+        max-height: 7em;
+      }
     }
   }
 

@@ -16,15 +16,28 @@
     <%= include_facebook_tags(@project, @collection, @item, @level, @site) %>
     <%= stylesheet_link_tag '/stylesheets/bridge', media: 'all' %>
     <%= javascript_include_tag 'jquery-2.1.3.min' %>
-    <%= javascript_include_tag 'zeroclipboard' %>
     <%= javascript_include_tag 'embed-child' %>
     <%= javascript_include_tag 'share-menu' %>
     <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"></script>
+
   </head>
 
   <body class="bridgeEmbed" id="bridge__<%= @level %>">
     <%= yield %>
 
+
+    <script type="text/javascript">
+      var clipboard = new Clipboard('.btn');
+
+      clipboard.on('success', function(e) {
+          console.log(e);
+      });
+
+      clipboard.on('error', function(e) {
+          console.log(e);
+      });
+      </script>
 
 
     <script type="text/javascript">
@@ -34,16 +47,6 @@
       Bridge.path = '<%= @path %>';
     </script>
 
-    <script type="text/javascript">
-      $(document).ready(function() {
-        var clip = new ZeroClipboard($("#d_clip_button"))
-      });
-
-      $("#clear-test").on("click", function(){
-        $("#fe_text").val("Copy me!");
-        $("#testarea").val("");
-      });
-    </script>
 
     <div id="bridgeEmbed__footer">
       <a href="http://meedan.com/bridge" target="_blank">Powered by Bridge</a>

@@ -68,8 +68,6 @@ em {
   max-height: 0;
   overflow-y: hidden;
   max-width: 300px; }
-  .bridgeEmbed__share-menu button {
-    display: inline !important; }
   .bridgeEmbed__share-menu li {
     border: 1px solid #d1d6db;
     border-bottom-width: 0;
@@ -88,19 +86,21 @@ em {
     color: #283743; }
     .bridgeEmbed__share-menu a:hover, .bridgeEmbed__share-menu a:active {
       color: #ff4f00; }
-  .bridgeEmbed__share-menu textarea {
-    display: none;
-    margin: 0;
-    font-size: small;
-    border: 1px solid #d1d6db;
-    width: 100%;
-    font-size: 10px;
-    font-family: monospace;
-    max-height: 0;
-    overflow-y: hidden; }
-    .bridgeEmbed__share-menu textarea.bridgeEmbed__embed-code-expanded {
-      max-height: 7em;
+  .bridgeEmbed__share-menu .embed-code-holder {
+    display: none; }
+    .bridgeEmbed__share-menu .embed-code-holder textarea {
+      margin: 0;
+      font-size: small;
+      border: 1px solid #d1d6db;
+      width: 100%;
+      font-size: 10px;
+      font-family: monospace;
+      max-height: 0;
+      overflow-y: hidden; }
+    .bridgeEmbed__share-menu .embed-code-holder.embed-code-holder-expanded {
       display: block; }
+      .bridgeEmbed__share-menu .embed-code-holder.embed-code-holder-expanded textarea {
+        max-height: 7em; }
   .bridgeEmbed__share-menu-expanded.bridgeEmbed__share-menu {
     max-height: 300px; }
 

@@ -15,7 +15,7 @@
     // Expand embed code
 
     $('.bridgeEmbed__link-embed-code').on('click', function() {
-      $(this).next('textarea').toggleClass('bridgeEmbed__embed-code-expanded');
+      $(this).next('.embed-code-holder').toggleClass('embed-code-holder-expanded');
       return false;
     });
   });
