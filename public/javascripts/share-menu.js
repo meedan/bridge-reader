@@ -18,6 +18,18 @@
       $(this).next('.embed-code-holder').toggleClass('embed-code-holder-expanded');
       return false;
     });
+
+    var clipboard = new Clipboard('.btn');
+
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+
+
   });
 
 }(jQuery));
