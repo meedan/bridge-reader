@@ -122,7 +122,6 @@ h1 {
   padding-bottom: 20px;
   margin-left: ($jumbotron-padding * 2) - 15px;
   padding-top: $jumbotron-padding;
-  // border-bottom: 1px solid #e5e5e5;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -255,6 +254,10 @@ h1 {
 
 
 nav{
+  // display: flex;
+  // flex-direction: row;
+  position: relative;
+  height: 48px;
   max-width: 95%;
   .text-muted{
   }
@@ -265,12 +268,14 @@ nav{
   h4 {
     display: inline;
   }
-  height: 3em;
+
   ul{
-    margin-top: -25px;
+    margin-top: -24px;
+    vertical-align:middle;
     list-style-type: none;
   li{
     display: inline;
+    vertical-align:middle;
     }
   }
 }

@@ -1108,18 +1108,21 @@ body {
     border-bottom: 0; } }
 
 nav {
-  max-width: 95%;
-  height: 3em; }
+  position: relative;
+  height: 48px;
+  max-width: 95%; }
   nav img.main-logo {
     vertical-align: middle;
     margin-top: -1px; }
   nav h4 {
     display: inline; }
   nav ul {
-    margin-top: -25px;
+    margin-top: -24px;
+    vertical-align: middle;
     list-style-type: none; }
     nav ul li {
-      display: inline; }
+      display: inline;
+      vertical-align: middle; }
 
 .newsletter-menu {
   position: absolute;
