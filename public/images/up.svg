@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="50px" height="60px" viewBox="0 0 50 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.2 (15857) - http://www.bohemiancoding.com/sketch -->
+    <title>up</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <path d="M28.53575,1.46175 C26.58675,-0.48725 23.43475,-0.48725 21.48575,1.46175 L1.46175,21.41075 C-0.48725,23.35975 -0.48725,26.51275 1.46175,28.46175 C3.41075,30.41075 6.56375,30.41075 8.51275,28.46175 L19.98975,16.98475 L19.98975,54.93475 C19.98975,57.70775 22.23975,59.95775 25.01275,59.95775 C27.78575,59.95775 30.03575,57.70775 30.03575,54.93475 L30.03575,17.06375 L41.51275,28.46175 C42.48975,29.43875 43.76275,29.96175 45.03575,29.96175 C46.30975,29.96175 47.58675,29.43875 48.55975,28.46175 C50.51275,26.51275 50.51275,23.35975 48.56375,21.41075 L28.53575,1.46175 Z" id="up" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+    </g>
+</svg>

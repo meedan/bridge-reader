@@ -23,7 +23,7 @@
 
     var clipboard = new Clipboard('.btn');
     clipboard.on('error', function(e) {
-      alert('Now press Ctrl+C to copy');
+      alert('Please manually select the link inside the text box to copy and paste. Your browser does not support Click To Copy.');
     });
 
 

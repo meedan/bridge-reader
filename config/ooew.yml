@@ -1,0 +1,8 @@
+type: google_spreadsheet
+google_spreadsheet_id: 1qpLfypUaoQalem6i3SHIiPqHOYGCWf2r7GFbvkIZtvk
+google_issuer: '636093762423-7ibt0n43a0qhrt18g3esoendra8es9ur@developer.gserviceaccount.com'
+google_pkcs12_path: '/Users/xiaoweirwang/google.p12'
+google_pkcs12_secret: 'notasecret'
+# watchbot:
+#   url: http://localhost:3003/links
+#   token: 0d514dbf69c1ea016a556e0a6e7c725f

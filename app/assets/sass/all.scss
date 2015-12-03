@@ -1,0 +1,399 @@
+@charset "utf-8";
+@import url(https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic);
+
+@import "normalize";
+@import "variables";
+@import "mixins/grid-framework";
+@import "mixins/grid";
+@import "mixins/clearfix";
+@import "grid";
+@import "button";
+@import "forms";
+
+// Floats
+// -------------------------
+
+.clearfix {
+  @include clearfix;
+}
+
+.pull-right {
+  float: right !important;
+}
+.pull-left {
+  float: left !important;
+}
+
+
+
+body {
+  font-family: 'Lato', sans-serif;
+  color: $warm-dark-grey;
+  padding-bottom: 30px;
+  .orng-text{
+    color: $bridge-orange;
+  }
+  .grey-text{
+    color: $warm-dark-grey;
+  }
+}
+
+h1 {
+  }
+
+
+
+
+//
+// Jumbotron
+// --------------------------------------------------
+
+
+.jumbotron {
+  padding-top:    $jumbotron-padding;
+  padding-bottom: $jumbotron-padding;
+  margin-bottom: $jumbotron-padding;
+  color: $jumbotron-color;
+  background-color: $jumbotron-bg;
+
+  h1,
+  .h1 {
+    font-weight:800;
+    color: $jumbotron-heading-color;
+    padding-bottom: ($jumbotron-padding * 2 );
+  }
+
+  p {
+    margin-bottom: ($jumbotron-padding / 2);
+    font-size: $jumbotron-font-size;
+    font-weight: 200;
+  }
+
+  > hr {
+    border-top-color: darken($jumbotron-bg, 10%);
+  }
+
+  .container &,
+  .container-fluid & {
+    border-radius: $border-radius-large; // Only round corners at higher resolutions if contained in a container
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  @media screen and (min-width: $screen-sm-min) {
+    padding-top:    ($jumbotron-padding * 1.6);
+    padding-bottom: ($jumbotron-padding * 1.6);
+
+    .container &,
+    .container-fluid & {
+      padding-left:  ($jumbotron-padding * 2);
+      padding-right: ($jumbotron-padding * 2);
+    }
+
+    h1,
+    .h1 {
+      font-size: $jumbotron-heading-font-size;
+    }
+  }
+}
+
+
+
+
+
+
+
+////////
+//Here is where the project section lives////
+//it's called "jumbotron narrow"//
+///////
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+  padding-bottom: 20px;
+  margin-left: ($jumbotron-padding * 2) - 15px;
+  padding-top: $jumbotron-padding;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 60px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron-narrow {
+  padding-top: 48px;
+  padding-bottom: 48px;
+  padding-right: 30px;
+  padding-left: 30px;
+  align: center;
+  max-width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  margin: 1em auto 1em auto;
+  border-radius: 8px;
+  background-color: $cold-grey;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+  h1 {
+  font-size: 2em;
+  padding: 0em 3em 0.25em 0em;
+  color: $bridge-orange;
+  text-decoration: underline;
+  a{
+    color: $bridge-orange;
+    }
+  }
+
+  img.translator-avatar{
+    max-width: 68px;
+    border-radius: 100px;
+    border: 4px solid white;
+    margin: 0.5em 0.4em;
+  }
+  .button-row{
+    padding-top: 1em;
+
+    padding-bottom: 1.5em;
+    padding-left: $jumbotron-padding/2;
+  }
+
+}
+
+
+
+.jumbotron .btn {
+}
+
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+  color: black;
+  font-weight: 800;
+  font-size: 1.40em;
+  line-height: 1.40em;
+  margin-left: $jumbotron-padding;
+  margin-right: $jumbotron-padding;
+  text-align: center;
+  min-height: 1px;
+  .stacking{
+    display: flex;
+    flex-direction: column;
+  }
+  em{
+    font-size: 0.8em;
+    color: $bridge-orange;
+    font-style: normal;
+    line-height: 0.5em;
+  }
+  img{
+    padding: 1em 0.1em;
+  }
+  img.meedan-logo{
+    width: 131px;
+  }
+  a{
+    text-decoration: none;
+    :hover {
+      color: $accent-blue;
+      transition: 0.4s;
+    }
+  }
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    // border: 1px solid purple;
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron-narrow {
+    border-bottom: 0;
+  }
+}
+
+
+
+
+nav{
+  // display: flex;
+  // flex-direction: row;
+  position: relative;
+  height: 48px;
+  max-width: 95%;
+  .text-muted{
+  }
+  img.main-logo{
+    vertical-align: middle;
+    margin-top: -1px;
+  }
+  h4 {
+    display: inline;
+  }
+
+  ul{
+    margin-top: -24px;
+    vertical-align:middle;
+    list-style-type: none;
+  li{
+    display: inline;
+    vertical-align:middle;
+    }
+  }
+}
+
+.newsletter-menu{
+  position:absolute;
+  display:none; /* Hide it first of all */
+  background:#F8F8F8;
+  border:1px solid #CCC;
+  box-shadow:0 1px 3px rgba(0,0,0,0.15);
+  float: left;
+  padding: 1em;
+  overflow-y: hidden;
+  right: 0;
+  border-radius:3px;
+  label {
+    font-size: 0.8em;
+    font-weight: 300;
+  }
+}
+
+.drop{
+  display: inline;
+  // border: 1px solid red;
+}
+
+.custom-jumbo{
+  h1, h3.subtitle{
+    margin-left: -$jumbotron-padding/2;
+    padding-bottom: 0;
+  }
+  h3.subtitle{
+    padding-bottom: 1em;
+  }
+}
+
+
+.avatar-row{
+  padding-bottom: 1.5em;
+  padding-left: $jumbotron-padding/3;
+  h4{
+    padding-left: 0.75em;
+  }
+}
+
+
+@media screen and (max-width: 682px){
+  .header{
+    max-width: 90%;
+    margin-left: $jumbotron-padding + 20px;
+    padding-left: 0;
+  }
+
+  ul{
+    position: fixed;
+    right: 10px;
+  }
+
+  .jumbotron-narrow{
+    // border: 1px solid red;
+    max-width: 100%;
+  }
+  .marketing{
+    img{
+      // border: 1px solid red;
+      // display: inline-block;
+      // align-content: center;
+    }
+  }
+
+    .newsletter-menu{
+    width: 90%;
+    position:fixed;
+    right: 60;
+    }
+
+
+
+}
+
+@media screen and (max-width:825px){
+  .custom-jumbo{
+    margin-left: $jumbotron-padding/2;
+  }
+}
+
+
+footer{
+  img, a{
+    margin: 0 auto;
+  }
+  p.links{
+    text-align: center;
+    padding: 1em 0;
+    font-weight:300;
+  }
+  img.footer-logo{
+    display: block;
+    width: 40px;
+  }
+  a {
+  color: $warm-dark-grey;
+  text-decoration: none;
+  font-weight:400;
+
+  &:hover {
+    color: $accent-blue;
+    transition: 0.4s;
+    }
+  }
+
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+}
+
+.learn, .start, .see{
+  padding: 1.5em 0;
+}
