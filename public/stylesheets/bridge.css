@@ -309,8 +309,7 @@ h2.channel--title {
   margin-top: 5px;
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.4;
-  min-height: 4em; }
+  line-height: 1.4; }
   @media (min-width: 1000px) {
     .channel--description {
       max-width: 30vw; } }
