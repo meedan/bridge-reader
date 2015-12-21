@@ -79,10 +79,12 @@ module Sources
     end
 
     def translation_to_hash(translation)
-      hash = {
+      source = translation['source']
+      {
         id: translation['id'].to_s,
-        source_text: translation['source']['text'],
-        source_lang: translation['source']['lang'],
+        source_text: source['text'],
+        source_lang: source['lang'],
+        source_author: source['author'],
         link: translation['source']['link'],
         timestamp: translation['source']['published'],
         translations: [
@@ -98,7 +100,6 @@ module Sources
         source: self,
         index: translation['id'].to_s
       }
-      hash
     end
 
     def comments_from_translation(translation)
@@ -130,6 +131,7 @@ module Sources
       request['Authorization'] = 'Token token=' + @config['bridge_api_token'].to_s
       http = Net::HTTP.new(uri.hostname, uri.port)
       http.use_ssl = uri.scheme == 'https'
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       response = http.request(request)
       parse_response(response)
     end
