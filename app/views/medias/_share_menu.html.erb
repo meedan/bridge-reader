@@ -20,11 +20,13 @@
   <li>
     <%= link_to 'Embed Code', '#', class: 'bridgeEmbed__link-embed-code' %>
     <div class="embed-code-holder">
-    <textarea id="fe_text_embed" rows="4" readonly>
-      &lt;script type="text/javascript" src="<%= [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %>.js"&gt;&lt;/script&gt;
-    </textarea>
-    <button class="btn" data-clipboard-action="copy" data-clipboard-target="#fe_text_embed">
-      Copy to clipboard</button>
+      <textarea id="fe_text_embed" rows="4" readonly>
+        <% url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project, @collection, item].join('/') %>
+        &lt;blockquote id="bridge-embed-placeholder-<%= @project %>-<%= @collection %>-<%= item %>"&gt;&lt;a href="<%= url %>"&gt;<%= url %>&lt;/a&gt;&lt;/blockquote&gt;
+        &lt;script type="text/javascript" src="<%= url %>.js"&gt;&lt;/script&gt;
+      </textarea>
+      <button class="btn" data-clipboard-action="copy" data-clipboard-target="#fe_text_embed">Copy to clipboard</button>
+    </div>
   </li>
 
   <!-- Share on Twitter -->
