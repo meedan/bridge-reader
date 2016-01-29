@@ -1,10 +1,10 @@
 <% 
 translation = @entries[:translations].first
-author = @entries[:oembed].blank? ? nil : ('@' + @entries[:source_author].to_s)
+author = (@entries[:source_author].blank? && !@entries[:oembed].nil?) ? @entries[:oembed][:author_name] : @entries[:source_author].to_s
 
 description = ''
 unless translation.nil?
-  prefix = author.nil? ? '' : "Translation of #{author}: "
+  prefix = author.nil? ? '' : "Translation of @#{author}: "
   description = prefix + translation[:text]
 end
 
