@@ -1,5 +1,6 @@
 * {
-  box-sizing: border-box; }
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
 
 body {
   font-family: 'Lato', 'Open Sans', 'Arial', 'Helvetica Neue', 'Helvetica', sans-serif;
@@ -17,18 +18,16 @@ em {
   margin: 0;
   padding: 0; }
 
-.project .columns ::-webkit-scrollbar {
-  display: none; }
-
 .bridgeEmbed__item .bridgeEmbed__item-embedly-card {
   display: block;
   width: 20px;
   height: 20px;
   margin: 100px auto;
   background-color: #404d59;
-  border-radius: 100%;
-  -webkit-animation: scaleout 1s infinite ease-in-out;
-          animation: scaleout 1s infinite ease-in-out; }
+  -webkit-border-radius: 100%;
+          border-radius: 100%;
+  -webkit-animation: scaleout 1.0s infinite ease-in-out;
+          animation: scaleout 1.0s infinite ease-in-out; }
 
 @-webkit-keyframes scaleout {
   0% {
@@ -124,7 +123,8 @@ em {
   max-width: 505px;
   height: 100%;
   background-color: white;
-  border-radius: 5px; }
+  -webkit-border-radius: 5px;
+          border-radius: 5px; }
   .bridgeEmbed__item > iframe {
     margin: 0 auto;
     max-width: 505px !important; }
@@ -226,9 +226,10 @@ header.title {
     header.title .project--translators .project--avatar {
       max-width: 25px;
       z-index: 2;
-      border-radius: 100%;
+      -webkit-border-radius: 100%;
+              border-radius: 100%;
       vertical-align: top;
-      margin: 0 -0.3em;
+      margin: 0 -0.30em;
       border: 1px solid white; }
   @media (max-width: 1000px) {
     header.title {
@@ -242,7 +243,8 @@ header.title {
         header.title .project--translators .project--avatar, header.title p .project--avatar {
           max-width: 25px;
           z-index: 2;
-          border-radius: 100%;
+          -webkit-border-radius: 100%;
+                  border-radius: 100%;
           vertical-align: top;
           margin: 0 0em;
           border: 2px solid white; } }
@@ -328,7 +330,8 @@ footer.call-to-action {
   footer.call-to-action .logo {
     width: 20px;
     height: 20px;
-    border-radius: 2px;
+    -webkit-border-radius: 2px;
+            border-radius: 2px;
     display: inline-block;
     vertical-align: text-bottom;
     margin-right: 0.2em; }
