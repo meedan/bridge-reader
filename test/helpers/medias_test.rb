@@ -2,28 +2,28 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'test_helper')
 
 class MediasHelperTest < ActionView::TestCase
   test "should parse translation and create link" do
-    translation = { text: 'Visit http://meedan.com #now @dude!' }
-    assert_equal '<p>Visit <a href="http://meedan.com" target="_blank">http://meedan.com</a> #now @dude!</p>', parse_translation(translation, 'other')
+    text = 'Visit http://meedan.com #now @dude!'
+    assert_equal '<p>Visit <a href="http://meedan.com" target="_blank">http://meedan.com</a> #now @dude!</p>', parse_text_provider(text, 'other')
   end
 
   test "should parse Twitter translation" do
-    translation = { text: 'Check @meedan, is #amazing!' }
-    assert_equal '<p>Check <a href="https://twitter.com/meedan" target="_blank">@meedan</a>, is <a href="https://twitter.com/hashtag/amazing" target="_blank">#amazing</a>!</p>', parse_translation(translation, 'twitter')
+    text = 'Check @meedan, is #amazing!'
+    assert_equal '<p>Check <a href="https://twitter.com/meedan" target="_blank">@meedan</a>, is <a href="https://twitter.com/hashtag/amazing" target="_blank">#amazing</a>!</p>', parse_text_provider(text, 'twitter')
   end
 
   test "should parse Instagram translation" do
-    translation = { text: 'Check @meedan, is #amazing!' }
-    assert_equal '<p>Check <a href="http://instagram.com/meedan" target="_blank">@meedan</a>, is <a href="https://instagram.com/explore/tags/amazing" target="_blank">#amazing</a>!</p>', parse_translation(translation, 'instagram')
+    text = 'Check @meedan, is #amazing!'
+    assert_equal '<p>Check <a href="http://instagram.com/meedan" target="_blank">@meedan</a>, is <a href="https://instagram.com/explore/tags/amazing" target="_blank">#amazing</a>!</p>', parse_text_provider(text, 'instagram')
   end
 
   test "should not crash if provider has no custom parser" do
-    translation = { text: 'Check @meedan, is #amazing!' }
-    assert_equal '<p>Check @meedan, is #amazing!</p>', parse_translation(translation, 'other')
+    text = 'Check @meedan, is #amazing!'
+    assert_equal '<p>Check @meedan, is #amazing!</p>', parse_text_provider(text, 'other')
   end
 
   test "should parse markdown" do
-    translation = { text: 'Markdown is *really* **cool**!' }
-    assert_equal '<p>Markdown is <em>really</em> <strong>cool</strong>!</p>', parse_translation(translation, 'twitter')
+    text = 'Markdown is *really* **cool**!'
+    assert_equal '<p>Markdown is <em>really</em> <strong>cool</strong>!</p>', parse_text_provider(text, 'twitter')
   end
 
   test "should parse links in markdown" do
@@ -32,8 +32,8 @@ class MediasHelperTest < ActionView::TestCase
   end
 
   test "should not parse hashtags as Markdown title" do
-    translation = { text: '#hashtag1 This should not be a header #hashtag2' }
-    assert_equal '<p><a href="https://twitter.com/hashtag/hashtag1" target="_blank">#hashtag1</a> This should not be a header <a href="https://twitter.com/hashtag/hashtag2" target="_blank">#hashtag2</a></p>', parse_translation(translation, 'twitter')
+    text = '#hashtag1 This should not be a header #hashtag2'
+    assert_equal '<p><a href="https://twitter.com/hashtag/hashtag1" target="_blank">#hashtag1</a> This should not be a header <a href="https://twitter.com/hashtag/hashtag2" target="_blank">#hashtag2</a></p>', parse_text_provider(text, 'twitter')
   end
 
   test "should shorten URL return long" do
@@ -82,13 +82,13 @@ class MediasHelperTest < ActionView::TestCase
   end
 
   test "should parse Twitter with two hashtags with underline" do
-    translation = { text: 'This is a #hash_tag and #another_hash_tag' }
-    assert_equal '<p>This is a <a href="https://twitter.com/hashtag/hash_tag" target="_blank">#hash_tag</a> and <a href="https://twitter.com/hashtag/another_hash_tag" target="_blank">#another_hash_tag</a></p>', parse_translation(translation, 'twitter')
+    text = 'This is a #hash_tag and #another_hash_tag'
+    assert_equal '<p>This is a <a href="https://twitter.com/hashtag/hash_tag" target="_blank">#hash_tag</a> and <a href="https://twitter.com/hashtag/another_hash_tag" target="_blank">#another_hash_tag</a></p>', parse_text_provider(text, 'twitter')
   end
 
   test "should not parse Instagram hashtags as header" do
-    translation = { text: '#Sanliurfa #Halfeti, #Euphrates #River #Hidden #Heaven #underwater #lostcity #hometown #boat' }
+    text = '#Sanliurfa #Halfeti, #Euphrates #River #Hidden #Heaven #underwater #lostcity #hometown #boat'
     output = "<p><a href=\"https://instagram.com/explore/tags/Sanliurfa\" target=\"_blank\">#Sanliurfa</a> <a href=\"https://instagram.com/explore/tags/Halfeti\" target=\"_blank\">#Halfeti</a>, <a href=\"https://instagram.com/explore/tags/Euphrates\" target=\"_blank\">#Euphrates</a> <a href=\"https://instagram.com/explore/tags/River\" target=\"_blank\">#River</a> <a href=\"https://instagram.com/explore/tags/Hidden\" target=\"_blank\">#Hidden</a> <a href=\"https://instagram.com/explore/tags/Heaven\" target=\"_blank\">#Heaven</a> <a href=\"https://instagram.com/explore/tags/underwater\" target=\"_blank\">#underwater</a> <a href=\"https://instagram.com/explore/tags/lostcity\" target=\"_blank\">#lostcity</a> <a href=\"https://instagram.com/explore/tags/hometown\" target=\"_blank\">#hometown</a> <a href=\"https://instagram.com/explore/tags/boat\" target=\"_blank\">#boat</a></p>"
-    assert_equal output, parse_translation(translation, 'instagram')
+    assert_equal output, parse_text_provider(text, 'instagram')
   end
 end

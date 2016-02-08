@@ -12,19 +12,18 @@ module MediasHelper
     text.html_safe.chomp
   end
 
-  def parse_translation(translation, provider)
-    text = translation[:text]
-    text = self.send("#{provider}_parse_translation", text) if !provider.blank? && self.respond_to?("#{provider}_parse_translation")
+  def parse_text_provider(text, provider)
+    text = self.send("#{provider}_parse_text", text) if !provider.blank? && self.respond_to?("#{provider}_parse_text")
     text = parse_text(text).encode('UTF-8', invalid: :replace)
     text.html_safe
   end
 
-  def twitter_parse_translation(text)
+  def twitter_parse_text(text)
     text = text.gsub(TWITTER_HASHTAG_REGEXP, '\1<a href="https://twitter.com/hashtag/\3" target="_blank">\2\3</a>')
     text.gsub(/([@＠])([a-zA-Z0-9_]{1,20})/, '<a href="https://twitter.com/\2" target="_blank">\1\2</a>')
   end
 
-  def instagram_parse_translation(text)
+  def instagram_parse_text(text)
     text = text.gsub(TWITTER_HASHTAG_REGEXP, '\1<a href="https://instagram.com/explore/tags/\3" target="_blank">\2\3</a>')
     text = text.gsub(/@([a-zA-Z0-9_]+)/, '<a href="http://instagram.com/\1" target="_blank">@\1</a>')
   end
@@ -52,7 +51,7 @@ module MediasHelper
   end
 
   def get_translation_direction(translation, provider)
-    text = parse_translation(translation, provider)
+    text = parse_text_provider(translation[:text], provider)
     get_text_direction(text)
   end
 
