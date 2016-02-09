@@ -3,7 +3,6 @@ $column-width: 300px;
 $header-height: 7vh;
 
 .project .columns {
-  @extend %hide-scrollbars;
   color: $firefly80;
 }
 
@@ -184,7 +183,6 @@ h2.channel--title {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
-  min-height: 4em;
 
   //LARGER than the breakpoint
   @media (min-width: $breakpoint) {

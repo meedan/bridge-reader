@@ -39,7 +39,7 @@
       <% end %>
 
       <div class="translation" style="direction: <%= get_translation_direction(translation, entry[:provider]) %>;">
-        <%= parse_translation translation, entry[:provider] %>
+        <%= parse_text_provider translation[:text], entry[:provider] %>
       </div>
     </div>
 
@@ -53,7 +53,7 @@
           </span>
         <% end %>
         <div class="translation" style="direction: <%= get_comment_direction(comment) %>;">
-          <%= parse_text(comment[:comment]).html_safe %>
+          <%= parse_text_provider comment[:comment], entry[:provider] %>
         </div>
       </div>
     <% end %>

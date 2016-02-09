@@ -21,9 +21,10 @@
 
     // Copy to clipboard
 
-    var clipboard = new Clipboard('.btn');
+    var clipboard = new window.Clipboard('.btn');
     clipboard.on('error', function(e) {
-      alert('Please manually select the link inside the text box to copy and paste. Your browser does not support Click To Copy.');
+      console.log(e);
+      window.alert('Please manually select the link inside the text box to copy and paste. Your browser does not support Click To Copy.');
     });
 
 

@@ -47,12 +47,11 @@ module Sources
 
     def handle_project(payload)
       if payload['condition'] == 'created'
+        host = BRIDGE_PROJECTS['bridge-api']['bridge_api_host']
+        info = { 'type' => 'bridge_api', 'bridge_api_host' => host, 'bridge_api_token' => payload['token'] }
         slug = payload['project']['slug']
-        dir = File.join(Rails.root, 'config', 'projects', Rails.env)
-        from = 'bridge-api.yml'
-        to = File.join(dir, slug + '.yml')
-        FileUtils.ln_s(from, to)
-        BRIDGE_PROJECTS[slug] = BRIDGE_PROJECTS['bridge-api']
+        create_config_file_for_project(slug, info)
+        BRIDGE_PROJECTS[slug] = info
       elsif payload['condition'] == 'updated'
         generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
       end
@@ -138,6 +137,16 @@ module Sources
 
     def parse_response(response)
       response.code.to_i === 200 ? JSON.parse(response.body)['data'] : nil
+    end
+
+    def create_config_file_for_project(slug, info)
+      dir = File.join(Rails.root, 'config', 'projects', Rails.env)
+      path = File.join(dir, slug + '.yml')
+      file = File.open(path, 'w+')
+      info.each do |key, value|
+        file.puts("#{key}: '#{value}'")
+      end
+      file.close
     end
   end
 end

@@ -98,7 +98,7 @@ class BridgeApiTest < ActiveSupport::TestCase
     project = File.join(Rails.root, 'config', 'projects', 'test', 'test.yml')
     assert !File.exists?(project)
     assert !BRIDGE_PROJECTS.has_key?('test')
-    @b.parse_notification(nil, nil, { 'project' => { 'slug' => 'test' }, 'condition' => 'created' })
+    @b.parse_notification(nil, nil, { 'project' => { 'slug' => 'test' }, 'condition' => 'created', 'token' => 'access_token' })
     exists = File.exists?(project)
     FileUtils.rm(project)
     assert exists
