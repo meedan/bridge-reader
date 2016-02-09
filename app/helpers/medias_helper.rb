@@ -8,7 +8,7 @@ module MediasHelper
   def parse_text(text)
     renderer = Redcarpet::Render::HTML.new(link_attributes: { target: '_blank' })
     markdown = Redcarpet::Markdown.new(renderer, autolink: true, no_intra_emphasis: true)
-    text = markdown.render(text)
+    text = markdown.render(text).gsub(/\n/, '<br />').gsub(/(<br \/>)+/, '<br />').gsub(/<\/p><br \/>/, '</p>')
     text.html_safe.chomp
   end
 

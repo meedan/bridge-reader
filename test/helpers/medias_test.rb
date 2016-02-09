@@ -91,4 +91,9 @@ class MediasHelperTest < ActionView::TestCase
     output = "<p><a href=\"https://instagram.com/explore/tags/Sanliurfa\" target=\"_blank\">#Sanliurfa</a> <a href=\"https://instagram.com/explore/tags/Halfeti\" target=\"_blank\">#Halfeti</a>, <a href=\"https://instagram.com/explore/tags/Euphrates\" target=\"_blank\">#Euphrates</a> <a href=\"https://instagram.com/explore/tags/River\" target=\"_blank\">#River</a> <a href=\"https://instagram.com/explore/tags/Hidden\" target=\"_blank\">#Hidden</a> <a href=\"https://instagram.com/explore/tags/Heaven\" target=\"_blank\">#Heaven</a> <a href=\"https://instagram.com/explore/tags/underwater\" target=\"_blank\">#underwater</a> <a href=\"https://instagram.com/explore/tags/lostcity\" target=\"_blank\">#lostcity</a> <a href=\"https://instagram.com/explore/tags/hometown\" target=\"_blank\">#hometown</a> <a href=\"https://instagram.com/explore/tags/boat\" target=\"_blank\">#boat</a></p>"
     assert_equal output, parse_text_provider(text, 'instagram')
   end
+
+  test "should parse line breaks markdown" do
+    text = "Line 1\nLine 2\nLine 3\nLine 4\n\nLine 5"
+    assert_equal '<p>Line 1<br />Line 2<br />Line 3<br />Line 4</p><p>Line 5</p>', parse_text_provider(text, 'twitter')
+  end
 end
