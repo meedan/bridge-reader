@@ -50,3 +50,4 @@ public/test
 # Ignore projects that are not tests
 config/projects/development
 config/projects/production
+/.project
