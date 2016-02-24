@@ -104,7 +104,8 @@ module Bridge
 
       options = options.merge(selector: '.bridgeEmbed__item-translation-and-comment', full: false) if level === 'item'
 
-      screenshoter.take_screenshot!(options)
+      Retryable.retryable { screenshoter.take_screenshot!(options) }
+
       level === 'item' ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)
       FileUtils.rm(tmp)
     end
