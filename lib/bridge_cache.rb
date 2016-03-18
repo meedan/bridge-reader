@@ -75,24 +75,8 @@ module Bridge
         
         frames = []
         element = ['body']
-        link = Rails.cache.read('embedly:' + item)
 
-        unless link.nil?
-          case link[:provider]
-          when 'twitter'
-            frames  = [0]
-            element = ['.twitter-tweet-rendered']
-          when 'instagram'
-            frames  = [0]
-            element = ['.art-bd']
-          end
-        end
-
-        begin
-          self.take_screenshot(url, element, frames, output, level)
-        rescue
-          self.take_screenshot(url, ['body'], [], output, level)
-        end
+        self.take_screenshot(url, element, frames, output, level)
       end
       output
     end
@@ -102,12 +86,12 @@ module Bridge
       tmp = Tempfile.new(['screenshot', '.png']).path
       options = { url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20 }
 
-      options = options.merge(selector: '.bridgeEmbed__item-translation-and-comment', full: false) if level === 'item'
+      options = options.merge(selector: '.bridgeEmbed__screenshot', full: false)
 
       Retryable.retryable { screenshoter.take_screenshot!(options) }
 
       level === 'item' ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)
-      FileUtils.rm(tmp)
+      FileUtils.rm(tmp) if File.exists?(tmp)
     end
 
     def post_process_screenshot(tmp, output)
@@ -169,7 +153,7 @@ module Bridge
     end
 
     def screenshot_url(project, collection, item, css = '')
-      url = [BRIDGE_CONFIG['bridgembed_host_private'], 'medias', 'embed', project, URI.encode(collection), item].join('/') + "?#{Time.now.to_i}"
+      url = [BRIDGE_CONFIG['bridgembed_host_private'], 'medias', 'embed', project, URI.encode(collection), item].join('/') + "?t=#{Time.now.to_i}&template=screenshot"
       url += "#css=#{css}" unless css.blank?
       url
     end

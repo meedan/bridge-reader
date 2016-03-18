@@ -257,4 +257,16 @@ class MediasControllerTest < ActionController::TestCase
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /#{id}\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
   end
+
+  test "should render HTML with template" do
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'screenshot'
+    assert_not_nil assigns(:entries)
+  end
+
+  test "should fallback to default when template is not present" do
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'invalid'
+    assert_nil assigns(:entries)
+  end
 end

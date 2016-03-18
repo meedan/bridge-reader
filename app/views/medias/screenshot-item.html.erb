@@ -1,0 +1,63 @@
+<% 
+translation = @entries[:translations].first
+author = (@entries[:source_author].blank? && !@entries[:oembed].nil?) ? @entries[:oembed][:author_name] : @entries[:source_author].to_s
+entry = @entries
+
+description = ''
+unless translation.nil?
+  prefix = author.nil? ? '' : "Translation of @#{author}: "
+  description = prefix + translation[:text]
+end
+
+content_for :embed_title do
+  # 70 is the limit of a title for Twitter
+  truncate(description, length: 70, separator: ' ')
+end
+
+content_for :description do
+  description
+end
+
+content_for :creator do
+  author
+end
+%>
+
+<div class="bridgeEmbed__item bridgeEmbed__screenshot">
+  <div class="bridgeEmbed__item-translation-and-comment">
+  
+    <div class="bridgeEmbed__item-translation  <%= get_translation_direction(translation, entry[:provider]) %>">
+
+      <% unless translation[:translator_name].blank? %>
+      <div class="byline">
+        <span>Translated by </span>
+        <%= link_to_unless translation[:translator_url].blank?, translation[:translator_name], translation[:translator_url],
+            { target: '_blank', class: 'name' } %>
+      </div>
+      <% end %>
+
+      <div class="translation" style="direction: <%= get_translation_direction(translation, entry[:provider]) %>;">
+        <%= parse_text_provider translation[:text], entry[:provider] %>
+      </div>
+    </div>
+
+    <!-- Item Annotations -->
+    <% translation[:comments].each do |comment| %>
+      <div class="bridgeEmbed__item-comment">
+        <% unless comment[:commenter_name].blank? %>
+        <span class="byline">
+            <%= link_to_unless comment[:commenter_url].blank?, comment[:commenter_name], comment[:commenter_url],
+                { target: '_blank' } %>
+          </span>
+        <% end %>
+        <div class="translation" style="direction: <%= get_comment_direction(comment) %>;">
+          <%= parse_text_provider comment[:comment], entry[:provider] %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- All data associated with this item (only for debug)
+  <%= entry.inspect %>
+-->

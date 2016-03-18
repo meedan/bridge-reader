@@ -59,11 +59,16 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_html
+    get_object and return
+
+    unless params[:template].blank?
+      render_embed_from_template and return
+    end
+
     @cachepath = cache_path(@project, @collection, @item)
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      get_object and return
       generate_cache(@object, @project, @collection, @item, @site)
       @cache = false
     end
@@ -120,5 +125,15 @@ class MediasController < ApplicationController
   def sanitize_parameters(collection, item)
     @collection = params[:collection].to_s.gsub(/[^0-9A-Za-z_\-\u0600-\u06ff\u0750-\u077f\ufb50-\ufc3f\ufe70-\ufefc]/, '')
     @item = params[:item].to_s.gsub(/[^0-9A-Za-z_-]/, '')
+  end
+
+  def render_embed_from_template
+    @level = get_level(@project, @collection, @item)
+    name = params[:template].to_s.gsub(/[^a-z0-9_-]/, '')
+    template = "medias/#{name}-#{@level}.html.erb"
+    return false unless File.exists?(File.join(Rails.root, 'app', 'views', template))
+    @entries = get_entries_from_source(@object, @collection, @item, @level)
+    render template: template
+    return true
   end
 end
