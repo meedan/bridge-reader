@@ -1,4 +1,75 @@
-.bridgeEmbed__item {
-  background: white;
-  opacity: 1;
+@import url(https://fonts.googleapis.com/css?family=Lato:400,600,300);
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css);
+
+$firefly: #223341;
+$int-orange: #ff4f00;
+$keyboard-grey: #abb5bd;
+
+$keyboard-grey-10: #F6F7F8;
+$keyboard-grey-20: #EEF0F2;
+$keyboard-grey-40: #DDE1E5;
+$keyboard-grey-60: #CDD3D7;
+$keyboard-grey-80: #BCC4CA;
+
+$keyboard-grey-dk: #373A3D;
+
+$annotation-orange: #FFF6F1;
+
+$body-text: #555555;
+
+body {
+  font-family: 'Lato', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 10px;
+  color: #444444;
+  font-weight: 400;
+}
+
+.card {
+  position: relative;
+  width: 500px;
+  border: 1px solid $keyboard-grey-40;
+  border-radius: 4px;
+  padding: 20px 30px;
+}
+
+.name {
+  color: black;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.username {
+  color: #444444;
+  font-size: 13px;
+}
+
+article {
+  margin: 20px 0;
+  p {
+    color: black;
+    font-size: 24px;
+    margin: 0;
+  }
+}
+
+footer {
+  position: relative;
+}
+footer a {
+  color: #444444;
+  text-decoration: underline;
+}
+
+.logo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  img {
+    width: 33px;
+    height: 30px;
+  }
+}
+
+#bridgeEmbed__footer {
+  display: none;
 }

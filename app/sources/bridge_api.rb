@@ -86,19 +86,24 @@ module Sources
         source_author: source['author'],
         link: translation['source']['link'],
         timestamp: translation['source']['published'],
-        translations: [
-          {
-            translator_name: translation['author']['name'],
-            translator_url: translation['author']['link'],
-            text: translation['text'],
-            lang: translation['lang'],
-            timestamp: translation['published'],
-            comments: self.comments_from_translation(translation)
-          }
-        ],
+        translations: self.translations(translation),
         source: self,
         index: translation['id'].to_s
       }
+    end
+
+    def translations(translation)
+      [
+        {
+          translator_name: translation['author']['name'],
+          translator_handle: translation['author']['handle'],
+          translator_url: translation['author']['link'],
+          text: translation['text'],
+          lang: translation['lang'],
+          timestamp: translation['published'],
+          comments: self.comments_from_translation(translation)
+        }
+      ]
     end
 
     def comments_from_translation(translation)

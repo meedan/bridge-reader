@@ -127,7 +127,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
+    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
   end
 
   test "should render png for Instagram" do
@@ -136,7 +136,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
+    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
   end
 
   test "should render png with custom CSS" do
@@ -147,7 +147,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
     FileUtils.cp(generated, "/tmp/#{id}-custom-css.png")
-    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
+    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
   end
 
   test "should render png with RTL text" do
@@ -158,7 +158,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
+    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
   end
 
   test "should set custom cache header" do
@@ -210,7 +210,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', 'ratiolt2.png')
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, '/tmp/ratiolt2.png')
-    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
+    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
   end
 
   test "should render png with ratio 2:1 if width / height > 2" do
@@ -219,7 +219,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', 'ratiogt2.png')
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, '/tmp/ratiogt2.png')
-    assert Digest::MD5.hexdigest(File.read(generated)), Digest::MD5.hexdigest(File.read(output))
+    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
   end
 
   test "should render png for Instagram video" do
