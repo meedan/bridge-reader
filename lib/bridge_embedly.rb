@@ -73,6 +73,7 @@ module Bridge
 
     def alter_twitter_oembed(oembed)
       id = oembed[:link].match(/status\/([0-9]+)/)
+      oembed[:author_full_name] = oembed[:title].gsub(/ on Twitter$/, '')
       unless id.nil?
         Retryable.retryable tries: 5, sleep: 3 do
           begin

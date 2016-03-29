@@ -2,6 +2,8 @@
 <% content_for :description do %>Translations of <%= @project.titleize %> / <%= @collection.titleize %><% end %>
 <% content_for :creator do %><% end %>
 
-<% @entries.each do |entry| %>
-  <%= render partial: 'medias/item', locals: { entry: entry } %>
-<% end %>
+<div class="bridgeEmbed__screenshot">
+  <% @entries.each do |entry| %>
+    <%= render partial: 'medias/item', locals: { entry: entry } %>
+  <% end %>
+</div>

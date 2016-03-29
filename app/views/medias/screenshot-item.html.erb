@@ -1,0 +1,60 @@
+<% 
+translation = @entries[:translations].first
+author = (@entries[:source_author].blank? && !@entries[:oembed].nil?) ? @entries[:oembed][:author_name] : @entries[:source_author].to_s
+entry = @entries
+
+description = ''
+unless translation.nil?
+  prefix = author.nil? ? '' : "Translation of @#{author}: "
+  description = prefix + translation[:text]
+end
+
+content_for :embed_title do
+  # 70 is the limit of a title for Twitter
+  truncate(description, length: 70, separator: ' ')
+end
+
+content_for :description do
+  description
+end
+
+content_for :creator do
+  author
+end
+
+content_for :style do
+  stylesheet_link_tag '/stylesheets/screenshot', media: 'all'
+end
+
+link = short_url_for(@project, @collection, @item)
+translator_handle = translation[:translator_handle].blank? ? '' : "@#{translation[:translator_handle]}"
+translator_name = translation[:translator_name].blank? ? '' : translation[:translator_name]
+author_name = author.blank? ? '' : "@#{author}"
+author_full_name = @entries[:oembed].nil? ? '' : @entries[:oembed][:author_full_name].to_s
+%>
+
+<div class="container">
+  <div class="card bridgeEmbed__screenshot">
+    <header>
+      <% unless author_name.blank? %>
+        <span class="name"><%= author_full_name %></span> <span class="username"><%= author_name %></span>
+      <% end %>
+    </header>
+
+    <article>
+      <p dir="<%= get_translation_direction(translation, entry[:provider]) %>"><%= strip_tags(translation[:text]) %></p>
+    </article>
+    
+    <footer>
+      <% if !translator_name.blank? || !translator_handle.blank? %>
+        <div>Translated by <%= translator_name %> <%= translator_handle %></div>
+      <% end %>
+
+      <% unless link.blank? %>
+        <div>View on Bridge: <a href="<%= link %>" target="_blank"><%= link %></a></div>
+      <% end %>
+    </footer>
+
+    <div class="logo"><img src="/images/logo.png"></div>
+  </div>
+</div>
