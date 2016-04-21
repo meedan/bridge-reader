@@ -238,8 +238,7 @@ input {
  *    `input` and others.
  */
 button,
-html input[type="button"],
-input[type="reset"],
+html input[type="button"], input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
   /* 2 */
@@ -259,8 +258,7 @@ input[disabled] {
  */
 input[type="checkbox"],
 input[type="radio"] {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */ }
@@ -273,7 +271,6 @@ input[type="radio"] {
 input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
-  -webkit-box-sizing: content-box;
   /* 2 */
   box-sizing: content-box; }
 
@@ -318,7 +315,8 @@ table {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px; }
-  .container:before, .container:after {
+  .container:before,
+  .container:after {
     content: " ";
     display: table; }
   .container:after {
@@ -338,7 +336,8 @@ table {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px; }
-  .container-fluid:before, .container-fluid:after {
+  .container-fluid:before,
+  .container-fluid:after {
     content: " ";
     display: table; }
   .container-fluid:after {
@@ -347,7 +346,8 @@ table {
 .row {
   margin-left: -15px;
   margin-right: -15px; }
-  .row:before, .row:after {
+  .row:before,
+  .row:after {
     content: " ";
     display: table; }
   .row:after {
@@ -834,14 +834,14 @@ table {
     margin-left: 100%; } }
 
 .btn {
-  -webkit-border-radius: 4px;
-          border-radius: 4px;
+  border-radius: 4px;
   color: #abb5bd;
   font-size: 18px;
   font-weight: 300;
-  border: solid  1px;
+  border: solid 1px;
   text-decoration: none;
   text-decoration: none;
+  -khtml-transition: color 0.5s linear;
   -webkit-transition: color 0.5s linear;
   transition: color 0.5s linear;
   padding: 14px 24px;
@@ -855,8 +855,7 @@ a.btn-round {
   display: inline-block;
   height: 30px;
   width: 30px;
-  -webkit-border-radius: 15px;
-          border-radius: 15px;
+  border-radius: 15px;
   background-color: #abb5bd;
   background-position: center;
   background-size: 20px 20px;
@@ -904,7 +903,7 @@ a.btn-round {
     border-bottom: 1px solid #3073FD; }
   .form-group input[type='email']:focus ~ input[type='submit'] {
     -webkit-transition: background-color 0.3s;
-    transition: background-color 0.3s;
+            transition: background-color 0.3s;
     background-color: #3073FD;
     color: white; }
 
@@ -915,7 +914,7 @@ a.btn-round {
     background-color: #3073FD;
     color: white;
     -webkit-transition: background-color 0.2s;
-    transition: background-color 0.2s; }
+            transition: background-color 0.2s; }
 
 .form-group {
   display: -webkit-box;
@@ -934,7 +933,8 @@ a.btn-round {
     font-weight: 500;
     border-width: 0; }
 
-.clearfix:before, .clearfix:after {
+.clearfix:before,
+.clearfix:after {
   content: " ";
   display: table; }
 
@@ -950,8 +950,7 @@ a.btn-round {
 body {
   font-family: 'Lato', sans-serif;
   color: #929292;
-  padding-bottom: 30px;
-  overflow: hidden; }
+  padding-bottom: 30px; }
   body .orng-text {
     color: #ff4f00; }
   body .grey-text {
@@ -976,8 +975,7 @@ body {
     border-top-color: #e6e6e6; }
   .container .jumbotron,
   .container-fluid .jumbotron {
-    -webkit-border-radius: 6px;
-            border-radius: 6px; }
+    border-radius: 6px; }
   .jumbotron .container {
     max-width: 100%; }
   @media screen and (min-width: 768px) {
@@ -992,32 +990,22 @@ body {
       .jumbotron .h1 {
         font-size: 63px; } }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
 .footer {
   padding-right: 15px;
   padding-left: 15px; }
 
-/* Custom page header */
 .header {
   padding-bottom: 20px;
   margin-left: 45px;
   padding-top: 30px; }
 
-/* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 60px; }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5; }
-
-/* Customize container */
 @media (min-width: 768px) {
   .container {
     max-width: 730px; } }
@@ -1025,7 +1013,6 @@ body {
 .container-narrow > hr {
   margin: 30px 0; }
 
-/* Main marketing message and sign up button */
 .jumbotron-narrow {
   padding-top: 48px;
   padding-bottom: 48px;
@@ -1036,8 +1023,7 @@ body {
   margin-right: auto;
   margin-left: auto;
   margin: 1em auto 1em auto;
-  -webkit-border-radius: 8px;
-          border-radius: 8px;
+  border-radius: 8px;
   background-color: #EFF5FC;
   text-align: left;
   border-bottom: 1px solid #e5e5e5; }
@@ -1050,8 +1036,7 @@ body {
       color: #ff4f00; }
   .jumbotron-narrow img.translator-avatar {
     max-width: 68px;
-    -webkit-border-radius: 100px;
-            border-radius: 100px;
+    border-radius: 100px;
     border: 4px solid white;
     margin: 0.5em 0.4em; }
   .jumbotron-narrow .button-row {
@@ -1059,7 +1044,6 @@ body {
     padding-bottom: 1.5em;
     padding-left: 15px; }
 
-/* Supporting marketing content */
 .marketing {
   margin: 40px 0;
   color: black;
@@ -1094,20 +1078,16 @@ body {
     .marketing a :hover {
       color: #6d9ed3;
       -webkit-transition: 0.4s;
-      transition: 0.4s; }
+              transition: 0.4s; }
 
-/* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
   .header,
   .marketing,
   .footer {
     padding-right: 0;
     padding-left: 0; }
-  /* Space out the masthead */
   .header {
     margin-bottom: 30px; }
-  /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron-narrow {
     border-bottom: 0; } }
 
@@ -1134,14 +1114,12 @@ nav {
   /* Hide it first of all */
   background: #F8F8F8;
   border: 1px solid #CCC;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   float: left;
   padding: 1em;
   overflow-y: hidden;
   right: 0;
-  -webkit-border-radius: 3px;
-          border-radius: 3px; }
+  border-radius: 3px; }
   .newsletter-menu label {
     font-size: 0.8em;
     font-weight: 300; }
@@ -1149,7 +1127,8 @@ nav {
 .drop {
   display: inline; }
 
-.custom-jumbo h1, .custom-jumbo h3.subtitle {
+.custom-jumbo h1,
+.custom-jumbo h3.subtitle {
   margin-left: -15px;
   padding-bottom: 0; }
 
@@ -1181,26 +1160,27 @@ nav {
   .custom-jumbo {
     margin-left: 15px; } }
 
-footer img, footer a {
-  margin: 0 auto; }
-
-footer p.links {
-  text-align: center;
-  padding: 1em 0;
-  font-weight: 300; }
-
-footer img.footer-logo {
-  display: block;
-  width: 40px; }
-
-footer a {
-  color: #929292;
-  text-decoration: none;
-  font-weight: 400; }
-  footer a:hover {
-    color: #6d9ed3;
-    -webkit-transition: 0.4s;
-    transition: 0.4s; }
+footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5; }
+  footer img, footer a {
+    margin: 0 auto; }
+  footer p.links {
+    text-align: center;
+    padding: 1em 0;
+    font-weight: 300; }
+  footer img.footer-logo {
+    display: block;
+    width: 40px; }
+  footer a {
+    color: #929292;
+    text-decoration: none;
+    font-weight: 400; }
+    footer a:hover {
+      color: #6d9ed3;
+      -webkit-transition: 0.4s;
+              transition: 0.4s; }
 
 .buttons {
   display: -webkit-box;
@@ -1213,5 +1193,7 @@ footer a {
       -ms-flex-direction: column;
           flex-direction: column; }
 
-.learn, .start, .see {
+.learn,
+.start,
+.see {
   padding: 1.5em 0; }
