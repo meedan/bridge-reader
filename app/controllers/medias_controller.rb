@@ -43,11 +43,19 @@ class MediasController < ApplicationController
     end
 
     if File.exists?(html)
-      css = URI.parse(params[:css].to_s).to_s
-      @image = generate_screenshot(@project, @collection, @item, css)
-      send_data File.read(@image), type: 'image/png', disposition: 'inline'
+      generate_screenshot_image
+      @image.nil? ? render_error('Error', 'EXCEPTION', 400) : send_data(File.read(@image), type: 'image/png', disposition: 'inline')
     else
       render_error('Item not found (deleted, maybe?)', 'NOT_FOUND', 404)
+    end
+  end
+
+  def generate_screenshot_image
+    css = URI.parse(params[:css].to_s).to_s
+    begin
+      @image = generate_screenshot(@project, @collection, @item, css)
+    rescue Exception => e
+      raise "Could not take screenshot: #{e.message}" if /Slack|bot|Embedly/i.match(request.env['HTTP_USER_AGENT']).nil?
     end
   end
 

@@ -19,7 +19,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
 
     status = @b.get_status(url)
     varnish = status['data']['caches'].first
-    assert_equal 'varnish-live', varnish['name']
+    assert_equal 'varnish-lira', varnish['name']
     assert_equal 'HIT', varnish['cache_status']
     assert_not_equal 0, varnish['age']
 
@@ -27,7 +27,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
 
     status = @b.get_status(url)
     varnish = status['data']['caches'].first
-    assert_equal 'varnish-live', varnish['name']
+    assert_equal 'varnish-lira', varnish['name']
     assert_equal 'MISS', varnish['cache_status']
     assert_equal 0, varnish['age'].to_i
   end
