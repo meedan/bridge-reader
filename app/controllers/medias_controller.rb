@@ -55,8 +55,30 @@ class MediasController < ApplicationController
     begin
       @image = generate_screenshot(@project, @collection, @item, css)
     rescue Exception => e
-      raise "Could not take screenshot: #{e.message}" if /Slack|bot|Embedly/i.match(request.env['HTTP_USER_AGENT']).nil?
+      raise "Could not take screenshot: #{e.message}" unless from_bot?
     end
+  end
+
+  def from_bot?
+    patterns = Rails.cache.fetch('bots-patterns', expire_in: 72.hours) do
+      bots_patterns
+    end
+    regex = /#{patterns.join('|')}/i
+    !regex.match(request.env['HTTP_USER_AGENT']).nil?
+  end
+
+  def bots_patterns
+    patterns = []
+    uri = URI.parse('https://raw.githubusercontent.com/meedan/crawler-user-agents/master/crawler-user-agents.json')
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    if response.code == "200"
+      result = JSON.parse(response.body)
+      patterns = result.collect{ |p| p['pattern'] }
+    end
+    patterns
   end
 
   def render_embed_as_js

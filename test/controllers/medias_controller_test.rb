@@ -290,8 +290,8 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.unstub(:generate_screenshot)
   end
 
-  test "should not raise screenshot exception if agent is a Google bot" do
-    @request.env['HTTP_USER_AGENT'] = 'GoogleBot'
+  test "should not raise screenshot exception if agent is Yahoo! Slurp" do
+    @request.env['HTTP_USER_AGENT'] = 'Mozilla 5.0 (Yahoo! Slurp)'
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_nothing_raised do
       get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
