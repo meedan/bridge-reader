@@ -69,7 +69,8 @@ class MediasController < ApplicationController
 
   def bots_patterns
     patterns = []
-    uri = URI.parse('https://raw.githubusercontent.com/meedan/crawler-user-agents/master/crawler-user-agents.json')
+    url = BRIDGE_CONFIG['crawlers'] || 'https://raw.githubusercontent.com/monperrus/crawler-user-agents/master/crawler-user-agents.json'
+    uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     request = Net::HTTP::Get.new(uri.request_uri)
