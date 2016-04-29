@@ -5,8 +5,8 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
     url = BRIDGE_CONFIG['bridgembed_host_private'] + '/medias/embed/google_spreadsheet/test.js'
     with_testing_page '<script type="text/javascript" src="' + url + '"></script>' do
       within_frame 0 do
-        within_frame 1 do
-          assert page.find('img.art-bd-img').visible? # Assert that Instagram image is visible
+        within_frame 0 do
+          assert page.find('.art-bd').visible? # Assert that Instagram image is visible
           assert !page.has_css?('link.bridgembed-custom-css', visible: false)
         end
       end
