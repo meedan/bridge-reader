@@ -269,4 +269,43 @@ class MediasControllerTest < ActionController::TestCase
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'invalid'
     assert_nil assigns(:entries)
   end
+
+  test "should not raise screenshot exception if agent is a Slack bot" do
+    @request.env['HTTP_USER_AGENT'] = 'Slack-ImgProxy 1.127'
+    MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
+    assert_nothing_raised do
+      get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+      assert_response 400
+    end
+    MediasController.unstub(:generate_screenshot)
+  end
+
+  test "should not raise screenshot exception if agent is a Twitter bot" do
+    @request.env['HTTP_USER_AGENT'] = 'Twitterbot'
+    MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
+    assert_nothing_raised do
+      get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+      assert_response 400
+    end
+    MediasController.unstub(:generate_screenshot)
+  end
+
+  test "should not raise screenshot exception if agent is Yahoo! Slurp" do
+    @request.env['HTTP_USER_AGENT'] = 'Mozilla 5.0 (Yahoo! Slurp)'
+    MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
+    assert_nothing_raised do
+      get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+      assert_response 400
+    end
+    MediasController.unstub(:generate_screenshot)
+  end
+
+  test "should raise screenshot exception if agent is not a bot" do
+    @request.env['HTTP_USER_AGENT'] = 'Google Chrome'
+    MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
+    assert_raises RuntimeError do
+      get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+    end
+    MediasController.unstub(:generate_screenshot)
+  end
 end
