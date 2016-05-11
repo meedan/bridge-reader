@@ -86,7 +86,11 @@ module MediasFilters
     template = "medias/#{name}-#{@level}.html.erb"
     return false unless File.exists?(File.join(Rails.root, 'app', 'views', template))
     @entries = get_entries_from_source(@object, @collection, @item, @level)
-    render template: template
+    if @entries.blank?
+      render(status: 404, text: 'Not Found')
+    else
+      render template: template
+    end
     return true
   end
 end
