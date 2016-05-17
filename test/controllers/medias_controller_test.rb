@@ -308,4 +308,9 @@ class MediasControllerTest < ActionController::TestCase
     end
     MediasController.unstub(:generate_screenshot)
   end
+
+  test "should return 404 for screenshot of unexistent item" do
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'unexistent', format: :html, template: 'screenshot'
+    assert_response 404
+  end
 end

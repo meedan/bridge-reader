@@ -4,7 +4,7 @@ CodeClimate::TestReporter.start
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'mocha/test_unit'
-require 'webmock/test_unit'
+require 'webmock'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 
