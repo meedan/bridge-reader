@@ -32,9 +32,10 @@ module MediasHelper
     safe_join([
       tag(:meta, name: 'twitter:card', content: 'summary_large_image'),
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
-      tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')),
-      tag(:meta, name: 'twitter:title', content: embed_title),
-      tag(:meta, name: 'twitter:description', content: content_for(:description)),
+      tag(:meta, name: 'twitter:image:src', content: embed_url(site, project, collection, item, 'png')),
+      tag(:meta, name: 'twitter:image:alt', content: content_for(:description)),
+      tag(:meta, name: 'twitter:title', content: ''),
+      tag(:meta, name: 'twitter:description', content: ''),
       tag(:meta, name: 'twitter:creator', content: content_for(:creator))
     ], "\n") + "\n"
   end

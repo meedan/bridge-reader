@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-05-11T00:35:11-03:00">2016-05-11T00:35:11-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-06-20T17:39:23-03:00">2016-06-20T17:39:23-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         43.32
+         43.23
        </span>
     </span> hits/line)
   </h2>
@@ -67,7 +67,7 @@
         <td>62</td>
         <td>62</td>
         <td>0</td>
-        <td>27.9</td>
+        <td>28.0</td>
       </tr>
       
       <tr>
@@ -83,11 +83,11 @@
       <tr>
         <td class="strong"><a href="#255d8734f1b7ebd54e643d07715d4e7a73386401" class="src_link" title="app/helpers/medias_helper.rb">app/helpers/medias_helper.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>109</td>
+        <td>110</td>
         <td>58</td>
         <td>58</td>
         <td>0</td>
-        <td>189.0</td>
+        <td>187.9</td>
       </tr>
       
       <tr>
@@ -193,7 +193,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         18.6
+         18.65
        </span>
     </span> hits/line)
   </h2>
@@ -235,7 +235,7 @@
         <td>62</td>
         <td>62</td>
         <td>0</td>
-        <td>27.9</td>
+        <td>28.0</td>
       </tr>
       
       <tr>
@@ -334,7 +334,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         189.0
+         187.9
        </span>
     </span> hits/line)
   </h2>
@@ -362,11 +362,11 @@
       <tr>
         <td class="strong"><a href="#255d8734f1b7ebd54e643d07715d4e7a73386401" class="src_link" title="app/helpers/medias_helper.rb">app/helpers/medias_helper.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>109</td>
+        <td>110</td>
         <td>58</td>
         <td>58</td>
         <td>0</td>
-        <td>189.0</td>
+        <td>187.9</td>
       </tr>
       
     </tbody>
@@ -904,8 +904,8 @@
           <code class="ruby">      result = JSON.parse(response.body)</code>
         </li>
       
-        <li class="covered" data-hits="780" data-linenumber="33">
-          <span class="hits">780</span>
+        <li class="covered" data-hits="784" data-linenumber="33">
+          <span class="hits">784</span>
           
           <code class="ruby">      patterns = result.collect{ |p| p[&#39;pattern&#39;] }</code>
         </li>
@@ -2035,448 +2035,454 @@
         <li class="never" data-hits="" data-linenumber="35">
           
           
-          <code class="ruby">      tag(:meta, name: &#39;twitter:image&#39;, content: embed_url(site, project, collection, item, &#39;png&#39;)),</code>
+          <code class="ruby">      tag(:meta, name: &#39;twitter:image:src&#39;, content: embed_url(site, project, collection, item, &#39;png&#39;)),</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="36">
           
           
-          <code class="ruby">      tag(:meta, name: &#39;twitter:title&#39;, content: embed_title),</code>
+          <code class="ruby">      tag(:meta, name: &#39;twitter:image:alt&#39;, content: content_for(:description)),</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="37">
           
           
-          <code class="ruby">      tag(:meta, name: &#39;twitter:description&#39;, content: content_for(:description)),</code>
+          <code class="ruby">      tag(:meta, name: &#39;twitter:title&#39;, content: &#39;&#39;),</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="38">
           
           
+          <code class="ruby">      tag(:meta, name: &#39;twitter:description&#39;, content: &#39;&#39;),</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="39">
+          
+          
           <code class="ruby">      tag(:meta, name: &#39;twitter:creator&#39;, content: content_for(:creator))</code>
         </li>
       
-        <li class="covered" data-hits="61" data-linenumber="39">
+        <li class="covered" data-hits="61" data-linenumber="40">
           <span class="hits">61</span>
           
           <code class="ruby">    ], &quot;\n&quot;) + &quot;\n&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="40">
+        <li class="never" data-hits="" data-linenumber="41">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="41">
+        <li class="never" data-hits="" data-linenumber="42">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="42">
+        <li class="covered" data-hits="1" data-linenumber="43">
           <span class="hits">1</span>
           
           <code class="ruby">  def short_url_for(project, collection, item)</code>
         </li>
       
-        <li class="covered" data-hits="88" data-linenumber="43">
+        <li class="covered" data-hits="88" data-linenumber="44">
           <span class="hits">88</span>
           
           <code class="ruby">    require &#39;bitly&#39;</code>
         </li>
       
-        <li class="covered" data-hits="88" data-linenumber="44">
+        <li class="covered" data-hits="88" data-linenumber="45">
           <span class="hits">88</span>
           
           <code class="ruby">    url = [BRIDGE_CONFIG[&#39;bridgembed_host&#39;], &#39;medias&#39;, &#39;embed&#39;, project, collection, item].join(&#39;/&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="88" data-linenumber="45">
+        <li class="covered" data-hits="88" data-linenumber="46">
           <span class="hits">88</span>
           
           <code class="ruby">    begin</code>
         </li>
       
-        <li class="covered" data-hits="88" data-linenumber="46">
+        <li class="covered" data-hits="88" data-linenumber="47">
           <span class="hits">88</span>
           
           <code class="ruby">      bitly = Bitly.client.shorten(url)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="47">
+        <li class="covered" data-hits="1" data-linenumber="48">
           <span class="hits">1</span>
           
           <code class="ruby">      bitly.short_url</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="48">
+        <li class="never" data-hits="" data-linenumber="49">
           
           
           <code class="ruby">    rescue</code>
         </li>
       
-        <li class="covered" data-hits="87" data-linenumber="49">
+        <li class="covered" data-hits="87" data-linenumber="50">
           <span class="hits">87</span>
           
           <code class="ruby">      url</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="50">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
         <li class="never" data-hits="" data-linenumber="51">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="52">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="53">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="53">
+        <li class="covered" data-hits="1" data-linenumber="54">
           <span class="hits">1</span>
           
           <code class="ruby">  def get_translation_direction(translation, provider)</code>
         </li>
       
-        <li class="covered" data-hits="534" data-linenumber="54">
+        <li class="covered" data-hits="534" data-linenumber="55">
           <span class="hits">534</span>
           
           <code class="ruby">    text = parse_text_provider(translation[:text], provider)</code>
         </li>
       
-        <li class="covered" data-hits="534" data-linenumber="55">
+        <li class="covered" data-hits="534" data-linenumber="56">
           <span class="hits">534</span>
           
           <code class="ruby">    get_text_direction(text)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="56">
+        <li class="never" data-hits="" data-linenumber="57">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="57">
+        <li class="never" data-hits="" data-linenumber="58">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="58">
+        <li class="covered" data-hits="1" data-linenumber="59">
           <span class="hits">1</span>
           
           <code class="ruby">  def get_comment_direction(comment)</code>
         </li>
       
-        <li class="covered" data-hits="63" data-linenumber="59">
+        <li class="covered" data-hits="63" data-linenumber="60">
           <span class="hits">63</span>
           
           <code class="ruby">    text = parse_text(comment[:comment])</code>
         </li>
       
-        <li class="covered" data-hits="63" data-linenumber="60">
+        <li class="covered" data-hits="63" data-linenumber="61">
           <span class="hits">63</span>
           
           <code class="ruby">    get_text_direction(text)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="61">
+        <li class="never" data-hits="" data-linenumber="62">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="62">
+        <li class="never" data-hits="" data-linenumber="63">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="63">
+        <li class="covered" data-hits="1" data-linenumber="64">
           <span class="hits">1</span>
           
           <code class="ruby">  def get_text_direction(text)</code>
         </li>
       
-        <li class="covered" data-hits="597" data-linenumber="64">
+        <li class="covered" data-hits="597" data-linenumber="65">
           <span class="hits">597</span>
           
           <code class="ruby">    direction = text.direction</code>
         </li>
       
-        <li class="covered" data-hits="597" data-linenumber="65">
+        <li class="covered" data-hits="597" data-linenumber="66">
           <span class="hits">597</span>
           
           <code class="ruby">    direction == &#39;bidi&#39; ? &#39;rtl&#39; : direction</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="66">
+        <li class="never" data-hits="" data-linenumber="67">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="67">
+        <li class="never" data-hits="" data-linenumber="68">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="68">
+        <li class="covered" data-hits="1" data-linenumber="69">
           <span class="hits">1</span>
           
           <code class="ruby">  def include_google_analytics_tag</code>
         </li>
       
-        <li class="covered" data-hits="63" data-linenumber="69">
+        <li class="covered" data-hits="63" data-linenumber="70">
           <span class="hits">63</span>
           
           <code class="ruby">    code = BRIDGE_CONFIG[&#39;google_analytics_code&#39;]</code>
         </li>
       
-        <li class="covered" data-hits="63" data-linenumber="70">
+        <li class="covered" data-hits="63" data-linenumber="71">
           <span class="hits">63</span>
           
           <code class="ruby">    if code.blank?</code>
         </li>
       
-        <li class="covered" data-hits="62" data-linenumber="71">
+        <li class="covered" data-hits="62" data-linenumber="72">
           <span class="hits">62</span>
           
           <code class="ruby">      &#39;&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="72">
+        <li class="never" data-hits="" data-linenumber="73">
           
           
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="73">
+        <li class="covered" data-hits="1" data-linenumber="74">
           <span class="hits">1</span>
           
           <code class="ruby">      content = &quot;(function(i,s,o,g,r,a,m){i[&#39;GoogleAnalyticsObject&#39;]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,&#39;script&#39;,&#39;//www.google-analytics.com/analytics.js&#39;,&#39;ga&#39;);ga(&#39;create&#39;, &#39;%s&#39;, &#39;auto&#39;);ga(&#39;send&#39;, &#39;pageview&#39;);&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="74">
+        <li class="covered" data-hits="1" data-linenumber="75">
           <span class="hits">1</span>
           
           <code class="ruby">      javascript_tag(content % code)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="75">
+        <li class="never" data-hits="" data-linenumber="76">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="76">
+        <li class="never" data-hits="" data-linenumber="77">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="77">
+        <li class="never" data-hits="" data-linenumber="78">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="78">
+        <li class="covered" data-hits="1" data-linenumber="79">
           <span class="hits">1</span>
           
           <code class="ruby">  def include_facebook_tags(project, collection, item, level, site)</code>
         </li>
       
-        <li class="covered" data-hits="61" data-linenumber="79">
+        <li class="covered" data-hits="61" data-linenumber="80">
           <span class="hits">61</span>
           
           <code class="ruby">    safe_join(facebook_tags(site, project, collection, item, level).map(&amp;:html_safe), &quot;\n&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="80">
+        <li class="never" data-hits="" data-linenumber="81">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="81">
+        <li class="never" data-hits="" data-linenumber="82">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="82">
+        <li class="covered" data-hits="1" data-linenumber="83">
           <span class="hits">1</span>
           
           <code class="ruby">  def facebook_share_url(project, collection, item)</code>
         </li>
       
-        <li class="covered" data-hits="85" data-linenumber="83">
+        <li class="covered" data-hits="85" data-linenumber="84">
           <span class="hits">85</span>
           
           <code class="ruby">    url = embed_url(BRIDGE_CONFIG[&#39;bridgembed_host&#39;], project, collection, item)</code>
         </li>
       
-        <li class="covered" data-hits="85" data-linenumber="84">
+        <li class="covered" data-hits="85" data-linenumber="85">
           <span class="hits">85</span>
           
           <code class="ruby">    &#39;https://www.facebook.com/dialog/share?app_id=&#39; + BRIDGE_CONFIG[&#39;facebook_app_id&#39;] + &#39;&amp;href=&#39; + url + &#39;&amp;redirect_uri=&#39; + url</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="85">
+        <li class="never" data-hits="" data-linenumber="86">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="86">
+        <li class="never" data-hits="" data-linenumber="87">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="87">
+        <li class="covered" data-hits="1" data-linenumber="88">
           <span class="hits">1</span>
           
           <code class="ruby">  def embed_title</code>
         </li>
       
-        <li class="covered" data-hits="183" data-linenumber="88">
-          <span class="hits">183</span>
+        <li class="covered" data-hits="122" data-linenumber="89">
+          <span class="hits">122</span>
           
           <code class="ruby">    content_for(:embed_title) || &#39;Bridge Reader (Beta)&#39;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="89">
-          
-          
-          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="90">
           
           
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="91">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="91">
+        <li class="covered" data-hits="1" data-linenumber="92">
           <span class="hits">1</span>
           
           <code class="ruby">  private</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="92">
+        <li class="never" data-hits="" data-linenumber="93">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="93">
+        <li class="covered" data-hits="1" data-linenumber="94">
           <span class="hits">1</span>
           
           <code class="ruby">  def embed_url(site, project, collection, item, format = &#39;&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="240" data-linenumber="94">
+        <li class="covered" data-hits="240" data-linenumber="95">
           <span class="hits">240</span>
           
           <code class="ruby">    format = &#39;.&#39; + format unless format.blank?</code>
         </li>
       
-        <li class="covered" data-hits="240" data-linenumber="95">
+        <li class="covered" data-hits="240" data-linenumber="96">
           <span class="hits">240</span>
           
           <code class="ruby">    [site, &#39;/medias/&#39;, &#39;embed/&#39;, project + &#39;/&#39;, URI.encode(collection) + &#39;/&#39;, item].join.gsub(/([^:])\/+/, &#39;\1/&#39;).gsub(/\/$/, &#39;&#39;) + format</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="96">
+        <li class="never" data-hits="" data-linenumber="97">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="97">
+        <li class="never" data-hits="" data-linenumber="98">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="98">
+        <li class="covered" data-hits="1" data-linenumber="99">
           <span class="hits">1</span>
           
           <code class="ruby">  def facebook_tags(site, project, collection, item, level)</code>
         </li>
       
-        <li class="covered" data-hits="61" data-linenumber="99">
+        <li class="covered" data-hits="61" data-linenumber="100">
           <span class="hits">61</span>
           
           <code class="ruby">    image = level === &#39;item&#39; ? embed_url(site, project, collection, item, &#39;png&#39;) : &#39;/images/bridge-logo.png&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="100">
+        <li class="never" data-hits="" data-linenumber="101">
           
           
           <code class="ruby">    [</code>
         </li>
       
-        <li class="covered" data-hits="61" data-linenumber="101">
+        <li class="covered" data-hits="61" data-linenumber="102">
           <span class="hits">61</span>
           
           <code class="ruby">      tag(:meta, property: &#39;og:title&#39;, content: embed_title),</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="102">
+        <li class="never" data-hits="" data-linenumber="103">
           
           
           <code class="ruby">      tag(:meta, property: &#39;fb:app_id&#39;, content: BRIDGE_CONFIG[&#39;facebook_app_id&#39;]),</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="103">
+        <li class="never" data-hits="" data-linenumber="104">
           
           
           <code class="ruby">      tag(:meta, property: &#39;og:image&#39;, content: image),</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="104">
+        <li class="never" data-hits="" data-linenumber="105">
           
           
           <code class="ruby">      tag(:meta, property: &#39;og:type&#39;, content: &#39;article&#39;),</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="105">
+        <li class="never" data-hits="" data-linenumber="106">
           
           
           <code class="ruby">      tag(:meta, property: &#39;og:url&#39;, content: embed_url(site, project, collection, item)),</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="106">
+        <li class="never" data-hits="" data-linenumber="107">
           
           
           <code class="ruby">      tag(:meta, property: &#39;og:description&#39;, content: content_for(:description))</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="107">
+        <li class="never" data-hits="" data-linenumber="108">
           
           
           <code class="ruby">    ]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="108">
+        <li class="never" data-hits="" data-linenumber="109">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="109">
+        <li class="never" data-hits="" data-linenumber="110">
           
           
           <code class="ruby">end</code>
