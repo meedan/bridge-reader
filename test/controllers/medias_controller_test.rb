@@ -88,6 +88,7 @@ class MediasControllerTest < ActionController::TestCase
   test "should render Twitter metatags" do
     get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
+    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image:alt' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
   end
