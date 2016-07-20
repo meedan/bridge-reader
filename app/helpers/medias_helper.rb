@@ -30,13 +30,16 @@ module MediasHelper
 
   def include_twitter_tags(project, collection, item, level, site)
     safe_join([
-      tag(:meta, name: 'twitter:card', content: 'summary_large_image'),
+      tag(:meta, name: 'twitter:card', content: 'player'),
+      tag(:meta, name: 'twitter:title', content: ' '),
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
+      tag(:meta, name: 'twitter:description', content: ' '),
       tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')),
       tag(:meta, name: 'twitter:image:alt', content: content_for(:description)),
       tag(:meta, name: 'twitter:title', content: ' '),
-      tag(:meta, name: 'twitter:description', content: ' '),
-      tag(:meta, name: 'twitter:creator', content: content_for(:creator))
+      tag(:meta, name: 'twitter:player', content: embed_url(site, project, collection, item, 'html')),
+      tag(:meta, name: 'twitter:player:width', content: 492),
+      tag(:meta, name: 'twitter:player:height', content: 600)
     ], "\n") + "\n"
   end
 
