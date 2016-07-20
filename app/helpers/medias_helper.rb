@@ -96,7 +96,7 @@ module MediasHelper
 
   def embed_url(site, project, collection, item, format = '')
     format = '.' + format unless format.blank?
-    [site, '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/').gsub(/\/$/, '') + format
+    [BRIDGE_CONFIG['bridgembed_host'], '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/').gsub(/\/$/, '') + format
   end
 
   def facebook_tags(site, project, collection, item, level)
