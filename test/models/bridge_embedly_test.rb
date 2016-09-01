@@ -19,7 +19,7 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
 
   test "should parse entries" do
     embeds = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/548252845238398976', id: 'test' },
-                                  { link: 'http://instagram.com/p/tP5h3kvHTi/', id: 'test2' }])
+                                  { link: 'http://instagram.com/p/BJvPAkxALcE/', id: 'test2' }])
     assert_equal 2, embeds.size
     assert_kind_of Embedly::EmbedlyObject, embeds.first[:oembed]
     assert_kind_of Embedly::EmbedlyObject, embeds.last[:oembed]

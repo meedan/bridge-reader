@@ -43,39 +43,18 @@ var Bridge = {};
     );
   };
   
-  if (!window.embedly) {
-    window.embedly = function() {
-      // Just avoid undefined errors
-    };
-  }
-
-  var embedlyEventsAttached = false;
-
   var lazyLoad = function(data) {
-    $('.bridgeEmbed__item-embedly-card').each(function() {
+    $('.bridgeEmbed__item-pender-card').each(function() {
       var $that = $(this);
-      if (!$that.hasClass('embedly-card') && isElementOnViewPort($that[0], data)) {
-        $that.addClass('embedly-card');
-        try {
-          window.embedly('card', $that[0], function(e) {
-            $(e.elem).attr('data-sid', e.sid);
-            $that.parents('.bridgeEmbed__item').attr('id', 'item-' + e.sid);
-          });
-        }
-        catch(e) {
-          // Embedly is not ready
-        }
+      if (!$that.hasClass('rendered') && isElementOnViewPort($that[0], data)) {
+        $that.addClass('rendered');
+        var script = document.createElement('script');
+        script.type = 'text/javascript'; 
+        script.src = $that.attr('data-src');
+        script.async = true;
+        $that[0].parentNode.insertBefore(script, $that[0]);
       }
     });
-
-    if (!embedlyEventsAttached) {
-      window.embedly('on', 'card.rendered', function(iframe) {
-        if (!jQuery.contains(document, iframe)) {
-          $('#item-' + $(iframe).data('sid')).remove();
-        }
-        $(iframe).css('width', '100%');
-      });
-    }
   };
   
   var messageCallback = function(e) {
