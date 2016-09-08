@@ -366,3 +366,28 @@ footer.call-to-action {
 
 .bridgeEmbed__item-geodata {
   display: none; }
+
+.bridgeEmbed__item-pender-card {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #CCC;
+  color: #333;
+  background: #eee;
+  border-radius: 10px;
+  position: relative;
+  z-index: 0;
+}
+
+.bridgeEmbed__item-embedly-card-container {
+  margin-top: 30px;
+  position: relative;
+}
+
+.bridgeEmbed__item-embedly-card-container iframe {
+  position: relative;
+  z-index: 1;
+}
+
+.bridgeEmbed__item-embedly-card-container iframe + .rendered {
+  display: none;
+}

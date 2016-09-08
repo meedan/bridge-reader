@@ -1,18 +1,6 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'test_helper')
 
 class MediasIntegrationTest < ActionDispatch::IntegrationTest
-  test "should lazy-load Instagram image" do
-    url = BRIDGE_CONFIG['bridgembed_host_private'] + '/medias/embed/google_spreadsheet/test.js'
-    with_testing_page '<script type="text/javascript" src="' + url + '"></script>' do
-      within_frame 0 do
-        within_frame 0 do
-          assert page.find('.art-bd').visible? # Assert that Instagram image is visible
-          assert !page.has_css?('link.bridgembed-custom-css', visible: false)
-        end
-      end
-    end
-  end
-
   test "should have custom css" do
     with_testing_style 'body { background: red !important; }' do
       url = BRIDGE_CONFIG['bridgembed_host_private'] + '/medias/embed/google_spreadsheet/test.js'
