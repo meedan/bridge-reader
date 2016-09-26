@@ -35,6 +35,7 @@
         <span>Translated by </span>
         <%= link_to_unless translation[:translator_url].blank?, translation[:translator_name], translation[:translator_url],
             { target: '_blank', class: 'name' } %>
+        <%= reviewed_stamp(translation) %>
       </div>
       <% end %>
 
