@@ -96,4 +96,14 @@ class MediasHelperTest < ActionView::TestCase
     text = "Line 1\nLine 2\nLine 3\nLine 4\n\nLine 5"
     assert_equal '<p>Line 1<br />Line 2<br />Line 3<br />Line 4</p><p>Line 5</p>', parse_text_provider(text, 'twitter')
   end
+
+  test "should render approval stamp if translation is approved" do
+    translation = { approval: { 'approved' => '1' } }
+    assert_not_equal '', reviewed_stamp(translation)
+  end
+
+  test "should not render approval stamp if translation is not approved" do
+    translation = { approval: { 'approved' => '' } }
+    assert_equal '', reviewed_stamp(translation)
+  end
 end

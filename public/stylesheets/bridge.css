@@ -391,3 +391,17 @@ footer.call-to-action {
 .bridgeEmbed__item-embedly-card-container iframe + .rendered {
   display: none;
 }
+
+.bridgeEmbed__item-translation-approved,
+.bridgeEmbed__item-translation-approved:hover,
+.bridgeEmbed__item-translation-approved:visited {
+  display: inline-block;
+  background: #fff url('/images/approved.png') 2px center no-repeat;
+  vertical-align: middle;
+  padding: 2px 5px 2px 20px;
+  font-size: 11px;
+  color: #ff4f00;
+  font-weight: lighter;
+  border-radius: 10px;
+  text-decoration: none;
+}

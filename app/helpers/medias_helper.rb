@@ -92,6 +92,18 @@ module MediasHelper
     content_for(:embed_title) || 'Bridge Reader (Beta)'
   end
 
+  def reviewed_stamp(translation)
+    # Approved
+    approval = translation[:approval]
+    if approval && approval['approved'] === '1'
+      title = "Approved by #{approval['approver_name']}"
+      link = approval['approver_url'] || '#'
+      link_to title, link, title: title, class: 'bridgeEmbed__item-translation-approved', target: '_blank'
+    else
+      ''
+    end
+  end
+
   private
 
   def embed_url(site, project, collection, item, format = '')

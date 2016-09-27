@@ -101,7 +101,8 @@ module Sources
           text: translation['text'],
           lang: translation['lang'],
           timestamp: translation['published'],
-          comments: self.comments_from_translation(translation)
+          comments: self.comments_from_translation(translation),
+          approval: translation['approval']
         }
       ]
     end
