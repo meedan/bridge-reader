@@ -203,7 +203,7 @@ module Sources
       worksheet = self.get_worksheet.title
       generate_cache(self, self.project, worksheet, '')
       remove_screenshot(self.project, worksheet, '')
-      generate_screenshot(self.project, worksheet, '')
+      # generate_screenshot(self.project, worksheet, '')
     end
   end
 end

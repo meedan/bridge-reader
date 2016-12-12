@@ -99,4 +99,12 @@ class BridgeEmbedlyTest < ActiveSupport::TestCase
     end
     assert entry[:oembed]['unavailable']
   end
+
+  test "should parse non-link entry" do
+    entry = { link: nil, id: 'test' }
+    assert_nothing_raised do
+      entry = @b.parse_entry(entry)
+    end
+    refute entry[:oembed]['unavailable']
+  end
 end

@@ -24,6 +24,7 @@ module Bridge
     end
 
     def parse_entry(entry)
+      return parse_non_link_entry(entry) if entry[:link].blank?
       Rails.cache.fetch('embedly:' + entry[:id]) do
         begin
           oembed = call_oembed(entry[:link])
@@ -35,6 +36,11 @@ module Bridge
         entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
         entry.except(:source)
       end
+    end
+
+    def parse_non_link_entry(entry)
+      entry[:oembed] = { 'unavailable' => false }
+      entry.except(:source)
     end
 
     def parse_collection(entries)

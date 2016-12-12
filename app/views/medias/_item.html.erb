@@ -21,7 +21,13 @@
 
   <!-- Item Source -->
   <div class="bridgeEmbed__item-embedly-card-container">
-    <div class="bridgeEmbed__item-pender-card" data-src="<%= BRIDGE_CONFIG['pender_base_url'] %>/api/medias.js?url=<%= entry[:link] %>"><%= entry[:source_text].blank? ? entry[:title] : entry[:source_text] %></div>
+    <% if entry[:link].blank? %>
+    <div class="bridgeEmbed__item-pender-card rendered">
+    <% else %>
+    <div class="bridgeEmbed__item-pender-card" data-src="<%= BRIDGE_CONFIG['pender_base_url'] %>/api/medias.js?url=<%= entry[:link] %>">
+    <% end %>
+      <%= entry[:source_text].blank? ? entry[:title] : entry[:source_text] %>
+    </div>
   </div>
 
   <!-- Item Translation -->

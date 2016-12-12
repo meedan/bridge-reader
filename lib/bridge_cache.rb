@@ -101,11 +101,8 @@ module Bridge
       ratio = w.to_f / h.to_f
       extent = [w, h]
 
-      if ratio < 2
-        w = h * 2
-      elsif ratio > 2
-        h = w / 2
-      end
+      w = h * 2 if ratio < 2
+      h = w / 2 if ratio > 2
 
       image.combine_options do |c|
         c.gravity 'center'
