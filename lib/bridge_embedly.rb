@@ -24,7 +24,14 @@ module Bridge
     end
 
     def parse_entry(entry)
-      return parse_non_link_entry(entry) if entry[:link].blank?
+      if entry[:link].blank?
+        parse_non_link_entry(entry)
+      else
+        parse_link_entry(entry)
+      end
+    end
+
+    def parse_link_entry(entry)
       Rails.cache.fetch('embedly:' + entry[:id]) do
         begin
           oembed = call_oembed(entry[:link])
