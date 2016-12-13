@@ -117,6 +117,7 @@ module Sources
     def row_to_hash(row)
       worksheet = get_worksheet
       link = self.get_url(row)
+      comment = worksheet[row, 4]
       {
         id: Digest::SHA1.hexdigest(link),
         source_text: worksheet[row, 1],
@@ -133,13 +134,13 @@ module Sources
             lang: 'en',
             timestamp: '',
             comments:
-              worksheet[row, 4].blank? ?
+              comment.blank? ?
                 [] :
                 [
                   {
                     commenter_name: worksheet[row, 7],
                     commenter_url: worksheet[row, 8],
-                    comment: worksheet[row, 4],
+                    comment: comment,
                     timestamp: ''
                   }
                 ]
