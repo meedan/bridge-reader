@@ -30,6 +30,13 @@
     </div>
   </div>
 
+  <!-- Item Date -->
+  <% if entry[:link].blank? && !entry[:timestamp].blank? %>
+  <div class="bridgeEmbed__item-date">
+    <%= time_tag Date.parse(entry[:timestamp]) %>
+  </div>
+  <% end %>
+
   <!-- Item Translation -->
   <% entry[:translations].each do |translation| %>
   <div class="bridgeEmbed__item-translation-and-comment">

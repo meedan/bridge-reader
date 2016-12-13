@@ -126,7 +126,7 @@ module Sources
         source_text: worksheet[row, 1],
         source_lang: 'unk',
         link: link,
-        timestamp: '',
+        timestamp: worksheet[row, 10],
         translations: [
           {
             translator_name: worksheet[row, 5],
