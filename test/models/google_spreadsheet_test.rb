@@ -108,6 +108,7 @@ Not big deal, actually.'
 
     @b.generate_cache(@b, 'google_spreadsheet', 'test', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14')
     @b.reset_entries
+    @b.instance_variable_set(:@entries, nil)
     @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
     
     assert File.exists?(@b.cache_path('google_spreadsheet', 'test', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14'))

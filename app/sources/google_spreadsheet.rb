@@ -94,10 +94,6 @@ module Sources
       @worksheet
     end
 
-    def reset_entries
-      @entries = nil
-    end
-
     def get_entries(link = nil, force = false)
       if @entries.blank? || force
         worksheet = self.get_worksheet
