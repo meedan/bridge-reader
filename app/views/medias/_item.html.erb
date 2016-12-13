@@ -30,9 +30,12 @@
     </div>
   </div>
 
-  <!-- Item Date -->
+  <!-- Item Date and Author -->
   <% if entry[:link].blank? && !entry[:timestamp].blank? %>
   <div class="bridgeEmbed__item-date">
+    <% unless entry[:source_author_name].blank? %>
+      By <%= link_to_unless entry[:source_author_link].blank?, entry[:source_author_name], entry[:source_author_link], { target: '_blank' } %>, 
+    <% end %>
     <%= time_tag Date.parse(entry[:timestamp]) %>
   </div>
   <% end %>

@@ -125,6 +125,8 @@ module Sources
         id: Digest::SHA1.hexdigest(link),
         source_text: worksheet[row, 1],
         source_lang: 'unk',
+        source_author_name: worksheet[row, 11],
+        source_author_link: worksheet[row, 12],
         link: link,
         timestamp: worksheet[row, 10],
         translations: [
