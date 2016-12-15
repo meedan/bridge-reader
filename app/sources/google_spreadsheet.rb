@@ -105,7 +105,7 @@ module Sources
           end
         end
       end
-      @entries
+      @entries.reverse
     end
 
     def get_worksheets
