@@ -31,7 +31,7 @@ class GoogleSpreadsheetTest < ActiveSupport::TestCase
   end
 
   test "should get entries" do
-    entries = @b.get_entries
+    entries = @b.get_entries.reverse
     assert_equal 4, entries.size
     
     assert_equal 'Feliz Natal! Ressuscitando um cartão que eu fiz há 10 anos pra participar de um concurso de arte digital. Tempo voa!',
@@ -82,7 +82,7 @@ Not big deal, actually.'
       w.save
       assert w[i, 9].blank?
     end
-    entries = @b.get_entries
+    entries = @b.get_entries.reverse
     @b.notify_availability(entries[0], true)
     @b.notify_availability(entries[1], true)
     @b.notify_availability(entries[2], false)
@@ -107,7 +107,6 @@ Not big deal, actually.'
     assert !File.exists?(@b.cache_path('google_spreadsheet', 'test', ''))
 
     @b.generate_cache(@b, 'google_spreadsheet', 'test', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14')
-    @b.reset_entries
     @b.instance_variable_set(:@entries, nil)
     @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
     

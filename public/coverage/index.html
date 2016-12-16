@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-12-13T12:50:50-03:00">2016-12-13T12:50:50-03:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-12-16T15:59:16-03:00">2016-12-16T15:59:16-03:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         40.63
+         40.99
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>13</b> files in total.
-    <b>654</b> relevant lines. 
-    <span class="green"><b>654</b> lines covered</span> and
+    <b>653</b> relevant lines. 
+    <span class="green"><b>653</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -113,11 +113,11 @@
       <tr>
         <td class="strong"><a href="#74a23a080a359d28269564b7aab69cb5aa3da9bd" class="src_link" title="app/sources/google_spreadsheet.rb">app/sources/google_spreadsheet.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>209</td>
-        <td>109</td>
-        <td>109</td>
+        <td>208</td>
+        <td>108</td>
+        <td>108</td>
         <td>0</td>
-        <td>41.8</td>
+        <td>44.0</td>
       </tr>
       
       <tr>
@@ -478,15 +478,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         25.91
+         26.97
        </span>
     </span> hits/line)
   </h2>
   <a name="Ungrouped"></a>
   <div>
     <b>3</b> files in total.
-    <b>210</b> relevant lines. 
-    <span class="green"><b>210</b> lines covered</span> and
+    <b>209</b> relevant lines. 
+    <span class="green"><b>209</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -526,11 +526,11 @@
       <tr>
         <td class="strong"><a href="#74a23a080a359d28269564b7aab69cb5aa3da9bd" class="src_link" title="app/sources/google_spreadsheet.rb">app/sources/google_spreadsheet.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>209</td>
-        <td>109</td>
-        <td>109</td>
+        <td>208</td>
+        <td>108</td>
+        <td>108</td>
         <td>0</td>
-        <td>41.8</td>
+        <td>44.0</td>
       </tr>
       
     </tbody>
@@ -4033,8 +4033,8 @@
     <h3>app/sources/google_spreadsheet.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>109</b> relevant lines. 
-      <span class="green"><b>109</b> lines covered</span> and
+      <b>108</b> relevant lines. 
+      <span class="green"><b>108</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -4621,97 +4621,97 @@
         <li class="covered" data-hits="1" data-linenumber="97">
           <span class="hits">1</span>
           
-          <code class="ruby">    def reset_entries</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="98">
-          <span class="hits">1</span>
-          
-          <code class="ruby">      @entries = nil</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="99">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="100">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="101">
-          <span class="hits">1</span>
-          
           <code class="ruby">    def get_entries(link = nil, force = false)</code>
         </li>
       
-        <li class="covered" data-hits="56" data-linenumber="102">
+        <li class="covered" data-hits="56" data-linenumber="98">
           <span class="hits">56</span>
           
           <code class="ruby">      if @entries.blank? || force</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="103">
+        <li class="covered" data-hits="48" data-linenumber="99">
           <span class="hits">48</span>
           
           <code class="ruby">        worksheet = self.get_worksheet</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="104">
+        <li class="covered" data-hits="48" data-linenumber="100">
           <span class="hits">48</span>
           
           <code class="ruby">        @entries = []</code>
         </li>
       
-        <li class="covered" data-hits="48" data-linenumber="105">
+        <li class="covered" data-hits="48" data-linenumber="101">
           <span class="hits">48</span>
           
           <code class="ruby">        for row in 2..worksheet.num_rows</code>
         </li>
       
-        <li class="covered" data-hits="204" data-linenumber="106">
+        <li class="covered" data-hits="204" data-linenumber="102">
           <span class="hits">204</span>
           
           <code class="ruby">          Retryable.retryable tries: 5 do</code>
         </li>
       
-        <li class="covered" data-hits="204" data-linenumber="107">
+        <li class="covered" data-hits="204" data-linenumber="103">
           <span class="hits">204</span>
           
           <code class="ruby">            hash = row_to_hash(row)</code>
         </li>
       
-        <li class="covered" data-hits="204" data-linenumber="108">
+        <li class="covered" data-hits="204" data-linenumber="104">
           <span class="hits">204</span>
           
           <code class="ruby">            @entries &lt;&lt; hash if link.nil? || link == hash[:id]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="109">
+        <li class="never" data-hits="" data-linenumber="105">
           
           
           <code class="ruby">          end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="110">
+        <li class="never" data-hits="" data-linenumber="106">
           
           
           <code class="ruby">        end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="111">
+        <li class="never" data-hits="" data-linenumber="107">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="covered" data-hits="56" data-linenumber="112">
+        <li class="covered" data-hits="56" data-linenumber="108">
           <span class="hits">56</span>
           
-          <code class="ruby">      @entries</code>
+          <code class="ruby">      @entries.reverse</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="109">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="110">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="111">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    def get_worksheets</code>
+        </li>
+      
+        <li class="covered" data-hits="5" data-linenumber="112">
+          <span class="hits">5</span>
+          
+          <code class="ruby">      @worksheets ||= get_spreadsheet.worksheets</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="113">
@@ -4723,574 +4723,568 @@
         <li class="never" data-hits="" data-linenumber="114">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    </code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="115">
           <span class="hits">1</span>
           
-          <code class="ruby">    def get_worksheets</code>
-        </li>
-      
-        <li class="covered" data-hits="5" data-linenumber="116">
-          <span class="hits">5</span>
-          
-          <code class="ruby">      @worksheets ||= get_spreadsheet.worksheets</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="117">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="118">
-          
-          
-          <code class="ruby">    </code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="119">
-          <span class="hits">1</span>
-          
           <code class="ruby">    protected</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="120">
+        <li class="never" data-hits="" data-linenumber="116">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="121">
+        <li class="covered" data-hits="1" data-linenumber="117">
           <span class="hits">1</span>
           
           <code class="ruby">    def row_to_hash(row)</code>
         </li>
       
-        <li class="covered" data-hits="204" data-linenumber="122">
+        <li class="covered" data-hits="204" data-linenumber="118">
           <span class="hits">204</span>
           
           <code class="ruby">      worksheet = get_worksheet</code>
         </li>
       
-        <li class="covered" data-hits="204" data-linenumber="123">
+        <li class="covered" data-hits="204" data-linenumber="119">
           <span class="hits">204</span>
           
           <code class="ruby">      link = self.get_url(row)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="124">
+        <li class="covered" data-hits="204" data-linenumber="120">
+          <span class="hits">204</span>
+          
+          <code class="ruby">      comment = worksheet[row, 4]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="121">
           
           
           <code class="ruby">      {</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="125">
+        <li class="never" data-hits="" data-linenumber="122">
           
           
           <code class="ruby">        id: Digest::SHA1.hexdigest(link),</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="126">
+        <li class="never" data-hits="" data-linenumber="123">
           
           
           <code class="ruby">        source_text: worksheet[row, 1],</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="127">
+        <li class="never" data-hits="" data-linenumber="124">
           
           
           <code class="ruby">        source_lang: &#39;unk&#39;,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="128">
+        <li class="never" data-hits="" data-linenumber="125">
+          
+          
+          <code class="ruby">        source_author_name: worksheet[row, 11],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="126">
+          
+          
+          <code class="ruby">        source_author_link: worksheet[row, 12],</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="127">
           
           
           <code class="ruby">        link: link,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="129">
+        <li class="never" data-hits="" data-linenumber="128">
           
           
           <code class="ruby">        timestamp: worksheet[row, 10],</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="130">
+        <li class="never" data-hits="" data-linenumber="129">
           
           
           <code class="ruby">        translations: [</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="131">
+        <li class="never" data-hits="" data-linenumber="130">
           
           
           <code class="ruby">          {</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="132">
+        <li class="never" data-hits="" data-linenumber="131">
           
           
           <code class="ruby">            translator_name: worksheet[row, 5],</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="133">
+        <li class="never" data-hits="" data-linenumber="132">
           
           
           <code class="ruby">            translator_url: worksheet[row, 6],</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="134">
+        <li class="never" data-hits="" data-linenumber="133">
           
           
           <code class="ruby">            text: worksheet[row, 3],</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="135">
+        <li class="never" data-hits="" data-linenumber="134">
           
           
           <code class="ruby">            lang: &#39;en&#39;,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="136">
+        <li class="never" data-hits="" data-linenumber="135">
           
           
           <code class="ruby">            timestamp: &#39;&#39;,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="137">
+        <li class="never" data-hits="" data-linenumber="136">
           
           
           <code class="ruby">            comments:</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="138">
+        <li class="never" data-hits="" data-linenumber="137">
           
           
-          <code class="ruby">              worksheet[row, 4].blank? ?</code>
+          <code class="ruby">              comment.blank? ?</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="139">
+        <li class="never" data-hits="" data-linenumber="138">
           
           
           <code class="ruby">                [] :</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="140">
+        <li class="never" data-hits="" data-linenumber="139">
           
           
           <code class="ruby">                [</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="141">
+        <li class="never" data-hits="" data-linenumber="140">
           
           
           <code class="ruby">                  {</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="142">
+        <li class="never" data-hits="" data-linenumber="141">
           
           
           <code class="ruby">                    commenter_name: worksheet[row, 7],</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="143">
+        <li class="never" data-hits="" data-linenumber="142">
           
           
           <code class="ruby">                    commenter_url: worksheet[row, 8],</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="144">
+        <li class="never" data-hits="" data-linenumber="143">
           
           
-          <code class="ruby">                    comment: worksheet[row, 4],</code>
+          <code class="ruby">                    comment: comment,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="145">
+        <li class="never" data-hits="" data-linenumber="144">
           
           
           <code class="ruby">                    timestamp: &#39;&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="146">
+        <li class="never" data-hits="" data-linenumber="145">
           
           
           <code class="ruby">                  }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="147">
+        <li class="never" data-hits="" data-linenumber="146">
           
           
           <code class="ruby">                ]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="148">
+        <li class="never" data-hits="" data-linenumber="147">
           
           
           <code class="ruby">          }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="149">
+        <li class="never" data-hits="" data-linenumber="148">
           
           
           <code class="ruby">        ],</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="150">
+        <li class="never" data-hits="" data-linenumber="149">
           
           
           <code class="ruby">        source: self, </code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="151">
+        <li class="never" data-hits="" data-linenumber="150">
           
           
           <code class="ruby">        index: row </code>
         </li>
       
-        <li class="covered" data-hits="204" data-linenumber="152">
+        <li class="covered" data-hits="204" data-linenumber="151">
           <span class="hits">204</span>
           
           <code class="ruby">      }</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="153">
+        <li class="never" data-hits="" data-linenumber="152">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="154">
+        <li class="never" data-hits="" data-linenumber="153">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="155">
+        <li class="covered" data-hits="1" data-linenumber="154">
           <span class="hits">1</span>
           
           <code class="ruby">    def notify_link_condition(link, condition)</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="156">
+        <li class="covered" data-hits="3" data-linenumber="155">
           <span class="hits">3</span>
           
           <code class="ruby">      case condition</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="157">
+        <li class="never" data-hits="" data-linenumber="156">
           
           
           <code class="ruby">      when &#39;check404&#39;</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="158">
+        <li class="covered" data-hits="2" data-linenumber="157">
           <span class="hits">2</span>
           
           <code class="ruby">        notify_entry_offline(link)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="159">
+        <li class="never" data-hits="" data-linenumber="158">
           
           
           <code class="ruby">      when &#39;check_google_spreadsheet_updated&#39;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="160">
+        <li class="covered" data-hits="1" data-linenumber="159">
           <span class="hits">1</span>
           
           <code class="ruby">        notify_google_spreadsheet_updated</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="161">
+        <li class="never" data-hits="" data-linenumber="160">
           
           
           <code class="ruby">      end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="161">
+          
+          
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="162">
           
           
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="163">
-          
-          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="164">
+        <li class="covered" data-hits="1" data-linenumber="163">
           <span class="hits">1</span>
           
           <code class="ruby">    def notify_entry_offline(link)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="165">
+        <li class="covered" data-hits="2" data-linenumber="164">
           <span class="hits">2</span>
           
           <code class="ruby">      hash = Digest::SHA1.hexdigest(link)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="166">
+        <li class="covered" data-hits="2" data-linenumber="165">
           <span class="hits">2</span>
           
           <code class="ruby">      cache_key = &#39;embedly:&#39; + hash</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="167">
+        <li class="covered" data-hits="2" data-linenumber="166">
           <span class="hits">2</span>
           
           <code class="ruby">      entry = Rails.cache.fetch(cache_key)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="168">
+        <li class="covered" data-hits="2" data-linenumber="167">
           <span class="hits">2</span>
           
           <code class="ruby">      worksheet = self.get_worksheet.title</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="169">
+        <li class="never" data-hits="" data-linenumber="168">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="170">
+        <li class="covered" data-hits="2" data-linenumber="169">
           <span class="hits">2</span>
           
           <code class="ruby">      unless entry.nil?</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="171">
+        <li class="covered" data-hits="1" data-linenumber="170">
           <span class="hits">1</span>
           
           <code class="ruby">        entry[:oembed][&#39;unavailable&#39;] = true</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="172">
+        <li class="covered" data-hits="1" data-linenumber="171">
           <span class="hits">1</span>
           
           <code class="ruby">        Rails.cache.write(cache_key, entry)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="173">
+        <li class="covered" data-hits="1" data-linenumber="172">
           <span class="hits">1</span>
           
           <code class="ruby">        entry[:source] = self</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="174">
+        <li class="covered" data-hits="1" data-linenumber="173">
           <span class="hits">1</span>
           
           <code class="ruby">        notify_availability(entry, false)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="175">
+        <li class="never" data-hits="" data-linenumber="174">
           
           
           <code class="ruby">        </code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="176">
+        <li class="covered" data-hits="1" data-linenumber="175">
           <span class="hits">1</span>
           
           <code class="ruby">        self.refresh_cache_milestone</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="177">
+        <li class="never" data-hits="" data-linenumber="176">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="178">
+        <li class="covered" data-hits="1" data-linenumber="177">
           <span class="hits">1</span>
           
           <code class="ruby">        clear_cache(self.project, worksheet, hash)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="179">
+        <li class="covered" data-hits="1" data-linenumber="178">
           <span class="hits">1</span>
           
           <code class="ruby">        remove_screenshot(self.project, worksheet, hash)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="179">
+          
+          
+          <code class="ruby">      end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="180">
           
           
-          <code class="ruby">      end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="181">
           
           
-          <code class="ruby">    end</code>
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="182">
           
           
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="183">
-          
-          
           <code class="ruby">    # FIXME: We can improve the performance here</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="184">
+        <li class="covered" data-hits="1" data-linenumber="183">
           <span class="hits">1</span>
           
           <code class="ruby">    def notify_google_spreadsheet_updated</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="185">
+        <li class="covered" data-hits="1" data-linenumber="184">
           <span class="hits">1</span>
           
           <code class="ruby">      worksheet = self.get_worksheet.title</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="186">
+        <li class="never" data-hits="" data-linenumber="185">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="187">
+        <li class="covered" data-hits="1" data-linenumber="186">
           <span class="hits">1</span>
           
           <code class="ruby">      entries = self.get_entries</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="188">
+        <li class="never" data-hits="" data-linenumber="187">
           
           
           <code class="ruby">      </code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="189">
+        <li class="covered" data-hits="1" data-linenumber="188">
           <span class="hits">1</span>
           
           <code class="ruby">      entries.each do |entry|</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="190">
+        <li class="covered" data-hits="4" data-linenumber="189">
           <span class="hits">4</span>
           
           <code class="ruby">        hash = entry[:id]</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="191">
+        <li class="covered" data-hits="4" data-linenumber="190">
           <span class="hits">4</span>
           
           <code class="ruby">        Rails.cache.delete(&#39;embedly:&#39; + hash)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="192">
+        <li class="covered" data-hits="4" data-linenumber="191">
           <span class="hits">4</span>
           
           <code class="ruby">        @entries = [entry]</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="193">
+        <li class="covered" data-hits="4" data-linenumber="192">
           <span class="hits">4</span>
           
           <code class="ruby">        generate_cache(self, self.project, worksheet, hash, BRIDGE_CONFIG[&#39;bridgembed_host&#39;])</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="194">
+        <li class="covered" data-hits="4" data-linenumber="193">
           <span class="hits">4</span>
           
           <code class="ruby">        remove_screenshot(self.project, worksheet, hash)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="195">
+        <li class="never" data-hits="" data-linenumber="194">
           
           
           <code class="ruby">        # generate_screenshot(self.project, worksheet, hash)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="196">
+        <li class="never" data-hits="" data-linenumber="195">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="197">
+        <li class="never" data-hits="" data-linenumber="196">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="198">
+        <li class="covered" data-hits="1" data-linenumber="197">
           <span class="hits">1</span>
           
           <code class="ruby">      @entries = entries</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="199">
+        <li class="covered" data-hits="1" data-linenumber="198">
           <span class="hits">1</span>
           
           <code class="ruby">      self.refresh_cache_milestone</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="200">
+        <li class="never" data-hits="" data-linenumber="199">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="201">
+        <li class="never" data-hits="" data-linenumber="200">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="202">
+        <li class="covered" data-hits="1" data-linenumber="201">
           <span class="hits">1</span>
           
           <code class="ruby">    def refresh_cache_milestone</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="203">
+        <li class="covered" data-hits="2" data-linenumber="202">
           <span class="hits">2</span>
           
           <code class="ruby">      worksheet = self.get_worksheet.title</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="204">
+        <li class="covered" data-hits="2" data-linenumber="203">
           <span class="hits">2</span>
           
           <code class="ruby">      generate_cache(self, self.project, worksheet, &#39;&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="205">
+        <li class="covered" data-hits="2" data-linenumber="204">
           <span class="hits">2</span>
           
           <code class="ruby">      remove_screenshot(self.project, worksheet, &#39;&#39;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="206">
+        <li class="never" data-hits="" data-linenumber="205">
           
           
           <code class="ruby">      # generate_screenshot(self.project, worksheet, &#39;&#39;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="207">
+        <li class="never" data-hits="" data-linenumber="206">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="208">
+        <li class="never" data-hits="" data-linenumber="207">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="209">
+        <li class="never" data-hits="" data-linenumber="208">
           
           
           <code class="ruby">end</code>
