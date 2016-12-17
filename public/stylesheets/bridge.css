@@ -17,6 +17,10 @@ em {
   margin: 0;
   padding: 0; }
 
+body#bridge__collection {
+  margin-top: 1px;
+}
+
 .bridgeEmbed__item .bridgeEmbed__item-embedly-card {
   display: block;
   width: 20px;
@@ -126,7 +130,8 @@ em {
     margin: 0 auto;
     max-width: 505px !important; }
   .bridgeEmbed__item:first-of-type {
-    margin-top: 0; }
+    margin-top: 0;
+    border-radius: 0px 0px 5px 5px; }
 
 .bridgeEmbed__item .byline {
   font-weight: 400;
@@ -187,26 +192,31 @@ header.title {
   font-size: 14px;
   padding: 0.8em;
   position: relative;
-  overflow: hidden; }
+  overflow: hidden;
+  color: #4A4A4A;
+  box-shadow: 0px 2px 2px 2px #929292; }
   header.title h1.project--title {
-    float: left;
     margin: 0 0.2em 0 0;
     padding: 0;
-    color: black;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 2em; }
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1.2em; }
   header.title h2.project--description {
     margin: 0;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 400;
     float: left;
-    line-height: 2em;
-    color: #abb5bd; }
+    line-height: 1.4em; }
   @media (min-width: 1000px) {
     header.title {
       width: 100%;
-      text-align: center; } }
+      height: 93px;
+      text-align: left; }
+      header.title h2.project--description {
+        width: 600px; }
+      header.title .wrap {
+        max-width: 1262px;
+        margin: auto; } }
   @media (max-width: 1000px) {
     header.title h1, header.title h2 {
       font-size: 12px;
@@ -256,6 +266,8 @@ header.title {
 @media (min-width: 1000px) {
   .columns {
     width: 100%;
+    max-width: 1262px;
+    margin: auto;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -274,27 +286,27 @@ header.title {
               flex: 1 1 300px;
       min-height: 0;
       overflow: auto;
-      border-right: 1px solid rgba(255, 255, 255, 0.5); }
+      margin: 8px 0px; }
       .columns .column .embeds {
-        padding: 2.5em 0 100px; } }
+        padding: 1px 0 100px; } }
 
 .column header {
   padding: 0.4em 0.6em;
   background-color: white;
-  width: 100%;
-  position: relative; }
+  position: relative;
+  border-radius: 5px 5px 0px 0px; }
   .column header h2 {
     font-size: 14px;
     font-weight: 500; }
   @media (min-width: 1000px) {
     .column header {
-      position: fixed;
-      margin: 0;
-      border: 1px solid #d1d6db; } }
+      margin: 0px 8px;
+      height: 50px;
+      overflow: hidden; } }
 
 h2.channel--title {
-  margin: 0 0.5em 0 0;
-  width: 100%;
+  margin: 0;
+  max-width: 30vw;
   font-size: 16px;
   color: #ff4f00;
   font-weight: 800; }
@@ -312,14 +324,14 @@ h2.channel--title {
       max-width: 30vw; } }
 
 footer.call-to-action {
-  border-top: 1px solid #d1d6db;
   bottom: 0;
   border-bottom-width: 0;
   position: fixed;
   background-color: white;
   width: 100%;
   padding: 0.2em 1em;
-  z-index: 2; }
+  z-index: 2;
+  box-shadow: 0px -1px 2px 1px #929292; }
   footer.call-to-action sup {
     font-size: 0.5em; }
   footer.call-to-action .logo {
@@ -330,7 +342,7 @@ footer.call-to-action {
     vertical-align: text-bottom;
     margin-right: 0.2em; }
   footer.call-to-action a {
-    color: #404d59;
+    color: #283743;
     text-decoration: none;
     font-weight: 600;
     border-bottom: 1px solid #9fa6ac; }
@@ -339,7 +351,13 @@ footer.call-to-action {
   footer.call-to-action p {
     float: left;
     width: 70%;
-    font-weight: 400; }
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.2em; }
+  footer.call-to-action em {
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 1.2em; }
   footer.call-to-action .tos--links {
     float: right;
     margin: 1em;
@@ -350,7 +368,12 @@ footer.call-to-action {
       text-decoration: none;
       border-bottom-width: 0;
       font-size: 0.7em;
-      font-weight: 300; }
+      font-weight: 300;
+      color: #929292; }
+    footer.call-to-action .tos--links a:first-of-type {
+      padding-right: 5px;
+      border-right: 1px solid #929292;
+    }
   @media (max-width: 1000px) {
     footer.call-to-action {
       position: static; }

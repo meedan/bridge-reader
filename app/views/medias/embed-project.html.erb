@@ -4,43 +4,39 @@
 <%= content_for(:style) || stylesheet_link_tag('/stylesheets/modal', media: 'all') %>
 
 <header class="title">
-  <h1 class="project--title"><%= @entries[:project].first['project'] unless @entries[:project].empty? %></h1>
-  <h2 class="project--description"><%= @entries[:project].first['project_summary'] %></h2>
-  <div class="project--translators">
-    <em>Translators:</em>
-    <a href="http://www.twitter.com/norayounis">
-      <img class="project--avatar" src="/images/nora.png">
-    </a>
-    <a href="http://www.twitter.com/tom_el_rumi">
-      <img class="project--avatar" src="/images/tom.png">
-    </a>
-    <a href="http://www.twitter.com/sarah_othmann">
-      <img class="project--avatar" src="/images/sarah.png">
-    </a>
-    <a href="http://www.twitter.com/caiosba">
-    <img class="project--avatar" src="/images/caiosba.png">
-    </a>
-    <a href="http://twitter.com/cla_cx">
-    <img class="project--avatar" src="/images/clarissa.png">
-    </a>
-    <a href="http://twitter.com/anxiaostudio">
-    <img class="project--avatar" src="/images/anxiao.png">
-    </a>
-
-
-    <a href="http://twitter.com/marleyvincentl">
-    <img class="project--avatar" src="/images/mvlindsey.png">
-    </a>
-
-    <a href="http://twitter.com/deedottiedot">
-    <img class="project--avatar" src="/images/dsantos.png">
-    </a>
-
-    <a href="http://twitter.com/bam">
-    <img class="project--avatar" src="/images/boanerges.png">
-    </a>
-
-
+  <div class="wrap">
+    <h1 class="project--title"><%= @entries[:project].first['project'] unless @entries[:project].empty? %></h1>
+    <h2 class="project--description"><%= @entries[:project].first['project_summary'] %></h2>
+    <div class="project--translators">
+      <em>Translators:</em>
+      <a href="http://www.twitter.com/norayounis">
+        <img class="project--avatar" src="/images/nora.png">
+      </a>
+      <a href="http://www.twitter.com/tom_el_rumi">
+        <img class="project--avatar" src="/images/tom.png">
+      </a>
+      <a href="http://www.twitter.com/sarah_othmann">
+        <img class="project--avatar" src="/images/sarah.png">
+      </a>
+      <a href="http://www.twitter.com/caiosba">
+        <img class="project--avatar" src="/images/caiosba.png">
+      </a>
+      <a href="http://twitter.com/cla_cx">
+        <img class="project--avatar" src="/images/clarissa.png">
+      </a>
+      <a href="http://twitter.com/anxiaostudio">
+        <img class="project--avatar" src="/images/anxiao.png">
+      </a>
+      <a href="http://twitter.com/marleyvincentl">
+        <img class="project--avatar" src="/images/mvlindsey.png">
+      </a>
+      <a href="http://twitter.com/deedottiedot">
+        <img class="project--avatar" src="/images/dsantos.png">
+      </a>
+      <a href="http://twitter.com/bam">
+        <img class="project--avatar" src="/images/boanerges.png">
+      </a>
+    </div>
   </div>
 </header>
 
@@ -85,7 +81,7 @@
   <p><img class="logo" src="/images/bridge-logo-small.png"> <a class="bridge" href="http://speakbridge.io">Bridge</a><sup>BETA</sup> &mdash; Social Translation for Social Media. Follow us on <a class="facebook" href="http://facebook.com/speakbridge">Facebook</a> and <a class="twitter" href="http://twitter.com/speakbridge">Twitter</a>.
     <br><em>Please note this is a beta project, and translation quality—and the content and reports being translated—may require additional verification.</em></p>
     <div class = "tos--links">
-      <a href="https://meedan.com/en/bridge/bridge_tos.html" target="_blank">Terms of Service</a><br>
+      <a href="https://meedan.com/en/bridge/bridge_tos.html" target="_blank">Terms of Service</a>
       <a href="https://meedan.com/en/bridge/bridge_privacy.html" target="_blank">Privacy Policy</a>
     </div>
 </footer>
