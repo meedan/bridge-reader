@@ -1,25 +1,31 @@
-<% 
-translation = @entries[:translations].first
-author = (@entries[:source_author].blank? && !@entries[:oembed].nil?) ? @entries[:oembed][:author_name] : @entries[:source_author].to_s
+<%= render :file => 'medias/embed-project' %>
 
-description = ''
-unless translation.nil?
-  prefix = author.nil? ? '' : "Translation of @#{author}: "
-  description = prefix + translation[:text]
-end
+  <div class="modal">
+    <span class="close">&times;</span>
 
-content_for :embed_title do
-  # 70 is the limit of a title for Twitter
-  truncate(description, length: 70, separator: ' ')
-end
+  <%
+  translation = @entries[:item][:translations].first
+  author = (@entries[:item][:source_author].blank? && !@entries[:oembed].nil?) ? @entries[:oembed][:author_name] : @entries[:item][:source_author].to_s
 
-content_for :description do
-  description
-end
+  description = ''
+  unless translation.nil?
+    prefix = author.nil? ? '' : "Translation of @#{author}: "
+    description = prefix + translation[:text]
+  end
 
-content_for :creator do
-  author
-end
-%>
+  content_for :embed_title do
+    # 70 is the limit of a title for Twitter
+    truncate(description, length: 70, separator: ' ')
+  end
 
-<%= render partial: 'medias/item', locals: { entry: @entries } %>
+  content_for :description do
+    description
+  end
+
+  content_for :creator do
+    author
+  end
+  %>
+
+  <%= render partial: 'medias/item', locals: { entry: @entries[:item] } %>
+</div>

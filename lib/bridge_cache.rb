@@ -27,7 +27,6 @@ module Bridge
       level = get_level(project, collection, item)
       entries = get_entries_from_source(object, collection, item, level)
       clear_cache(project, collection, item) and return if entries.blank?
-
       path = cache_path(project, collection, item)
       dir = File.dirname(path)
       FileUtils.mkdir_p(dir) unless File.exists?(dir)
@@ -133,8 +132,25 @@ module Bridge
 
     def get_entries_from_source(object, collection, item, level)
       embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
-      entries = object.send("get_#{level}", collection, item)
-      entries.blank? ? [] : embedly.send("parse_#{level}", entries)
+      entries = {}
+      level_mapping(level).each do |level|
+        entries[level] = object.send("get_#{level}", collection, item)
+      end
+      return [] if entries.blank?
+      embeds = {}
+      level_mapping(level).each do |level|
+        embeds[level] = embedly.send("parse_#{level}", entries[level])
+      end
+      embeds
+    end
+
+    def level_mapping(level)
+      mapping = {
+        'project' => [:project],
+        'collection' => [:project, :collection],
+        'item' => [:project, :collection, :item],
+      }
+      mapping[level]
     end
 
     def save_cache_file(object, project, collection, item, level, entries, site = nil)

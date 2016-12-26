@@ -1,10 +1,11 @@
-<% content_for :embed_title do %>Translations of <%= @entries.first['project'].to_s.titleize %><% end %>
-<% content_for :description do %><%= @entries.first['project_summary'] %><% end %>
+<% content_for :embed_title do %>Translations of <%= @entries[:project].first['project'].to_s.titleize %><% end %>
+<% content_for :description do %><%= @entries[:project].first['project_summary'] %><% end %>
 <% content_for :creator do %><% end %>
+<%= content_for(:style) || stylesheet_link_tag('/stylesheets/modal', media: 'all') %>
 
 <header class="title">
-  <h1 class="project--title"><%= @entries.first['project'] unless @entries.empty? %></h1>
-  <h2 class="project--description"><%= @entries.first['project_summary'] %></h2>
+  <h1 class="project--title"><%= @entries[:project].first['project'] unless @entries[:project].empty? %></h1>
+  <h2 class="project--description"><%= @entries[:project].first['project_summary'] %></h2>
   <div class="project--translators">
     <em>Translators:</em>
     <a href="http://www.twitter.com/norayounis">
@@ -64,12 +65,9 @@
   </p>
 </div> -->
 
-
-
-
 <div class="project bridgeEmbed__screenshot">
   <div class="columns">
-    <% @entries.last(3).each do |collection| %>
+    <% @entries[:project].last(3).each do |collection| %>
       <div class="column">
         <header>
           <h2 class="channel--title"><%= collection['name'] %></h2>
