@@ -132,16 +132,11 @@ module Bridge
 
     def get_entries_from_source(object, collection, item, level)
       embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
-      entries = {}
-      level_mapping(level).each do |level|
-        entries[level] = object.send("get_#{level}", collection, item)
+      entries = {}.with_indifferent_access
+      level_mapping(level).each do |l|
+        entries[l] = embedly.send("parse_#{l}", object.send("get_#{l}", collection, item))
       end
-      return [] if entries.blank?
-      embeds = {}
-      level_mapping(level).each do |level|
-        embeds[level] = embedly.send("parse_#{level}", entries[level])
-      end
-      embeds
+      entries[level].blank? ? [] : entries
     end
 
     def level_mapping(level)
