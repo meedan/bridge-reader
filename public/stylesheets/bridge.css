@@ -6,7 +6,8 @@ body {
   font-weight: 300;
   color: #283743;
   line-height: 1.4;
-  font-size: 16px; }
+  font-size: 16px;
+  margin: 0px; }
   body a {
     color: #283743; }
     body a:hover {
@@ -172,9 +173,11 @@ body#bridge__collection {
 
 .breadcrumb {
   padding: 1.2em 1em 0em 1em;
-  font-size: 0.7em;
+  font-size: 13px;
   text-align: center;
-  color: #9fa6ac; }
+  color: #404d59;
+  letter-spacing: 0px;
+  line-height: 1.2em; }
 
 .project .columns {
   color: #404d59; }

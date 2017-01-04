@@ -1,7 +1,6 @@
 <%= render :file => 'medias/embed-project' %>
 
-  <div class="modal">
-    <span class="close">&times;</span>
+<div class="modal">
 
   <%
   translation = @entries[:item][:translations].first
@@ -27,5 +26,8 @@
   end
   %>
 
+  <div class="modal-content">
+    <span class="close">&times;</span>
   <%= render partial: 'medias/item', locals: { entry: @entries[:item] } %>
+  </div>
 </div>

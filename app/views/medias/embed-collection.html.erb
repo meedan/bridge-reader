@@ -1,16 +1,9 @@
-<%= render :file => 'medias/embed-project' %>
+<% content_for :embed_title do %>Translations of <%= @project.titleize %> / <%= @collection.titleize %><% end %>
+<% content_for :description do %>Translations of <%= @project.titleize %> / <%= @collection.titleize %><% end %>
+<% content_for :creator do %><% end %>
 
-<div class="modal">
-  <span class="close">&times;</span>
-
-  <% content_for :embed_title do %>Translations of <%= @project.titleize %> / <%= @collection.titleize %><% end %>
-  <% content_for :description do %>Translations of <%= @project.titleize %> / <%= @collection.titleize %><% end %>
-  <% content_for :creator do %><% end %>
-
-  <div class="bridgeEmbed__screenshot">
-    <% @entries[:collection].each do |entry| %>
-      <%= render partial: 'medias/item', locals: { entry: entry } %>
-    <% end %>
-  </div>
-
+<div class="bridgeEmbed__screenshot">
+  <% @entries[:collection].each do |entry| %>
+    <%= render partial: 'medias/item', locals: { entry: entry } %>
+  <% end %>
 </div>
