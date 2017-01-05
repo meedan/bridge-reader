@@ -19,7 +19,7 @@ body.modal-active {
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 30px auto;
+    margin: 30px auto 100px;
     border: 1px solid #888;
     border-radius: 5px;
     width: 600px;

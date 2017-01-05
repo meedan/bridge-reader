@@ -160,6 +160,20 @@ body#bridge__collection {
   .bridgeEmbed__item-translation p {
     margin: 0; }
 
+.bridgeEmbed__item-comments .title {
+  color: #3E4C57;
+  font-size: 13px;
+  line-height: 1.2em;
+  cursor: pointer;
+  background: #fff6f1 url("/images/arrow-down.svg") no-repeat 98% / 1em;
+  padding: 0.6em 1em;
+  margin: 1em 4px 0;
+}
+
+.bridgeEmbed__item-comments .title.open {
+  background-image: url("/images/arrow-up.svg");
+}
+
 .bridgeEmbed__item-comment {
   font-size: smaller;
   background-color: #fff6f1;
@@ -170,6 +184,9 @@ body#bridge__collection {
   font-weight: 400; }
   .bridgeEmbed__item-comment .byline {
     padding: 0; }
+  .bridgeEmbed__item-comment:first-child {
+    margin-top: 0.3em;
+  }
 
 .breadcrumb {
   padding: 1.2em 1em 0em 1em;
@@ -436,4 +453,8 @@ footer.call-to-action {
   text-align: right;
   font-size: 12px;
   color: #abb5bd;
+}
+
+.bridgeEmbed__item-comment {
+  display: none;
 }

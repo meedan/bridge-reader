@@ -63,17 +63,24 @@
     </div>
 
     <!-- Item Annotations -->
-    <% translation[:comments].each do |comment| %>
-      <div class="bridgeEmbed__item-comment">
-        <% unless comment[:commenter_name].blank? %>
-        <span class="byline">
-            <%= link_to_unless comment[:commenter_url].blank?, comment[:commenter_name], comment[:commenter_url],
-                { target: '_blank' } %>
-          </span>
-        <% end %>
-        <div class="translation" style="direction: <%= get_comment_direction(comment) %>;">
-          <%= parse_text_provider comment[:comment], entry[:provider] %>
+    <% unless translation[:comments].empty? %>
+      <div class="bridgeEmbed__item-comments">
+        <div class="title">
+          <%= "Annotations (#{translation[:comments].size})" %>
         </div>
+        <% translation[:comments].each do |comment| %>
+          <div class="bridgeEmbed__item-comment">
+            <% unless comment[:commenter_name].blank? %>
+            <span class="byline">
+                <%= link_to_unless comment[:commenter_url].blank?, comment[:commenter_name], comment[:commenter_url],
+                    { target: '_blank' } %>
+              </span>
+            <% end %>
+            <div class="translation" style="direction: <%= get_comment_direction(comment) %>;">
+              <%= parse_text_provider comment[:comment], entry[:provider] %>
+            </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
 

@@ -1,3 +1,11 @@
+var showAndHideAnnotations = function() {
+  $('.bridgeEmbed__item-comments .title').on("click", function() {
+    console.log( $( this ).text() );
+    $(this).siblings().toggle();
+    $(this).toggleClass('open');
+  });
+};
+
 var itemAsModal = function() {
   if (Bridge.item != '') {
     var modal = $('.modal');
@@ -16,7 +24,6 @@ var itemAsModal = function() {
   }
 };
 
-
 var openModal = function(modal) {
   $(modal).show().appendTo('body');
   $('body').addClass('modal-active');
@@ -27,5 +34,7 @@ var closeModal = function(modal) {
   $('body').removeClass('modal-active');
 }
 
-
-$(document).ready(itemAsModal);
+$(document).ready(function() {
+  itemAsModal();
+  showAndHideAnnotations();
+});
