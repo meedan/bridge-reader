@@ -32,6 +32,7 @@ var openModal = function(modal) {
 var closeModal = function(modal) {
   $(modal).hide();
   $('body').removeClass('modal-active');
+  $('body').attr('id', 'bridge__project')
 }
 
 $(document).ready(function() {

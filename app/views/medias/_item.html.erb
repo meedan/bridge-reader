@@ -48,6 +48,10 @@
   
     <div class="bridgeEmbed__item-translation  <%= get_translation_direction(translation, entry[:provider]) %>">
 
+      <div class="translation" style="direction: <%= get_translation_direction(translation, entry[:provider]) %>;">
+        <%= parse_text_provider translation[:text], entry[:provider] %>
+      </div>
+
       <% unless translation[:translator_name].blank? %>
       <div class="byline">
         <span>Translated by </span>
@@ -56,10 +60,6 @@
         <%= reviewed_stamp(translation) %>
       </div>
       <% end %>
-
-      <div class="translation" style="direction: <%= get_translation_direction(translation, entry[:provider]) %>;">
-        <%= parse_text_provider translation[:text], entry[:provider] %>
-      </div>
     </div>
 
     <!-- Item Annotations -->
