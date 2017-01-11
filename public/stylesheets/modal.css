@@ -70,3 +70,6 @@ body.modal-active {
   .modal-content .rtl .bridgeEmbed__item-translation-approved .approved-icon {
     right: 0px;
     left: auto; }
+
+.modal-content .bridgeEmbed__item-translation-languages {
+  margin: 7px 20px 10px; }

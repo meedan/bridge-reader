@@ -480,3 +480,15 @@ footer.call-to-action {
 .bridgeEmbed__item-comment {
   display: none;
 }
+
+.bridgeEmbed__item-translation-languages {
+  text-align: right;
+  margin: 7px 40px 10px;
+  font-size: 12px; }
+  .bridgeEmbed__item-translation-languages span {
+    cursor: pointer; }
+    .bridgeEmbed__item-translation-languages span.active {
+      background-color: #f65612;
+      padding: 4px;
+      color: #fff;
+      border-radius: 5px; }
