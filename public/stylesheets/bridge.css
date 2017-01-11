@@ -134,14 +134,20 @@ body#bridge__collection {
     margin-top: 0;
     border-radius: 0px 0px 5px 5px; }
 
+.bridgeEmbed__item-translation-and-comment {
+  position: relative;
+}
+
 .bridgeEmbed__item .byline {
   margin-top: 0.6em;
   padding: 0.6em 1em 0.6em;
   margin: 0;
   color: #3E4C57;
-  opacity: 0.5;
   font-size: 13px;
   line-height: 1.2em; }
+  .bridgeEmbed__item .byline span,
+  .bridgeEmbed__item .byline a {
+    opacity: 0.5; }
 
 .bridgeEmbed__item-translation {
   margin: 0 4px;
@@ -163,6 +169,15 @@ body#bridge__collection {
     display: none; }
   .bridgeEmbed__item-translation p {
     margin: 0; }
+
+.bridgeEmbed__item-translation-approved .approved-icon {
+  background: #fff url('/images/approved.png') no-repeat;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 5px;
+  left: 10px;
+}
 
 .bridgeEmbed__item-comments .title {
   color: #3E4C57;

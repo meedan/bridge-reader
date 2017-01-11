@@ -52,10 +52,14 @@ body.modal-active {
 
 .modal-content .bridgeEmbed__item-translation-and-comment {
   margin-left: -20px;
-  background-position: 2px 5px;
 }
 
-.bridgeEmbed__item-translation,
+.modal-content .bridgeEmbed__item-translation,
 .modal-content .bridgeEmbed__item-comments {
  margin-left: 20px;
+}
+
+.modal-content .bridgeEmbed__item-translation-approved .approved-icon {
+  top: 0px;
+  left: 0px;
 }
