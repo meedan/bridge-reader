@@ -98,7 +98,12 @@ module MediasHelper
     if approval && approval['approved'] === '1'
       title = "Approved by #{approval['approver_name']}"
       link = approval['approver_url'] || '#'
-      link_to title, link, title: title, class: 'bridgeEmbed__item-translation-approved', target: '_blank'
+      content_tag(:div, class: 'bridgeEmbed__item-translation-approved') do
+        concat content_tag(:i, '', class: 'approved-icon')
+        concat content_tag(:span, 'Approved by')
+        concat ' '
+        concat link_to approval['approver_name'], link, title: title, target: '_blank'
+      end
     else
       ''
     end

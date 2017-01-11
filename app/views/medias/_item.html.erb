@@ -1,8 +1,9 @@
 <div class="bridgeEmbed__item">
   <!-- Share menu -->
+
   <%= 
     render partial: 'medias/share_menu', locals: {
-      item: entry[:id], 
+      item: entry[:id],
       tweet_id: entry[:oembed]['twitter_id'].to_s,
       text: entry[:translations].first[:text] #FIXME: Only getting the first translation
     }
@@ -11,7 +12,8 @@
   <!-- Item Geodata -->
   <% if entry[:oembed].respond_to?(:coordinates) && !entry[:oembed].coordinates.nil? %>
     <div class="bridgeEmbed__item-geodata">
-      <a href="http://www.openstreetmap.org/?mlat=<%= entry[:oembed].coordinates[0] %>&mlon=<%= entry[:oembed].coordinates[1] %>&zoom=11#map=11/<%= entry[:oembed].coordinates[0] %>/<%= entry[:oembed].coordinates[1] %>" target="_blank">
+      <a href="http://www.openstreetmap.org/?mlat=<%=
+      entry[:oembed].coordinates[0] %>&mlon=<%= entry[:oembed].coordinates[1] %>&zoom=11#map=11/<%= entry[:oembed].coordinates[0] %>/<%= entry[:oembed].coordinates[1] %>" target="_blank">
         <i class="icon"></i>
         <%= entry[:oembed].coordinates[0] %>,
         <%= entry[:oembed].coordinates[1] %>
@@ -46,6 +48,10 @@
   
     <div class="bridgeEmbed__item-translation  <%= get_translation_direction(translation, entry[:provider]) %>">
 
+      <div class="translation" style="direction: <%= get_translation_direction(translation, entry[:provider]) %>;">
+        <%= parse_text_provider translation[:text], entry[:provider] %>
+      </div>
+
       <% unless translation[:translator_name].blank? %>
       <div class="byline">
         <span>Translated by </span>
@@ -54,24 +60,27 @@
         <%= reviewed_stamp(translation) %>
       </div>
       <% end %>
-
-      <div class="translation" style="direction: <%= get_translation_direction(translation, entry[:provider]) %>;">
-        <%= parse_text_provider translation[:text], entry[:provider] %>
-      </div>
     </div>
 
     <!-- Item Annotations -->
-    <% translation[:comments].each do |comment| %>
-      <div class="bridgeEmbed__item-comment">
-        <% unless comment[:commenter_name].blank? %>
-        <span class="byline">
-            <%= link_to_unless comment[:commenter_url].blank?, comment[:commenter_name], comment[:commenter_url],
-                { target: '_blank' } %>
-          </span>
-        <% end %>
-        <div class="translation" style="direction: <%= get_comment_direction(comment) %>;">
-          <%= parse_text_provider comment[:comment], entry[:provider] %>
+    <% unless translation[:comments].empty? %>
+      <div class="bridgeEmbed__item-comments">
+        <div class="title">
+          <%= "Annotations (#{translation[:comments].size})" %>
         </div>
+        <% translation[:comments].each do |comment| %>
+          <div class="bridgeEmbed__item-comment">
+            <% unless comment[:commenter_name].blank? %>
+            <span class="byline">
+                <%= link_to_unless comment[:commenter_url].blank?, comment[:commenter_name], comment[:commenter_url],
+                    { target: '_blank' } %>
+              </span>
+            <% end %>
+            <div class="translation" style="direction: <%= get_comment_direction(comment) %>;">
+              <%= parse_text_provider comment[:comment], entry[:provider] %>
+            </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
 

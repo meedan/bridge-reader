@@ -24,6 +24,7 @@ module Bridge
     end
 
     def parse_entry(entry)
+      return if entry.blank?
       if entry[:link].blank?
         parse_non_link_entry(entry)
       else
@@ -51,6 +52,7 @@ module Bridge
     end
 
     def parse_collection(entries)
+      return if entries.blank?
       parsed = []
       entries.each_with_index do |entry, i|
         entry = parse_item(entry)

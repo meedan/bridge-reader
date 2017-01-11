@@ -3,7 +3,7 @@
 <% content_for :creator do %><% end %>
 
 <div class="bridgeEmbed__screenshot">
-  <% @entries.each do |entry| %>
+  <% @entries[:collection].each do |entry| %>
     <%= render partial: 'medias/item', locals: { entry: entry } %>
   <% end %>
 </div>
