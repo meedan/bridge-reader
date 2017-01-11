@@ -51,15 +51,22 @@ body.modal-active {
 }
 
 .modal-content .bridgeEmbed__item-translation-and-comment {
-  margin-left: -20px;
-}
+  margin-left: -20px; }
+  .modal-content .rtl.bridgeEmbed__item-translation-and-comment {
+    margin-left: auto;
+    margin-right: -20px; }
 
 .modal-content .bridgeEmbed__item-translation,
 .modal-content .bridgeEmbed__item-comments {
- margin-left: 20px;
-}
+  margin-left: 20px; }
+  .modal-content .rtl .bridgeEmbed__item-translation,
+  .modal-content .rtl .bridgeEmbed__item-comments {
+    margin-left: auto;
+    margin-right: 20px; }
 
 .modal-content .bridgeEmbed__item-translation-approved .approved-icon {
   top: 0px;
-  left: 0px;
-}
+  left: 0px; }
+  .modal-content .rtl .bridgeEmbed__item-translation-approved .approved-icon {
+    right: 0px;
+    left: auto; }

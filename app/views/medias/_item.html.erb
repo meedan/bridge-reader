@@ -44,9 +44,9 @@
 
   <!-- Item Translation -->
   <% entry[:translations].each do |translation| %>
-  <div class="bridgeEmbed__item-translation-and-comment">
+  <div class="bridgeEmbed__item-translation-and-comment <%= get_translation_direction(translation, entry[:provider]) %>">
   
-    <div class="bridgeEmbed__item-translation  <%= get_translation_direction(translation, entry[:provider]) %>">
+    <div class="bridgeEmbed__item-translation">
 
       <div class="translation" style="direction: <%= get_translation_direction(translation, entry[:provider]) %>;">
         <%= parse_text_provider translation[:text], entry[:provider] %>

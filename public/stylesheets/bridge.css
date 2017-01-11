@@ -156,7 +156,7 @@ body#bridge__collection {
   line-height: 1.4;
   vertical-align: middle;
   padding: 2px 5px; }
-  .rtl.bridgeEmbed__item-translation {
+  .rtl .bridgeEmbed__item-translation {
     direction: rtl;
     text-align: right;
     border-left-width: 0;
@@ -176,8 +176,10 @@ body#bridge__collection {
   width: 16px;
   height: 16px;
   top: 5px;
-  left: 10px;
-}
+  left: 10px; }
+  .rtl .bridgeEmbed__item-translation-approved .approved-icon {
+    right: 10px;
+    left: auto; }
 
 .bridgeEmbed__item-comments .title {
   color: #3E4C57;
