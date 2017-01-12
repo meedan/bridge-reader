@@ -109,6 +109,14 @@ module MediasHelper
     end
   end
 
+  def translation_language(source, target)
+    content_tag(:div, class: 'bridgeEmbed__item-translation-languages') do
+      concat content_tag(:span, language_name(source), class: 'source-lang active')
+      concat ' ⇾ '
+      concat content_tag(:span, language_name(target), class: 'target-lang')
+    end
+  end
+
   private
 
   def embed_url(site, project, collection, item, format = '')
@@ -126,5 +134,13 @@ module MediasHelper
       tag(:meta, property: 'og:url', content: embed_url(site, project, collection, item)),
       tag(:meta, property: 'og:description', content: content_for(:description))
     ]
+  end
+
+  def language_name(lang)
+    if lang.nil? || lang == 'unk'
+      'Unknown'
+    else
+      BRIDGE_CONFIG['languages'][lang.downcase]
+    end
   end
 end

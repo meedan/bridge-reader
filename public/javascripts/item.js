@@ -1,8 +1,29 @@
 var showAndHideAnnotations = function() {
   $('.bridgeEmbed__item-comments .title').on("click", function() {
-    console.log( $( this ).text() );
     $(this).siblings().toggle();
     $(this).toggleClass('open');
+  });
+};
+
+var closeAnnotations = function(annotations) {
+  $(annotations).siblings().hide();
+  $(annotations).removeClass('open');
+};
+
+var changeLanguageSelected = function() {
+  $('.bridgeEmbed__item-translation-languages span').on("click", function() {
+    var translationAndComment = $(this).parent().siblings('.bridgeEmbed__item-translation-and-comment');
+    var cardContainer = $(this).parent().siblings('.bridgeEmbed__item-embedly-card-container');
+
+    if ($(this).hasClass('source-lang')) {
+      $(cardContainer).insertBefore($(translationAndComment));
+    } else {
+      $(translationAndComment).insertBefore($(cardContainer));
+    }
+    $(this).toggleClass('active');
+    $(this).siblings().toggleClass('active');
+    var annotations = $(translationAndComment).find('.bridgeEmbed__item-comments .title');
+    closeAnnotations(annotations);
   });
 };
 
@@ -38,4 +59,5 @@ var closeModal = function(modal) {
 $(document).ready(function() {
   itemAsModal();
   showAndHideAnnotations();
+  changeLanguageSelected();
 });

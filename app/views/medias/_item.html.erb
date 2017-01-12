@@ -9,6 +9,9 @@
     }
   %>
     
+  <!-- Item Translation Language Switch-->
+  <%= translation_language(entry[:source_lang], entry[:lang]) %>
+
   <!-- Item Geodata -->
   <% if entry[:oembed].respond_to?(:coordinates) && !entry[:oembed].coordinates.nil? %>
     <div class="bridgeEmbed__item-geodata">
@@ -36,7 +39,9 @@
   <% if entry[:link].blank? && !entry[:timestamp].blank? %>
   <div class="bridgeEmbed__item-date">
     <% unless entry[:source_author_name].blank? %>
-      By <%= link_to_unless entry[:source_author_link].blank?, entry[:source_author_name], entry[:source_author_link], { target: '_blank' } %>, 
+      <div class="bridgeEmbed__item-author">
+        <%= link_to_unless entry[:source_author_link].blank?, content_tag(:span, entry[:source_author_name]), entry[:source_author_link], { target: '_blank' } %>
+      </div>
     <% end %>
     <%= time_tag Date.parse(entry[:timestamp]) %>
   </div>
@@ -83,15 +88,15 @@
         <% end %>
       </div>
     <% end %>
-
-    <div class="breadcrumb">
-      <% project_path = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project].join('/') %>
-      This translation is part of the 
-      <%= link_to @project, project_path, target: '_blank' %> 
-      project on 
-      <a href="http://speakbridge.io" target="_blank">Bridge</a>.
-    </div>
   </div>
   <% end %>
+
+  <div class="breadcrumb">
+    <% project_path = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', @project].join('/') %>
+    This translation is part of the 
+    <%= link_to @project, project_path, target: '_blank' %> 
+    project on 
+    <a href="http://speakbridge.io" target="_blank">Bridge</a>.
+  </div>
 
 </div>
