@@ -137,10 +137,10 @@ module MediasHelper
   end
 
   def language_name(lang)
-    if lang.nil? || lang == 'unk'
+    if lang.nil? || lang == 'unk' || BRIDGE_CONFIG['languages'].nil?
       'Unknown'
     else
-      BRIDGE_CONFIG['languages'][lang.downcase]
+      BRIDGE_CONFIG['languages'][lang.downcase] || 'Unknown'
     end
   end
 end

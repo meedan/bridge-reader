@@ -106,4 +106,19 @@ class MediasHelperTest < ActionView::TestCase
     translation = { approval: { 'approved' => '' } }
     assert_equal '', reviewed_stamp(translation)
   end
+
+  test "should return language name when languages are defined on config" do
+    stub_config 'languages',  {"en_us"=>"English"}
+    assert_equal 'English', send(:language_name, 'en_us')
+  end
+
+  test "should return Unknown as language name if languages are not defined on config" do
+    stub_config 'languages', nil
+    assert_equal 'Unknown', send(:language_name, 'en_us')
+  end
+
+  test "should return Unknown as language name if code language is not defined on config" do
+    stub_config 'languages',  {"en_us"=>"English"}
+    assert_equal 'Unknown', send(:language_name, 'undefined')
+  end
 end
