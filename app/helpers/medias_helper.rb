@@ -140,7 +140,7 @@ module MediasHelper
     if lang.nil? || lang == 'unk'
       'Unknown'
     else
-      I18n.t('language_' + lang.downcase)
+      BRIDGE_CONFIG['languages'][lang.downcase]
     end
   end
 end
