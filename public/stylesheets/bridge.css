@@ -309,15 +309,24 @@ header.title {
         width: 600px; }
       header.title .wrap {
         max-width: 1262px;
-        margin: auto; } }
+        margin: auto;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+                justify-content: space-between; } }
   @media (max-width: 1000px) {
     header.title h1, header.title h2 {
       font-size: 12px;
       width: 100%;
       display: block; } }
   header.title .project--translators {
-    float: right;
-    margin: 1em; }
+    -webkit-align-self: flex-end;
+        -ms-flex-item-align: end;
+            align-self: flex-end; }
     header.title .project--translators em {
       line-height: 1.0; }
     header.title .project--translators a {
@@ -381,10 +390,11 @@ header.title {
               flex: 1 1 300px;
       min-height: 0;
       overflow: auto;
-      margin: 8px 0px; }
+      margin: 8px 0px;
+      padding: 0px 8px; }
       .columns .column .embeds {
         padding: 1px 0 100px;
-        margin: 0px 8px; } }
+        margin: 0px; } }
 
 .column header {
   padding: 0.4em 0.6em;
@@ -397,9 +407,10 @@ header.title {
     font-weight: 500; }
   @media (min-width: 1000px) {
     .column header {
-      margin: 0px 8px;
+      margin: 0px auto;
       height: 50px;
-      overflow: hidden; } }
+      overflow: hidden;
+      max-width: 505px; } }
 
 h2.channel--title {
   margin: 0;
