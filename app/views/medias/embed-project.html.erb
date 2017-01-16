@@ -5,8 +5,10 @@
 
 <header class="title">
   <div class="wrap">
-    <h1 class="project--title"><%= @entries[:project].first['project'] unless @entries[:project].empty? %></h1>
-    <h2 class="project--description"><%= @entries[:project].first['project_summary'] %></h2>
+    <div>
+      <h1 class="project--title"><%= @entries[:project].first['project'] unless @entries[:project].empty? %></h1>
+      <h2 class="project--description"><%= @entries[:project].first['project_summary'] %></h2>
+    </div>
     <div class="project--translators">
       <em>Translators:</em>
       <a href="http://www.twitter.com/norayounis">
