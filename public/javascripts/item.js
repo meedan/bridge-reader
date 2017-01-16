@@ -46,7 +46,7 @@ var itemAsModal = function() {
 };
 
 var openModal = function(modal) {
-  $(modal).show().appendTo('body');
+  $(modal).css('display', 'flex').insertBefore('footer');
   $('body').addClass('modal-active');
 }
 
@@ -54,6 +54,8 @@ var closeModal = function(modal) {
   $(modal).hide();
   $('body').removeClass('modal-active');
   $('body').attr('id', 'bridge__project')
+  var projectUrl = '/medias/embed/' + Bridge.project
+  window.history.pushState('', '', projectUrl);
 }
 
 $(document).ready(function() {

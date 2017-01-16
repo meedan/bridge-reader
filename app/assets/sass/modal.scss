@@ -1,3 +1,5 @@
+$breakpoint: 1000px;
+
 body.modal-active {
   overflow: hidden;
 }
@@ -42,19 +44,24 @@ body.modal-active {
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  height: 90%;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  justify-content: center;
+  align-items: center;
   .modal-content {
     background-color: #fefefe;
-    margin: 30px auto 100px;
+    margin: auto;
     border: 1px solid #888;
     border-radius: 5px;
     width: 600px;
     .close {
       @extend %modal-close-link;
     }
+  }
+  @media (max-width: $breakpoint) {
+    height: 100%;
   }
 }
 
