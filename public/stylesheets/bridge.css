@@ -207,9 +207,11 @@ em {
     margin-bottom: 0px;
     quotes: "“" "”"; }
     .rendered.bridgeEmbed__item-pender-card:before {
-      content: open-quote; }
+      content: open-quote;
+      float: left; }
     .rendered.bridgeEmbed__item-pender-card:after {
-      content: close-quote; }
+      content: close-quote;
+      position: absolute; }
 
 .bridgeEmbed__item-embedly-card-container {
   margin-top: 30px;
