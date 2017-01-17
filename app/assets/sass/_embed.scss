@@ -134,9 +134,11 @@ $embed--translation-border: 3px solid $bridge-orange;
     quotes: "\201C""\201D";
     &:before {
       content: open-quote;
+      float: left;
     }
     &:after {
       content: close-quote;
+      position: absolute;
     }
   }
 }
