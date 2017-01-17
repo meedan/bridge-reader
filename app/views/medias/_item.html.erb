@@ -10,7 +10,7 @@
   %>
     
   <!-- Item Translation Language Switch-->
-  <%= translation_language(entry[:source_lang], entry[:lang]) %>
+  <%= translation_language(entry[:source_lang], entry[:translations].first[:lang] ) %>
 
   <!-- Item Geodata -->
   <% if entry[:oembed].respond_to?(:coordinates) && !entry[:oembed].coordinates.nil? %>
