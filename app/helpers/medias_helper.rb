@@ -98,9 +98,22 @@ module MediasHelper
     if approval && approval['approved'] === '1'
       title = "Approved by #{approval['approver_name']}"
       link = approval['approver_url'] || '#'
-      link_to title, link, title: title, class: 'bridgeEmbed__item-translation-approved', target: '_blank'
+      content_tag(:div, class: 'bridgeEmbed__item-translation-approved') do
+        concat content_tag(:i, '', class: 'approved-icon')
+        concat content_tag(:span, 'Approved by')
+        concat ' '
+        concat link_to approval['approver_name'], link, title: title, target: '_blank'
+      end
     else
       ''
+    end
+  end
+
+  def translation_language(source, target)
+    content_tag(:div, class: 'bridgeEmbed__item-translation-languages') do
+      concat content_tag(:span, language_name(source), class: 'source-lang active')
+      concat ' ⇾ '
+      concat content_tag(:span, language_name(target), class: 'target-lang')
     end
   end
 
@@ -121,5 +134,13 @@ module MediasHelper
       tag(:meta, property: 'og:url', content: embed_url(site, project, collection, item)),
       tag(:meta, property: 'og:description', content: content_for(:description))
     ]
+  end
+
+  def language_name(lang)
+    if lang.nil? || lang == 'unk' || BRIDGE_CONFIG['languages'].nil?
+      'Unknown'
+    else
+      BRIDGE_CONFIG['languages'][lang.downcase] || 'Unknown'
+    end
   end
 end

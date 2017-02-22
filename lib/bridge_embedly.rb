@@ -24,6 +24,15 @@ module Bridge
     end
 
     def parse_entry(entry)
+      return if entry.blank?
+      if entry[:link].blank?
+        parse_non_link_entry(entry)
+      else
+        parse_link_entry(entry)
+      end
+    end
+
+    def parse_link_entry(entry)
       Rails.cache.fetch('embedly:' + entry[:id]) do
         begin
           oembed = call_oembed(entry[:link])
@@ -37,7 +46,13 @@ module Bridge
       end
     end
 
+    def parse_non_link_entry(entry)
+      entry[:oembed] = { 'unavailable' => false }
+      entry.except(:source)
+    end
+
     def parse_collection(entries)
+      return if entries.blank?
       parsed = []
       entries.each_with_index do |entry, i|
         entry = parse_item(entry)

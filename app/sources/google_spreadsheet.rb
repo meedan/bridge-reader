@@ -94,10 +94,6 @@ module Sources
       @worksheet
     end
 
-    def reset_entries
-      @entries = nil
-    end
-
     def get_entries(link = nil, force = false)
       if @entries.blank? || force
         worksheet = self.get_worksheet
@@ -109,7 +105,7 @@ module Sources
           end
         end
       end
-      @entries
+      @entries.reverse
     end
 
     def get_worksheets
@@ -121,12 +117,15 @@ module Sources
     def row_to_hash(row)
       worksheet = get_worksheet
       link = self.get_url(row)
+      comment = worksheet[row, 4]
       {
         id: Digest::SHA1.hexdigest(link),
         source_text: worksheet[row, 1],
         source_lang: 'unk',
+        source_author_name: worksheet[row, 11],
+        source_author_link: worksheet[row, 12],
         link: link,
-        timestamp: '',
+        timestamp: worksheet[row, 10],
         translations: [
           {
             translator_name: worksheet[row, 5],
@@ -135,13 +134,13 @@ module Sources
             lang: 'en',
             timestamp: '',
             comments:
-              worksheet[row, 4].blank? ?
+              comment.blank? ?
                 [] :
                 [
                   {
                     commenter_name: worksheet[row, 7],
                     commenter_url: worksheet[row, 8],
-                    comment: worksheet[row, 4],
+                    comment: comment,
                     timestamp: ''
                   }
                 ]
@@ -203,7 +202,7 @@ module Sources
       worksheet = self.get_worksheet.title
       generate_cache(self, self.project, worksheet, '')
       remove_screenshot(self.project, worksheet, '')
-      generate_screenshot(self.project, worksheet, '')
+      # generate_screenshot(self.project, worksheet, '')
     end
   end
 end

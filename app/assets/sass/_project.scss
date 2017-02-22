@@ -1,6 +1,7 @@
 $breakpoint: 1000px;
 $column-width: 300px;
 $header-height: 7vh;
+$header--max-width: 505px;
 
 .project .columns {
   color: $firefly80;
@@ -25,36 +26,49 @@ body#bridge__project {
   }
 }
 
+body#bridge__collection {
+  margin-top: 1px;
+}
+
 header.title {
   background-color: white;
   font-size: 14px;
   padding: 0.8em;
   position: relative;
   overflow: hidden;
+  color: #4A4A4A;
+  box-shadow: 0px 2px 2px 2px #929292;
 
   h1.project--title {
-    float:left;
     margin: 0 0.2em 0 0;
     padding: 0;
-    color: black;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 2em;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1.2em;
   }
 
   h2.project--description{
     margin: 0;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 400;
     float: left;
-    line-height: 2em;
-    color: $keyboard-grey;
+    line-height: 1.4em;
   }
 
   //LARGER than the breakpoint
   @media(min-width: $breakpoint) {
     width: 100%;
-    text-align: center;
+    height: 93px;
+    text-align: left;
+    h2.project--description {
+      width: 600px;
+    }
+    .wrap {
+     max-width: 1262px;
+     margin: auto;
+     display: flex;
+     justify-content: space-between;
+    }
   }
 
   // At smaller sizes, fit the title better
@@ -67,8 +81,7 @@ header.title {
   }
 
   .project--translators {
-    float: right;
-    margin: 1em;
+    align-self: flex-end;
     em {
       line-height: 1.0;
     }
@@ -126,6 +139,8 @@ header.title {
 @media (min-width: $breakpoint) {
   .columns {
     width: 100%;
+    max-width: 1262px;
+    margin: auto;
     display: flex;
     align-items: stretch;
     height: 95vh - $header-height;
@@ -135,10 +150,12 @@ header.title {
     .column {
       // border: 10px solid green;
       @include layout--flex-item-scrolling;
-      border-right: 1px solid rgba(white, 0.5);
+      margin: 8px 0px;
+      padding: 0px 8px;
 
       .embeds {
-        padding: 2.5em 0 100px;
+        padding: 1px 0 100px;
+        margin: 0px;
       }
     }
   }
@@ -148,10 +165,10 @@ header.title {
 .column header {
   padding: 0.4em 0.6em;
   background-color: white;
-  width: 100%;
   // min-height: 50px;
   // text-align: center;
   position: relative;
+  border-radius: 5px 5px 0px 0px;
 
   h2 {
     font-size: 14px;
@@ -161,15 +178,16 @@ header.title {
     // text-align: center;
   }
   @media(min-width: $breakpoint) {
-    position: fixed;
-    margin: 0;
-    border: 1px solid $light-keyboard-grey;
+    margin: 0px auto;
+    height: 50px;
+    overflow: hidden;
+    max-width: $header--max-width;
   }
 }
 
 h2.channel--title {
-  margin: 0 0.5em 0 0;
-  width: 100%;
+  margin: 0;
+  max-width: 30vw;
   font-size: 16px;
   color: $bridge-orange;
   font-weight: 800;
@@ -193,7 +211,6 @@ h2.channel--title {
 // The primary footer
 //
 footer.call-to-action  {
-  border-top: 1px solid $light-keyboard-grey;
   bottom: 0;
   border-bottom-width: 0;
   position: fixed;
@@ -201,6 +218,7 @@ footer.call-to-action  {
   width: 100%;
   padding: 0.2em 1em;
   z-index: 2;
+  box-shadow: 0px -1px 2px 1px #929292;
   sup {
     font-size:0.5em;
   }
@@ -214,7 +232,7 @@ footer.call-to-action  {
     margin-right: 0.2em;
   }
   a {
-    color: $firefly80;
+    color: $firefly90;
     text-decoration: none;
     font-weight: 600;
     border-bottom: 1px solid $firefly40;
@@ -226,6 +244,13 @@ footer.call-to-action  {
     float: left;
     width: 70%;
     font-weight: 400;
+    font-size: 14px;
+    line-height: 1.2em;
+  }
+  em {
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 1.2em;
   }
 
   .tos--links{
@@ -240,7 +265,11 @@ footer.call-to-action  {
         border-bottom-width: 0;
         font-size: 0.7em;
         font-weight: 300;
-
+        color: $warm-dark-grey;
+        &:first-of-type {
+          padding-right: 5px;
+          border-right: 1px solid $warm-dark-grey;
+        }
       }
     }
 
