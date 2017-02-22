@@ -25,7 +25,7 @@ module Sources
 
     def get_item(worksheet, hash)
       return if get_worksheet(worksheet).blank?
-      link = get_entries(hash)
+      link = get_entries(hash, true)
       link.blank? ? nil : link.first
     end
 
