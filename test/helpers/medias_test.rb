@@ -121,4 +121,11 @@ class MediasHelperTest < ActionView::TestCase
     stub_config 'languages',  {"en_us"=>"English"}
     assert_equal 'Unknown', send(:language_name, 'undefined')
   end
+
+  test "should return language name when language code have 2 chars" do
+    stub_config 'languages',  {"en_us"=>"English"}
+    stub_config 'language_fallbacks',  {"en" => "en_us"}
+    assert_equal 'English', send(:language_name, 'en')
+  end
+
 end
