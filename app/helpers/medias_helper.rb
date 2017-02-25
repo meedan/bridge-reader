@@ -140,7 +140,10 @@ module MediasHelper
     if lang.nil? || lang == 'unk' || BRIDGE_CONFIG['languages'].nil?
       'Unknown'
     else
-      BRIDGE_CONFIG['languages'][lang.downcase] || 'Unknown'
+      lang.downcase!
+      lang = BRIDGE_CONFIG['language_fallbacks'][lang] if lang.size == 2 && !BRIDGE_CONFIG['language_fallbacks'].nil?
+      BRIDGE_CONFIG['languages'][lang] || 'Unknown'
     end
   end
+
 end
