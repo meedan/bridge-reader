@@ -162,7 +162,7 @@ module Sources
 
     def notify_entry_offline(link)
       hash = Digest::SHA1.hexdigest(link)
-      cache_key = 'embedly:' + hash
+      cache_key = 'pender:' + hash
       entry = Rails.cache.fetch(cache_key)
       worksheet = self.get_worksheet.title
 
@@ -187,7 +187,7 @@ module Sources
       
       entries.each do |entry|
         hash = entry[:id]
-        Rails.cache.delete('embedly:' + hash)
+        Rails.cache.delete('pender:' + hash)
         @entries = [entry]
         generate_cache(self, self.project, worksheet, hash, BRIDGE_CONFIG['bridgembed_host'])
         remove_screenshot(self.project, worksheet, hash)

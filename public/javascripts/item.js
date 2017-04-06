@@ -13,7 +13,7 @@ var closeAnnotations = function(annotations) {
 var changeLanguageSelected = function() {
   $('.bridgeEmbed__item-translation-languages span').on("click", function() {
     var translationAndComment = $(this).parent().siblings('.bridgeEmbed__item-translation-and-comment');
-    var cardContainer = $(this).parent().siblings('.bridgeEmbed__item-embedly-card-container');
+    var cardContainer = $(this).parent().siblings('.bridgeEmbed__item-pender-card-container');
 
     if ($(this).hasClass('source-lang')) {
       $(cardContainer).insertBefore($(translationAndComment));

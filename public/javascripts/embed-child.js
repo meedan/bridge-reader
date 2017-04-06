@@ -1,5 +1,8 @@
 /*jslint nomen: true, plusplus: true, todo: true, white: true, browser: true, indent: 2 */
-
+// DON'T REMOVE THIS FILE
+// IT IS USED FOR LEGACY BRIDGE READER EMBEDS THAT ARE ALREADY CACHED
+// EMBED.LY IS USED HERE BUT DOESN'T REQUIRE AN API KEY
+// NEW EMBEDS USE public/javascripts/embed-child-pender.js
 // This happens on the child window
 var Bridge = {};
 

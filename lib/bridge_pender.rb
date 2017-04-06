@@ -1,24 +1,26 @@
-require 'embedly'
 require 'json'
 require 'twitter'
 
 module Bridge
-  class Embedly
+  class Pender
 
     def initialize(key)
       connect_to_api(key)
     end
 
-    def connect_to_api(key = '')
-      @api ||= ::Embedly::API.new(key: key, user_agent: 'Mozilla/5.0 (compatible; Bridge/1.0; bridge@meedanlabs.com)')
+    def connect_to_api(_key = '')
+      @api ||= PenderClient::Request
     end
 
     def call_oembed(link)
       oembed = {}
+      response = nil
       Retryable.retryable tries: 5, sleep: 3 do
-        oembed = connect_to_api.oembed(url: link).first
+        response = connect_to_api.get_medias(BRIDGE_CONFIG['pender_base_url'], { url: link }, BRIDGE_CONFIG['pender_token'])
       end
-      raise oembed.error_message if oembed.type === 'error'
+      raise response['data']['message'] if response['type'] === 'error'
+      # raise oembed['data']['error']['message'] if oembed['data'].has_key?('error')
+      oembed = response['data'].dup
       oembed[:link] = link
       oembed
     end
@@ -33,10 +35,10 @@ module Bridge
     end
 
     def parse_link_entry(entry)
-      Rails.cache.fetch('embedly:' + entry[:id]) do
+      Rails.cache.fetch('pender:' + entry[:id]) do
         begin
           oembed = call_oembed(entry[:link])
-          entry[:provider] = provider = oembed.provider_name.to_s.underscore
+          entry[:provider] = provider = oembed['provider'].to_s.underscore
           entry[:oembed] = self.alter_oembed(oembed, provider)
         rescue
           entry[:oembed] = { 'unavailable' => true }
@@ -79,7 +81,7 @@ module Bridge
 
     def alter_oembed(oembed, provider)
       function = "alter_#{provider}_oembed"
-      oembed['unavailable'] = true if oembed.respond_to?(:error_code) && oembed.error_code === 404
+      oembed['unavailable'] = true if oembed.has_key?('error')
       (oembed = self.send(function, oembed)) if self.respond_to?(function)
       oembed
     end
@@ -88,16 +90,10 @@ module Bridge
 
     def alter_twitter_oembed(oembed)
       id = oembed[:link].match(/status\/([0-9]+)/)
-      oembed[:author_full_name] = oembed[:title].gsub(/ on Twitter$/, '')
+      oembed[:author_full_name] = oembed['username']
       unless id.nil?
         Retryable.retryable tries: 5, sleep: 3 do
-          begin
-            oembed = add_twitter_info(oembed)
-          rescue Twitter::Error::NotFound, Twitter::Error::Forbidden
-            oembed['unavailable'] = true
-          rescue Twitter::Error::TooManyRequests => error
-            sleep error.rate_limit.reset_in.to_i
-          end
+          oembed = add_twitter_info(oembed)
         end
       end
       oembed
@@ -106,24 +102,9 @@ module Bridge
     def add_twitter_info(oembed)
       id = oembed[:link].match(/status\/([0-9]+)/)
       oembed['twitter_id'] = id[1]
-      client = Twitter::REST::Client.new do |config|
-        config.consumer_key        = BRIDGE_CONFIG['twitter_consumer_key']
-        config.consumer_secret     = BRIDGE_CONFIG['twitter_consumer_secret']
-        config.access_token        = BRIDGE_CONFIG['twitter_access_token']
-        config.access_token_secret = BRIDGE_CONFIG['twitter_access_token_secret']
-      end
-      tweet = client.status(id[1])
-      oembed['coordinates'] = [tweet.geo.latitude, tweet.geo.longitude] if tweet.geo?
-      oembed['created_at'] = tweet.created_at
-      oembed
-    end
-
-    def alter_instagram_oembed(oembed)
-      uri = URI.parse(oembed[:link])
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = uri.scheme == 'https'
-      result = http.get(uri.path)
-      oembed['unavailable'] = (result.code.to_i === 404)
+      oembed['coordinates'] = [oembed['geo']['coordinates'][0], oembed['geo']['coordinates'][1]] if oembed['geo']
+      oembed['created_at'] = Time.parse(oembed['published_at'])
+      oembed['unavailable'] = true if oembed['protected']
       oembed
     end
   end

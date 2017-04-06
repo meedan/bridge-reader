@@ -4,7 +4,6 @@ gem 'rails', '4.0.9'
 gem 'google_drive', '1.0.1'
 gem 'sqlite3'
 gem 'xml-simple'
-gem 'embedly'
 gem 'twitter'
 gem 'bower-rails', '~> 0.9.1'
 gem 'airbrake'
@@ -19,6 +18,7 @@ gem 'bitly'
 gem 'string-direction'
 gem 'poltergeist'
 gem 'mini_magick'
+gem 'pender_client', git: 'https://github.com/meedan/pender-client.git'
 
 # Test gems
 # group :test do

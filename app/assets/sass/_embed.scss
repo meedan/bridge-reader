@@ -143,7 +143,7 @@ $embed--translation-border: 3px solid $bridge-orange;
   }
 }
 
-%embed--embedly-card-container {
+%embed--pender-card-container {
   margin-top: 30px;
   position: relative;
   iframe {
@@ -201,7 +201,7 @@ $embed--translation-border: 3px solid $bridge-orange;
   @extend %embed--translator-annotation;
 }
 
-.bridgeEmbed__item .bridgeEmbed__item-embedly-card {
+.bridgeEmbed__item .bridgeEmbed__item-pender-card {
   @extend %loading;
 }
 
@@ -209,8 +209,8 @@ $embed--translation-border: 3px solid $bridge-orange;
   @extend %embed--pender-card;
 }
 
-.bridgeEmbed__item-embedly-card-container {
-  @extend %embed--embedly-card-container;
+.bridgeEmbed__item-pender-card-container {
+  @extend %embed--pender-card-container;
 }
 
 .bridgeEmbed__item-translation-and-comment {
