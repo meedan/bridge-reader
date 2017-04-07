@@ -171,12 +171,12 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.53028713"
      inkscape:cx="632.39716"
-     inkscape:cy="562.90259"
+     inkscape:cy="541.21623"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1301"
-     inkscape:window-height="744"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
      inkscape:window-x="65"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -541,7 +541,7 @@
            width="493.18625"
            id="rect10122" /></flowRegion><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
-         id="flowPara10124">lib/bridge_embedly.rb</flowPara></flowRoot>    <path
+         id="flowPara10124">lib/bridge_pender.rb</flowPara></flowRoot>    <path
        inkscape:connector-curvature="0"
        id="path10126"
        d="m 726.63805,856.87631 -138.2237,0"
@@ -576,7 +576,7 @@
        xml:space="preserve"
        id="flowRoot11559"
        style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       transform="matrix(25.499764,0,0,25.499764,643.46988,900.45727)"><flowRegion
+       transform="matrix(25.499764,0,0,25.499764,653.46988,898.45727)"><flowRegion
          id="flowRegion11561"><rect
            id="rect11563"
            width="493.18625"
@@ -584,7 +584,7 @@
            x="3.4731426"
            y="6.9462852" /></flowRegion><flowPara
          id="flowPara11565"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">Embed.ly</flowPara></flowRoot>    <flowRoot
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">Pender</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot11567"
        style="font-size:1px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -596,7 +596,7 @@
            x="3.4731426"
            y="6.9462852" /></flowRegion><flowPara
          id="flowPara11573"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">call Embed.ly</flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara">call Pender</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara"
          id="flowPara11575">if not cached</flowPara></flowRoot>    <path
        inkscape:connector-curvature="0"
