@@ -11,8 +11,8 @@ before_install:
 - cp pender/config/database.yml.travis pender/config/database.yml
 - cd pender
 - bundle install
-- bundle exec rake db:migrate
-- rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
+- RAILS_ENV=development bundle exec rake db:migrate
+- RAILS_ENV=development rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 >/dev/null &
 - cd -
 before_script:
