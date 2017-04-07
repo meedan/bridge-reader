@@ -9,12 +9,10 @@ before_install:
 - mv pender.yml /tmp/pender/config/config.yml
 - cp /tmp/pender/config/initializers/secret_token.rb.example /tmp/pender/config/initializers/secret_token.rb
 - cp /tmp/pender/config/database.yml.travis /tmp/pender/config/database.yml
-- cd /tmp/pender
-- bundle install
-- RAILS_ENV=development bundle exec rake db:migrate
-- RAILS_ENV=development rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- rails s -p 3005 >/dev/null &
-- cd -
+- cd /tmp/pender && bundle install && cd -
+- cd /tmp/pender && RAILS_ENV=development bundle exec rake db:migrate && cd -
+- cd /tmp/pender && RAILS_ENV=development rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!' && cd -
+- cd /tmp/pender && rails s -p 3005 >/dev/null & && cd -
 before_script:
 - mv bridgembed.yml config/
 - cp config/database.yml.example config/database.yml
