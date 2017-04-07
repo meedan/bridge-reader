@@ -1,0 +1,36 @@
+language: ruby
+bundler_args: "--jobs 3 --retry 3 --without nothing"
+before_install:
+- openssl aes-256-cbc -K $encrypted_71698f2e5e26_key -iv $encrypted_71698f2e5e26_iv -in travis.zip.enc -out travis.zip -d
+- unzip travis.zip
+- rm -rf config/projects && mv projects config/
+# pender
+- git clone https://github.com/meedan/pender.git
+- mv pender.yml pender/config/config.yml
+- cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
+- cp pender/config/database.yml.travis pender/config/database.yml
+- cd pender
+- bundle install
+- bundle exec rake db:migrate
+- rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
+- rails s -p 3005 >/dev/null &
+- cd -
+before_script:
+- mv bridgembed.yml config/
+- cp config/database.yml.example config/database.yml
+- cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+- bundle install
+- RAILS_ENV=test bundle exec rake db:migrate
+- RAILS_ENV=development bundle exec rake db:migrate
+- rails s -p 3002 >/dev/null &
+- rm -f tmp/pids/server.pid
+script: bundle exec rake test:coverage
+rvm:
+- 2.3.1
+addons:
+  code_climate:
+    repo_token:
+      secure: TrLcp9WssfCenM+IUR6sEacQNV4C+Jog9YDtz+af+8nq0iSWVcfNSEuroqCBKx/KcSq4Uaqmkf9CxH9pVOPnbx3hxOD/rNjcaEwhlgxda4Qrha+6ouS8bzqRG3rpod5+g2DE4k+McWvLG//kd7K3QjRtBCkJiEQlvfMfgK32gu8jZVQernH3ylqK5QmIMjprZKRMV1FA5wwL0v0mNvNMPexi9y3dTCvSZAa+0lOVXei4N8sDvrxEOPUQzHEtzR2y34x64c+50ssHxur22qsRSh2nZw6zduXrWD6aoOiU6bOPASM9+oMDjB4D47nz91ohEicBnLz344sQEvvdn0vaGgruFfT5Sop+bY+kdEZ7IVswLnWypSahFUi6budKQ7mcFDbSoO0O0JLYfqyQp0auXa/LgV46+fY/XuDIyQfcUqjZt5xg4CVMu6gJXbSF7WZ6StYINZ1mwIaqoOrzuvqeuYxeqQWblmC3mkROIqW8T5e94QcVkd2swFPJr7oMoAkbsfrBLPI5qX9ZlcOoiefv94Tt3JibNEfS8Rbnlej92stz/soiSk1zEpJb39FmWHgMp6AB7uF4oguoWDwAXG4AywnSnrcNKUije57sctFDmaKsnxX3QwEoD9bqmtovH0gME+CSK0zHG/TkIWlJGzgEVNgQJ2T9mdFHreb+Lv8fO/A= 
+notifications:
+  slack:
+    secure: P0GaoYe0gYvo+wNp3UuAhlT9jg2rR8nOHfbfgDWKiU5Ji/3qtH9k/qX3s+lc9MORVhdH1iy4VJhkfRla15iOmTRDM7+en3zE3GAMr+CEM3DEMz97cggeYlXlJAfxwaqxP0rpYp2w1Pmaij2kBajsCF21qF3v1rW2YciqUPI+pCWe01ssB+/YVeA3bS1vrYoO1boy5mseQmCnDLq0RF0qDinjPEc9ta4Uq84gr9znsp2hVQLYd1Tt2LcuR9Hunk8mVxSQyMOUXOI2UEoJseP9wyKCCzFnnS2e5JXDC2o9TxSD6LFVMl+e3xO54DZ1X4H5KIM0eVw4/FIBUSWPtvpzI1Kc3BpN9TqyH2ZL+yrm/+HsarX81QksYgAW1bz+8cZxmwj9SpI+c3j050528tREQul7VVowatkZ4kdCHvDLH8KiENcCEVc9GLGUPTo2nwfR0EkUtwoeqk1yWmEo68nUW1LrDNLa4OMFkscAktZ4YI2HV1P6PbV3Uz3zLE4U9Ht6Sy7069zQiBWd3SXbTdGDqVNzCglkztMlbydLWQqADJyjZSLcnKbyEMIPqv43a5zAbVFG2k8TELXK2ET9YY9yD8s/J9qKiS/jUxzLxlIWxvCzRVcBNpm/yYEvynInqS3xxIdTPQD9Z7ntTcXLOKi+ZwPO7fzXIYc6IhlnOhE5biA= 
