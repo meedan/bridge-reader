@@ -5,11 +5,11 @@ before_install:
 - unzip travis.zip
 - rm -rf config/projects && mv projects config/
 # pender
-- git clone https://github.com/meedan/pender.git
-- mv pender.yml pender/config/config.yml
-- cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
-- cp pender/config/database.yml.travis pender/config/database.yml
-- cd pender
+- git clone https://github.com/meedan/pender.git /tmp/pender
+- mv pender.yml /tmp/pender/config/config.yml
+- cp /tmp/pender/config/initializers/secret_token.rb.example /tmp/pender/config/initializers/secret_token.rb
+- cp /tmp/pender/config/database.yml.travis /tmp/pender/config/database.yml
+- cd /tmp/pender
 - bundle install
 - RAILS_ENV=development bundle exec rake db:migrate
 - RAILS_ENV=development rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
