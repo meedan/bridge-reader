@@ -28,4 +28,5 @@ gem 'pender_client', git: 'https://github.com/meedan/pender-client.git'
   gem 'html_validation'
   gem 'webmock'
   gem 'capybara'
+  gem 'capybara-screenshot'
 # end
