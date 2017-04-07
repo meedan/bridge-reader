@@ -254,7 +254,7 @@ class MediasControllerTest < ActionController::TestCase
   test "should have Facebook metatags for item" do
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google SpreadsheetTranslation of @ahmadabou: Vídeo do Instagram' })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /#{id}\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
   end

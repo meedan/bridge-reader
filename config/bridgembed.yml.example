@@ -15,6 +15,7 @@ development: &default
   cc_deville_httpauth: 'username:password'
   facebook_app_id:
   languages: null
+  language_fallbacks: null
   pender_base_url: 'http://localhost:3005'
   pender_token: 'test'
 

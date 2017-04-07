@@ -149,7 +149,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
     threads = []
     blank = nil
     threads << Thread.new do
-      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', [entry] * 20)
+      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', { collection: [entry] * 20 })
     end
     threads << Thread.new do
       sleep 1

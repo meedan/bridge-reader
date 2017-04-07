@@ -25,10 +25,10 @@ class ActiveSupport::TestCase
     WebMock.stub_request(:delete, /http:\/\/cc\.test\.meedan\.com\/purge\?url=#{Regexp.escape(BRIDGE_CONFIG['bridgembed_host'])}.*/)
     WebMock.stub_request(:delete, /http:\/\/cc\.test\.meedan\.com\/purge\?url=#{Regexp.escape(BRIDGE_CONFIG['bridgembed_host_private'])}.*/)
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, js_errors: false)
+      Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 300)
     end
     Capybara.javascript_driver = :poltergeist
-    Capybara.default_wait_time = 30
+    Capybara.default_wait_time = 300
   end
 
   def teardown
@@ -40,6 +40,15 @@ class ActiveSupport::TestCase
       BRIDGE_CONFIG.stubs(:[]).with(k).returns(v)
     end
     BRIDGE_CONFIG.stubs(:[]).with(key.to_s).returns(value)
+  end
+
+  def stub_configs(configs)
+    BRIDGE_CONFIG.each do |k, v|
+      BRIDGE_CONFIG.stubs(:[]).with(k).returns(v)
+    end
+    configs.each do |key, value|
+      BRIDGE_CONFIG.stubs(:[]).with(key.to_s).returns(value)
+    end
   end
 
   def clear_cache

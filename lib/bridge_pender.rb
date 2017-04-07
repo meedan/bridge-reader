@@ -82,6 +82,7 @@ module Bridge
     def alter_oembed(oembed, provider)
       function = "alter_#{provider}_oembed"
       oembed['unavailable'] = true if oembed.has_key?('error')
+      oembed[:author_name] = oembed['username']
       (oembed = self.send(function, oembed)) if self.respond_to?(function)
       oembed
     end
@@ -90,7 +91,6 @@ module Bridge
 
     def alter_twitter_oembed(oembed)
       id = oembed[:link].match(/status\/([0-9]+)/)
-      oembed[:author_full_name] = oembed['username']
       unless id.nil?
         Retryable.retryable tries: 5, sleep: 3 do
           oembed = add_twitter_info(oembed)
@@ -101,6 +101,7 @@ module Bridge
 
     def add_twitter_info(oembed)
       id = oembed[:link].match(/status\/([0-9]+)/)
+      oembed[:author_full_name] = oembed['user']['name']
       oembed['twitter_id'] = id[1]
       oembed['coordinates'] = [oembed['geo']['coordinates'][0], oembed['geo']['coordinates'][1]] if oembed['geo']
       oembed['created_at'] = Time.parse(oembed['published_at'])

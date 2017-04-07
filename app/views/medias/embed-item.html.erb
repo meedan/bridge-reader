@@ -4,7 +4,7 @@
 
   <%
   translation = @entries[:item][:translations].first
-  author = (@entries[:item][:source_author].blank? && !@entries[:oembed].nil?) ? @entries[:oembed][:author_name] : @entries[:item][:source_author].to_s
+  author = (@entries[:item][:source_author].blank? && !@entries[:item][:oembed].nil?) ? @entries[:item][:oembed][:author_name] : @entries[:item][:source_author].to_s
 
   description = ''
   unless translation.nil?
