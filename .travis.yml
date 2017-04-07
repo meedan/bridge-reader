@@ -1,11 +1,10 @@
+dist: trusty
 language: ruby
 sudo: required
 bundler_args: "--jobs 3 --retry 3 --without nothing"
 before_install:
-- wget http://security.ubuntu.com/ubuntu/pool/main/i/icu/libicu52_52.1-8ubuntu0.2_amd64.deb
-- sudo dpkg -i libicu52_52.1-8ubuntu0.2_amd64.deb
 - sudo apt-get update
-- sudo apt-get install tidy
+- sudo apt-get install tidy libicu52
 - openssl aes-256-cbc -K $encrypted_71698f2e5e26_key -iv $encrypted_71698f2e5e26_iv -in travis.zip.enc -out travis.zip -d
 - unzip travis.zip
 - mv google.p12 /tmp/
