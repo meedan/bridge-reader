@@ -20,7 +20,7 @@ class ActiveSupport::TestCase
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
                                          'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com', BRIDGE_CONFIG['pender_base_url'].gsub(/^https?:\/\//, ''),
                                          /cc.test.meedan.com.*speakbridge\.io/, 'speakbridge.io', 'raw.githubusercontent.com',
-                                         '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com']
+                                         '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com', 'api.imgur.com']
     WebMock.stub_request(:post, 'http://watch.bot/links')
     WebMock.stub_request(:delete, /http:\/\/cc\.test\.meedan\.com\/purge\?url=#{Regexp.escape(BRIDGE_CONFIG['bridgembed_host'])}.*/)
     WebMock.stub_request(:delete, /http:\/\/cc\.test\.meedan\.com\/purge\?url=#{Regexp.escape(BRIDGE_CONFIG['bridgembed_host_private'])}.*/)
