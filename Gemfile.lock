@@ -100,6 +100,8 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    imgur-api (0.0.4)
+      httparty
     json (1.8.3)
     jwt (1.5.1)
     launchy (2.4.3)
@@ -238,6 +240,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   google_drive (= 1.0.1)
   html_validation
+  imgur-api
   logstasher
   mini_magick
   mocha
