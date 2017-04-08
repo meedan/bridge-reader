@@ -16,6 +16,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
     # FIXME: Assumption that this path exists
     url = 'https://speakbridge.io/medias/embed/test/749262715138323/193'
     Net::HTTP.get_response(URI.parse(url))
+    sleep 2
 
     status = @b.get_status(url)
     varnish = status['data']['caches'].first
@@ -24,7 +25,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
     assert_not_equal 0, varnish['age']
 
     @b.clear_cache(url)
-    sleep 1
+    sleep 2
 
     status = @b.get_status(url)
     varnish = status['data']['caches'].first
@@ -44,6 +45,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
     old_expiration_time = Time.parse(cf['expires'])
 
     @b.clear_cache(url)
+    sleep 2
 
     status = @b.get_status(url)
     cf = status['data']['caches'].last
