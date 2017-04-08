@@ -24,6 +24,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
     assert_not_equal 0, varnish['age']
 
     @b.clear_cache(url)
+    sleep 1
 
     status = @b.get_status(url)
     varnish = status['data']['caches'].first
