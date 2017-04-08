@@ -29,4 +29,5 @@ gem 'pender_client', git: 'https://github.com/meedan/pender-client.git'
   gem 'webmock'
   gem 'capybara'
   gem 'capybara-screenshot'
+  gem 'imgur-api'
 # end

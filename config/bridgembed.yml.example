@@ -21,6 +21,7 @@ development: &default
 
 test:
   <<: *default
+  imgur_client_id:
 
 production:
   <<: *default

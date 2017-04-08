@@ -62,7 +62,7 @@ class BridgePenderTest < ActiveSupport::TestCase
 
   test "should not crash if oembed has no provider" do
     assert_nothing_raised do
-      @b.parse_collection([{ link: 'http://ca.ios.ba', id: 'test' }]).first[:oembed]
+      @b.parse_collection([{ link: 'http://ca.ios.ba', id: 'test' }])
     end
   end
 

@@ -104,4 +104,20 @@ class ActiveSupport::TestCase
     FileUtils.rmdir(dir)
     Capybara.current_driver = Capybara.default_driver
   end
+
+  def assert_same_image(actual_path, expected_path)
+    actual, expected = MiniMagick::Image.new(actual_path).signature, MiniMagick::Image.new(expected_path).signature
+    imgur = BRIDGE_CONFIG['imgur_client_id']
+    link = actual_path
+    
+    if actual != expected && !imgur.blank?
+      require 'imgur'
+      client = Imgur.new(imgur)
+      image = Imgur::LocalImage.new(actual_path, title: 'Test failed')
+      uploaded = client.upload(image)
+      link = uploaded.link
+    end
+    
+    assert_equal actual, expected, "Generated image (#{link}) differs from expected (#{expected_path})"
+  end
 end
