@@ -17,6 +17,7 @@ development: &default
   languages: null
   language_fallbacks: null
   pender_base_url: 'http://localhost:3005'
+  pender_base_view_url:
   pender_token: 'test'
 
 test:
