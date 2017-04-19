@@ -12,6 +12,7 @@ before_install:
 - rm -rf config/projects && mv projects config/
 - git clone https://github.com/meedan/pender.git
 - mv pender.yml pender/config/config.yml
+- mv errbit.rb pender/config/initializers/errbit.rb
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
 - cd pender
