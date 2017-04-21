@@ -1,5 +1,4 @@
 development: &default
-  embedly_key:
   bitly_key:
   twitter_handle:
   twitter_consumer_key:
@@ -16,9 +15,14 @@ development: &default
   cc_deville_httpauth: 'username:password'
   facebook_app_id:
   languages: null
+  language_fallbacks: null
+  pender_base_url: 'http://localhost:3005'
+  pender_base_view_url:
+  pender_token: 'test'
 
 test:
   <<: *default
+  imgur_client_id:
 
 production:
   <<: *default

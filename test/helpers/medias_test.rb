@@ -123,9 +123,7 @@ class MediasHelperTest < ActionView::TestCase
   end
 
   test "should return language name when language code have 2 chars" do
-    stub_config 'languages',  {"en_us"=>"English"}
-    stub_config 'language_fallbacks',  {"en" => "en_us"}
+    stub_configs({ 'languages' => { 'en_us' => 'English' }, 'language_fallbacks' => { 'en' => 'en_us' } })
     assert_equal 'English', send(:language_name, 'en')
   end
-
 end

@@ -1,0 +1,43 @@
+dist: trusty
+language: ruby
+sudo: required
+bundler_args: "--jobs 3 --retry 3 --without nothing"
+before_install:
+- sudo apt-get update
+- sudo apt-get install tidy libicu52
+- openssl aes-256-cbc -K $encrypted_71698f2e5e26_key -iv $encrypted_71698f2e5e26_iv
+  -in travis.zip.enc -out travis.zip -d
+- unzip travis.zip
+- mv google.p12 /tmp/
+- rm -rf config/projects && mv projects config/
+- git clone https://github.com/meedan/pender.git
+- mv pender.yml pender/config/config.yml
+- mv errbit.rb pender/config/initializers/errbit.rb
+- cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
+- cp pender/config/database.yml.travis pender/config/database.yml
+- cd pender
+- export BUNDLE_GEMFILE="$PWD/Gemfile"
+- bundle install
+- bundle exec rake db:migrate
+- rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
+- rails s -p 3005 >/dev/null &
+- cd -
+before_script:
+- mv bridgembed.yml config/
+- cp config/database.yml.example config/database.yml
+- cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+- export BUNDLE_GEMFILE="$PWD/Gemfile"
+- bundle install
+- RAILS_ENV=test bundle exec rake db:migrate
+- RAILS_ENV=development bundle exec rake db:migrate
+- rails s -p 3002 >/dev/null &
+- rm -f tmp/pids/server.pid
+script: bundle exec rake test:coverage
+rvm:
+- 2.3.1
+notifications:
+  slack:
+    secure: P0GaoYe0gYvo+wNp3UuAhlT9jg2rR8nOHfbfgDWKiU5Ji/3qtH9k/qX3s+lc9MORVhdH1iy4VJhkfRla15iOmTRDM7+en3zE3GAMr+CEM3DEMz97cggeYlXlJAfxwaqxP0rpYp2w1Pmaij2kBajsCF21qF3v1rW2YciqUPI+pCWe01ssB+/YVeA3bS1vrYoO1boy5mseQmCnDLq0RF0qDinjPEc9ta4Uq84gr9znsp2hVQLYd1Tt2LcuR9Hunk8mVxSQyMOUXOI2UEoJseP9wyKCCzFnnS2e5JXDC2o9TxSD6LFVMl+e3xO54DZ1X4H5KIM0eVw4/FIBUSWPtvpzI1Kc3BpN9TqyH2ZL+yrm/+HsarX81QksYgAW1bz+8cZxmwj9SpI+c3j050528tREQul7VVowatkZ4kdCHvDLH8KiENcCEVc9GLGUPTo2nwfR0EkUtwoeqk1yWmEo68nUW1LrDNLa4OMFkscAktZ4YI2HV1P6PbV3Uz3zLE4U9Ht6Sy7069zQiBWd3SXbTdGDqVNzCglkztMlbydLWQqADJyjZSLcnKbyEMIPqv43a5zAbVFG2k8TELXK2ET9YY9yD8s/J9qKiS/jUxzLxlIWxvCzRVcBNpm/yYEvynInqS3xxIdTPQD9Z7ntTcXLOKi+ZwPO7fzXIYc6IhlnOhE5biA=
+env:
+  global:
+    secure: mP1qPT8gcwEXNLUCiBzKornU1CRFwcwBROqqoNDd89GHhgYP6en6fDnxDp6EFoAgA/YifcmagqvW7FCvHki017x++qHlxuSaMF26gVQbUyo7g3dIYbaJIHEMKV0s31AJqPbBQKftYAw+6A5TuCffcT1OEPm1x9ZzKVvRFNmc0Kj01xiEZrfqQXRKp5GbMe55ZYJV7uCwMvlhe3qzfgUxXr2Th6aaS4hXgXa8PbuUE/XFVVjHmnnSeZTsh5Jp9x181WLegAC9IhqzLxLafROLom5oxWFKgLIF75D79+O5Lu1dqfpZ2/4QLmY+2Hfb/k5SV+kQcx8yRbXiMAyVu2cOzi7N7Gyt4lyp30fdoBt2/wEARZYh5oNYd7HlSgiBia50ZwdkgpGGgbWfA6y4Xh0U0GpJe+kW6++41GbxFDjk0SLB/qYawC9xxdyrnhyBuMdFSrHxrckzdtXp7BAkHSwYYVnG/7QF+RMv8icM8oHCQc653iaFxvOeReZjLO3yw/Pyf2odMV0fi5abFBtOO3gC9TShyNisWevOuJoi/ezrPRFXDhMm+fJqXknSrdz+ye7k/CyWRYLXH6GCfMKvGSOippu5GDD8YKpnhNhDS9y49+DMzXgHP3Ozy8VWviYP9CEWG8IWKdw1H1hypnQxdaapNsd+SFAFTKiZ4nsGMOkiTkg=

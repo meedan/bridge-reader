@@ -63,7 +63,7 @@ module Sources
     end
 
     def notify_availability(item, available = false)
-      # Bridge::Embedly calls this method when some item is not available
+      # Bridge::Pender calls this method when some item is not available
     end
 
     def notify_new_item(collection, item)

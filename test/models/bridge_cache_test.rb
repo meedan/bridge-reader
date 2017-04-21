@@ -45,7 +45,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
   test "should generate screenshot for Twitter" do
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
     @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
-    Rails.cache.write('embedly:' + id, { provider: 'twitter' })
+    Rails.cache.write('pender:' + id, { provider: 'twitter' })
     path = @b.screenshot_path('google_spreadsheet', 'test', id)
     assert !File.exists?(path)
     @b.generate_screenshot('google_spreadsheet', 'test', id)
@@ -55,7 +55,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
   test "should generate screenshot for Instagram" do
     id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
     @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
-    Rails.cache.write('embedly:' + id, { provider: 'instagram' })
+    Rails.cache.write('pender:' + id, { provider: 'instagram' })
     path = @b.screenshot_path('google_spreadsheet', 'test', id)
     assert !File.exists?(path)
     @b.generate_screenshot('google_spreadsheet', 'test', id)
@@ -149,7 +149,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
     threads = []
     blank = nil
     threads << Thread.new do
-      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', [entry] * 20)
+      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', { collection: [entry] * 20 })
     end
     threads << Thread.new do
       sleep 1

@@ -18,14 +18,14 @@ class ActiveSupport::TestCase
   def setup
     clear_cache
     WebMock.disable_net_connect! allow: ['codeclimate.com', 'api.embed.ly', 'api.twitter.com', 'instagram.com', 'www.google.com',
-                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com',
+                                         'scontent.cdninstagram.com', 'spreadsheets.google.com', 'docs.google.com', BRIDGE_CONFIG['pender_base_url'].gsub(/^https?:\/\//, ''),
                                          /cc.test.meedan.com.*speakbridge\.io/, 'speakbridge.io', 'raw.githubusercontent.com',
-                                         '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com']
+                                         '127.0.0.1', 'ca.ios.ba', 'api-ssl.bitly.com', 'www.googleapis.com', 'accounts.google.com', 'api.imgur.com']
     WebMock.stub_request(:post, 'http://watch.bot/links')
     WebMock.stub_request(:delete, /http:\/\/cc\.test\.meedan\.com\/purge\?url=#{Regexp.escape(BRIDGE_CONFIG['bridgembed_host'])}.*/)
     WebMock.stub_request(:delete, /http:\/\/cc\.test\.meedan\.com\/purge\?url=#{Regexp.escape(BRIDGE_CONFIG['bridgembed_host_private'])}.*/)
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, js_errors: false)
+      Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 120)
     end
     Capybara.javascript_driver = :poltergeist
     Capybara.default_wait_time = 30
@@ -40,6 +40,15 @@ class ActiveSupport::TestCase
       BRIDGE_CONFIG.stubs(:[]).with(k).returns(v)
     end
     BRIDGE_CONFIG.stubs(:[]).with(key.to_s).returns(value)
+  end
+
+  def stub_configs(configs)
+    BRIDGE_CONFIG.each do |k, v|
+      BRIDGE_CONFIG.stubs(:[]).with(k).returns(v)
+    end
+    configs.each do |key, value|
+      BRIDGE_CONFIG.stubs(:[]).with(key.to_s).returns(value)
+    end
   end
 
   def clear_cache
@@ -94,5 +103,21 @@ class ActiveSupport::TestCase
     FileUtils.rm(File.join(dir, name), force: true)
     FileUtils.rmdir(dir)
     Capybara.current_driver = Capybara.default_driver
+  end
+
+  def assert_same_image(actual_path, expected_path)
+    actual, expected = MiniMagick::Image.new(actual_path).signature, MiniMagick::Image.new(expected_path).signature
+    imgur = BRIDGE_CONFIG['imgur_client_id']
+    link = actual_path
+    
+    if actual != expected && !imgur.blank?
+      require 'imgur'
+      client = Imgur.new(imgur)
+      image = Imgur::LocalImage.new(actual_path, title: 'Test failed')
+      uploaded = client.upload(image)
+      link = uploaded.link
+    end
+    
+    assert_equal actual, expected, "Generated image (#{link}) differs from expected (#{expected_path})"
   end
 end

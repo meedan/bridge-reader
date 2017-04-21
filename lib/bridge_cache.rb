@@ -1,4 +1,4 @@
-require 'bridge_embedly'
+require 'bridge_pender'
 require 'bridge_cc_deville'
 require 'smartshot'
 
@@ -131,10 +131,10 @@ module Bridge
     end
 
     def get_entries_from_source(object, collection, item, level)
-      embedly = Bridge::Embedly.new BRIDGE_CONFIG['embedly_key']
+      pender = Bridge::Pender.new BRIDGE_CONFIG['pender_token']
       entries = {}.with_indifferent_access
       level_mapping(level).each do |l|
-        entries[l] = embedly.send("parse_#{l}", object.send("get_#{l}", collection, item))
+        entries[l] = pender.send("parse_#{l}", object.send("get_#{l}", collection, item))
       end
       entries[level].blank? ? [] : entries
     end

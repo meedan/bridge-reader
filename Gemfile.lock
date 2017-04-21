@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/meedan/pender-client.git
+  revision: 5c0e0764a45f5a864548b4f5cd0c24226e22fbe9
+  specs:
+    pender_client (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -47,6 +53,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.14)
+      capybara (>= 1.0, < 3)
+      launchy
     cliver (0.3.2)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -54,10 +63,6 @@ GEM
       safe_yaml (~> 1.0.0)
     daemons (1.2.3)
     docile (1.1.5)
-    embedly (1.9.1)
-      json
-      oauth
-      querystring
     equalizer (0.0.11)
     erubis (2.7.0)
     eventmachine (1.0.7)
@@ -95,6 +100,8 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    imgur-api (0.0.4)
+      httparty
     json (1.8.3)
     jwt (1.5.1)
     launchy (2.4.3)
@@ -139,7 +146,6 @@ GEM
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     polyglot (0.3.5)
-    querystring (0.1.0)
     rack (1.5.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -230,13 +236,15 @@ DEPENDENCIES
   bitly
   bower-rails (~> 0.9.1)
   capybara
+  capybara-screenshot
   codeclimate-test-reporter
-  embedly
   google_drive (= 1.0.1)
   html_validation
+  imgur-api
   logstasher
   mini_magick
   mocha
+  pender_client!
   poltergeist
   rails (= 4.0.9)
   redcarpet
@@ -251,3 +259,6 @@ DEPENDENCIES
   twitter_web_intents
   webmock
   xml-simple
+
+BUNDLED WITH
+   1.12.5

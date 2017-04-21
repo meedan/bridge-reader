@@ -16,7 +16,8 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should open share menu" do
     js do
-      visit '/medias/embed/google_spreadsheet/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      visit '/medias/embed/google_spreadsheet/test'
+      # Capybara::Screenshot.screenshot_and_open_image
       assert !page.has_text?('SHARE ON TWITTER')
       assert !page.has_text?('SHARE ON FACEBOOK')
       page.click_link('Share')
@@ -28,7 +29,7 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should share on Twitter" do
     js do
-      visit '/medias/embed/google_spreadsheet/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      visit '/medias/embed/google_spreadsheet/test'
       page.click_link('Share')
       page.click_link('Share on Twitter')
       twitter = page.driver.window_handles.last
@@ -40,7 +41,7 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should share on Facebook" do
     js do
-      visit '/medias/embed/google_spreadsheet/test/c291f649aa5625b81322207177a41e2c4a08f09d.html'
+      visit '/medias/embed/google_spreadsheet/test'
       page.click_link('Share')
       page.click_link('Share on Facebook')
       fb = page.driver.window_handles.last

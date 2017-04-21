@@ -128,7 +128,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
+    assert_same_image generated, output
   end
 
   test "should render png for Instagram" do
@@ -137,7 +137,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
+    assert_same_image generated, output
   end
 
   test "should render png with custom CSS" do
@@ -148,7 +148,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
     FileUtils.cp(generated, "/tmp/#{id}-custom-css.png")
-    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
+    assert_same_image generated, output
   end
 
   test "should render png with RTL text" do
@@ -159,7 +159,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
+    assert_same_image generated, output
   end
 
   test "should set custom cache header" do
@@ -211,7 +211,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', 'ratiolt2.png')
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, '/tmp/ratiolt2.png')
-    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
+    assert_same_image generated, output
   end
 
   test "should render png with ratio 2:1 if width / height > 2" do
@@ -220,7 +220,7 @@ class MediasControllerTest < ActionController::TestCase
     output = File.join(Rails.root, 'test', 'data', 'ratiogt2.png')
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
     FileUtils.cp(generated, '/tmp/ratiogt2.png')
-    assert_equal MiniMagick::Image.new(generated).signature, MiniMagick::Image.new(output).signature
+    assert_same_image generated, output
   end
 
   test "should render png for Instagram video" do
@@ -254,7 +254,7 @@ class MediasControllerTest < ActionController::TestCase
   test "should have Facebook metatags for item" do
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google SpreadsheetTranslation of @ahmadabou: Vídeo do Instagram' })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /#{id}\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
   end

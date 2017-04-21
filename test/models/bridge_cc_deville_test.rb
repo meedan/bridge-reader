@@ -12,26 +12,6 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
     assert_kind_of Bridge::CcDeville, @b
   end
 
-  test "should clear cache from Varnish" do
-    # FIXME: Assumption that this path exists
-    url = 'https://speakbridge.io/medias/embed/test/749262715138323/193'
-    Net::HTTP.get_response(URI.parse(url))
-
-    status = @b.get_status(url)
-    varnish = status['data']['caches'].first
-    assert_equal 'varnish-lira', varnish['name']
-    assert_equal 'HIT', varnish['cache_status']
-    assert_not_equal 0, varnish['age']
-
-    @b.clear_cache(url)
-
-    status = @b.get_status(url)
-    varnish = status['data']['caches'].first
-    assert_equal 'varnish-lira', varnish['name']
-    assert_equal 'MISS', varnish['cache_status']
-    assert_equal 0, varnish['age'].to_i
-  end
-
   test "should clear cache from Cloudflare" do
     # FIXME: Assumption that this path exists
     # Cloudflare is more about assets (JS, images, CSS, etc.)
@@ -43,6 +23,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
     old_expiration_time = Time.parse(cf['expires'])
 
     @b.clear_cache(url)
+    sleep 2
 
     status = @b.get_status(url)
     cf = status['data']['caches'].last

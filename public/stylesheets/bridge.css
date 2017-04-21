@@ -20,7 +20,7 @@ em {
   margin: 0;
   padding: 0; }
 
-.bridgeEmbed__item .bridgeEmbed__item-embedly-card {
+.bridgeEmbed__item .bridgeEmbed__item-pender-card {
   display: block;
   width: 20px;
   height: 20px;
@@ -213,13 +213,13 @@ em {
       content: close-quote;
       position: absolute; }
 
-.bridgeEmbed__item-embedly-card-container {
+.bridgeEmbed__item-pender-card-container {
   margin-top: 30px;
   position: relative; }
-  .bridgeEmbed__item-embedly-card-container iframe {
+  .bridgeEmbed__item-pender-card-container iframe {
     position: relative;
     z-index: 1; }
-    .bridgeEmbed__item-embedly-card-container iframe + .rendered {
+    .bridgeEmbed__item-pender-card-container iframe + .rendered {
       display: none; }
 
 .bridgeEmbed__item-translation-languages {

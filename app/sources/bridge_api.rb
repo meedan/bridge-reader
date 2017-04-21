@@ -65,7 +65,7 @@ module Sources
     end
 
     def update_cache_for_saved_translation(channel, translation)
-      Rails.cache.delete('embedly:' + translation['id'].to_s)
+      Rails.cache.delete('pender:' + translation['id'].to_s)
       @entries = [translation]
       generate_cache(self, self.project, channel, translation['id'].to_s, BRIDGE_CONFIG['bridgembed_host'])
       remove_screenshot(self.project, channel, translation['id'].to_s)
