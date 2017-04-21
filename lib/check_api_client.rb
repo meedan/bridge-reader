@@ -37,6 +37,7 @@ module Check
                  name
                }
                language
+               translations_count
                media {
                  dbid
                  quote
@@ -58,6 +59,7 @@ module Check
            name
          }
          language
+         translations_count
          media {
            dbid
            quote

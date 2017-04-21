@@ -24,7 +24,7 @@ module Sources
       ids = [project_media,project,@team_id].join(',')
       query = execute_query(ProjectMediaQuery, variables: { ids: ids })
       unless query.nil?
-        item_to_hash(query.project_media)
+        item_to_hash(query.project_media) if query.project_media.translations_count.to_i > 0
       end
     end
 
@@ -33,7 +33,8 @@ module Sources
       ids = [project,@team_id].join(',')
       query = execute_query(ProjectQuery, variables: { ids: ids })
       unless query.nil?
-        query.project.project_medias.edges.map(&:node).collect { |pm| item_to_hash(pm)}
+        translations = query.project.project_medias.edges.map(&:node).find_all { |p| p.translations_count.to_i > 0 }
+        translations.collect { |t| item_to_hash(t)}
       end
     end
 
@@ -62,8 +63,10 @@ module Sources
 
     def translations(item)
       query = execute_query(AnnotationsQuery)
-      translation = query.root.annotations.edges.map(&:node).find { |t| t.annotation_type == 'translation' && t.annotated_id.to_i == item.to_i}
-      translation_to_hash(translation)
+      unless query.nil?
+        translation = query.root.annotations.edges.map(&:node).find { |t| t.annotation_type == 'translation' && t.annotated_id.to_i == item.to_i}
+      end
+      translation.nil? ? [] : translation_to_hash(translation)
     end
 
     def translation_to_hash(translation)
