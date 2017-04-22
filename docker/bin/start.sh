@@ -11,19 +11,19 @@ function config_replace() {
     if grep --quiet "dd${VAR}dd" $FILE; then
         echo "setting $VAR to $VAL in $FILE"
         CMD="s/dd${VAR}dd/${VAL}/g"
-        sed -i'.bak' -e ${CMD} ${FILE}
+        sed -i -e ${CMD} ${FILE}
     fi
 }
 
 # sed in environmental variables
 for ENV in $( env | cut -d= -f1); do
-    config_replace "$ENV" "${!ENV}" /etc/nginx/sites-available/${APP}
+    config_replace "$ENV" "${!ENV}" /etc/nginx/sites-enabled/${APP}
 done
 
 # set permission on runtime volumes linked from ${DEPLOYDIR}/current/
 cd ${DEPLOYDIR}/shared
 for D in cache screenshots projects; do
-    chown -R ${DEPLOYUSER}:www-data 
+    chown -R ${DEPLOYUSER}:www-data $D
     chmod -R 775 $D
 done
 

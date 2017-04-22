@@ -26,7 +26,7 @@ RUN apt-get install -y imagemagick fonts-arphic-ukai fonts-arphic-uming fonts-ip
 #
 
 # nginx for bridge-reader
-RUN rm /etc/nginx/sites-enabled/default
+RUN rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 COPY ./docker/config/nginx/bridge-reader /etc/nginx/sites-enabled/bridge-reader
 
 #

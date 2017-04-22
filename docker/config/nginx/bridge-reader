@@ -19,7 +19,7 @@ server {
 
 # the following is effectively in the nginx `http` block
 # pool size
-#passenger_max_pool_size ddMAX_POOL_SIZEdd;
+passenger_max_pool_size ddMAX_POOL_SIZEdd;
 
 # https://www.phusionpassenger.com/library/config/nginx/reference/#passenger_pre_start
 passenger_pre_start http://127.0.0.1/;
