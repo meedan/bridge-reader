@@ -77,7 +77,7 @@ module Sources
           translator_handle: "",
           translator_url: "",
           text: translation_field(content, 'translation_text'),
-          lang: translation_field(content, 'translation_lang'),
+          lang: translation_field(content, 'translation_language'),
           timestamp: translation.created_at,
           comments: comments_from_translation(translation, content)
         }
