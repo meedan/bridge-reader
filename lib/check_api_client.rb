@@ -53,24 +53,24 @@ module Check
    }
   GRAPHQL
 
-  ProjectMediaQuery = Client.parse <<-'GRAPHQL'
-    query($ids:String!) {
-      project_media(ids: $ids) {
-        dbid
-        url
-        created_at
-        user {
-          name
-        }
-        language
-        translations_count
-        media {
-          dbid
-          quote
-        }
-      }
-   }
-  GRAPHQL
+   ProjectMediaQuery = Client.parse <<-'GRAPHQL'
+     query($ids:String!) {
+       project_media(ids: $ids) {
+         dbid
+         url
+         created_at
+         user {
+           name
+         }
+         language_code
+         translations_count
+         media {
+           dbid
+           quote
+         }
+       }
+    }
+   GRAPHQL
 
   AnnotationsQuery = Client.parse <<-'GRAPHQL'
     query {

@@ -51,7 +51,7 @@ module Sources
       {
         id: pm.media.dbid.to_s,
         source_text: pm.media.quote,
-        source_lang: pm.language,
+        source_lang: pm.language_code,
         source_author: pm.user.name,
         link: pm.url.to_s,
         timestamp: pm.created_at,
