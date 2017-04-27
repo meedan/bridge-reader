@@ -1,0 +1,5 @@
+type: check_api
+check_api_host: 'http://localhost:3000/'
+check_api_token: 'dev'
+check_api_relay: 'relay.json'
+check_api_graphql: 'api/graphql'
