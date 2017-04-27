@@ -26,7 +26,7 @@ module Check
   GRAPHQL
 
   ProjectQuery = Client.parse <<-'GRAPHQL'
-    query($ids:String!) {
+    query($ids:String!,$annotation_type:String) {
       project(ids: $ids) {
         dbid
         title
@@ -40,8 +40,22 @@ module Check
               user {
                 name
               }
-              language
-              translations_count
+              language_code
+              annotations_count(annotation_type: $annotation_type)
+              annotations(annotation_type: $annotation_type) {
+                edges {
+                  node {
+                    dbid
+                    annotated_id
+                    annotation_type
+                    content
+                    created_at
+                    annotator {
+                      name
+                    }
+                  }
+                }
+              }
               media {
                 dbid
                 quote
@@ -54,7 +68,7 @@ module Check
   GRAPHQL
 
    ProjectMediaQuery = Client.parse <<-'GRAPHQL'
-     query($ids:String!) {
+     query($ids:String!,$annotation_type:String) {
        project_media(ids: $ids) {
          dbid
          url
@@ -63,7 +77,21 @@ module Check
            name
          }
          language_code
-         translations_count
+         annotations_count(annotation_type: $annotation_type)
+         annotations(annotation_type: $annotation_type) {
+           edges {
+             node {
+               dbid
+               annotated_id
+               annotation_type
+               content
+               created_at
+               annotator {
+                 name
+               }
+             }
+           }
+         }
          media {
            dbid
            quote
@@ -71,26 +99,5 @@ module Check
        }
     }
    GRAPHQL
-
-  AnnotationsQuery = Client.parse <<-'GRAPHQL'
-    query {
-      root {
-        annotations {
-          edges {
-            node {
-              dbid
-              annotated_id
-              annotation_type
-              content
-              created_at
-              annotator {
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  GRAPHQL
 
 end
