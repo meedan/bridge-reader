@@ -70,6 +70,6 @@ RUN rm -rf ${DEPLOYDIR}/current/config/projects \
 # expose, cmd
 
 USER root
-ONBUILD EXPOSE 80
+EXPOSE 80
 WORKDIR ${DEPLOYDIR}/current
 CMD ["/opt/bin/start.sh"]
