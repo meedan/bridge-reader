@@ -3,16 +3,12 @@ require "graphql/client/http"
 
 module Check
 
-  # TODO Get config from the team accessed
-  @config = BRIDGE_PROJECTS['check-api'].except('type')
+  @graphql_uri = URI.join(BRIDGE_CONFIG['check_api_host'], 'api/graphql').to_s
+  @relay_uri = URI.join(BRIDGE_CONFIG['check_api_host'], 'relay.json').to_s
 
-  @graphql_uri = URI.join(@config['check_api_host'], @config['check_api_graphql']).to_s
-  @relay_uri = URI.join(@config['check_api_host'], @config['check_api_relay']).to_s
-
-  # TODO Get token from config
   HTTPAdapter = GraphQL::Client::HTTP.new(@graphql_uri) do
     def headers(context)
-      { "X-Check-Token" => "dev" }
+      { "X-Check-Token" => BRIDGE_CONFIG['check_api_token'] }
     end
   end
 

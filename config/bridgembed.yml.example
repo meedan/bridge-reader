@@ -19,6 +19,8 @@ development: &default
   pender_base_url: 'http://localhost:3005'
   pender_base_view_url:
   pender_token: 'test'
+  check_api_host: 'http://localhost:3000'
+  check_api_token: 'dev'
 
 test:
   <<: *default
