@@ -201,7 +201,7 @@ $embed--translation-border: 3px solid $bridge-orange;
   @extend %embed--translator-annotation;
 }
 
-.bridgeEmbed__item .bridgeEmbed__item-pender-card {
+.bridgeEmbed__item .bridgeEmbed__item-pender-card-loading {
   @extend %loading;
 }
 
