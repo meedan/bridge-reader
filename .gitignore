@@ -53,3 +53,6 @@ config/projects/production
 /.project
 
 travis
+
+# emacs
+*.*~

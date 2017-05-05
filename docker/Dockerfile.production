@@ -1,4 +1,5 @@
 # bridge-reader
+# built in the context of the project root
 
 FROM dreg.meedan.net/meedan/ruby
 MAINTAINER sysops@meedan.com
