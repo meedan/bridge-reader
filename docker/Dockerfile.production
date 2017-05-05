@@ -1,7 +1,7 @@
 # bridge-reader
 # built in the context of the project root
 
-FROM dreg.meedan.net/meedan/ruby
+FROM meedan/ruby
 MAINTAINER sysops@meedan.com
 
 ENV IMAGE=dreg.meedan.net/bridge/reader \
