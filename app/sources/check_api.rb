@@ -31,7 +31,7 @@ module Sources
     def get_collection(project, project_media = nil)
       # Return the project medias of a Check project
       ids = [project,@team_id].join(',')
-      query = execute_query(ProjectQuery, variables: { ids: ids })
+      query = execute_query(ProjectQuery, variables: { ids: ids, annotation_type: 'translation' })
       unless query.nil?
         translations = query.project.project_medias.edges.map(&:node).find_all { |p| p.annotations_count.to_i > 0 }
         translations.collect { |t| item_to_hash(t)}
@@ -42,18 +42,18 @@ module Sources
       # Return the projects of a Check Team
       query = execute_query(TeamQuery, variables: { slug: @project })
       @team_id = query.team.dbid
-      query.team.projects.edges.map(&:node).collect { |node| { name: node.title, id: node.title, summary: node.description, project: @project, project_summary: query.team.description }}
+      query.team.projects.edges.map(&:node).collect { |node| { name: node.title, id: node.dbid.to_s, summary: node.description, project: @project, project_summary: query.team.description }}
     end
 
     protected
 
     def item_to_hash(pm)
       {
-        id: pm.media.dbid.to_s,
+        id: pm.dbid.to_s,
         source_text: pm.media.quote,
         source_lang: pm.language_code,
         source_author: pm.user.name,
-        link: pm.url.to_s,
+        link: pm.media.url.to_s,
         timestamp: pm.created_at,
         translations: self.translations(pm.annotations),
         source: pm.url,
@@ -62,8 +62,8 @@ module Sources
     end
 
     def translations(translations)
-    translation = translations.edges.map(&:node).first
-    translation.nil? ? [] : translation_to_hash(translation)
+      translation = translations.edges.map(&:node).first
+      translation.nil? ? [] : translation_to_hash(translation)
     end
 
     def translation_to_hash(translation)

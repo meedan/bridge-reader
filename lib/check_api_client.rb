@@ -55,6 +55,7 @@ module Check
               media {
                 dbid
                 quote
+                url
               }
             }
           }
@@ -91,6 +92,7 @@ module Check
          media {
            dbid
            quote
+           url
          }
        }
     }
