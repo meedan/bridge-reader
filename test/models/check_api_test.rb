@@ -6,7 +6,7 @@ class CheckApiTest < ActiveSupport::TestCase
 
   def setup
     super
-    WebMock.stub_request(:get, "#{BRIDGE_CONFIG['check_api_host']}/relay.json").to_return(:status => 200, :body => "")
+    WebMock.stub_request(:get, "http://checkapi/relay.json").to_return(:status => 200, :body => "")
     Temp.const_set :Client, mock
     Temp.const_set :Query, mock
     GraphQL::Client.stubs(:new).returns(Temp::Client)
@@ -31,34 +31,33 @@ class CheckApiTest < ActiveSupport::TestCase
     Temp::Client.unstub(:query)
   end
 
-# TODO These commented tests are not passing when running all tests together
-#  test "should not get nonexistent translation" do
-#    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_type => 'translation'}}).returns(@project_media_result)
-#    stub_graphql_result(@project_media_result)
-#
-#    t = @check.get_item('1', '2')
-#    assert_nil t
-#    unstub_graphql_result(@project_media_result)
-#    Temp::Client.unstub(:query)
-#  end
-#
-#  test "should get collection" do
-#    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_type => 'translation'}}).returns(@project_result)
-#    stub_graphql_result(@project_result)
-#    t = @check.get_collection('1')
-#    assert_equal 'en', t[0][:source_lang]
-#    unstub_graphql_result(@project_result)
-#    Temp::Client.unstub(:query)
-#  end
-#
-#  test "should get project" do
-#    Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'chesssssssssssck-api'}}).returns(@team_result)
-#    stub_graphql_result(@team_result)
-#
-#    assert_equal ['project'], @check.get_project.collect{ |c| c[:name] }
-#    unstub_graphql_result(@team_result)
-#    Temp::Client.unstub(:query)
-#  end
+  test "should not get nonexistent translation" do
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_type => 'translation'}}).returns(@project_media_result)
+    stub_graphql_result(@project_media_result)
+
+    t = @check.get_item('1', '2')
+    assert_nil t
+    unstub_graphql_result(@project_media_result)
+    Temp::Client.unstub(:query)
+  end
+
+  test "should get collection" do
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_type => 'translation'}}).returns(@project_result)
+    stub_graphql_result(@project_result)
+    t = @check.get_collection('1')
+    assert_equal 'en', t[0][:source_lang]
+    unstub_graphql_result(@project_result)
+    Temp::Client.unstub(:query)
+  end
+
+  test "should get project" do
+    Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'chesssssssssssck-api'}}).returns(@team_result)
+    stub_graphql_result(@team_result)
+
+    assert_equal ['project'], @check.get_project.collect{ |c| c[:name] }
+    unstub_graphql_result(@team_result)
+    Temp::Client.unstub(:query)
+  end
 
   private
 
