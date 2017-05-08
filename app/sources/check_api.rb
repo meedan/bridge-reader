@@ -22,7 +22,7 @@ module Sources
     def get_item(project, project_media)
       # Check Project Media -> return the project media
       ids = [project_media,project,@team_id].join(',')
-      query = execute_query(ProjectMediaQuery, variables: { ids: ids, annotation_type: "translation" })
+      query = execute_query(ProjectMediaQuery, variables: { ids: ids, annotation_types: "translation,translation_status" })
       unless query.nil?
         item_to_hash(query.project_media) if query.project_media.annotations_count.to_i > 0
       end
@@ -31,7 +31,7 @@ module Sources
     def get_collection(project, project_media = nil)
       # Return the project medias of a Check project
       ids = [project,@team_id].join(',')
-      query = execute_query(ProjectQuery, variables: { ids: ids, annotation_type: 'translation' })
+      query = execute_query(ProjectQuery, variables: { ids: ids, annotation_types: "translation,translation_status" })
       unless query.nil?
         translations = query.project.project_medias.edges.map(&:node).find_all { |p| p.annotations_count.to_i > 0 }
         translations.collect { |t| item_to_hash(t)}
@@ -62,23 +62,35 @@ module Sources
     end
 
     def translations(translations)
-      translation = translations.edges.map(&:node).first
-      translation.nil? ? [] : translation_to_hash(translation)
+      translation = translations.edges.map(&:node).find { |t| t.annotation_type == 'translation' }
+      translation_status = translations.edges.map(&:node).find { |t| t.annotation_type == 'translation_status' }
+      translation.nil? ? [] : translation_to_hash(translation, translation_status)
     end
 
-    def translation_to_hash(translation)
+    def translation_to_hash(translation, status)
       content = JSON.parse(translation.content)
       [
         {
           translator_name: translation.annotator.name,
           translator_handle: "",
           translator_url: "",
-          text: translation_field(content, 'translation_text'),
-          lang: translation_field(content, 'translation_language'),
+          text: json_field(content, 'translation_text'),
+          lang: json_field(content, 'translation_language'),
           timestamp: translation.created_at,
-          comments: comments_from_translation(translation, content)
+          comments: comments_from_translation(translation, content),
+          approval: status_info(status)
         }
       ]
+    end
+
+    def status_info(status)
+      return nil if status.nil?
+      content = JSON.parse(status.content)
+      approved = '1' if json_field(content, 'translation_status_status') == 'ready'
+      {
+        approved: approved,
+        approver_name: status.annotator.name
+      }
     end
 
     def comments_from_translation(translation, content)
@@ -88,14 +100,14 @@ module Sources
         comments << {
           commenter_name: translation.annotator.name,
           commenter_url: '',
-          comment: translation_field(content, 'translation_note'),
+          comment: json_field(content, 'translation_note'),
           timestamp: comment['created_at']
         }
       end
       comments
     end
 
-    def translation_field(content, field_name)
+    def json_field(content, field_name)
       field = content.find { |field| field['field_name'] == field_name}
       field.nil? ? '' : field['value']
     end

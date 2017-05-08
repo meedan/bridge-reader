@@ -22,7 +22,7 @@ module Check
   GRAPHQL
 
   ProjectQuery = Client.parse <<-'GRAPHQL'
-    query($ids:String!,$annotation_type:String) {
+    query($ids:String!,$annotation_types:String!) {
       project(ids: $ids) {
         dbid
         title
@@ -37,8 +37,8 @@ module Check
                 name
               }
               language_code
-              annotations_count(annotation_type: $annotation_type)
-              annotations(annotation_type: $annotation_type) {
+              annotations_count(annotation_type: "translation")
+              annotations(annotation_type: $annotation_types) {
                 edges {
                   node {
                     dbid
@@ -65,7 +65,7 @@ module Check
   GRAPHQL
 
    ProjectMediaQuery = Client.parse <<-'GRAPHQL'
-     query($ids:String!,$annotation_type:String) {
+     query($ids:String!,$annotation_types:String!) {
        project_media(ids: $ids) {
          dbid
          url
@@ -74,8 +74,8 @@ module Check
            name
          }
          language_code
-         annotations_count(annotation_type: $annotation_type)
-         annotations(annotation_type: $annotation_type) {
+         annotations_count(annotation_type: "translation")
+         annotations(annotation_type: $annotation_types) {
            edges {
              node {
                dbid
