@@ -87,9 +87,12 @@ module Sources
       return nil if status.nil?
       content = JSON.parse(status.content)
       approved = '1' if json_field(content, 'translation_status_status') == 'ready'
+      approver = json_field(content, 'translation_status_approver')
+      approver = JSON.parse(approver) unless approver.blank?
       {
         approved: approved,
-        approver_name: status.annotator.name
+        approver_name: approver['name'].to_s,
+        approver_url: approver['url'].to_s
       }
     end
 
