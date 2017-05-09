@@ -145,6 +145,7 @@ GEM
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     polyglot (0.3.5)
+    puma (3.8.2)
     rack (1.5.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -244,6 +245,7 @@ DEPENDENCIES
   mocha
   pender_client!
   poltergeist
+  puma
   rails (= 4.0.9)
   redcarpet
   retryable

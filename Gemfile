@@ -18,6 +18,7 @@ gem 'bitly'
 gem 'string-direction'
 gem 'poltergeist'
 gem 'mini_magick'
+gem 'puma'
 gem 'pender_client', git: 'https://github.com/meedan/pender-client.git'
 
 # Test gems
