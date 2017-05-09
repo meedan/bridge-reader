@@ -22,7 +22,7 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   test "should get a single translation" do
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_type => 'translation'}}).returns(@project_media_result)
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
     stub_graphql_result(@project_media_result)
 
     t = @check.get_item('1', '2')
@@ -32,7 +32,7 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   test "should not get nonexistent translation" do
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_type => 'translation'}}).returns(@project_media_result)
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
     stub_graphql_result(@project_media_result)
 
     t = @check.get_item('1', '2')
@@ -42,7 +42,7 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   test "should get collection" do
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_type => 'translation'}}).returns(@project_result)
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
     stub_graphql_result(@project_result)
     t = @check.get_collection('1')
     assert_equal 'en', t[0][:source_lang]
@@ -51,7 +51,8 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   test "should get project" do
-    Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'chesssssssssssck-api'}}).returns(@team_result)
+    Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
     stub_graphql_result(@team_result)
 
     assert_equal ['project'], @check.get_project.collect{ |c| c[:name] }
