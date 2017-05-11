@@ -22,6 +22,11 @@ class CheckApiTest < ActiveSupport::TestCase
     @project_media_without_translation_result = project_media_without_translation_result
   end
 
+  test "should send token as header" do
+    token = BRIDGE_CONFIG['check_api_token']
+    assert_equal token, Check::HTTPAdapter.headers('context')['X-Check-Token']
+  end
+
   test "should return project slug as string representation" do
     assert_equal 'check-api', @check.to_s
   end
