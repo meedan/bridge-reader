@@ -26,7 +26,8 @@ module Sources
       if @translations.nil? || force
         @translations = self.make_request('translations', { channel_uuid: URI.encode(channel) })
       end
-      @translations.to_a.collect{ |t| translation_to_hash(t) }
+      limit = @config['max_items_per_column'] || 30
+      @translations.to_a.last(limit).collect{ |t| translation_to_hash(t) }
     end
 
     def get_project(channel = nil, translation_id = nil)

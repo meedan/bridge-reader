@@ -1,2 +1,3 @@
 type: bridge_api
 bridge_api_host: 'http://bridge.api/'
+max_items_per_column: 1

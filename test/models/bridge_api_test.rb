@@ -122,6 +122,12 @@ class BridgeApiTest < ActiveSupport::TestCase
     assert File.mtime(file) > time
   end
 
+  test "should limit collection items" do
+    stub_request_many_translations
+    t = @b.get_collection('GreeceCrisis')
+    assert_equal 1, t.size
+  end
+
   protected
 
   def single_translation_object
@@ -140,7 +146,7 @@ class BridgeApiTest < ActiveSupport::TestCase
   end
 
   def stub_request_many_translations
-    body = "{\"data\":[#{self.single_translation_object}]}"
+    body = "{\"data\":[#{self.single_translation_object},#{self.single_translation_object}]}"
     WebMock.stub_request(:get, 'http://bridge.api/api/translations?channel_uuid=GreeceCrisis').to_return(body: body, status: 200)
   end
 
