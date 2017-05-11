@@ -124,8 +124,11 @@ class BridgeApiTest < ActiveSupport::TestCase
 
   test "should limit collection items" do
     stub_request_many_translations
-    t = @b.get_collection('GreeceCrisis')
+    b = Sources::BridgeApi.new('bridge-api', BRIDGE_PROJECTS['bridge-api'].merge({ 'max_items_per_column' => 1 }))
+    t = b.get_collection('GreeceCrisis')
     assert_equal 1, t.size
+    t = @b.get_collection('GreeceCrisis')
+    assert_equal 2, t.size
   end
 
   protected
