@@ -7,14 +7,19 @@ class CheckApiTest < ActiveSupport::TestCase
   def setup
     super
     WebMock.stub_request(:get, "http://checkapi/relay.json").to_return(:status => 200, :body => "")
-    Temp.const_set :Client, mock
-    Temp.const_set :Query, mock
-    GraphQL::Client.stubs(:new).returns(Temp::Client)
+    Temp.const_set :Client, mock('client')
+    Temp.const_set :Query, mock('query')
+
     Temp::Client.stubs(:parse).returns('Query')
+    GraphQL::Client.stubs(:new).returns(Temp::Client)
+
+    reload_classes
+
     @check = Sources::CheckApi.new('check-api', BRIDGE_PROJECTS['check-api'])
     @team_result = team_result
     @project_result = project_result
     @project_media_result = project_media_result
+    @project_media_without_translation_result = project_media_without_translation_result
   end
 
   test "should return project slug as string representation" do
@@ -27,40 +32,40 @@ class CheckApiTest < ActiveSupport::TestCase
 
     t = @check.get_item('1', '2')
     assert_equal 'en', t[:source_lang]
-    unstub_graphql_result(@project_media_result)
-    Temp::Client.unstub(:query)
   end
 
-  test "should not get nonexistent translation" do
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
-    stub_graphql_result(@project_media_result)
+  test "should not return check item with nonexistent translation" do
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
+    stub_graphql_result(@project_media_without_translation_result)
 
-    t = @check.get_item('1', '2')
+    t = @check.get_item('1', '3')
     assert_nil t
-    unstub_graphql_result(@project_media_result)
     Temp::Client.unstub(:query)
   end
 
   test "should get collection" do
     Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
     stub_graphql_result(@project_result)
+
     t = @check.get_collection('1')
     assert_equal 'en', t[0][:source_lang]
-    unstub_graphql_result(@project_result)
-    Temp::Client.unstub(:query)
   end
 
   test "should get project" do
     Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
     stub_graphql_result(@team_result)
 
     assert_equal ['project'], @check.get_project.collect{ |c| c[:name] }
-    unstub_graphql_result(@team_result)
-    Temp::Client.unstub(:query)
   end
 
   private
+
+  def reload_classes
+    Object.send(:remove_const, :Check) if Module.const_defined?(:Check)
+    load File.join(Rails.root, 'lib', 'check_api_client.rb')
+    Sources.send(:remove_const, :CheckApi) if Module.const_defined?(:CheckApi)
+    load File.join(Rails.root, 'app', 'sources', 'check_api.rb')
+  end
 
   def team_result
     { data: { "team": { "dbid": 1, "description": "A brief description", "projects": { "edges": [ { "node": { "title": "project", "dbid": 1, "description": "project description" }}]}}}}
@@ -72,6 +77,10 @@ class CheckApiTest < ActiveSupport::TestCase
 
   def project_media_result
     { data: {"project_media": {"annotations_count": 1, "dbid": 2,"url": "","created_at": "2017-04-21 00:06:29 UTC","user": {"name": "John"},"language_code": "en","media": {"dbid": 2, "quote": "Hi", "url": ""}, "annotations": { "edges": [{"node": {"dbid": "119","annotated_id": "2","annotation_type": "translation","content":"[{\"id\":48,\"annotation_id\":119,\"field_name\":\"translation_text\",\"annotation_type\":\"translation\",\"field_type\":\"text\",\"value\":\"Teste\",\"created_at\":\"2017-04-28T22:47:15.568Z\",\"updated_at\":\"2017-04-28T22:47:15.568Z\"},{\"id\":49,\"annotation_id\":119,\"field_name\":\"translation_language\",\"annotation_type\":\"translation\",\"field_type\":\"language\",\"value\":\"pt\",\"created_at\":\"2017-04-28T22:47:15.585Z\",\"updated_at\":\"2017-04-28T22:47:15.585Z\"}]", "created_at": "2017-04-28 22:47:15 UTC", "annotator": {"name": "John Doe"}}}]}}}}
+  end
+
+  def project_media_without_translation_result
+    { data: {"project_media": {"dbid": 3, "url": "", "created_at": "2017-04-21 14:17:58 UTC", "user": {"name": "John"}, "language_code": "en", "annotations_count": 0, "annotations": { "edges": [] }, "media": { "dbid": 39, "quote": "Hello", "url": "" }}}}
   end
 
   def stub_graphql_result(result)
@@ -87,19 +96,4 @@ class CheckApiTest < ActiveSupport::TestCase
       end
     end
   end
-
-  def unstub_graphql_result(result)
-    result.each_pair do |key, value|
-      result.unstub(key)
-      if value.is_a?(Hash)
-        unstub_graphql_result(value)
-      end
-      if value.is_a?(Array)
-        value.each do |e|
-          unstub_graphql_result(e)
-        end
-      end
-    end
-  end
-
 end
