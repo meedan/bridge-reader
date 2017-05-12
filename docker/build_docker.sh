@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# change dir to where this script is running
+SCRIPT=$(readlink -f "$0")
+SDIR=$(dirname "$SCRIPT")
+cd $SDIR
+
 # --no-cache or --pull come in handy sometimes
 EXTRA=$1
 
-NAME=dreg.meedan.net/bridge/embed
-
-# change to the directory where we are
-SDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+NAME=dreg.meedan.net/bridge/reader
 
 # cd $SDIR/..
 
@@ -21,3 +23,4 @@ fi
 
 docker build ${EXTRA} -t ${NAME}:${VERSION} ../
 
+echo docker build complete: ${NAME}:${VERSION}

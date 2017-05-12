@@ -1,7 +1,0 @@
-server {
-     listen 80 default_server;
-     root /var/www/bridge-embed/current/public;
-     passenger_user bridgedeploy;
-	 passenger_group bridgedeploy;
-     passenger_enabled on;
-}

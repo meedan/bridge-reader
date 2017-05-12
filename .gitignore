@@ -38,6 +38,7 @@ public/screenshots
 
 # Ignore bower packages 
 vendor/assets/*bower*
+vendor/bundle
 
 # Ignore Node stuff
 node_modules
@@ -53,3 +54,6 @@ config/projects/production
 /.project
 
 travis
+
+# emacs
+*.*~

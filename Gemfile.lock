@@ -111,9 +111,8 @@ GEM
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
     logstash-event (1.2.02)
-    logstasher (0.6.5)
-      logstash-event (~> 1.2.0)
-      request_store
+    logstash-logger (0.24.0)
+      logstash-event (~> 1.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -146,6 +145,7 @@ GEM
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     polyglot (0.3.5)
+    puma (3.8.2)
     rack (1.5.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -164,7 +164,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     redcarpet (2.3.0)
-    request_store (1.2.0)
     retriable (1.4.1)
     retryable (2.0.1)
     safe_yaml (1.0.4)
@@ -241,11 +240,12 @@ DEPENDENCIES
   google_drive (= 1.0.1)
   html_validation
   imgur-api
-  logstasher
+  logstash-logger
   mini_magick
   mocha
   pender_client!
   poltergeist
+  puma
   rails (= 4.0.9)
   redcarpet
   retryable
@@ -261,4 +261,4 @@ DEPENDENCIES
   xml-simple
 
 BUNDLED WITH
-   1.12.5
+   1.14.6
