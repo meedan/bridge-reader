@@ -3,8 +3,8 @@ require "graphql/client/http"
 
 module Check
 
-  @graphql_uri = URI.join(BRIDGE_CONFIG['check_api_host'], 'api/graphql').to_s
-  @relay_uri = URI.join(BRIDGE_CONFIG['check_api_host'], 'relay.json').to_s
+  @graphql_uri = URI.join(BRIDGE_CONFIG['check_api_url'], 'api/graphql').to_s
+  @relay_uri = URI.join(BRIDGE_CONFIG['check_api_url'], 'relay.json').to_s
 
   HTTPAdapter = GraphQL::Client::HTTP.new(@graphql_uri) do
     def headers(context)
