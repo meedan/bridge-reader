@@ -16,15 +16,20 @@ development: &default
   facebook_app_id:
   languages: null
   language_fallbacks: null
-  pender_base_url: 'http://localhost:3005'
-  pender_base_view_url:
-  pender_token: 'test'
-  check_api_host: 'http://localhost:3000'
+  pender_base_url: 'http://pender:3005'
+  pender_base_view_url: 'http://localhost:3005'
+  pender_token: 'dev'
+  check_api_host: 'http://api:3000'
   check_api_token: 'dev'
 
 test:
   <<: *default
   imgur_client_id:
+  pender_base_url: 'http://pender.test:13005'
+  pender_base_view_url: 'http://localhost:13005'
+  pender_token: 'test'
+  check_api_host: 'http://api.test:13000'
+  check_api_token: 'test'
 
 production:
   <<: *default
