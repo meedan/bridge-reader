@@ -31,8 +31,7 @@ module Sources
       # Return the project medias of a Check project
       query = execute_query(ProjectQuery, variables: { ids: get_ids(project,@team_id), annotation_types: "translation,translation_status" })
       unless query.nil?
-        translations = query.project.project_medias.edges.map(&:node).find_all { |p| p.annotations_count.to_i > 0 }
-        translations.collect { |t| item_to_hash(t)}
+        get_project_media_with_translations(query.project.project_medias.edges).collect { |t| item_to_hash(t)}
       end
     end
 
@@ -41,12 +40,20 @@ module Sources
       query = execute_query(TeamQuery, variables: { slug: @project })
       unless query.nil?
         @team_id = query.team.dbid
-        query.team.projects.edges.map(&:node).collect { |node| { name: node.title, id: node.dbid.to_s, summary: node.description, project: @project, project_summary: query.team.description }}
+        get_projects_info(query.team.projects.edges, query.team.description)
       end
     end
 
     def get_ids(*args)
       args.join(',')
+    end
+
+    def get_projects_info(projects, team_description = '')
+      projects.map(&:node).collect { |node| { name: node.title, id: node.dbid.to_s, summary: node.description, project: @project, project_summary: team_description }}
+    end
+
+    def get_project_media_with_translations(pms)
+      pms.map(&:node).find_all { |p| p.annotations_count.to_i > 0 }
     end
 
     protected
