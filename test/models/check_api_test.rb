@@ -6,7 +6,7 @@ class CheckApiTest < ActiveSupport::TestCase
 
   def setup
     super
-    WebMock.stub_request(:get, "http://checkapi/relay.json").to_return(:status => 200, :body => "")
+    WebMock.stub_request(:get, "#{BRIDGE_CONFIG['check_api_url']}/relay.json").to_return(:status => 200, :body => "")
     Temp.const_set :Client, mock('client')
     Temp.const_set :Query, mock('query')
 

@@ -21,8 +21,7 @@ module Sources
 
     def get_item(project, project_media)
       # Check Project Media -> return the project media
-      ids = [project_media,project,@team_id].join(',')
-      query = execute_query(ProjectMediaQuery, variables: { ids: ids, annotation_types: "translation,translation_status" })
+      query = execute_query(ProjectMediaQuery, variables: { ids: get_ids(project_media,project,@team_id), annotation_types: "translation,translation_status" })
       unless query.nil?
         item_to_hash(query.project_media) if query.project_media.annotations_count.to_i > 0
       end
@@ -30,29 +29,42 @@ module Sources
 
     def get_collection(project, project_media = nil)
       # Return the project medias of a Check project
-      ids = [project,@team_id].join(',')
-      query = execute_query(ProjectQuery, variables: { ids: ids, annotation_types: "translation,translation_status" })
+      query = execute_query(ProjectQuery, variables: { ids: get_ids(project,@team_id), annotation_types: "translation,translation_status" })
       unless query.nil?
-        translations = query.project.project_medias.edges.map(&:node).find_all { |p| p.annotations_count.to_i > 0 }
-        translations.collect { |t| item_to_hash(t)}
+        get_project_media_with_translations(query.project.project_medias.edges).collect { |t| item_to_hash(t)}
       end
     end
 
     def get_project(project = nil, project_media = nil)
       # Return the projects of a Check Team
       query = execute_query(TeamQuery, variables: { slug: @project })
-      @team_id = query.team.dbid
-      query.team.projects.edges.map(&:node).collect { |node| { name: node.title, id: node.dbid.to_s, summary: node.description, project: @project, project_summary: query.team.description }}
+      unless query.nil?
+        @team_id = query.team.dbid
+        get_projects_info(query.team.projects.edges, query.team.description)
+      end
+    end
+
+    def get_ids(*args)
+      args.join(',')
+    end
+
+    def get_projects_info(projects, team_description = '')
+      projects.map(&:node).collect { |node| { name: node.title, id: node.dbid.to_s, summary: node.description, project: @project, project_summary: team_description }}
+    end
+
+    def get_project_media_with_translations(pms)
+      pms.map(&:node).find_all { |p| p.annotations_count.to_i > 0 }
     end
 
     protected
 
     def item_to_hash(pm)
+      user_name = pm.user ? pm.user.name : ''
       {
         id: pm.dbid.to_s,
         source_text: pm.media.quote,
         source_lang: pm.language_code,
-        source_author: pm.user.name,
+        source_author: user_name,
         link: pm.media.url.to_s,
         timestamp: pm.created_at,
         translations: self.translations(pm.annotations),
@@ -62,9 +74,13 @@ module Sources
     end
 
     def translations(translations)
-      translation = translations.edges.map(&:node).find { |t| t.annotation_type == 'translation' }
-      translation_status = translations.edges.map(&:node).find { |t| t.annotation_type == 'translation_status' }
+      translation = get_translation_annotation(translations, 'translation')
+      translation_status = get_translation_annotation(translations, 'translation_status')
       translation.nil? ? [] : translation_to_hash(translation, translation_status)
+    end
+
+    def get_translation_annotation(translations, annotation_type)
+      translations.edges.map(&:node).find { |t| t.annotation_type == annotation_type }
     end
 
     def translation_to_hash(translation, status)
@@ -100,12 +116,15 @@ module Sources
       comments = []
       notes = content.select { |field| field['field_name'] == 'translation_note'}
       notes.each do |comment|
-        comments << {
-          commenter_name: translation.annotator.name,
-          commenter_url: '',
-          comment: json_field(content, 'translation_note'),
-          timestamp: comment['created_at']
-        }
+        text = json_field(content, 'translation_note')
+        unless text.blank?
+          comments << {
+            commenter_name: translation.annotator.name,
+            commenter_url: '',
+            comment: text,
+            timestamp: comment['created_at']
+          }
+        end
       end
       comments
     end
@@ -120,4 +139,5 @@ module Sources
       result.data
     end
   end
+
 end
