@@ -5,8 +5,8 @@ development: &default
   twitter_consumer_secret:
   twitter_access_token:
   twitter_access_token_secret:
-  bridgembed_host:
-  bridgembed_host_private:
+  bridgembed_host: http://localhost:3400
+  bridgembed_host_private: http://reader:3400
   cache_embeds: true
   secret_token:
   google_analytics_code: 'UA-12345678-1'
@@ -16,13 +16,22 @@ development: &default
   facebook_app_id:
   languages: null
   language_fallbacks: null
-  pender_base_url: 'http://localhost:3005'
-  pender_base_view_url:
-  pender_token: 'test'
+  pender_base_url: 'http://pender:3005'
+  pender_base_view_url: 'http://localhost:3005'
+  pender_token: 'dev'
+  check_api_url: 'http://api:3000'
+  check_api_token: 'dev'
 
 test:
   <<: *default
   imgur_client_id:
+  bridgembed_host: http://reader.test:13400
+  bridgembed_host_private: http://reader.test:13400
+  pender_base_url: 'http://pender.test:13005'
+  pender_base_view_url: 'http://pender.test:13005'
+  pender_token: 'test'
+  check_api_url: 'http://api.test:13000'
+  check_api_token: 'test'
 
 production:
   <<: *default

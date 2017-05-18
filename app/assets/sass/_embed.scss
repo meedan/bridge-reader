@@ -50,7 +50,6 @@ $embed--translation-border: 3px solid $bridge-orange;
 /// Contained by a single p.
 %embed--translation {
   margin: 0 $embed--side-margin;
-  border-left: $embed--translation-border;
   font-weight: 400;
   line-height: 1.4;
   vertical-align: middle;
@@ -58,8 +57,14 @@ $embed--translation-border: 3px solid $bridge-orange;
   .rtl & {
     direction: rtl;
     text-align: right;
-    border-left-width: 0;
-    border-right: $embed--translation-border;
+  }
+
+  .translation {
+    border-left: $embed--translation-border;
+    .rtl & {
+      border-left-width: 0;
+      border-right: $embed--translation-border;
+    }
   }
 
   p {

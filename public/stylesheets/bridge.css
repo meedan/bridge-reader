@@ -145,16 +145,18 @@ em {
 
 .bridgeEmbed__item-translation {
   margin: 0 4px;
-  border-left: 3px solid #ff4f00;
   font-weight: 400;
   line-height: 1.4;
   vertical-align: middle;
   padding: 2px 5px; }
   .rtl .bridgeEmbed__item-translation {
     direction: rtl;
-    text-align: right;
-    border-left-width: 0;
-    border-right: 3px solid #ff4f00; }
+    text-align: right; }
+  .bridgeEmbed__item-translation .translation {
+    border-left: 3px solid #ff4f00; }
+    .rtl .bridgeEmbed__item-translation .translation {
+      border-left-width: 0;
+      border-right: 3px solid #ff4f00; }
   .bridgeEmbed__item-translation p {
     max-width: 505px;
     padding: 0 1em 0.6em;
