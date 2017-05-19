@@ -47,7 +47,8 @@ class MediasController < ApplicationController
       generate_screenshot_image
       @image.nil? ? render_error('Error', 'EXCEPTION', 400) : send_data(File.read(@image), type: 'image/png', disposition: 'inline')
     else
-      render_error('Item not found (deleted, maybe?)', 'NOT_FOUND', 404)
+      logger.info "Could not find image on #{@image}"
+      render_not_found
     end
   end
 
@@ -69,16 +70,18 @@ class MediasController < ApplicationController
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      generate_cache(@object, @project, @collection, @item, @site)
+      unless generate_cache(@object, @project, @collection, @item, @site)
+        logger.info "Could not generate cache on #{@cachepath}"
+      end
       @cache = false
     end
 
-    logger.info "Rendering cache file #{@cachepath}"
-
     if File.exists?(@cachepath)
+      logger.info "Rendering cache file #{@cachepath}"
       render text: File.read(@cachepath)
     else
-      render_error('Item not found (deleted, maybe?)', 'NOT_FOUND', 404)
+      logger.info "Could not render cache file #{@cachepath}"
+      render_not_found
     end
   end
 end

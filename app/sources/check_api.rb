@@ -49,11 +49,15 @@ module Sources
     end
 
     def get_projects_info(projects, team_description = '')
-      projects.map(&:node).collect { |node| { name: node.title, id: node.dbid.to_s, summary: node.description, project: @project, project_summary: team_description }}
+      get_projects_with_translations(projects).collect { |p| { name: p.title, id: p.dbid.to_s, summary: p.description, project: @project, project_summary: team_description }}
+    end
+
+    def get_projects_with_translations(projects)
+      projects.map(&:node).find_all { |p| !get_project_media_with_translations(p.project_medias.edges).empty? }
     end
 
     def get_project_media_with_translations(pms)
-      pms.map(&:node).find_all { |p| p.annotations_count.to_i > 0 }
+      pms.map(&:node).find_all { |pm| pm.annotations_count.to_i > 0 }
     end
 
     protected
