@@ -51,7 +51,7 @@ module MediasFilters
     
     sanitize_parameters(params[:collection], params[:item])
 
-    (render_error('Project not found', 'NOT_FOUND', 404) and return) if @project.blank?
+    (render_not_found and return) if @project.blank?
   end
 
   def get_object
@@ -59,7 +59,7 @@ module MediasFilters
       klass = 'Sources::' + BRIDGE_PROJECTS[@project]['type'].camelize
       @object = klass.constantize.new(@project, BRIDGE_PROJECTS[@project].except('type'))
     rescue NameError
-      render_error('Type not found', 'NOT_FOUND', 404) and return true
+      render_not_found and return true
     end
     false
   end
