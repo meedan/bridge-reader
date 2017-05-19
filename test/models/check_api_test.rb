@@ -73,7 +73,7 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   def team_result
-    { data: { "team": { "dbid": 1, "description": "A brief description", "projects": { "edges": [ { "node": { "title": "project", "dbid": 1, "description": "project description", , "project_medias": { "edges": [{ "node": "annotations_count": 1 }]} }}]}}}}
+    { data: { "team": { "dbid": 1, "description": "A brief description", "projects": { "edges": [ { "node": { "title": "project", "dbid": 1, "description": "project description", "project_medias": { "edges": [{ "node": { "annotations_count": 1 }}]}}}]}}}}
   end
 
   def project_result
