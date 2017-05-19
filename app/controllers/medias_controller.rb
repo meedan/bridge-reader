@@ -76,11 +76,15 @@ class MediasController < ApplicationController
       @cache = false
     end
 
-    if File.exists?(@cachepath)
-      logger.info "Rendering cache file #{@cachepath}"
-      render text: File.read(@cachepath)
+    render_cache(@cachepath)
+  end
+
+  def render_cache(cachepath)
+    if File.exists?(cachepath)
+      logger.info "Rendering cache file #{cachepath}"
+      render text: File.read(cachepath)
     else
-      logger.info "Could not render cache file #{@cachepath}"
+      logger.info "Could not render cache file #{cachepath}"
       render_not_found
     end
   end
