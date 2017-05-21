@@ -5,7 +5,7 @@ MAINTAINER Meedan <sysops@meedan.com>
 ENV RAILS_ENV development
 
 # install dependencies
-RUN apt-get install -y imagemagick fonts-arphic-ukai fonts-arphic-uming fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core
+RUN apt-get update && apt-get install -y imagemagick fonts-arphic-ukai fonts-arphic-uming fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core
 
 # install our app
 WORKDIR /app
