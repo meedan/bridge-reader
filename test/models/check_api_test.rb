@@ -13,7 +13,6 @@ class CheckApiTest < ActiveSupport::TestCase
     Temp::Client.stubs(:parse).returns('Query')
     GraphQL::Client.stubs(:new).returns(Temp::Client)
 
-    reload_classes
 
     @check = Sources::CheckApi.new('check-api', BRIDGE_PROJECTS['check-api'])
     @team_result = team_result
@@ -31,32 +30,25 @@ class CheckApiTest < ActiveSupport::TestCase
     assert_equal 'check-api', @check.to_s
   end
 
-  test "should get a single translation" do
+  test "should get translations" do
     Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
     stub_graphql_result(@project_media_result)
 
     t = @check.get_item('1', '2')
     assert_equal 'en', t[:source_lang]
-  end
 
-  test "should not return check item with nonexistent translation" do
     Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
     stub_graphql_result(@project_media_without_translation_result)
 
     t = @check.get_item('1', '3')
     assert_nil t
-    Temp::Client.unstub(:query)
-  end
 
-  test "should get collection" do
     Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
     stub_graphql_result(@project_result)
 
     t = @check.get_collection('1')
     assert_equal 'en', t[0][:source_lang]
-  end
 
-  test "should get project" do
     Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
     stub_graphql_result(@team_result)
 
@@ -65,15 +57,8 @@ class CheckApiTest < ActiveSupport::TestCase
 
   private
 
-  def reload_classes
-    Object.send(:remove_const, :Check) if Module.const_defined?(:Check)
-    load File.join(Rails.root, 'lib', 'check_api_client.rb')
-    Sources.send(:remove_const, :CheckApi) if Module.const_defined?(:CheckApi)
-    load File.join(Rails.root, 'app', 'sources', 'check_api.rb')
-  end
-
   def team_result
-    { data: { "team": { "dbid": 1, "description": "A brief description", "projects": { "edges": [ { "node": { "title": "project", "dbid": 1, "description": "project description" }}]}}}}
+    { data: { "team": { "dbid": 1, "description": "A brief description", "projects": { "edges": [ { "node": { "title": "project", "dbid": 1, "description": "project description", "project_medias": { "edges": [{ "node": { "annotations_count": 1 }}]}}}]}}}}
   end
 
   def project_result

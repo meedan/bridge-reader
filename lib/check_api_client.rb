@@ -18,7 +18,28 @@ module Check
   )
 
   TeamQuery = Client.parse <<-'GRAPHQL'
-    query($slug:String!) { team(slug: $slug) { dbid, description, projects { edges { node { title, dbid, description } } } } }
+    query($slug:String!) {
+      team(slug: $slug) {
+        dbid
+        description
+        projects {
+          edges {
+            node {
+              title
+              dbid
+              description
+              project_medias {
+                edges {
+                  node {
+                    annotations_count(annotation_type: "translation")
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   GRAPHQL
 
   ProjectQuery = Client.parse <<-'GRAPHQL'
