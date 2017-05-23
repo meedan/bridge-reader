@@ -6,6 +6,10 @@ class BridgeApiTest < ActiveSupport::TestCase
     @b = Sources::BridgeApi.new('bridge-api', BRIDGE_PROJECTS['bridge-api'])
   end
 
+  def teardown
+    WebMock.reset!
+  end
+
   test "should return project slug as string representation" do
     assert_equal 'bridge-api', @b.to_s
   end
@@ -49,6 +53,8 @@ class BridgeApiTest < ActiveSupport::TestCase
 
   test "should update cache for created translation" do
     stub_request_many_translations
+    stub_request_single_translation
+    stub_request_project
     assert !File.exists?(@b.cache_path('bridge-api', 'GreeceCrisis', '1'))
     assert !File.exists?(@b.cache_path('bridge-api', 'GreeceCrisis', ''))
     assert !File.exists?(@b.cache_path('bridge-api', '', ''))
@@ -60,6 +66,8 @@ class BridgeApiTest < ActiveSupport::TestCase
 
   test "should update cache for updated translation" do
     stub_request_many_translations
+    stub_request_single_translation
+    stub_request_project
     @b.generate_cache(@b, 'bridge-api', 'GreeceCrisis', '1')
     @b.generate_cache(@b, 'bridge-api', 'GreeceCrisis', '')
     file1 = @b.cache_path('bridge-api', 'GreeceCrisis', '1')
@@ -78,6 +86,8 @@ class BridgeApiTest < ActiveSupport::TestCase
 
   test "should update cache for removed translation" do
     stub_request_many_translations
+    stub_request_single_translation
+    stub_request_project
     @b.generate_cache(@b, 'bridge-api', 'GreeceCrisis', '1')
     @b.generate_cache(@b, 'bridge-api', 'GreeceCrisis', '')
     file1 = @b.cache_path('bridge-api', 'GreeceCrisis', '1')
@@ -92,6 +102,15 @@ class BridgeApiTest < ActiveSupport::TestCase
     assert File.exists?(file2)
     assert File.exists?(file3)
     assert File.mtime(file2) > time
+   end
+
+  test "should generate cache for translations without link" do
+    stub_request_many_translations
+    stub_request_single_translation_without_link
+    stub_request_project
+    @b.generate_cache(@b, 'bridge-api', 'GreeceCrisis', '2')
+    file1 = @b.cache_path('bridge-api', 'GreeceCrisis', '2')
+    assert File.exists?(file1)
   end
 
   test "should create project" do
@@ -137,6 +156,10 @@ class BridgeApiTest < ActiveSupport::TestCase
     '{"id":1,"lang":"pt_BR","published":1438111529,"author":{"id":"1666372892","name":"Marcelo Souza","link":"https://twitter.com/intent/user?user_id=1666372892"},"text":"#CriseGrega - Morte ou Renascimento da União Européia?","rating":{"myRating":null,"greatCount":0},"embed_url":"http://bridgembed/medias/embed/eye-on-greece/GreeceCrisis/1","source":{"lang":"en_US","text":"#GreeceCrisis – Death or Rebirth of the EU? http://t.co/3gJl6dDxZf\nSee more by James Galbraith on Project Syndicate http://t.co/U6S7hyaOTM","published":1438095303,"link":"https://twitter.com/ProSyn/status/626088494448795649"},"comments":[{"id":1,"text":"A comment","published":1438111529,"author":{"id":"1666372892","name":"Marcelo Souza","link":"https://twitter.com/intent/user?user_id=1666372892"}}]}'
   end
 
+  def single_translation_object_without_link
+    '{"id":2,"lang":"pt_BR","published":1438111529,"author":{"id":"1666372892","name":"Marcelo Souza","link":"https://twitter.com/intent/user?user_id=1666372892"},"text":"#CriseGrega - Morte ou Renascimento da União Européia?","rating":{"myRating":null,"greatCount":0},"embed_url":"http://bridgembed/medias/embed/eye-on-greece/GreeceCrisis/1","source":{"lang":"en_US","text":"#GreeceCrisis – Death or Rebirth of the EU? http://t.co/3gJl6dDxZf\nSee more by James Galbraith on Project Syndicate http://t.co/U6S7hyaOTM","published":1438095303,"link":""},"comments":[{"id":1,"text":"A comment","published":1438111529,"author":{"id":"1666372892","name":"Marcelo Souza","link":"https://twitter.com/intent/user?user_id=1666372892"}}]}'
+  end
+
   private
 
   def stub_request_single_translation
@@ -144,12 +167,17 @@ class BridgeApiTest < ActiveSupport::TestCase
     WebMock.stub_request(:get, 'http://bridge.api/api/translations/1').to_return(body: body, status: 200)
   end
 
+  def stub_request_single_translation_without_link
+    body = "{\"data\":#{self.single_translation_object_without_link}}"
+    WebMock.stub_request(:get, 'http://bridge.api/api/translations/2').to_return(body: body, status: 200)
+  end
+
   def stub_request_nonexistent_translation
     WebMock.stub_request(:get, 'http://bridge.api/api/translations/3').to_return(body: '{"type":"error","data":{"message":"Id not found","code":3}}', status: 404)
   end
 
   def stub_request_many_translations
-    body = "{\"data\":[#{self.single_translation_object},#{self.single_translation_object}]}"
+    body = "{\"data\":[#{self.single_translation_object},#{self.single_translation_object_without_link}]}"
     WebMock.stub_request(:get, 'http://bridge.api/api/translations?channel_uuid=GreeceCrisis').to_return(body: body, status: 200)
   end
 
