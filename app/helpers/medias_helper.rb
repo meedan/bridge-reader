@@ -117,6 +117,10 @@ module MediasHelper
     end
   end
 
+  def entry_time(time)
+    time.is_a?(String) ? Date.parse(time) : Time.at(time).to_date
+  end
+
   private
 
   def embed_url(site, project, collection, item, format = '')

@@ -44,7 +44,7 @@
         <%= link_to_unless entry[:source_author_link].blank?, content_tag(:span, entry[:source_author_name]), entry[:source_author_link], { target: '_blank' } %>
       </div>
     <% end %>
-    <%= time_tag Date.parse(entry[:timestamp]) %>
+    <%= time_tag entry_time(entry[:timestamp]) %>
   </div>
   <% end %>
 
