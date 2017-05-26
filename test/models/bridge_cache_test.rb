@@ -9,29 +9,6 @@ class BridgeCacheTest < ActiveSupport::TestCase
     @path = File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s)
   end
 
-  test "should return screenshoter" do
-    assert_nothing_raised do
-      assert_kind_of Smartshot::Screenshot, @b.screenshoter
-    end
-  end
-
-  test "should fallback to system PhantomJS" do
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).returns('/usr/bin/phantomjs')
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).with("#{@path} --version").returns('Not valid')
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).with("/usr/bin/phantomjs --version").returns('2.0.0')
-    assert_nothing_raised do
-      assert_kind_of Smartshot::Screenshot, @b.screenshoter
-    end
-  end
-
-  test "should raise error if PhantomJS is not found" do
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).returns('/usr/bin/phantomjs')
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).with("#{@path} --version").returns('Not valid')
-    assert_raises RuntimeError do
-      @b.screenshoter
-    end
-  end
-
   test "should clear cache" do
     path = @b.cache_path('google_spreadsheet', 'test', 'item')
     dir = File.dirname(path)

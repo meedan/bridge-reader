@@ -45,52 +45,20 @@ module Bridge
       self.file_path(project, collection, item, 'screenshots', 'png')
     end
 
-    def screenshoter
-      path = File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s)
-      version = `#{path} --version`
-      if (version.chomp =~ /^[0-9.]+/).nil?
-        path = `which phantomjs`
-        version = `#{path.chomp} --version`
-      end
-
-      raise 'PhantomJS not found!' if (version.chomp =~ /^[0-9.]+/).nil?
-
-      options = { phantomjs: path.chomp, timeout: 40 }
-
-      if Rails.env.test?
-        options.merge! run_server: true
-      end
-
-      Smartshot::Screenshot.new(options)
-    end
-
     def generate_screenshot(project, collection, item, css = '')
       output = screenshot_path(project, collection, item)
       if BRIDGE_CONFIG['cache_embeds'] && File.exists?(output)
         # Cache file will be returned
       else
         url = self.screenshot_url(project, collection, item, css)
-        level = self.get_level(project, collection, item)
-        
-        frames = []
-        element = ['body']
-
-        self.take_screenshot(url, element, frames, output, level)
+        self.take_screenshot(url, output)
       end
       output
     end
 
-    def take_screenshot(url, element, frames, output, level)
+    def take_screenshot(url, output)
       FileUtils.mkdir_p(File.dirname(output))
-      tmp = Tempfile.new(['screenshot', '.png']).path
-      options = { url: url, output: tmp, wait_for_element: element, frames_path: frames, sleep: 20 }
-
-      options = options.merge(selector: '.bridgeEmbed__screenshot', full: false)
-
-      Retryable.retryable { screenshoter.take_screenshot!(options) }
-
-      level === 'item' ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)
-      FileUtils.rm(tmp) if File.exists?(tmp)
+      Bot::Screenshot.take_screenshot(url, File.join(Rails.root, output))
     end
 
     def post_process_screenshot(tmp, output)
