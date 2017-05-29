@@ -8,10 +8,10 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should generate cache path" do
-    assert !cache_file_exists?
-    get :embed, project: 'google_spreadsheet', collection: 'test'
+    assert !cache_file_exists?('watchbot')
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot'
     assert_kind_of String, assigns(:cachepath)
-    assert cache_file_exists?
+    assert cache_file_exists?('watchbot')
   end
 
   test "should use cache if option is true and file exists" do
@@ -43,8 +43,8 @@ class MediasControllerTest < ActionController::TestCase
     PageValidations::HTMLValidation.show_warnings = false
     h = PageValidations::HTMLValidation.new
     clear_cache
-    get :embed, project: 'google_spreadsheet', collection: 'test'
-    file = File.join(Rails.root, 'public', 'cache', 'google_spreadsheet', 'test.html')
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot'
+    file = File.join(Rails.root, 'public', 'cache', 'google_spreadsheet', 'watchbot.html')
     v = h.validation(File.read(file), BRIDGE_CONFIG['bridgembed_host'])
     assert v.valid?, v.exceptions
   end
@@ -132,12 +132,13 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should render png for Instagram" do
-    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
-    FileUtils.cp(generated, "/tmp/#{id}.png")
-    assert_same_image generated, output
+    with_google_chrome do
+      get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
+      assert_same_image generated, output
+    end
   end
 
   test "should render png with custom CSS" do
@@ -146,9 +147,10 @@ class MediasControllerTest < ActionController::TestCase
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
-    FileUtils.cp(generated, "/tmp/#{id}-custom-css.png")
-    assert_same_image generated, output
+    with_google_chrome do
+      get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
+      assert_same_image generated, output
+    end
   end
 
   test "should render png with RTL text" do
@@ -157,8 +159,9 @@ class MediasControllerTest < ActionController::TestCase
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first', "#{id}.png")
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
-    FileUtils.cp(generated, "/tmp/#{id}.png")
+    with_google_chrome do
+      get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
+    end
     assert_same_image generated, output
   end
 
@@ -245,10 +248,10 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should have Facebook metatags for collection" do
-    get :embed, project: 'google_spreadsheet', collection: 'test', format: :html
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet / Test' })
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', format: :html
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet / Watchbot' })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /bridge-logo\.png/ })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translations of Google Spreadsheet / Test' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translations of Google Spreadsheet / Watchbot' })
   end
 
   test "should have Facebook metatags for item" do

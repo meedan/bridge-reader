@@ -58,7 +58,7 @@ module Bridge
 
     def take_screenshot(url, output)
       FileUtils.mkdir_p(File.dirname(output))
-      Bot::Screenshot.take_screenshot(url, File.join(Rails.root, output))
+      Bot::Screenshot.take_screenshot(url, output)
     end
 
     def post_process_screenshot(tmp, output)

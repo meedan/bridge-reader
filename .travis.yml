@@ -2,6 +2,8 @@ dist: trusty
 language: ruby
 sudo: required
 bundler_args: "--jobs 3 --retry 3 --without nothing"
+addons:
+  chrome: stable
 before_install:
 - sudo apt-get update
 - sudo apt-get install tidy libicu52

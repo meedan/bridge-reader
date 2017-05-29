@@ -6,7 +6,6 @@ class BridgeCacheTest < ActiveSupport::TestCase
   def setup
     super
     @b = Sources::GoogleSpreadsheet.new('google_spreadsheet', BRIDGE_PROJECTS['google_spreadsheet'])
-    @path = File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s)
   end
 
   test "should clear cache" do
@@ -21,34 +20,37 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should generate screenshot for Twitter" do
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
     Rails.cache.write('pender:' + id, { provider: 'twitter' })
-    path = @b.screenshot_path('google_spreadsheet', 'test', id)
+    path = @b.screenshot_path('google_spreadsheet', 'watchbot', id)
     assert !File.exists?(path)
-    @b.generate_screenshot('google_spreadsheet', 'test', id)
+    @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
     assert File.exists?(path)
   end
 
   test "should generate screenshot for Instagram" do
+    Object.any_instance.stubs(:system).times(2)
     id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
     Rails.cache.write('pender:' + id, { provider: 'instagram' })
-    path = @b.screenshot_path('google_spreadsheet', 'test', id)
-    assert !File.exists?(path)
-    @b.generate_screenshot('google_spreadsheet', 'test', id)
-    assert File.exists?(path)
+    assert_not_nil @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
+    Object.any_instance.unstub(:system)
   end
 
   test "should check that cache exists" do
-    assert !@b.cache_exists?('google_spreadsheet', 'test', '')
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
-    assert @b.cache_exists?('google_spreadsheet', 'test', '')
+    assert !@b.cache_exists?('google_spreadsheet', 'watchbot', '')
+    with_google_chrome do
+      a = @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', '')
+      assert @b.cache_exists?('google_spreadsheet', 'watchbot', '')
+    end
   end
 
   test "should check that screenshot exists" do
-    assert !@b.screenshot_exists?('google_spreadsheet', 'test', '')
-    @b.generate_screenshot('google_spreadsheet', 'test', '')
-    assert @b.screenshot_exists?('google_spreadsheet', 'test', '')
+    assert !@b.screenshot_exists?('google_spreadsheet', 'watchbot', '')
+    with_google_chrome do
+      @b.generate_screenshot('google_spreadsheet', 'watchbot', '')
+    end
+    assert @b.screenshot_exists?('google_spreadsheet', 'watchbot', '')
   end
 
   test "should not crash if file does not exist" do
@@ -59,8 +61,10 @@ class BridgeCacheTest < ActiveSupport::TestCase
   end
 
   test "should take screenshot of Arabic path" do
-    assert_nothing_raised do
-      @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', ['body'], [], '/tmp/arabic.png', 'item')
+    with_google_chrome do
+      assert_nothing_raised do
+        @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', '/tmp/arabic.png')
+      end
     end
   end
 
