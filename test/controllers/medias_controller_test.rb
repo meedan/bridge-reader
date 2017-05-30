@@ -100,16 +100,16 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should render png for items" do
-    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', 'cac1af59cc9b410752fcbe3810b36d30ed8e049d.png')
     assert !File.exists?(path)
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', format: :png
     assert File.exists?(path)
   end
 
   test "should render png for collections" do
-    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test.png')
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first.png')
     assert !File.exists?(path)
-    get :embed, project: 'google_spreadsheet', collection: 'test', format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'first', format: :png
     assert File.exists?(path)
   end
 
@@ -135,10 +135,8 @@ class MediasControllerTest < ActionController::TestCase
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    with_google_chrome do
-      get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
-      assert_same_image generated, output
-    end
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
+    assert_same_image generated, output
   end
 
   test "should render png with custom CSS" do
@@ -147,10 +145,8 @@ class MediasControllerTest < ActionController::TestCase
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
-    with_google_chrome do
-      get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
-      assert_same_image generated, output
-    end
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
+    assert_same_image generated, output
   end
 
   test "should render png with RTL text" do
@@ -159,9 +155,7 @@ class MediasControllerTest < ActionController::TestCase
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first', "#{id}.png")
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    with_google_chrome do
-      get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
-    end
+    get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
     assert_same_image generated, output
   end
 

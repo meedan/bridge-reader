@@ -39,17 +39,13 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should check that cache exists" do
     assert !@b.cache_exists?('google_spreadsheet', 'watchbot', '')
-    with_google_chrome do
-      a = @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', '')
-      assert @b.cache_exists?('google_spreadsheet', 'watchbot', '')
-    end
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', '')
+    assert @b.cache_exists?('google_spreadsheet', 'watchbot', '')
   end
 
   test "should check that screenshot exists" do
     assert !@b.screenshot_exists?('google_spreadsheet', 'watchbot', '')
-    with_google_chrome do
-      @b.generate_screenshot('google_spreadsheet', 'watchbot', '')
-    end
+    @b.generate_screenshot('google_spreadsheet', 'watchbot', '')
     assert @b.screenshot_exists?('google_spreadsheet', 'watchbot', '')
   end
 
@@ -61,10 +57,8 @@ class BridgeCacheTest < ActiveSupport::TestCase
   end
 
   test "should take screenshot of Arabic path" do
-    with_google_chrome do
-      assert_nothing_raised do
-        @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', '/tmp/arabic.png')
-      end
+    assert_nothing_raised do
+      @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', '/tmp/arabic.png')
     end
   end
 

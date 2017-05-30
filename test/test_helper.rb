@@ -121,9 +121,4 @@ class ActiveSupport::TestCase
     assert_equal actual, expected, "Generated image (#{link}) differs from expected (#{expected_path})"
   end
 
-  def with_google_chrome
-    system 'google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu --no-sandbox --ignore-certificate-errors &'
-    yield
-  end
-
 end
