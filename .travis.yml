@@ -23,7 +23,7 @@ before_install:
 - bundle exec rake db:migrate
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 >/dev/null &
-- LC_ALL=C google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu --no-sandbox --ignore-certificate-errors &
+- LC_ALL=C google-chrome-stable --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu --no-sandbox --ignore-certificate-errors &
 - cd -
 before_script:
 - mv bridgembed.yml config/

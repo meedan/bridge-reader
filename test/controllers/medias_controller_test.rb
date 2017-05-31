@@ -123,10 +123,10 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should render png for Twitter" do
-    id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    id = '09ba77abe84d84fb6531255b458980cd4af9ea9a'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
     assert_same_image generated, output
   end

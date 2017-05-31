@@ -51,14 +51,18 @@ module Bridge
         # Cache file will be returned
       else
         url = self.screenshot_url(project, collection, item, css)
-        self.take_screenshot(url, output)
+        level = self.get_level(project, collection, item)
+        self.take_screenshot(url, output, level)
       end
       output
     end
 
-    def take_screenshot(url, output)
+    def take_screenshot(url, output, level)
       FileUtils.mkdir_p(File.dirname(output))
-      Bot::Screenshot.take_screenshot(url, output)
+      tmp = Tempfile.new(['screenshot', '.png']).path
+      Bot::Screenshot.take_screenshot(url, tmp)
+      level === 'item' ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)
+      FileUtils.rm(tmp)
     end
 
     def post_process_screenshot(tmp, output)
