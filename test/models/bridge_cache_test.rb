@@ -58,7 +58,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should take screenshot of Arabic path" do
     assert_nothing_raised do
-      @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', '/tmp/arabic.png')
+      @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', '/tmp/arabic.png', 'item')
     end
   end
 
