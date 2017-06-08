@@ -29,12 +29,10 @@ class BridgeCacheTest < ActiveSupport::TestCase
   end
 
   test "should generate screenshot for Instagram" do
-    Object.any_instance.stubs(:system).times(2)
     id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
+    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
     Rails.cache.write('pender:' + id, { provider: 'instagram' })
-    assert_not_nil @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
-    Object.any_instance.unstub(:system)
+    assert_not_nil @b.generate_screenshot('google_spreadsheet', 'test', id)
   end
 
   test "should check that cache exists" do
@@ -57,8 +55,9 @@ class BridgeCacheTest < ActiveSupport::TestCase
   end
 
   test "should take screenshot of Arabic path" do
+    url = 'https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9_%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9'
     assert_nothing_raised do
-      @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', '/tmp/arabic.png', 'item')
+      @b.take_screenshot(url, '/tmp/arabic.png', 'item')
     end
   end
 

@@ -80,13 +80,13 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should receive item" do
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
-    assert_equal 'c291f649aa5625b81322207177a41e2c4a08f09d', assigns(:item)
-    assert_match /test\/c291f649aa5625b81322207177a41e2c4a08f09d\.html$/, assigns(:cachepath)
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', format: :html
+    assert_equal 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', assigns(:item)
+    assert_match /watchbot\/cac1af59cc9b410752fcbe3810b36d30ed8e049d\.html$/, assigns(:cachepath)
   end
 
   test "should render Twitter metatags" do
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', format: :html
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image:alt' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
@@ -115,11 +115,11 @@ class MediasControllerTest < ActionController::TestCase
 
   test "should render cached png" do
     Smartshot::Screenshot.expects(:new).never
-    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
-    FileUtils.mkdir_p(File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test'))
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first', '6f975c79aa6644919907e3b107babf56803f57c7.png')
+    FileUtils.mkdir_p(File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first'))
     FileUtils.touch(path)
     assert File.exists?(path)
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'first', item: '6f975c79aa6644919907e3b107babf56803f57c7', format: :png
   end
 
   test "should render png for Twitter" do
