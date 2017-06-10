@@ -19,6 +19,18 @@ class CheckApiTest < ActiveSupport::TestCase
     @project_result = project_result
     @project_media_result = project_media_result
     @project_media_without_translation_result = project_media_without_translation_result
+
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
+    stub_graphql_result(@project_media_result)
+
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
+    stub_graphql_result(@project_media_without_translation_result)
+
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
+    stub_graphql_result(@project_result)
+
+    Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
+    stub_graphql_result(@team_result)
   end
 
   test "should send token as header" do
@@ -31,28 +43,54 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   test "should get translations" do
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
-    stub_graphql_result(@project_media_result)
-
     t = @check.get_item('1', '2')
     assert_equal 'en', t[:source_lang]
-
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
-    stub_graphql_result(@project_media_without_translation_result)
 
     t = @check.get_item('1', '3')
     assert_nil t
 
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
-    stub_graphql_result(@project_result)
-
     t = @check.get_collection('1')
     assert_equal 'en', t[0][:source_lang]
 
-    Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
-    stub_graphql_result(@team_result)
-
     assert_equal ['project'], @check.get_project.collect{ |c| c[:name] }
+  end
+
+  test "should update cache for created translation" do
+    assert !File.exists?(@check.cache_path('check-api', '1', '2'))
+    assert !File.exists?(@check.cache_path('check-api', '1', ''))
+    assert !File.exists?(@check.cache_path('check-api', '', ''))
+    @check.parse_notification('1', '2', { 'condition' => 'created', 'translation' => { translation: '2', condition: 'created'}})
+    assert File.exists?(@check.cache_path('check-api', '1', '2'))
+    assert File.exists?(@check.cache_path('check-api', '1', ''))
+    assert File.exists?(@check.cache_path('check-api', '', ''))
+  end
+
+  test "should update cache for removed translation" do
+    @check.generate_cache(@check, 'check-api', '1', '2')
+    @check.generate_cache(@check, 'check-api', '1', '')
+    file1 = @check.cache_path('check-api', '1', '2')
+    file2 = @check.cache_path('check-api', '1', '')
+    file3 = @check.cache_path('check-api', '', '')
+    assert File.exists?(file1)
+    assert File.exists?(file2)
+    assert !File.exists?(file3)
+    time = File.mtime(file2)
+    @check.parse_notification('1', '2', { 'condition' => 'destroyed', 'translation' => { translation: '2', condition: 'created'}})
+    assert !File.exists?(file1)
+    assert File.exists?(file2)
+    assert File.exists?(file3)
+    assert File.mtime(file2) > time
+  end
+
+  test "should create project" do
+    project = File.join(Rails.root, 'config', 'projects', 'test', 'test.yml')
+    assert !File.exists?(project)
+    assert !BRIDGE_PROJECTS.has_key?('test')
+    @check.parse_notification(nil, nil, { 'project' => { 'slug' => 'test' }, 'condition' => 'created' })
+    exists = File.exists?(project)
+    FileUtils.rm(project)
+    assert exists
+    assert BRIDGE_PROJECTS.has_key?('test')
   end
 
   private

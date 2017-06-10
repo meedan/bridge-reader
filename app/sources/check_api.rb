@@ -60,6 +60,49 @@ module Sources
       pms.map(&:node).find_all { |pm| pm.annotations_count.to_i > 0 }
     end
 
+    def parse_notification(channel, translation_id, payload = {})
+      if !payload['project'].blank?
+        self.handle_project(payload)
+      elsif payload['condition'] == 'created' || payload['condition'] == 'updated'
+        self.update_cache_for_saved_translation(channel, payload['translation'])
+      elsif payload['condition'] == 'destroyed'
+        self.update_cache_for_removed_translation(channel, translation_id)
+      end
+      refresh_cache(channel) unless channel.blank?
+    end
+
+    def handle_project(payload)
+      if payload['condition'] == 'created'
+        host = BRIDGE_PROJECTS['check_api_url']
+        info = { 'type' => 'check_api' }
+        slug = payload['project']['slug']
+        create_config_file_for_project(slug, info)
+        BRIDGE_PROJECTS[slug] = info
+      elsif payload['condition'] == 'updated'
+        generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+      end
+    end
+
+    def refresh_cache(channel)
+      generate_cache(self, self.project, channel, '', BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, channel, '')
+      generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, '', '')
+    end
+
+    def update_cache_for_saved_translation(channel, translation)
+      Rails.cache.delete('pender:' + translation['id'].to_s)
+      @entries = [translation]
+      generate_cache(self, self.project, channel, translation['id'].to_s, BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, channel, translation['id'].to_s)
+      @entries = nil
+    end
+
+    def update_cache_for_removed_translation(channel, translation_id)
+      clear_cache(self.project, channel, translation_id.to_s)
+      remove_screenshot(self.project, channel, translation_id.to_s)
+    end
+
     protected
 
     def item_to_hash(pm)
@@ -142,6 +185,15 @@ module Sources
       result = Client.query(query, variables)
       result.data
     end
-  end
 
+    def create_config_file_for_project(slug, info)
+      dir = File.join(Rails.root, 'config', 'projects', Rails.env)
+      path = File.join(dir, slug + '.yml')
+      file = File.open(path, 'w+')
+      info.each do |key, value|
+        file.puts("#{key}: '#{value}'")
+      end
+      file.close
+    end
+  end
 end
