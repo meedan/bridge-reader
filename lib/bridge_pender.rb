@@ -58,7 +58,7 @@ module Bridge
       parsed = []
       entries.each_with_index do |entry, i|
         entry = parse_item(entry)
-        parsed << entry unless entry[:oembed]['unavailable']
+        parsed << entry unless entry[:oembed] && entry[:oembed]['unavailable']
       end
       parsed
     end

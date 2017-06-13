@@ -28,11 +28,11 @@ class BridgeCacheTest < ActiveSupport::TestCase
     assert File.exists?(path)
   end
 
-  test "should generate screenshot for Instagram" do
-    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
+  test "should generate screenshot for Instagram AAA" do
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
     Rails.cache.write('pender:' + id, { provider: 'instagram' })
-    assert_not_nil @b.generate_screenshot('google_spreadsheet', 'test', id)
+    assert_not_nil @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
   end
 
   test "should check that cache exists" do
@@ -62,9 +62,9 @@ class BridgeCacheTest < ActiveSupport::TestCase
   end
 
   test "should request cc-deville to clear cache for single item when generating cache" do
-    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet/test/' + id).returns(201)
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet/watchbot/' + id).returns(201)
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
   end
 
   test "should request cc-deville to clear cache for single item when removing cache" do
