@@ -20,7 +20,24 @@ ENV IMAGE=dreg.meedan.net/bridge/reader \
 COPY ./docker/bin/* /opt/bin/
 RUN chmod 755 /opt/bin/*.sh
 
+#
+# DEPENDENCIES
+#
+
 RUN apt-get install -y imagemagick fonts-arphic-ukai fonts-arphic-uming fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core
+
+# nodejs7 repo
+RUN curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+# chrome repo
+RUN curl -sL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+
+RUN apt-get update && apt-get install -y \
+    nodejs \
+    google-chrome-stable
+
+# install stuff needed to take screenshots
+RUN npm install chrome-remote-interface minimist
 
 #
 # APP CONFIG
