@@ -28,11 +28,13 @@ class BridgeCacheTest < ActiveSupport::TestCase
     assert File.exists?(path)
   end
 
-  test "should generate screenshot for Instagram AAA" do
-    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+  test "should generate screenshot for Instagram" do
+    id = '4152e40dcbab622b12dfd56f2d91f6e19813c66d'
     @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
-    Rails.cache.write('pender:' + id, { provider: 'instagram' })
-    assert_not_nil @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
+    path = @b.screenshot_path('google_spreadsheet', 'watchbot', id)
+    assert !File.exists?(path)
+    @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
+    assert File.exists?(path)
   end
 
   test "should check that cache exists" do
