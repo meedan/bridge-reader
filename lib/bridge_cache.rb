@@ -62,7 +62,7 @@ module Bridge
       tmp = Tempfile.new(['screenshot', '.png']).path
       Bot::Screenshot.take_screenshot(url, tmp)
       level === 'item' ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)
-      FileUtils.rm(tmp)
+      FileUtils.rm_f(tmp)
     end
 
     def post_process_screenshot(tmp, output)
