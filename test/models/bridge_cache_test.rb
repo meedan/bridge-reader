@@ -6,30 +6,6 @@ class BridgeCacheTest < ActiveSupport::TestCase
   def setup
     super
     @b = Sources::GoogleSpreadsheet.new('google_spreadsheet', BRIDGE_PROJECTS['google_spreadsheet'])
-    @path = File.join(Rails.root, 'bin', 'phantomjs-' + (1.size * 8).to_s)
-  end
-
-  test "should return screenshoter" do
-    assert_nothing_raised do
-      assert_kind_of Smartshot::Screenshot, @b.screenshoter
-    end
-  end
-
-  test "should fallback to system PhantomJS" do
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).returns('/usr/bin/phantomjs')
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).with("#{@path} --version").returns('Not valid')
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).with("/usr/bin/phantomjs --version").returns('2.0.0')
-    assert_nothing_raised do
-      assert_kind_of Smartshot::Screenshot, @b.screenshoter
-    end
-  end
-
-  test "should raise error if PhantomJS is not found" do
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).returns('/usr/bin/phantomjs')
-    Sources::GoogleSpreadsheet.any_instance.stubs(:`).with("#{@path} --version").returns('Not valid')
-    assert_raises RuntimeError do
-      @b.screenshoter
-    end
   end
 
   test "should clear cache" do
@@ -44,34 +20,33 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should generate screenshot for Twitter" do
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
     Rails.cache.write('pender:' + id, { provider: 'twitter' })
-    path = @b.screenshot_path('google_spreadsheet', 'test', id)
+    path = @b.screenshot_path('google_spreadsheet', 'watchbot', id)
     assert !File.exists?(path)
-    @b.generate_screenshot('google_spreadsheet', 'test', id)
+    @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
     assert File.exists?(path)
   end
 
   test "should generate screenshot for Instagram" do
-    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
-    Rails.cache.write('pender:' + id, { provider: 'instagram' })
-    path = @b.screenshot_path('google_spreadsheet', 'test', id)
+    id = '4152e40dcbab622b12dfd56f2d91f6e19813c66d'
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
+    path = @b.screenshot_path('google_spreadsheet', 'watchbot', id)
     assert !File.exists?(path)
-    @b.generate_screenshot('google_spreadsheet', 'test', id)
+    @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
     assert File.exists?(path)
   end
 
   test "should check that cache exists" do
-    assert !@b.cache_exists?('google_spreadsheet', 'test', '')
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
-    assert @b.cache_exists?('google_spreadsheet', 'test', '')
+    assert !@b.cache_exists?('google_spreadsheet', 'watchbot', '')
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', '')
+    assert @b.cache_exists?('google_spreadsheet', 'watchbot', '')
   end
 
   test "should check that screenshot exists" do
-    assert !@b.screenshot_exists?('google_spreadsheet', 'test', '')
-    @b.generate_screenshot('google_spreadsheet', 'test', '')
-    assert @b.screenshot_exists?('google_spreadsheet', 'test', '')
+    assert !@b.screenshot_exists?('google_spreadsheet', 'watchbot', '')
+    @b.generate_screenshot('google_spreadsheet', 'watchbot', '')
+    assert @b.screenshot_exists?('google_spreadsheet', 'watchbot', '')
   end
 
   test "should not crash if file does not exist" do
@@ -82,15 +57,16 @@ class BridgeCacheTest < ActiveSupport::TestCase
   end
 
   test "should take screenshot of Arabic path" do
+    url = 'https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9_%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9'
     assert_nothing_raised do
-      @b.take_screenshot('https://bridge-embed.edge.meedan.com/medias/embed/you-stink-lebanon/%D8%B7%D9%84%D8%B9%D8%AA_%D8%B1%D9%8A%D8%AD%D8%AA%D9%83%D9%85-1/123.png', ['body'], [], '/tmp/arabic.png', 'item')
+      @b.take_screenshot(url, '/tmp/arabic.png', 'item')
     end
   end
 
   test "should request cc-deville to clear cache for single item when generating cache" do
-    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet/test/' + id).returns(201)
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet/watchbot/' + id).returns(201)
+    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
   end
 
   test "should request cc-deville to clear cache for single item when removing cache" do

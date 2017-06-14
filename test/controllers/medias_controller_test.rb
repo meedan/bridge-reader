@@ -8,10 +8,10 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should generate cache path" do
-    assert !cache_file_exists?
-    get :embed, project: 'google_spreadsheet', collection: 'test'
+    assert !cache_file_exists?('watchbot')
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot'
     assert_kind_of String, assigns(:cachepath)
-    assert cache_file_exists?
+    assert cache_file_exists?('watchbot')
   end
 
   test "should use cache if option is true and file exists" do
@@ -43,8 +43,8 @@ class MediasControllerTest < ActionController::TestCase
     PageValidations::HTMLValidation.show_warnings = false
     h = PageValidations::HTMLValidation.new
     clear_cache
-    get :embed, project: 'google_spreadsheet', collection: 'test'
-    file = File.join(Rails.root, 'public', 'cache', 'google_spreadsheet', 'test.html')
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot'
+    file = File.join(Rails.root, 'public', 'cache', 'google_spreadsheet', 'watchbot.html')
     v = h.validation(File.read(file), BRIDGE_CONFIG['bridgembed_host'])
     assert v.valid?, v.exceptions
   end
@@ -80,13 +80,13 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should receive item" do
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
-    assert_equal 'c291f649aa5625b81322207177a41e2c4a08f09d', assigns(:item)
-    assert_match /test\/c291f649aa5625b81322207177a41e2c4a08f09d\.html$/, assigns(:cachepath)
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', format: :html
+    assert_equal 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', assigns(:item)
+    assert_match /watchbot\/cac1af59cc9b410752fcbe3810b36d30ed8e049d\.html$/, assigns(:cachepath)
   end
 
   test "should render Twitter metatags" do
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :html
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', format: :html
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image:alt' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
@@ -100,43 +100,42 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should render png for items" do
-    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', 'cac1af59cc9b410752fcbe3810b36d30ed8e049d.png')
     assert !File.exists?(path)
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', format: :png
     assert File.exists?(path)
   end
 
   test "should render png for collections" do
-    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test.png')
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first.png')
     assert !File.exists?(path)
-    get :embed, project: 'google_spreadsheet', collection: 'test', format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'first', format: :png
     assert File.exists?(path)
   end
 
   test "should render cached png" do
     Smartshot::Screenshot.expects(:new).never
-    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', 'c291f649aa5625b81322207177a41e2c4a08f09d.png')
-    FileUtils.mkdir_p(File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test'))
+    path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first', '6f975c79aa6644919907e3b107babf56803f57c7.png')
+    FileUtils.mkdir_p(File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first'))
     FileUtils.touch(path)
     assert File.exists?(path)
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'first', item: '6f975c79aa6644919907e3b107babf56803f57c7', format: :png
   end
 
   test "should render png for Twitter" do
-    id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    id = '09ba77abe84d84fb6531255b458980cd4af9ea9a'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
     FileUtils.cp(generated, "/tmp/#{id}.png")
     assert_same_image generated, output
   end
 
   test "should render png for Instagram" do
-    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
-    FileUtils.cp(generated, "/tmp/#{id}.png")
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
     assert_same_image generated, output
   end
 
@@ -147,7 +146,6 @@ class MediasControllerTest < ActionController::TestCase
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
-    FileUtils.cp(generated, "/tmp/#{id}-custom-css.png")
     assert_same_image generated, output
   end
 
@@ -158,7 +156,6 @@ class MediasControllerTest < ActionController::TestCase
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}.png")
     get :embed, project: 'google_spreadsheet', collection: 'first', item: id, format: :png
-    FileUtils.cp(generated, "/tmp/#{id}.png")
     assert_same_image generated, output
   end
 
@@ -215,10 +212,10 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should render png with ratio 2:1 if width / height > 2" do
-    id = 'c291f649aa5625b81322207177a41e2c4a08f09d'
-    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    id = '09ba77abe84d84fb6531255b458980cd4af9ea9a'
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', 'ratiogt2.png')
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :png
     FileUtils.cp(generated, '/tmp/ratiogt2.png')
     assert_same_image generated, output
   end
@@ -245,10 +242,10 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should have Facebook metatags for collection" do
-    get :embed, project: 'google_spreadsheet', collection: 'test', format: :html
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet / Test' })
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', format: :html
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet / Watchbot' })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /bridge-logo\.png/ })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translations of Google Spreadsheet / Test' })
+    assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translations of Google Spreadsheet / Watchbot' })
   end
 
   test "should have Facebook metatags for item" do
