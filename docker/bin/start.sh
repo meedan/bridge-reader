@@ -38,6 +38,10 @@ cd -
 echo "tailing ${LOGFILE}"
 tail -f $LOGFILE &
 
+echo "starting google chrome headless"
+LC_ALL=C google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu --ignore-certificate-errors &
+sleep 3
+
 # normal startup
 echo "starting nginx"
 echo "--STARTUP FINISHED--"
