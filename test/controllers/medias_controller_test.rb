@@ -114,7 +114,6 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should render cached png" do
-    Smartshot::Screenshot.expects(:new).never
     path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first', '6f975c79aa6644919907e3b107babf56803f57c7.png')
     FileUtils.mkdir_p(File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first'))
     FileUtils.touch(path)

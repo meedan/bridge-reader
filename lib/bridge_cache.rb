@@ -1,6 +1,5 @@
 require 'bridge_pender'
 require 'bridge_cc_deville'
-require 'smartshot'
 
 module Bridge
   module Cache
