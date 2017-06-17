@@ -31,7 +31,7 @@ namespace :bridgembed do
           puts "[#{Time.now}] - - - - - Building screenshot cache for item #{id}"
           begin
             generate_screenshot(project, collection, id) unless screenshot_exists?(project, collection, id)
-          rescue Smartshot::SmartshotError
+          rescue
             puts "[#{Time.now}] - - - - - - - Failed when building screenshot cache for item #{id}!"
           end
         end
@@ -39,7 +39,7 @@ namespace :bridgembed do
         generate_cache(object, project, collection, '', BRIDGE_CONFIG['bridgembed_host']) unless cache_exists?(project, collection, '')
         begin
           generate_screenshot(project, collection, '') unless screenshot_exists?(project, collection, '')
-        rescue Smartshot::SmartshotError
+        rescue
           puts "[#{Time.now}] - - - - - - - Failed when building screenshot cache for collection #{collection}!"
         end
       end

@@ -182,9 +182,6 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    smartshot (0.0.7)
-      activesupport
-      poltergeist (~> 1.6.0)
     sprockets (3.2.0)
       rack (~> 1.0)
     sprockets-rails (2.3.2)
@@ -250,7 +247,6 @@ DEPENDENCIES
   retryable
   sass
   simplecov
-  smartshot
   sqlite3
   string-direction
   twitter
