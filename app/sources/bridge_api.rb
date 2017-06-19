@@ -1,8 +1,10 @@
 require 'bridge_cache'
+require 'bridge_webhooks'
 
 module Sources
   class BridgeApi < Base
     include Bridge::Cache
+    include Bridge::Webhooks
 
     # First, the methods overwritten from Source::Base
 
@@ -34,48 +36,11 @@ module Sources
       self.make_request("projects/#{@project}/channels").to_a.select{ |c| c['translations_count'] > 0 }
     end
 
-    def parse_notification(channel, translation_id, payload = {})
-      if !payload['project'].blank?
-        self.handle_project(payload)
-      elsif payload['condition'] == 'created' || payload['condition'] == 'updated'
-        self.update_cache_for_saved_translation(channel, payload['translation'])
-      elsif payload['condition'] == 'destroyed'
-        self.update_cache_for_removed_translation(channel, translation_id)
-      end
-
-      refresh_cache(channel) unless channel.blank?
-    end
-
-    def handle_project(payload)
-      if payload['condition'] == 'created'
-        host = BRIDGE_PROJECTS['bridge-api']['bridge_api_host']
-        info = { 'type' => 'bridge_api', 'bridge_api_host' => host, 'bridge_api_token' => payload['token'] }
-        slug = payload['project']['slug']
-        create_config_file_for_project(slug, info)
-        BRIDGE_PROJECTS[slug] = info
-      elsif payload['condition'] == 'updated'
-        generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
-      end
-    end
-
-    def refresh_cache(channel)
-      generate_cache(self, self.project, channel, '', BRIDGE_CONFIG['bridgembed_host'])
-      remove_screenshot(self.project, channel, '')
-      generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
-      remove_screenshot(self.project, '', '')
-    end
-
-    def update_cache_for_saved_translation(channel, translation)
-      Rails.cache.delete('pender:' + translation['id'].to_s)
-      @entries = [translation]
-      generate_cache(self, self.project, channel, translation['id'].to_s, BRIDGE_CONFIG['bridgembed_host'])
-      remove_screenshot(self.project, channel, translation['id'].to_s)
-      @entries = nil
-    end
-
-    def update_cache_for_removed_translation(channel, translation_id)
-      clear_cache(self.project, channel, translation_id.to_s) 
-      remove_screenshot(self.project, channel, translation_id.to_s)
+    def self.base_config(payload)
+      host = BRIDGE_PROJECTS['bridge-api']['bridge_api_host']
+      {
+        info: { 'type' => 'bridge_api', 'bridge_api_host' => host, 'bridge_api_token' => payload['token'] }
+      }
     end
 
     def translation_to_hash(translation)
@@ -144,16 +109,6 @@ module Sources
 
     def parse_response(response)
       response.code.to_i === 200 ? JSON.parse(response.body)['data'] : nil
-    end
-
-    def create_config_file_for_project(slug, info)
-      dir = File.join(Rails.root, 'config', 'projects', Rails.env)
-      path = File.join(dir, slug + '.yml')
-      file = File.open(path, 'w+')
-      info.each do |key, value|
-        file.puts("#{key}: '#{value}'")
-      end
-      file.close
     end
   end
 end
