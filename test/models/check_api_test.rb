@@ -13,7 +13,6 @@ class CheckApiTest < ActiveSupport::TestCase
     Temp::Client.stubs(:parse).returns('Query')
     GraphQL::Client.stubs(:new).returns(Temp::Client)
 
-
     @check = Sources::CheckApi.new('check-api', BRIDGE_PROJECTS['check-api'])
     @team_result = team_result
     @project_result = project_result
@@ -30,29 +29,103 @@ class CheckApiTest < ActiveSupport::TestCase
     assert_equal 'check-api', @check.to_s
   end
 
-  test "should get translations" do
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
-    stub_graphql_result(@project_media_result)
+  test "should execute queries" do
+    Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
+    assert_equal @team_result, @check.execute_query('Query', {:variables => {:slug => 'check-api'}})
 
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
+    assert_equal @project_result, @check.execute_query('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}})
+
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
+    assert_equal @project_media_result, @check.execute_query('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}})
+
+    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
+    assert_equal @project_media_without_translation_result, @check.execute_query('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}})
+  end
+
+  test "should get translations" do
+    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
+    stub_graphql_result(@project_media_result)
     t = @check.get_item('1', '2')
     assert_equal 'en', t[:source_lang]
 
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
+    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
     stub_graphql_result(@project_media_without_translation_result)
-
     t = @check.get_item('1', '3')
     assert_nil t
 
-    Temp::Client.stubs(:query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
+    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
     stub_graphql_result(@project_result)
-
     t = @check.get_collection('1')
     assert_equal 'en', t[0][:source_lang]
 
-    Temp::Client.stubs(:query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
+    @check.stubs(:execute_query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
     stub_graphql_result(@team_result)
-
     assert_equal ['project'], @check.get_project.collect{ |c| c[:name] }
+  end
+
+  test "should update cache for created translation" do
+    @check.stubs(:get_item).with('1', '2').returns(item_hash(@project_media_result[:data][:project_media]))
+    @check.stubs(:get_collection).with('1', '2').returns(collection_hash(@project_result[:data][:project]))
+    @check.stubs(:get_collection).with('1', '').returns(collection_hash(@project_result[:data][:project]))
+    @check.stubs(:get_project).with('1', '2').returns(project_hash(@team_result[:data][:team]))
+    @check.stubs(:get_project).with('1', '').returns(project_hash(@team_result[:data][:team]))
+    @check.stubs(:get_project).with('', '').returns(project_hash(@team_result[:data][:team]))
+
+    assert !File.exists?(@check.cache_path('check-api', '1', '2'))
+    assert !File.exists?(@check.cache_path('check-api', '1', ''))
+    assert !File.exists?(@check.cache_path('check-api', '', ''))
+    @check.parse_notification('1', '2', { 'condition' => 'created', 'translation' => { 'id' => '2'}})
+    assert File.exists?(@check.cache_path('check-api', '1', '2'))
+    assert File.exists?(@check.cache_path('check-api', '1', ''))
+    assert File.exists?(@check.cache_path('check-api', '', ''))
+  end
+
+  test "should update cache for removed translation" do
+    @check.stubs(:get_item).with('1', '2').returns(item_hash(@project_media_result[:data][:project_media]))
+    @check.stubs(:get_collection).with('1', '2').returns(collection_hash(@project_result[:data][:project]))
+    @check.stubs(:get_collection).with('1', '').returns(collection_hash(@project_result[:data][:project]))
+    @check.stubs(:get_project).with('1', '2').returns(project_hash(@team_result[:data][:team]))
+    @check.stubs(:get_project).with('1', '').returns(project_hash(@team_result[:data][:team]))
+    @check.stubs(:get_project).with('', '').returns(project_hash(@team_result[:data][:team]))
+
+    @check.generate_cache(@check, 'check-api', '1', '2')
+    @check.generate_cache(@check, 'check-api', '1', '')
+    file1 = @check.cache_path('check-api', '1', '2')
+    file2 = @check.cache_path('check-api', '1', '')
+    file3 = @check.cache_path('check-api', '', '')
+    assert File.exists?(file1)
+    assert File.exists?(file2)
+    assert !File.exists?(file3)
+    time = File.mtime(file2)
+    @check.parse_notification('1', '2', { 'condition' => 'destroyed', 'translation' => { 'id' => '2'}})
+    assert !File.exists?(file1)
+    assert File.exists?(file2)
+    assert File.exists?(file3)
+    assert File.mtime(file2) > time
+  end
+
+  test "should handle creation of a project" do
+    project = File.join(Rails.root, 'config', 'projects', 'test', 'check.yml')
+    assert !File.exists?(project)
+    assert !BRIDGE_PROJECTS.has_key?('check')
+    @check.parse_notification(nil, nil, { 'project' => { 'slug' => 'check' }, 'condition' => 'created' })
+    exists = File.exists?(project)
+    FileUtils.rm(project)
+    assert exists
+    assert BRIDGE_PROJECTS.has_key?('check')
+  end
+
+  test "should handle update of a project" do
+    @check.stubs(:get_project).with('', '').returns(project_hash(@team_result[:data][:team]))
+
+    @check.generate_cache(@check, 'check-api', '', '')
+    file = @check.cache_path('check-api', '', '')
+    assert File.exists?(file)
+    time = File.mtime(file)
+    @check.parse_notification(nil, nil, { 'project' => { 'slug' => 'check' }, 'condition' => 'updated' })
+    assert File.exists?(file)
+    assert File.mtime(file) > time
   end
 
   private
@@ -85,5 +158,47 @@ class CheckApiTest < ActiveSupport::TestCase
         end
       end
     end
+  end
+
+  def item_hash(hash)
+    user_name = hash[:user] ? hash[:user][:name] : ''
+    {
+      id: hash[:dbid].to_s,
+      source_text: hash[:media][:quote],
+      source_lang: hash[:language_code],
+      source_author: user_name,
+      link: hash[:media][:url].to_s,
+      timestamp: hash[:created_at],
+      translations: get_translations(hash[:annotations][:edges]),
+      source: hash[:url],
+      index: hash[:media][:dbid].to_s
+    }
+  end
+
+  def get_translations(translations)
+    translation = translations.first[:node]
+    content = JSON.parse(translation[:content])
+    text = content.find { |field| field['field_name'] == 'translation_text'}['value']
+    lang = content.find { |field| field['field_name'] == 'translation_language'}['value']
+    [
+      {
+        translator_name: translation[:annotator][:name],
+        translator_handle: "",
+        translator_url: "",
+        text: text,
+        lang: lang,
+        timestamp: translation[:created_at],
+        comments: [],
+        approval: nil
+      }
+    ]
+  end
+
+  def collection_hash(project)
+    project[:project_medias][:edges].collect { |pm| item_hash(pm[:node])}
+  end
+
+  def project_hash(team)
+    team[:projects][:edges].collect { |p| { name: p[:node][:title], id: p[:node][:dbid].to_s, summary: p[:node][:description], project: 'check-api', project_summary: team[:description] }}
   end
 end

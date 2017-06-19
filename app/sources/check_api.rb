@@ -21,7 +21,7 @@ module Sources
 
     def get_item(project, project_media)
       # Check Project Media -> return the project media
-      query = execute_query(ProjectMediaQuery, variables: { ids: get_ids(project_media,project,@team_id), annotation_types: "translation,translation_status" })
+      query = execute_query(ProjectMediaQuery, variables: { ids: get_ids(project_media,project,@team_id), annotation_types: "translation,translation_status" }).data
       unless query.nil?
         item_to_hash(query.project_media) if query.project_media.annotations_count.to_i > 0
       end
@@ -29,7 +29,7 @@ module Sources
 
     def get_collection(project, project_media = nil)
       # Return the project medias of a Check project
-      query = execute_query(ProjectQuery, variables: { ids: get_ids(project,@team_id), annotation_types: "translation,translation_status" })
+      query = execute_query(ProjectQuery, variables: { ids: get_ids(project,@team_id), annotation_types: "translation,translation_status" }).data
       unless query.nil?
         get_project_media_with_translations(query.project.project_medias.edges).collect { |t| item_to_hash(t)}
       end
@@ -37,7 +37,7 @@ module Sources
 
     def get_project(project = nil, project_media = nil)
       # Return the projects of a Check Team
-      query = execute_query(TeamQuery, variables: { slug: @project })
+      query = execute_query(TeamQuery, variables: { slug: @project }).data
       unless query.nil?
         @team_id = query.team.dbid
         get_projects_info(query.team.projects.edges, query.team.description)
@@ -58,6 +58,53 @@ module Sources
 
     def get_project_media_with_translations(pms)
       pms.map(&:node).find_all { |pm| pm.annotations_count.to_i > 0 }
+    end
+
+    def parse_notification(channel, translation_id, payload = {})
+      if !payload['project'].blank?
+        self.handle_project(payload)
+      elsif payload['condition'] == 'created' || payload['condition'] == 'updated'
+        self.update_cache_for_saved_translation(channel, payload['translation'])
+      elsif payload['condition'] == 'destroyed'
+        self.update_cache_for_removed_translation(channel, translation_id)
+      end
+      refresh_cache(channel) unless channel.blank?
+    end
+
+    def handle_project(payload)
+      if payload['condition'] == 'created'
+        host = BRIDGE_PROJECTS['check_api_url']
+        info = { 'type' => 'check_api' }
+        slug = payload['project']['slug']
+        create_config_file_for_project(slug, info)
+        BRIDGE_PROJECTS[slug] = info
+      elsif payload['condition'] == 'updated'
+        generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+      end
+    end
+
+    def refresh_cache(channel)
+      generate_cache(self, self.project, channel, '', BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, channel, '')
+      generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, '', '')
+    end
+
+    def update_cache_for_saved_translation(channel, translation)
+      Rails.cache.delete('pender:' + translation['id'].to_s)
+      @entries = [translation]
+      generate_cache(self, self.project, channel, translation['id'].to_s, BRIDGE_CONFIG['bridgembed_host'])
+      remove_screenshot(self.project, channel, translation['id'].to_s)
+      @entries = nil
+    end
+
+    def update_cache_for_removed_translation(channel, translation_id)
+      clear_cache(self.project, channel, translation_id.to_s)
+      remove_screenshot(self.project, channel, translation_id.to_s)
+    end
+
+    def execute_query(query, variables = {})
+      Client.query(query, variables)
     end
 
     protected
@@ -138,10 +185,14 @@ module Sources
       field.nil? ? '' : field['value']
     end
 
-    def execute_query(query, variables = {})
-      result = Client.query(query, variables)
-      result.data
+    def create_config_file_for_project(slug, info)
+      dir = File.join(Rails.root, 'config', 'projects', Rails.env)
+      path = File.join(dir, slug + '.yml')
+      file = File.open(path, 'w+')
+      info.each do |key, value|
+        file.puts("#{key}: '#{value}'")
+      end
+      file.close
     end
   end
-
 end
