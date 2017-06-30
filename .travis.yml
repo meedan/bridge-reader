@@ -2,11 +2,12 @@ dist: trusty
 language: ruby
 sudo: required
 bundler_args: "--jobs 3 --retry 3 --without nothing"
+addons:
+  chrome: stable
 before_install:
 - sudo apt-get update
 - sudo apt-get install tidy libicu52
-- openssl aes-256-cbc -K $encrypted_b320df0282f2_key -iv $encrypted_b320df0282f2_iv
-  -in travis.zip.enc -out travis.zip -d
+- openssl aes-256-cbc -K $encrypted_b320df0282f2_key -iv $encrypted_b320df0282f2_iv -in travis.zip.enc -out travis.zip -d
 - unzip travis.zip
 - mv google.p12 /tmp/
 - rm -rf config/projects && mv projects config/
@@ -21,6 +22,8 @@ before_install:
 - bundle exec rake db:migrate
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 >/dev/null &
+- curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs
+- npm install chrome-remote-interface minimist
 - cd -
 before_script:
 - mv bridgembed.yml config/

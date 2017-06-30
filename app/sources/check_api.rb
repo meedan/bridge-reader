@@ -1,10 +1,11 @@
-require "graphql/client"
-require "graphql/client/http"
-require "check_api_client"
+require 'bridge_cache'
+require 'bridge_webhooks'
+require 'check_api_client'
 
 module Sources
   class CheckApi < Base
     include Bridge::Cache
+    include Bridge::Webhooks
     include Check
 
     # First, the methods overwritten from Source::Base
@@ -21,7 +22,7 @@ module Sources
 
     def get_item(project, project_media)
       # Check Project Media -> return the project media
-      query = execute_query(ProjectMediaQuery, variables: { ids: get_ids(project_media,project,@team_id), annotation_types: "translation,translation_status" })
+      query = execute_query(ProjectMediaQuery, variables: { ids: get_ids(project_media,project,@team_id), annotation_types: "translation,translation_status" }).data
       unless query.nil?
         item_to_hash(query.project_media) if query.project_media.annotations_count.to_i > 0
       end
@@ -29,7 +30,7 @@ module Sources
 
     def get_collection(project, project_media = nil)
       # Return the project medias of a Check project
-      query = execute_query(ProjectQuery, variables: { ids: get_ids(project,@team_id), annotation_types: "translation,translation_status" })
+      query = execute_query(ProjectQuery, variables: { ids: get_ids(project,@team_id), annotation_types: "translation,translation_status" }).data
       unless query.nil?
         get_project_media_with_translations(query.project.project_medias.edges).collect { |t| item_to_hash(t)}
       end
@@ -37,7 +38,7 @@ module Sources
 
     def get_project(project = nil, project_media = nil)
       # Return the projects of a Check Team
-      query = execute_query(TeamQuery, variables: { slug: @project })
+      query = execute_query(TeamQuery, variables: { slug: @project }).data
       unless query.nil?
         @team_id = query.team.dbid
         get_projects_info(query.team.projects.edges, query.team.description)
@@ -58,6 +59,16 @@ module Sources
 
     def get_project_media_with_translations(pms)
       pms.map(&:node).find_all { |pm| pm.annotations_count.to_i > 0 }
+    end
+
+    def execute_query(query, variables = {})
+      Client.query(query, variables)
+    end
+
+    def self.base_config(_payload)
+      {
+        info: { 'type' => 'check_api' }
+      }
     end
 
     protected
@@ -138,10 +149,5 @@ module Sources
       field.nil? ? '' : field['value']
     end
 
-    def execute_query(query, variables = {})
-      result = Client.query(query, variables)
-      result.data
-    end
   end
-
 end
