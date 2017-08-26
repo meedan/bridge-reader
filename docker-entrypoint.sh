@@ -8,11 +8,6 @@ fi
 bundle exec rake db:create
 bundle exec rake db:migrate
 
-# Google Chrome
-LC_ALL=C google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu --no-sandbox --ignore-certificate-errors &
-sleep 3
-
-
 # Web server
 mkdir -p /app/tmp/pids
 rm -f /app/tmp/pids/server-$RAILS_ENV.pid
