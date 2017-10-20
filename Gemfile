@@ -19,7 +19,7 @@ gem 'mini_magick'
 gem 'puma'
 gem 'pender_client', git: 'https://github.com/meedan/pender-client.git'
 gem 'graphql-client', '~> 0.8.5'
-gem 'chromeshot', git: 'https://github.com/meedan/chromeshot', branch: 'feature/6114_chromeshot_gem', ref: '8dc7a65'
+gem 'chromeshot', git: 'https://github.com/meedan/chromeshot', branch: 'feature/6114_chromeshot_gem', ref: '7a03c2d'
 
 # Test gems
 # group :test do
