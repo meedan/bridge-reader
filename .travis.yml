@@ -2,8 +2,6 @@ dist: trusty
 language: ruby
 sudo: required
 bundler_args: "--jobs 3 --retry 3 --without nothing"
-addons:
-  chrome: stable
 before_install:
 - sudo apt-get update
 - sudo apt-get install tidy libicu52
@@ -22,8 +20,8 @@ before_install:
 - bundle exec rake db:migrate
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 >/dev/null &
-- curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs
-- npm install chrome-remote-interface minimist
+- wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && sudo apt-get install -y google-chrome-stable
+- curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs && npm install chrome-remote-interface minimist
 - cd -
 before_script:
 - mv bridgembed.yml config/
