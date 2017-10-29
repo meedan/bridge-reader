@@ -31,4 +31,5 @@ gem 'chromeshot', git: 'https://github.com/meedan/chromeshot', branch: 'feature/
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'imgur-api'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
 # end
