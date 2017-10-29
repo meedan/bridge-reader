@@ -20,7 +20,7 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
       # Capybara::Screenshot.screenshot_and_open_image
       assert !page.has_text?('SHARE ON TWITTER')
       assert !page.has_text?('SHARE ON FACEBOOK')
-      page.click_link('Share')
+      page.first(:link, 'Share').click
       sleep 2.seconds
       assert page.has_text?('SHARE ON TWITTER')
       assert page.has_text?('SHARE ON FACEBOOK')
@@ -30,8 +30,8 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
   test "should share on Twitter" do
     js do
       visit '/medias/embed/google_spreadsheet/test'
-      page.click_link('Share')
-      page.click_link('Share on Twitter')
+      page.first(:link, 'Share').click
+      page.first(:link, 'Share on Twitter').click
       twitter = page.driver.window_handles.last
       page.within_window twitter do
         assert_equal 'twitter.com', URI.parse(current_url).host
@@ -42,8 +42,8 @@ class MediasIntegrationTest < ActionDispatch::IntegrationTest
   test "should share on Facebook" do
     js do
       visit '/medias/embed/google_spreadsheet/test'
-      page.click_link('Share')
-      page.click_link('Share on Facebook')
+      page.first(:link, 'Share').click
+      page.first(:link, 'Share on Facebook').click
       fb = page.driver.window_handles.last
       page.within_window fb do
         assert_equal 'www.facebook.com', URI.parse(current_url).host
