@@ -2,6 +2,8 @@ dist: trusty
 language: ruby
 sudo: required
 bundler_args: "--jobs 3 --retry 3 --without nothing"
+addons:
+  chrome: stable
 before_install:
 - sudo apt-get update
 - sudo apt-get install tidy libicu52
@@ -23,7 +25,6 @@ before_install:
 - cd -
 # environment
 - export NODE_PATH=$PWD/node_modules:$NODE_PATH
-- wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && sudo apt-get install -y google-chrome-stable
 - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs && npm install chrome-remote-interface minimist
 before_script:
 - mv bridgembed.yml config/
