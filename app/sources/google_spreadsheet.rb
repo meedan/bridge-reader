@@ -1,12 +1,12 @@
 require 'google_drive'
 require 'bridge_cache'
-require 'bridge_watchbot'
 require 'bridge_google_authentication'
 
 module Sources
   class GoogleSpreadsheet < Base
     include Bridge::Cache
     include Bridge::GoogleAuthentication
+    include SourcesHelper
 
     # First, the methods overwritten from Source::Base
 
@@ -63,10 +63,6 @@ module Sources
       end
     end
 
-    def notify_watchbot(url)
-      Bridge::Watchbot.new(@config['watchbot']).send(url)
-    end
-
     def parse_notification(collection, item, payload = {})
       uri = URI.parse(Rack::Utils.unescape(payload['link']))
       link = uri.to_s.gsub('#' + uri.fragment, '')
@@ -76,11 +72,6 @@ module Sources
 
     def get_spreadsheet(id = '')
       @spreadsheet ||= @session.spreadsheet_by_key(id)
-    end
-
-    def get_title(title = '')
-      @title = title unless title.blank?
-      @title
     end
 
     def get_url(row)
