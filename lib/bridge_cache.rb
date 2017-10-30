@@ -126,7 +126,7 @@ module Bridge
       FileUtils.mkdir_p(File.dirname(output))
       tmp = Tempfile.new(['screenshot', '.png']).path
 
-      fetcher = Chromeshot::Screenshot.new debug_port: BRIDGE_CONFIG[:chrome_debug_port]
+      fetcher = Chromeshot::Screenshot.new debug_port: BRIDGE_CONFIG['chrome_debug_port']
       fetcher.take_screenshot!(url: url, output: tmp)
 
       level === 'item' ? fetcher.post_process_screenshot(original: tmp, output: output, proportion: 2) : FileUtils.cp(tmp, output)
