@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/meedan/chromeshot
+  revision: 2ce778ff6802118bdb39e366684ce6f70059afa6
+  ref: 2ce778f
+  branch: feature/6114_chromeshot_gem
+  specs:
+    chromeshot (0.0.0)
+      mini_magick
+
+GIT
   remote: https://github.com/meedan/pender-client.git
   revision: 5c0e0764a45f5a864548b4f5cd0c24226e22fbe9
   specs:
@@ -141,6 +150,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
+    phantomjs (2.1.1.0)
     poltergeist (1.6.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -231,6 +241,7 @@ DEPENDENCIES
   bower-rails (~> 0.9.1)
   capybara
   capybara-screenshot
+  chromeshot!
   codeclimate-test-reporter
   google_drive (= 1.0.1)
   graphql-client (~> 0.8.5)
@@ -240,6 +251,7 @@ DEPENDENCIES
   mini_magick
   mocha
   pender_client!
+  phantomjs
   poltergeist
   puma
   rails (= 4.0.9)
@@ -255,4 +267,4 @@ DEPENDENCIES
   xml-simple
 
 BUNDLED WITH
-   1.15.1
+   1.15.4

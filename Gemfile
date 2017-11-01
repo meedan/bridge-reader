@@ -19,6 +19,7 @@ gem 'mini_magick'
 gem 'puma'
 gem 'pender_client', git: 'https://github.com/meedan/pender-client.git'
 gem 'graphql-client', '~> 0.8.5'
+gem 'chromeshot', git: 'https://github.com/meedan/chromeshot', branch: 'feature/6114_chromeshot_gem', ref: '2ce778f'
 
 # Test gems
 # group :test do
@@ -30,4 +31,5 @@ gem 'graphql-client', '~> 0.8.5'
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'imgur-api'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
 # end

@@ -5,7 +5,7 @@ author = (item[:source_author].blank? && !item[:oembed].nil?) ? item[:oembed][:a
 
 description = ''
 unless translation.nil?
-  prefix = author.nil? ? '' : "Translation of @#{author}: "
+  prefix = author.nil? ? '' : "Translation of #{author}: "
   description = prefix + translation[:text]
 end
 
@@ -27,9 +27,9 @@ content_for :style do
 end
 
 link = short_url_for(@project, @collection, @item)
-translator_handle = translation[:translator_handle].blank? ? '' : "@#{translation[:translator_handle]}"
+translator_handle = translation[:translator_handle].blank? ? '' : "#{translation[:translator_handle]}"
 translator_name = translation[:translator_name].blank? ? '' : translation[:translator_name]
-author_name = author.blank? ? '' : "@#{author}"
+author_name = author.blank? ? '' : "#{author}"
 author_full_name = item[:oembed].nil? ? '' : item[:oembed][:author_full_name].to_s
 %>
 

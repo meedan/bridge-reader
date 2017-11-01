@@ -1,12 +1,12 @@
 require 'google_drive'
 require 'bridge_cache'
-require 'bridge_watchbot'
 require 'bridge_google_authentication'
 
 module Sources
   class GoogleSpreadsheet < Base
     include Bridge::Cache
     include Bridge::GoogleAuthentication
+    include SourcesHelper
 
     # First, the methods overwritten from Source::Base
 
@@ -63,10 +63,6 @@ module Sources
       end
     end
 
-    def notify_watchbot(url)
-      Bridge::Watchbot.new(@config['watchbot']).send(url)
-    end
-
     def parse_notification(collection, item, payload = {})
       uri = URI.parse(Rack::Utils.unescape(payload['link']))
       link = uri.to_s.gsub('#' + uri.fragment, '')
@@ -76,11 +72,6 @@ module Sources
 
     def get_spreadsheet(id = '')
       @spreadsheet ||= @session.spreadsheet_by_key(id)
-    end
-
-    def get_title(title = '')
-      @title = title unless title.blank?
-      @title
     end
 
     def get_url(row)
@@ -117,7 +108,6 @@ module Sources
     def row_to_hash(row)
       worksheet = get_worksheet
       link = self.get_url(row)
-      comment = worksheet[row, 4]
       {
         id: Digest::SHA1.hexdigest(link),
         source_text: worksheet[row, 1],
@@ -126,29 +116,36 @@ module Sources
         source_author_link: worksheet[row, 12],
         link: link,
         timestamp: worksheet[row, 10],
-        translations: [
-          {
-            translator_name: worksheet[row, 5],
-            translator_url: worksheet[row, 6],
-            text: worksheet[row, 3],
-            lang: 'en',
-            timestamp: '',
-            comments:
-              comment.blank? ?
-                [] :
-                [
-                  {
-                    commenter_name: worksheet[row, 7],
-                    commenter_url: worksheet[row, 8],
-                    comment: comment,
-                    timestamp: ''
-                  }
-                ]
-          }
-        ],
+        translations: translation_info(worksheet, row),
         source: self, 
         index: row 
       }
+    end
+
+    def translation_info(worksheet, row)
+      [
+        {
+          translator_name: worksheet[row, 5],
+          translator_url: worksheet[row, 6],
+          text: worksheet[row, 3],
+          lang: 'en',
+          timestamp: '',
+          comments: comment_info(worksheet, row)
+        }
+      ]
+    end
+
+    def comment_info(worksheet, row)
+      comment = worksheet[row, 4]
+      return [] if comment.blank?
+      [
+        {
+          commenter_name: worksheet[row, 7],
+          commenter_url: worksheet[row, 8],
+          comment: comment,
+          timestamp: ''
+        }
+      ]
     end
 
     def notify_link_condition(link, condition)
