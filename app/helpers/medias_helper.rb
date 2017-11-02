@@ -118,7 +118,7 @@ module MediasHelper
   end
 
   def entry_time(time)
-    time.is_a?(String) ? Date.parse(time) : Time.at(time).to_date
+    time.to_i > 0 ? Time.at(time.to_i).to_date : Date.parse(time)
   end
 
   private
