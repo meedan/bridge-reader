@@ -1,5 +1,7 @@
 require 'chromeshot'
 
-puts "Starting Chromeshot on port #{BRIDGE_CONFIG['chrome_debug_port']}"
-
-Chromeshot::Screenshot.setup_chromeshot(BRIDGE_CONFIG['chrome_debug_port'])
+port = BRIDGE_CONFIG['chrome_debug_port'] || 9555
+unless system("lsof -i:#{port}", out: '/dev/null')
+  puts "Starting Chromeshot on port #{port}"
+  Chromeshot::Screenshot.setup_chromeshot(port)
+end
