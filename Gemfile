@@ -17,9 +17,9 @@ gem 'string-direction'
 gem 'poltergeist'
 gem 'mini_magick'
 gem 'puma'
-gem 'pender_client', git: 'https://github.com/meedan/pender-client.git'
+gem 'pender_client', git: 'https://github.com/meedan/pender-client.git', ref: 'e8eca00fdc5706bda0510be679a921fecf4f6a4d'
 gem 'graphql-client', '~> 0.8.5'
-gem 'chromeshot', git: 'https://github.com/meedan/chromeshot', branch: 'feature/6114_chromeshot_gem', ref: '030b8d8'
+gem 'chromeshot', git: 'https://github.com/meedan/chromeshot'
 
 # Test gems
 # group :test do
