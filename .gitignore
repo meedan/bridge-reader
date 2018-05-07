@@ -36,7 +36,7 @@ config/initializers/secret_token.rb
 public/cache
 public/screenshots
 
-# Ignore bower packages 
+# Ignore bower packages
 vendor/assets/*bower*
 vendor/bundle
 
@@ -52,8 +52,6 @@ public/test
 config/projects/development
 config/projects/production
 /.project
-
-travis
 
 # emacs
 *.*~

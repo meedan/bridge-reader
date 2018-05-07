@@ -7,15 +7,12 @@ addons:
 before_install:
 - sudo apt-get update
 - sudo apt-get install tidy libicu52
-- openssl aes-256-cbc -K $encrypted_b320df0282f2_key -iv $encrypted_b320df0282f2_iv -in travis.zip.enc -out travis.zip -d
-- unzip travis.zip
-- mv google.p12 /tmp/
-- rm -rf config/projects && mv projects config/
+- git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
+- mv configurator/bridge/travis/bridge-reader/google.p12 /tmp/
+- rm -rf config/projects && mkdir config/projects
+- d=configurator/bridge/travis/bridge-reader/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
 - git clone https://github.com/meedan/pender.git
-- mv pender.yml pender/config/config.yml
-- mv errbit.rb pender/config/initializers/errbit.rb
-- cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
-- cp pender/config/database.yml.travis pender/config/database.yml
+- d=configurator/bridge/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
 - cd pender
 - export BUNDLE_GEMFILE="$PWD/Gemfile"
 - bundle install
@@ -27,9 +24,6 @@ before_install:
 - export NODE_PATH=$PWD/node_modules:$NODE_PATH
 - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs && npm install chrome-remote-interface minimist
 before_script:
-- mv bridgembed.yml config/
-- cp config/database.yml.example config/database.yml
-- cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
 - export BUNDLE_GEMFILE="$PWD/Gemfile"
 - bundle install
 - RAILS_ENV=test bundle exec rake db:migrate
