@@ -1,17 +1,16 @@
 GIT
   remote: https://github.com/meedan/chromeshot
-  revision: 030b8d867a515cfda8757282c966fc2b4dd24b49
-  ref: 030b8d8
-  branch: feature/6114_chromeshot_gem
+  revision: 14ca00d176869dab436ea7f34ba02c8fc24dd13d
   specs:
     chromeshot (0.0.0)
       mini_magick
 
 GIT
   remote: https://github.com/meedan/pender-client.git
-  revision: 5c0e0764a45f5a864548b4f5cd0c24226e22fbe9
+  revision: e8eca00fdc5706bda0510be679a921fecf4f6a4d
+  ref: e8eca00fdc5706bda0510be679a921fecf4f6a4d
   specs:
-    pender_client (0.0.1)
+    pender_client (0.0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -267,4 +266,4 @@ DEPENDENCIES
   xml-simple
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
