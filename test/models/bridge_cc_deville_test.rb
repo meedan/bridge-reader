@@ -13,10 +13,7 @@ class BridgeCcDevilleTest < ActiveSupport::TestCase
   end
 
   test "should clear cache from Cloudflare" do
-    # FIXME: Assumption that this path exists
-    # Cloudflare is more about assets (JS, images, CSS, etc.)
-    url = 'https://speakbridge.io/stylesheets/bridge.css'
-
+    url = 'https://pender.checkmedia.org/api/medias.html?url=https://twitter.com/caiosba/status/811777768174260225'
     status = @b.get_status(url)
     cf = status['data']['caches'].last
     assert_equal 'cloudflare', cf['name']
