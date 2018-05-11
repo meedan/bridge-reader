@@ -77,7 +77,9 @@ class BridgePenderTest < ActiveSupport::TestCase
   end
 
   test "should alter Twitter response by adding ID" do
-    embed = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }]).first[:oembed]
+    link = 'https://twitter.com/caiosba/status/290093908564779009'
+    c = @b.parse_collection([{ link: 'https://twitter.com/caiosba/status/290093908564779009', id: 'test' }])
+    embed = c.first[:oembed]
     assert_equal '290093908564779009', embed['twitter_id']
   end
 

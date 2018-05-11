@@ -40,8 +40,9 @@ module Bridge
           oembed = call_oembed(entry[:link])
           entry[:provider] = provider = oembed['provider'].to_s.underscore
           entry[:oembed] = self.alter_oembed(oembed, provider)
-        rescue
+        rescue Exception => e
           entry[:oembed] = { 'unavailable' => true }
+          Rails.logger.info "[Pender] Could not parse link #{entry[:link]}: #{e.inspect}"
         end
         entry[:oembed]['unavailable'] ? notify_unavailable(entry) : notify_available(entry)
         entry.except(:source)
