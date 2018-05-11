@@ -101,11 +101,12 @@ module Bridge
 
     def add_twitter_info(oembed)
       id = oembed[:link].match(/status\/([0-9]+)/)
-      oembed[:author_full_name] = oembed['user']['name']
+      oembed[:author_full_name] = oembed['author_name']
       oembed['twitter_id'] = id[1]
-      oembed['coordinates'] = [oembed['geo']['coordinates'][0], oembed['geo']['coordinates'][1]] if oembed['geo']
+      geo_info = oembed['raw']['api']['geo']
+      oembed['coordinates'] = [geo_info['coordinates'][0], geo_info['coordinates'][1]] if geo_info
       oembed['created_at'] = Time.parse(oembed['published_at'])
-      oembed['unavailable'] = true if oembed['protected']
+      oembed['unavailable'] = true if oembed['raw']['api']['protected']
       oembed
     end
   end

@@ -126,4 +126,10 @@ class MediasHelperTest < ActionView::TestCase
     stub_configs({ 'languages' => { 'en_us' => 'English' }, 'language_fallbacks' => { 'en' => 'en_us' } })
     assert_equal 'English', send(:language_name, 'en')
   end
+
+  test "should convert entry time to date when is an integer as string" do
+    time = '1509546191'
+    assert_equal "2017-11-01", entry_time(time).to_s
+  end
+
 end

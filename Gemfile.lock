@@ -1,8 +1,16 @@
 GIT
-  remote: https://github.com/meedan/pender-client.git
-  revision: 5c0e0764a45f5a864548b4f5cd0c24226e22fbe9
+  remote: https://github.com/meedan/chromeshot
+  revision: 14ca00d176869dab436ea7f34ba02c8fc24dd13d
   specs:
-    pender_client (0.0.1)
+    chromeshot (0.0.0)
+      mini_magick
+
+GIT
+  remote: https://github.com/meedan/pender-client.git
+  revision: e8eca00fdc5706bda0510be679a921fecf4f6a4d
+  ref: e8eca00fdc5706bda0510be679a921fecf4f6a4d
+  specs:
+    pender_client (0.0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -141,6 +149,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
+    phantomjs (2.1.1.0)
     poltergeist (1.6.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -231,6 +240,7 @@ DEPENDENCIES
   bower-rails (~> 0.9.1)
   capybara
   capybara-screenshot
+  chromeshot!
   codeclimate-test-reporter
   google_drive (= 1.0.1)
   graphql-client (~> 0.8.5)
@@ -240,6 +250,7 @@ DEPENDENCIES
   mini_magick
   mocha
   pender_client!
+  phantomjs
   poltergeist
   puma
   rails (= 4.0.9)
@@ -255,4 +266,4 @@ DEPENDENCIES
   xml-simple
 
 BUNDLED WITH
-   1.15.1
+   1.16.1

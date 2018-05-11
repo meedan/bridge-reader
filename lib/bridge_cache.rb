@@ -1,5 +1,6 @@
 require 'bridge_pender'
 require 'bridge_cc_deville'
+require 'chromeshot'
 
 module Bridge
   module Cache
@@ -54,31 +55,6 @@ module Bridge
         self.take_screenshot(url, output, level)
       end
       output
-    end
-
-    def take_screenshot(url, output, level)
-      FileUtils.mkdir_p(File.dirname(output))
-      tmp = Tempfile.new(['screenshot', '.png']).path
-      Bot::Screenshot.take_screenshot(url, tmp)
-      level === 'item' ? post_process_screenshot(tmp, output) : FileUtils.cp(tmp, output)
-      FileUtils.rm_f(tmp)
-    end
-
-    def post_process_screenshot(tmp, output)
-      image = MiniMagick::Image.open(tmp)
-
-      w, h = image.width, image.height
-      ratio = w.to_f / h.to_f
-      extent = [w, h]
-
-      w = h * 2 if ratio < 2
-      h = w / 2 if ratio > 2
-
-      image.combine_options do |c|
-        c.gravity 'center'
-        c.extent [w, h].join('x')
-      end
-      image.write(output)
     end
 
     def notify_cc_service(project, collection, item, format = nil)
@@ -144,6 +120,16 @@ module Bridge
     def file_path(project, collection, item, basedir, extension)
       path = self.get_components(project, collection, item)
       File.join(Rails.root, 'public', basedir, path) + '.' + extension
+    end
+
+    def take_screenshot(url, output, level)
+      FileUtils.mkdir_p(File.dirname(output))
+      tmp = Tempfile.new(['screenshot', '.png']).path
+
+      fetcher = Chromeshot::Screenshot.new debug_port: BRIDGE_CONFIG['chrome_debug_port']
+      fetcher.take_screenshot!(url: url, output: tmp)
+
+      level === 'item' ? fetcher.post_process_screenshot(original: tmp, output: output, proportion: 2) : FileUtils.cp(tmp, output)
     end
   end
 end

@@ -22,9 +22,10 @@ before_install:
 - bundle exec rake db:migrate
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 >/dev/null &
-- curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs
-- npm install chrome-remote-interface minimist
 - cd -
+# environment
+- export NODE_PATH=$PWD/node_modules:$NODE_PATH
+- curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs && npm install chrome-remote-interface minimist
 before_script:
 - mv bridgembed.yml config/
 - cp config/database.yml.example config/database.yml
