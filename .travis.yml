@@ -31,7 +31,7 @@ before_script:
 - RAILS_ENV=development bundle exec rake db:migrate
 - bundle exec rails s -p 3002 >/dev/null &
 - rm -f tmp/pids/server.pid
-script: bundle exec rake test:coverage
+script: bundle exec ruby -Itest test/helpers/medias_test.rb -n test_should_shorten_URL_return_short
 rvm:
 - 2.3.1
 notifications:

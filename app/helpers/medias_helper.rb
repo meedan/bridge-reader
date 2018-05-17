@@ -49,7 +49,8 @@ module MediasHelper
     begin
       bitly = Bitly.client.shorten(url)
       bitly.short_url
-    rescue
+    rescue Exception => e
+      puts "[Bitly] Could not shorten url #{url}"
       url
     end
   end
