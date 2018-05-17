@@ -6,42 +6,37 @@ addons:
   chrome: stable
 before_install:
 - sudo apt-get update
-- sudo apt-get install tidy libicu52
-- openssl aes-256-cbc -K $encrypted_b320df0282f2_key -iv $encrypted_b320df0282f2_iv -in travis.zip.enc -out travis.zip -d
-- unzip travis.zip
-- mv google.p12 /tmp/
-- rm -rf config/projects && mv projects config/
+- sudo apt-get install tidy libicu52 redis-server
+- redis-server &
+- git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
+- mv configurator/bridge/travis/bridge-reader/google.p12 /tmp/
+- rm -rf config/projects && mkdir config/projects
+- d=configurator/bridge/travis/bridge-reader/; for f in $(find $d -type f); do mkdir -p $(dirname "${f/$d/}"); cp "$f" "${f/$d/}"; done
 - git clone https://github.com/meedan/pender.git
-- mv pender.yml pender/config/config.yml
-- mv errbit.rb pender/config/initializers/errbit.rb
-- cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
-- cp pender/config/database.yml.travis pender/config/database.yml
+- d=configurator/bridge/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
 - cd pender
 - export BUNDLE_GEMFILE="$PWD/Gemfile"
 - bundle install
 - bundle exec rake db:migrate
-- rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- rails s -p 3005 >/dev/null &
+- bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
+- bundle exec rails s -p 3005 &
 - cd -
 # environment
 - export NODE_PATH=$PWD/node_modules:$NODE_PATH
 - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs && npm install chrome-remote-interface minimist
 before_script:
-- mv bridgembed.yml config/
-- cp config/database.yml.example config/database.yml
-- cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
 - export BUNDLE_GEMFILE="$PWD/Gemfile"
 - bundle install
 - RAILS_ENV=test bundle exec rake db:migrate
 - RAILS_ENV=development bundle exec rake db:migrate
-- rails s -p 3002 >/dev/null &
+- bundle exec rails s -p 3002 >/dev/null &
 - rm -f tmp/pids/server.pid
 script: bundle exec rake test:coverage
 rvm:
 - 2.3.1
 notifications:
   slack:
-    secure: P0GaoYe0gYvo+wNp3UuAhlT9jg2rR8nOHfbfgDWKiU5Ji/3qtH9k/qX3s+lc9MORVhdH1iy4VJhkfRla15iOmTRDM7+en3zE3GAMr+CEM3DEMz97cggeYlXlJAfxwaqxP0rpYp2w1Pmaij2kBajsCF21qF3v1rW2YciqUPI+pCWe01ssB+/YVeA3bS1vrYoO1boy5mseQmCnDLq0RF0qDinjPEc9ta4Uq84gr9znsp2hVQLYd1Tt2LcuR9Hunk8mVxSQyMOUXOI2UEoJseP9wyKCCzFnnS2e5JXDC2o9TxSD6LFVMl+e3xO54DZ1X4H5KIM0eVw4/FIBUSWPtvpzI1Kc3BpN9TqyH2ZL+yrm/+HsarX81QksYgAW1bz+8cZxmwj9SpI+c3j050528tREQul7VVowatkZ4kdCHvDLH8KiENcCEVc9GLGUPTo2nwfR0EkUtwoeqk1yWmEo68nUW1LrDNLa4OMFkscAktZ4YI2HV1P6PbV3Uz3zLE4U9Ht6Sy7069zQiBWd3SXbTdGDqVNzCglkztMlbydLWQqADJyjZSLcnKbyEMIPqv43a5zAbVFG2k8TELXK2ET9YY9yD8s/J9qKiS/jUxzLxlIWxvCzRVcBNpm/yYEvynInqS3xxIdTPQD9Z7ntTcXLOKi+ZwPO7fzXIYc6IhlnOhE5biA=
+    secure: V/0383FCUJ+GULRu2vPdE7fWILtbC7TW4aFAYR3R0Cmmc/bWMxmxTR4euHbzM0bhI0AmqwTCuGelNncCZNbQvH8Pa9UgDz4r1u1rXARlISwOhyxkHNGZHYZMHMbb4V+usO9G54MEyWaiL/CJ3ppOHXw3rmLSARn7/i0Y5FicIqYoU4Xk4GLsqT9K9/obLqid9AaCcgpzbSK6WfORjhSmVzoFSLY54YerVieWqJKXmIR4U6oToNq1xJ7qd8XfArJmJM21BXh6fJsgz6zhNd+fjto1p9emLSi/CBN8HYrt6gGkguwS12Yl/FXUWJ9IHLhEvzkNXfj+PSV/53KJJsoK5UfmrfOTl01OTWYsLt/o8qbd61uH6kOSEb5W5tJT4jIpX6FZL/gHombYNTzgy6JqB/0FuJ/4ZopoUFb/jVh4NomKu5TqV3cS+vx7cU4DOx81QFegg3k6ijjxgxwl+fTFJs1QsnfCveeOoNCeXcBpj6pqcZ7YSIaieywLr0zZuz3b29WT7yYrzbjolE5zMnmm88bvphmsDsT58GnxJYCU2iqCn/NlfVgj6W2ciKgihclA17vtjGXbboNyALAyZwvdsZagi8LxUAbnOLXAuFlxASk/stwjcE3SUl9YNr/DQneJqVs635UqN9PrvecqWCpy1UC8s82/cBytXN9ebLYjLXg=
 env:
   global:
     secure: mP1qPT8gcwEXNLUCiBzKornU1CRFwcwBROqqoNDd89GHhgYP6en6fDnxDp6EFoAgA/YifcmagqvW7FCvHki017x++qHlxuSaMF26gVQbUyo7g3dIYbaJIHEMKV0s31AJqPbBQKftYAw+6A5TuCffcT1OEPm1x9ZzKVvRFNmc0Kj01xiEZrfqQXRKp5GbMe55ZYJV7uCwMvlhe3qzfgUxXr2Th6aaS4hXgXa8PbuUE/XFVVjHmnnSeZTsh5Jp9x181WLegAC9IhqzLxLafROLom5oxWFKgLIF75D79+O5Lu1dqfpZ2/4QLmY+2Hfb/k5SV+kQcx8yRbXiMAyVu2cOzi7N7Gyt4lyp30fdoBt2/wEARZYh5oNYd7HlSgiBia50ZwdkgpGGgbWfA6y4Xh0U0GpJe+kW6++41GbxFDjk0SLB/qYawC9xxdyrnhyBuMdFSrHxrckzdtXp7BAkHSwYYVnG/7QF+RMv8icM8oHCQc653iaFxvOeReZjLO3yw/Pyf2odMV0fi5abFBtOO3gC9TShyNisWevOuJoi/ezrPRFXDhMm+fJqXknSrdz+ye7k/CyWRYLXH6GCfMKvGSOippu5GDD8YKpnhNhDS9y49+DMzXgHP3Ozy8VWviYP9CEWG8IWKdw1H1hypnQxdaapNsd+SFAFTKiZ4nsGMOkiTkg=

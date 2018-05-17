@@ -135,13 +135,4 @@ class BridgeCacheTest < ActiveSupport::TestCase
     assert_not_nil blank
   end
 
-  %w(project collection item).each do |level|
-    test "return empty array if bridge api return nil on request for #{level}" do
-      myproject = Sources::BridgeApi.new('bridge_api', BRIDGE_PROJECTS['bridge-api'])
-      myproject.send(:level_mapping, level).each do |l|
-        myproject.expects("get_#{l}").with('general', '1').returns(nil)
-      end
-      assert_equal [], myproject.send(:get_entries_from_source, myproject, 'general', '1', level)
-    end
-  end
 end
