@@ -179,7 +179,7 @@ Not big deal, actually.'
 
   test "should get project" do
     project = @b.get_project
-    expected = [{"name"=>"test", "id"=>"test", "project"=>"google_spreadsheet"}, {"name"=>"watchbot", "id"=>"watchbot", "project"=>"google_spreadsheet"}, {"name"=>"first", "id"=>"first", "project"=>"google_spreadsheet"}]
+    expected = [{"name"=>"test", "id"=>"test", "project"=>"google_spreadsheet"}, {"name"=>"watchbot", "id"=>"watchbot", "project"=>"google_spreadsheet"}, {"name"=>"first", "id"=>"first", "project"=>"google_spreadsheet"}, {"name"=>"test2", "id"=>"test2", "project"=>"google_spreadsheet"}]
     assert_equal expected, project
   end
 end
