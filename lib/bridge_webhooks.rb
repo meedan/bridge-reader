@@ -9,7 +9,7 @@ module Bridge
       elsif payload['condition'] == 'destroyed'
         self.update_cache_for_removed_translation(channel, translation_id)
       end
-      #refresh_cache(channel) unless channel.blank?
+      refresh_cache(channel) unless channel.blank?
     end
 
     def handle_project(payload)
