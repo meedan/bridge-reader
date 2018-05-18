@@ -93,4 +93,8 @@ module MediasFilters
     end
     return true
   end
+
+  def post_process_cache(content)
+    content.gsub(/<meta content="[^"]+" property="og:url" \/>/, "<meta content=\"#{@url}\" property=\"og:url\" />")
+  end
 end

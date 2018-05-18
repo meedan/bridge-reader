@@ -61,6 +61,8 @@ class MediasController < ApplicationController
 
   def render_embed_as_html
     get_object and return
+      
+    @url = request.original_url
 
     unless params[:template].blank?
       render_embed_from_template and return
@@ -82,7 +84,8 @@ class MediasController < ApplicationController
   def render_cache(cachepath)
     if File.exists?(cachepath)
       logger.info "Rendering cache file #{cachepath}"
-      render text: File.read(cachepath)
+      content = post_process_cache(File.read(cachepath))
+      render text: content
     else
       logger.info "Could not render cache file #{cachepath}"
       render_not_found

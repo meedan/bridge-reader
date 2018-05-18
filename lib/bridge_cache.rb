@@ -108,7 +108,7 @@ module Bridge
     end
 
     def screenshot_url(project, collection, item, css = '')
-      url = [BRIDGE_CONFIG['bridgembed_host_private'], 'medias', 'embed', project, URI.encode(collection), item].join('/') + "?t=#{Time.now.to_i}&template=screenshot"
+      url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, URI.encode(collection), item].join('/') + "?t=#{Time.now.to_i}&template=screenshot"
       url += "#css=#{css}" unless css.blank?
       url
     end
@@ -125,10 +125,21 @@ module Bridge
     def take_screenshot(url, output, level)
       FileUtils.mkdir_p(File.dirname(output))
       tmp = Tempfile.new(['screenshot', '.png']).path
-
+      params = { url: url }
+      result = PenderClient::Request.get_medias(BRIDGE_CONFIG['pender_base_url'], params, BRIDGE_CONFIG['pender_token'])
+      attempts = 0
+      while attempts < 30 && result['data']['screenshot_taken'].to_i == 0
+        sleep 10
+        attempts += 1
+        params[:url] = result['data']['url'] if result['data'] && result['data']['url']
+        result = PenderClient::Request.get_medias(BRIDGE_CONFIG['pender_base_url'], params, BRIDGE_CONFIG['pender_token'])
+      end
+      raise "No screenshot received, response was: #{result.inspect}" if result['data']['screenshot_taken'].to_i == 0
+      screenshot = result['data']['screenshot']
+      open(screenshot) do |f|
+        File.atomic_write(tmp) { |file| file.write(f.read) }
+      end
       fetcher = Chromeshot::Screenshot.new debug_port: BRIDGE_CONFIG['chrome_debug_port']
-      fetcher.take_screenshot!(url: url, output: tmp)
-
       level === 'item' ? fetcher.post_process_screenshot(original: tmp, output: output, proportion: 2) : FileUtils.cp(tmp, output)
     end
   end

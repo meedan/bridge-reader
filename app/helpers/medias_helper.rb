@@ -80,8 +80,8 @@ module MediasHelper
     end
   end
 
-  def include_facebook_tags(project, collection, item, level, site)
-    safe_join(facebook_tags(site, project, collection, item, level).map(&:html_safe), "\n")
+  def include_facebook_tags(project, collection, item, level, site, url = nil)
+    safe_join(facebook_tags(site, project, collection, item, level, url).map(&:html_safe), "\n")
   end
 
   def facebook_share_url(project, collection, item)
@@ -129,14 +129,14 @@ module MediasHelper
     [BRIDGE_CONFIG['bridgembed_host'], '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/').gsub(/\/$/, '') + format
   end
 
-  def facebook_tags(site, project, collection, item, level)
+  def facebook_tags(site, project, collection, item, level, url)
     image = level === 'item' ? embed_url(site, project, collection, item, 'png') : '/images/bridge-logo.png'
     [
       tag(:meta, property: 'og:title', content: embed_title),
       tag(:meta, property: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
       tag(:meta, property: 'og:image', content: image),
       tag(:meta, property: 'og:type', content: 'article'),
-      tag(:meta, property: 'og:url', content: embed_url(site, project, collection, item)),
+      tag(:meta, property: 'og:url', content: url || embed_url(site, project, collection, item)),
       tag(:meta, property: 'og:description', content: content_for(:description))
     ]
   end
