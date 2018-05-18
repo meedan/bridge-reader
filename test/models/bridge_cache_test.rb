@@ -18,48 +18,16 @@ class BridgeCacheTest < ActiveSupport::TestCase
     assert !File.exists?(path)
   end
 
-  test "should generate screenshot for Twitter" do
-    id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
-    Rails.cache.write('pender:' + id, { provider: 'twitter' })
-    path = @b.screenshot_path('google_spreadsheet', 'watchbot', id)
-    assert !File.exists?(path)
-    @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
-    assert File.exists?(path)
-  end
-
-  test "should generate screenshot for Instagram" do
-    id = '4152e40dcbab622b12dfd56f2d91f6e19813c66d'
-    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
-    path = @b.screenshot_path('google_spreadsheet', 'watchbot', id)
-    assert !File.exists?(path)
-    @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
-    assert File.exists?(path)
-  end
-
   test "should check that cache exists" do
     assert !@b.cache_exists?('google_spreadsheet', 'watchbot', '')
     @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', '')
     assert @b.cache_exists?('google_spreadsheet', 'watchbot', '')
   end
 
-  test "should check that screenshot exists" do
-    assert !@b.screenshot_exists?('google_spreadsheet', 'watchbot', '')
-    @b.generate_screenshot('google_spreadsheet', 'watchbot', '')
-    assert @b.screenshot_exists?('google_spreadsheet', 'watchbot', '')
-  end
-
   test "should not crash if file does not exist" do
     assert !@b.cache_exists?('1', '2', '3')
     assert_nothing_raised do
       @b.clear_cache('1', '2', '3')
-    end
-  end
-
-  test "should take screenshot of Arabic path" do
-    url = 'https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9_%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9'
-    assert_nothing_raised do
-      @b.send(:take_screenshot, url, '/tmp/arabic.png', 'item')
     end
   end
 
@@ -134,5 +102,4 @@ class BridgeCacheTest < ActiveSupport::TestCase
     threads.each{ |t| t.join }
     assert_not_nil blank
   end
-
 end

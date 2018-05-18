@@ -4,26 +4,33 @@ sudo: required
 bundler_args: "--jobs 3 --retry 3 --without nothing"
 addons:
   chrome: stable
+  hosts:
+  - bridgembed
 before_install:
 - sudo apt-get update
 - sudo apt-get install tidy libicu52 redis-server
 - redis-server &
+- export NODE_PATH=$PWD/node_modules:$NODE_PATH
+- curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install
+  -y nodejs && npm install chrome-remote-interface minimist
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 - mv configurator/bridge/travis/bridge-reader/google.p12 /tmp/
 - rm -rf config/projects && mkdir config/projects
-- d=configurator/bridge/travis/bridge-reader/; for f in $(find $d -type f); do mkdir -p $(dirname "${f/$d/}"); cp "$f" "${f/$d/}"; done
+- d=configurator/bridge/travis/bridge-reader/; for f in $(find $d -type f); do mkdir
+  -p $(dirname "${f/$d/}"); cp "$f" "${f/$d/}"; done
 - git clone https://github.com/meedan/pender.git
-- d=configurator/bridge/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
+- d=configurator/bridge/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}";
+  done
 - cd pender
 - export BUNDLE_GEMFILE="$PWD/Gemfile"
 - bundle install
 - bundle exec rake db:migrate
-- bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- bundle exec rails s -p 3005 &
+- bundle exec sidekiq -L /tmp/sidekiq-log.log -d
+- bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.application_settings
+  = { :webhook_url => "https://webhook.site/a459ece9-fe38-40b3-a522-54927de00e0e",
+  :webhook_token => "x" }; a.save!'
+- bundle exec rails s -p 3005 >/dev/null &
 - cd -
-# environment
-- export NODE_PATH=$PWD/node_modules:$NODE_PATH
-- curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install -y nodejs && npm install chrome-remote-interface minimist
 before_script:
 - export BUNDLE_GEMFILE="$PWD/Gemfile"
 - bundle install
@@ -31,7 +38,7 @@ before_script:
 - RAILS_ENV=development bundle exec rake db:migrate
 - bundle exec rails s -p 3002 >/dev/null &
 - rm -f tmp/pids/server.pid
-script: bundle exec rake test:coverage
+script: bundle exec rake test TESTOPTS="-v"
 rvm:
 - 2.3.1
 notifications:
