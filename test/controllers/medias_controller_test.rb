@@ -221,6 +221,7 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should ignore some user agents" do
+    stub_config :ignore_user_agents, 'Slackbot-LinkExpanding'
     @request.env['HTTP_USER_AGENT'] = 'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)'
     get :embed, project: 'google_spreadsheet', collection: 'teste'
     assert_response :success

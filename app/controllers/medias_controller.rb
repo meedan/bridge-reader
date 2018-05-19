@@ -95,10 +95,8 @@ class MediasController < ApplicationController
 
   def ignore_user_agents
     # Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)
-    [/Slackbot-LinkExpanding/].each do |user_agent_pattern|
-      if request.user_agent.match(user_agent_pattern)
-        render_success and return
-      end
+    if !request.user_agent.blank? && !BRIDGE_CONFIG['ignore_user_agents'].blank? && request.user_agent.match(/#{Regexp.quote(BRIDGE_CONFIG['ignore_user_agents'])}/)
+      render_success and return
     end
   end
 end
