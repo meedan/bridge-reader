@@ -219,4 +219,13 @@ class MediasControllerTest < ActionController::TestCase
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'unexistent', format: :html, template: 'screenshot'
     assert_response 404
   end
+
+  test "should ignore some user agents" do
+    @request.env['HTTP_USER_AGENT'] = 'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)'
+    get :embed, project: 'google_spreadsheet', collection: 'teste'
+    assert_response :success
+    @request.env['HTTP_USER_AGENT'] = 'Mozilla Firefox'
+    get :embed, project: 'google_spreadsheet', collection: 'teste'
+    assert_response 404
+  end
 end
