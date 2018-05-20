@@ -22,6 +22,7 @@ development: &default
   check_api_url: 'http://api:3000'
   check_api_token: 'dev'
   chrome_debug_port: 9222
+  ignore_user_agents: 'Slackbot-LinkExpanding'
 
 test:
   <<: *default

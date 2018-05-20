@@ -6,6 +6,7 @@ class MediasController < ApplicationController
   include MediasFilters
 
   after_action :allow_iframe, only: :embed
+  before_filter :ignore_user_agents
   before_filter :get_params, only: [:embed, :notify]
   before_filter :get_host
   before_filter :set_headers
@@ -89,6 +90,13 @@ class MediasController < ApplicationController
     else
       logger.info "Could not render cache file #{cachepath}"
       render_not_found
+    end
+  end
+
+  def ignore_user_agents
+    # Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)
+    if !request.user_agent.blank? && !BRIDGE_CONFIG['ignore_user_agents'].blank? && request.user_agent.match(/#{Regexp.quote(BRIDGE_CONFIG['ignore_user_agents'])}/)
+      render_success and return
     end
   end
 end
