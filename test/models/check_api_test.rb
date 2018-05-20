@@ -65,7 +65,6 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   test "should update cache for created translation" do
-    skip("Turning off update webhooks for now")
     @check.stubs(:get_item).with('1', '2').returns(item_hash(@project_media_result[:data][:project_media]))
     @check.stubs(:get_collection).with('1', '2').returns(collection_hash(@project_result[:data][:project]))
     @check.stubs(:get_collection).with('1', '').returns(collection_hash(@project_result[:data][:project]))
@@ -83,7 +82,6 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   test "should update cache for removed translation" do
-    skip("Turning off update webhooks for now")
     @check.stubs(:get_item).with('1', '2').returns(item_hash(@project_media_result[:data][:project_media]))
     @check.stubs(:get_collection).with('1', '2').returns(collection_hash(@project_result[:data][:project]))
     @check.stubs(:get_collection).with('1', '').returns(collection_hash(@project_result[:data][:project]))
