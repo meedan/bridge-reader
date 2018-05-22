@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.0.9'
-gem 'google_drive', '1.0.1'
+gem 'google_drive', '2.1.2'
 gem 'sqlite3'
 gem 'xml-simple'
 gem 'twitter'
