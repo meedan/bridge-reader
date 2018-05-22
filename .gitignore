@@ -55,3 +55,7 @@ config/projects/production
 
 # emacs
 *.*~
+
+# Credentials
+*.p12
+config/credentials.json

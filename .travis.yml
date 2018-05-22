@@ -14,7 +14,6 @@ before_install:
 - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash - && sudo apt-get install
   -y nodejs && npm install chrome-remote-interface minimist
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
-- mv configurator/bridge/travis/bridge-reader/google.p12 /tmp/
 - rm -rf config/projects && mkdir config/projects
 - d=configurator/bridge/travis/bridge-reader/; for f in $(find $d -type f); do mkdir
   -p $(dirname "${f/$d/}"); cp "$f" "${f/$d/}"; done
