@@ -1,6 +1,6 @@
 type: google_spreadsheet
 google_spreadsheet_id: '1_YfkPjumE2CgNmzGpGirYgFPb--IaR9r4cNn5PNb3lM'
-google_credentials_path: '/config/credentials.json'
+google_credentials_path: '/app/config/credentials.json'
 watchbot:
   url: # http://localhost:3001/links
   token: # c2869a7a8c38b53c9912582b4ede189c 
