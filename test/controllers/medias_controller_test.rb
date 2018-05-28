@@ -135,6 +135,14 @@ class MediasControllerTest < ActionController::TestCase
     assert_response 404
   end
 
+  test "should return image if html cache is unexistent and screenshot exists" do
+    MediasController.any_instance.stubs(:screenshot_path).with('google_spreadsheet', 'watchbot', 'offline').returns(File.join(Rails.root, 'test', 'data', 'offline.png'))
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'offline', format: :png
+    assert_response 200
+    assert_equal 'image/png', @response.content_type
+    MediasController.any_instance.unstub(:screenshot_path)
+  end
+
   test "should remove parameters from caller JavaScript" do
     get :embed, project: 'google_spreadsheet', collection: 'test', format: :js, t: 123456
     assert_equal 'http://test.host/medias/embed/google_spreadsheet/test', assigns(:url)
