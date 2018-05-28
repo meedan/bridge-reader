@@ -23,7 +23,8 @@ class MediasController < ApplicationController
     begin
       payload = request.raw_post
       if verify_signature(payload)
-        get_object and return
+        get_object
+        render_not_found and return if @object.nil?
         @object.parse_notification(@collection, @item, JSON.parse(payload))
         render_success
       else
@@ -38,15 +39,18 @@ class MediasController < ApplicationController
 
   def render_embed_as_png
     html = cache_path(@project, @collection, @item)
-
     unless File.exists?(html)
-      get_object and return
-      generate_cache(@object, @project, @collection, @item, @site)
+      get_object
+      generate_cache(@object, @project, @collection, @item, @site) if @object
     end
-
     if File.exists?(html)
       generate_screenshot_image
-      @image.nil? ? render_error('Error', 'EXCEPTION', 400) : send_data(File.read(@image), type: 'image/png', disposition: 'inline')
+      render_error('Error', 'EXCEPTION', 400) and return if @image.nil?
+    end
+
+    if screenshot_exists?(@project, @collection, @item)
+      @image = screenshot_path(@project, @collection, @item) if @image.nil?
+      send_data(File.read(@image), type: 'image/png', disposition: 'inline')
     else
       logger.info "Could not find image on #{@image}"
       render_not_found
@@ -62,6 +66,7 @@ class MediasController < ApplicationController
 
   def render_embed_as_html
     get_object and return
+    render_not_found and return if @object.nil?
       
     @url = request.original_url
 
