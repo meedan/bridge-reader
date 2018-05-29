@@ -6,6 +6,9 @@ addons:
   chrome: stable
   hosts:
   - bridgembed
+  code_climate:
+    repo_token:
+      secure: "B9QCgMoaDn0mvbun3Gk5GJBtvec4h50p5tbl1S8miqkkhOQkyJXBN0I5n0JzSNUcOqz/5K/sJSnDLqXWZ3QwyDKWD6Sv69/AiUZyui9nIBLxCQjUbs19Y6KKHflqMuRIYKetPkvzOeZUd9uMoKEr9l40qp58gwWT88qJfehNjMH6nMP378hNHtVl1iKb3Ey5jpmPH2nP3XLhoHEgymtJJ/nJGPfPQ54/jCuvu2ndZMmTxBg0mNY9rgnzYDtLM5ll6SH0Bvo6yscMCUxsBNKKtExz1/7BuEE8d12+CgTxWnIW0G6qdUsDG3ItbNUiz5vr7pGifUc3AKeME/vwTjvVov924EMfffBVZKFODYh4fV/FpXqmTQ50Wubq0LtIMENpA75jwGGtZQIHqBdICgVr1jJ37DljOnyyb2MU140ucEOx8465zCzB5JIeUTSM/hf4zx+dNQoJhY8H+RmXRrjAIqS5kOcnHky4y2D8I5bnVBuJ/DLu2RLRUWGXMrZmpzugBqsXu96keJUdtV/E1WC44mJi75aH8e5BRsLku4Pm7lC+tF0uJ/zw+HSU/2z7v7858nvlnp/cOrnAgXqD+VZ/ZfCqYpaXcetK4OfFOkYF1j958JhacnbB001Pa1O7HACHSIFeoVrSfyQMy3UtTQJAYl3kANQGc3UQwRiAm++VBzc="
 before_install:
 - sudo apt-get update
 - sudo apt-get install tidy libicu52 redis-server
