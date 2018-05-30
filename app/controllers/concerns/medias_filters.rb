@@ -59,7 +59,7 @@ module MediasFilters
       klass = 'Sources::' + BRIDGE_PROJECTS[@project]['type'].camelize
       @object = klass.constantize.new(@project, BRIDGE_PROJECTS[@project].except('type'))
     rescue NameError
-      render_not_found and return true
+      return nil
     end
     false
   end

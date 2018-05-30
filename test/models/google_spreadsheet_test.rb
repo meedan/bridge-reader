@@ -165,21 +165,22 @@ Not big deal, actually.'
     assert_equal 4, @b.get_entries.size
   end
 
-  test "should get access token" do
-    Rails.cache.delete('!google_access_token')
-    assert_kind_of String, @b.send(:generate_google_access_token)
-  end
-
-  test "should refresh token" do
-    Rails.cache.expects(:fetch).returns('invalid token')
-    assert_nothing_raised do
-      Sources::GoogleSpreadsheet.new('test', BRIDGE_PROJECTS['google_spreadsheet'])
-    end
-  end
-
   test "should get project" do
     project = @b.get_project
     expected = [{"name"=>"test", "id"=>"test", "project"=>"google_spreadsheet"}, {"name"=>"watchbot", "id"=>"watchbot", "project"=>"google_spreadsheet"}, {"name"=>"first", "id"=>"first", "project"=>"google_spreadsheet"}, {"name"=>"test2", "id"=>"test2", "project"=>"google_spreadsheet"}]
     assert_equal expected, project
   end
+
+  test "handle error when failing authentication on Google Drive" do
+    invalid_credentials = JSON.parse(File.read(BRIDGE_PROJECTS['google_spreadsheet']['google_credentials_path']))
+    invalid_credentials['client_email'] = 'invalid@email.com'
+    File.open('/tmp/invalid.json', "w+") do |f|
+      f.write(invalid_credentials.to_json)
+    end
+    config = {"type"=>"google_spreadsheet", "google_spreadsheet_id"=>"AAAAAAAAA", "google_credentials_path"=>"/tmp/invalid.json"}
+    assert_nothing_raised do
+      Sources::GoogleSpreadsheet.new('google_spreadsheet', config)
+    end
+  end
+
 end
