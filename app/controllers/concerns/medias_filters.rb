@@ -85,13 +85,16 @@ module MediasFilters
     name = params[:template].to_s.gsub(/[^a-z0-9_-]/, '')
     template = "medias/#{name}-#{@level}.html.erb"
     return false unless File.exists?(File.join(Rails.root, 'app', 'views', template))
+    cachepath = cache_path(@project, @collection, @item, name)
+    unless cache_exists?(@project, @collection, @item, name)
     @entries = get_entries_from_source(@object, @collection, @item, @level)
-    if @entries.blank?
-      render(status: 404, text: 'Not Found')
-    else
-      render template: template
+      if @entries.blank?
+        render(status: 404, text: 'Not Found')
+      else
+        save_cache_file(@object, @project, @collection, @item, @level, @entries, cachepath, nil, name)
+      end
     end
-    return true
+    render_cache(cachepath)
   end
 
   def post_process_cache(content)

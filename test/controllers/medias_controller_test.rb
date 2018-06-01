@@ -178,6 +178,18 @@ class MediasControllerTest < ActionController::TestCase
     assert_not_nil assigns(:entries)
   end
 
+  test "should cache HTML with template" do
+    project, collection, id, template = 'google_spreadsheet', 'watchbot', 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', 'screenshot'
+    cachepath = File.join(Rails.root, 'public', 'cache', template, project, collection, id) + '.html'
+    assert !File.exists?(cachepath)
+    get :embed, project: project, collection: collection, item: id, format: :html, template: template
+    assert File.exists?(cachepath)
+    assert_not_nil assigns(:entries)
+    @controller.instance_variable_set(:@entries, nil)
+    get :embed, project: project, collection: collection, item: id, format: :html, template: template
+    assert_nil assigns(:entries)
+  end
+
   test "should fallback to default when template is not present" do
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'invalid'
