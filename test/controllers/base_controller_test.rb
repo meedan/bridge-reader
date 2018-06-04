@@ -74,6 +74,7 @@ class BaseControllerTest < ActionController::TestCase
   test "should render png with ratio 2:1 if width / height < 2" do
     puts 'Running screenshot test...'
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
     output = File.join(Rails.root, 'test', 'data', 'ratiolt2.png')
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
