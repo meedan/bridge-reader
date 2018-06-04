@@ -89,11 +89,12 @@ class BridgeCacheTest < ActiveSupport::TestCase
       translations: [{ text: 'Test', comments: [] }] * 10
     }
     create_cache
-    assert_not_nil File.size?(@b.cache_path('google_spreadsheet', 'test', ''))
+    cachepath = @b.cache_path('google_spreadsheet', 'test', '')
+    assert_not_nil File.size?(cachepath)
     threads = []
     blank = nil
     threads << Thread.new do
-      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', { collection: [entry] * 20 })
+      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', { collection: [entry] * 20 }, cachepath)
     end
     threads << Thread.new do
       sleep 1

@@ -89,7 +89,7 @@ module MediasFilters
     unless cache_exists?(@project, @collection, @item, name)
     @entries = get_entries_from_source(@object, @collection, @item, @level)
       if @entries.blank?
-        render(status: 404, text: 'Not Found')
+        render(status: 404, text: 'Not Found') and return true
       else
         save_cache_file(@object, @project, @collection, @item, @level, @entries, cachepath, nil, name)
       end

@@ -29,8 +29,8 @@ module Bridge
       entries = get_entries_from_source(object, collection, item, level)
       clear_cache(project, collection, item) and return if entries.blank?
       path = cache_path(project, collection, item)
-      save_cache_file(object, project, collection, item, level, entries, path, site)
       new_item = !File.exists?(path)
+      save_cache_file(object, project, collection, item, level, entries, path, site)
       object.notify_new_item(collection, item) if new_item
       notify_cc_service(project, collection, item)
     end
