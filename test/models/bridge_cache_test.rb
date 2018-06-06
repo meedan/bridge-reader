@@ -103,4 +103,33 @@ class BridgeCacheTest < ActiveSupport::TestCase
     threads.each{ |t| t.join }
     assert_not_nil blank
   end
+
+  test "should include css url hash on screenshot path" do
+    css = 'http://ca.ios.ba/files/meedan/ooew.css'
+    project, collection, id = 'google_spreadsheet', 'test', '183773d82423893d9409faf05941bdbd63eb0b5c'
+    path = File.join(Rails.root, 'public', 'screenshots', project, collection, "#{id}.png")
+    assert_equal path, @b.screenshot_path('google_spreadsheet', 'test', id)
+    path_with_css = File.join(Rails.root, 'public', 'screenshots', project, collection, "#{id}-#{Digest::MD5.hexdigest(css.parameterize)}.png")
+    assert_equal path_with_css, @b.screenshot_path('google_spreadsheet', 'test', id, css)
+  end
+
+  test "should also remove screenshot with css" do
+    css = 'http://ca.ios.ba/files/meedan/ooew.css'
+    project, collection, id = 'google_spreadsheet', 'test', '183773d82423893d9409faf05941bdbd63eb0b5c'
+    test_file = File.join(Rails.root, 'test', 'data', '183773d82423893d9409faf05941bdbd63eb0b5c.png')
+    path = @b.screenshot_path('google_spreadsheet', 'test', id)
+    path_with_css = @b.screenshot_path('google_spreadsheet', 'test', id, css)
+    dir = File.dirname(path)
+    FileUtils.mkdir_p(dir) unless File.exists?(dir)
+
+    FileUtils.cp(test_file, path)
+    FileUtils.cp(test_file, path_with_css)
+    assert File.exists?(path)
+    assert File.exists?(path_with_css)
+
+    @b.remove_screenshot('google_spreadsheet', 'test', id)
+    assert !File.exists?(path)
+    assert !File.exists?(path_with_css)
+  end
+
 end

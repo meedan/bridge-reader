@@ -52,11 +52,13 @@ class BaseControllerTest < ActionController::TestCase
   test "should render png with custom CSS" do
     puts 'Running screenshot test...'
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
-    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    css = 'http://ca.ios.ba/files/meedan/ooew.css'
+    css_hash = Digest::MD5.hexdigest(css.parameterize)
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}-#{css_hash}.png")
+    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}-#{css_hash}.png")
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: 'http://ca.ios.ba/files/meedan/ooew.css'
+    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: css
     assert_same_image generated, output
   end
 
@@ -76,9 +78,9 @@ class BaseControllerTest < ActionController::TestCase
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
     FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', 'ratiolt2.png')
     get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
-    FileUtils.cp(generated, '/tmp/ratiolt2.png')
     assert_same_image generated, output
   end
 

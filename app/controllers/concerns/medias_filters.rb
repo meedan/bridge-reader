@@ -4,9 +4,8 @@ module MediasFilters
   private
 
   def generate_screenshot_image
-    css = URI.parse(params[:css].to_s).to_s
     begin
-      @image = generate_screenshot(@project, @collection, @item, css)
+      @image = generate_screenshot(@project, @collection, @item, @css)
     rescue Exception => e
       raise "Could not take screenshot: #{e.message}" unless from_bot?
     end
@@ -51,6 +50,7 @@ module MediasFilters
     
     sanitize_parameters(params[:collection], params[:item])
 
+    @css = URI.parse(params[:css].to_s).to_s
     (render_not_found and return) if @project.blank?
   end
 

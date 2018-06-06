@@ -136,7 +136,7 @@ class MediasControllerTest < ActionController::TestCase
   end
 
   test "should return image if html cache is unexistent and screenshot exists" do
-    MediasController.any_instance.stubs(:screenshot_path).with('google_spreadsheet', 'watchbot', 'offline').returns(File.join(Rails.root, 'test', 'data', 'offline.png'))
+    MediasController.any_instance.stubs(:screenshot_path).with('google_spreadsheet', 'watchbot', 'offline', '').returns(File.join(Rails.root, 'test', 'data', 'offline.png'))
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'offline', format: :png
     assert_response 200
     assert_equal 'image/png', @response.content_type

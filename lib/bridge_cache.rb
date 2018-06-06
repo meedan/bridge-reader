@@ -19,8 +19,8 @@ module Bridge
       File.exists?(cache_path(project, collection, item, template))
     end
 
-    def screenshot_exists?(project, collection, item)
-      File.exists?(screenshot_path(project, collection, item))
+    def screenshot_exists?(project, collection, item, css = '')
+      File.exists?(screenshot_path(project, collection, item, css))
     end
 
     def generate_cache(object, project, collection, item, site = BRIDGE_CONFIG['bridgembed_host'])
@@ -36,16 +36,19 @@ module Bridge
     end
 
     def remove_screenshot(project, collection, item)
-      FileUtils.rm_rf(screenshot_path(project, collection, item))
+      path = screenshot_path(project, collection, item)
+      path_with_css = path.gsub(item, "#{item}-*")
+      Dir.glob([path, path_with_css]).each { |f| FileUtils.rm_rf(f) }
       notify_cc_service(project, collection, item, 'png')
     end
 
-    def screenshot_path(project, collection, item)
-      self.file_path(project, collection, item, 'screenshots', 'png')
+    def screenshot_path(project, collection, item, css = '')
+      css = Digest::MD5.hexdigest(css.parameterize) unless css.blank?
+      self.file_path(project, collection, item, 'screenshots', 'png', '', css)
     end
 
     def generate_screenshot(project, collection, item, css = '')
-      output = screenshot_path(project, collection, item)
+      output = screenshot_path(project, collection, item, css)
       if BRIDGE_CONFIG['cache_embeds'] && File.exists?(output)
         # Cache file will be returned
       else
@@ -120,7 +123,8 @@ module Bridge
       [template, project, collection, item].reject(&:empty?)
     end
 
-    def file_path(project, collection, item, basedir, extension, template = '')
+    def file_path(project, collection, item, basedir, extension, template = '', css = '')
+      item = [item, css].compact.join('-') unless item.blank? || css.blank?
       path = self.get_components(project, collection, item, template)
       File.join(Rails.root, 'public', basedir, path) + '.' + extension
     end

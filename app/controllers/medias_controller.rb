@@ -48,8 +48,8 @@ class MediasController < ApplicationController
       render_error('Error', 'EXCEPTION', 400) and return if @image.nil?
     end
 
-    if screenshot_exists?(@project, @collection, @item)
-      @image = screenshot_path(@project, @collection, @item) if @image.nil?
+    if screenshot_exists?(@project, @collection, @item, @css)
+      @image = screenshot_path(@project, @collection, @item, @css) if @image.nil?
       send_data(File.read(@image), type: 'image/png', disposition: 'inline')
     else
       logger.info "Could not find image on #{@image}"
