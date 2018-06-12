@@ -28,16 +28,16 @@ module MediasHelper
     text = text.gsub(/@([a-zA-Z0-9_]+)/, '<a href="http://instagram.com/\1" target="_blank">@\1</a>')
   end
 
-  def include_twitter_tags(project, collection, item, level, site)
+  def include_twitter_tags(project, collection, item, level)
     safe_join([
       tag(:meta, name: 'twitter:card', content: 'player'),
       tag(:meta, name: 'twitter:title', content: ' '),
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
       tag(:meta, name: 'twitter:description', content: ' '),
-      tag(:meta, name: 'twitter:image', content: embed_url(site, project, collection, item, 'png')),
+      tag(:meta, name: 'twitter:image', content: embed_url(project, collection, item, 'png')),
       tag(:meta, name: 'twitter:image:alt', content: content_for(:description)),
       tag(:meta, name: 'twitter:title', content: ' '),
-      tag(:meta, name: 'twitter:player', content: embed_url(site, project, collection, item, 'html')),
+      tag(:meta, name: 'twitter:player', content: embed_url(project, collection, item, 'html')),
       tag(:meta, name: 'twitter:player:width', content: 492),
       tag(:meta, name: 'twitter:player:height', content: 600)
     ], "\n") + "\n"
@@ -80,12 +80,12 @@ module MediasHelper
     end
   end
 
-  def include_facebook_tags(project, collection, item, level, site, url = nil)
-    safe_join(facebook_tags(site, project, collection, item, level, url).map(&:html_safe), "\n")
+  def include_facebook_tags(project, collection, item, level, url = nil)
+    safe_join(facebook_tags(project, collection, item, level, url).map(&:html_safe), "\n")
   end
 
   def facebook_share_url(project, collection, item)
-    url = embed_url(BRIDGE_CONFIG['bridgembed_host'], project, collection, item)
+    url = embed_url(project, collection, item)
     'https://www.facebook.com/dialog/share?app_id=' + BRIDGE_CONFIG['facebook_app_id'] + '&href=' + url + '&redirect_uri=' + url
   end
 
@@ -124,19 +124,19 @@ module MediasHelper
 
   private
 
-  def embed_url(site, project, collection, item, format = '')
+  def embed_url(project, collection, item, format = '')
     format = '.' + format unless format.blank?
     [BRIDGE_CONFIG['bridgembed_host'], '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/').gsub(/\/$/, '') + format
   end
 
-  def facebook_tags(site, project, collection, item, level, url)
-    image = level === 'item' ? embed_url(site, project, collection, item, 'png') : '/images/bridge-logo.png'
+  def facebook_tags(project, collection, item, level, url)
+    image = level === 'item' ? embed_url(project, collection, item, 'png') : '/images/bridge-logo.png'
     [
       tag(:meta, property: 'og:title', content: embed_title),
       tag(:meta, property: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
       tag(:meta, property: 'og:image', content: image),
       tag(:meta, property: 'og:type', content: 'article'),
-      tag(:meta, property: 'og:url', content: url || embed_url(site, project, collection, item)),
+      tag(:meta, property: 'og:url', content: url || embed_url(project, collection, item)),
       tag(:meta, property: 'og:description', content: content_for(:description))
     ]
   end
