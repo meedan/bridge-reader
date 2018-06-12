@@ -143,6 +143,14 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.any_instance.unstub(:screenshot_path)
   end
 
+  test "should return not found for screenshot of project or collection" do
+    get :embed, project: 'google_spreadsheet', format: :png
+    assert_response 404
+
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', format: :png
+    assert_response 404
+  end
+
   test "should remove parameters from caller JavaScript" do
     get :embed, project: 'google_spreadsheet', collection: 'test', format: :js, t: 123456
     assert_equal 'http://test.host/medias/embed/google_spreadsheet/test', assigns(:url)
@@ -194,6 +202,14 @@ class MediasControllerTest < ActionController::TestCase
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'invalid'
     assert_nil assigns(:entries)
+  end
+
+  test "should return not found for HTML with template for project or collection" do
+    get :embed, project: 'google_spreadsheet', format: :html, template: 'screenshot'
+    assert_response 404
+
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', format: :html, template: 'screenshot'
+    assert_response 404
   end
 
   test "should not raise screenshot exception if agent is a Slack bot" do

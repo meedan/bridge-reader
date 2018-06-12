@@ -38,6 +38,8 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_png
+    level = get_level(@project, @collection, @item)
+    render_not_found and return if level != 'item'
     html = cache_path(@project, @collection, @item)
     unless File.exists?(html)
       get_object
@@ -65,6 +67,9 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_html
+    level = get_level(@project, @collection, @item)
+    render_not_found and return if params[:template] && level != 'item'
+
     get_object and return
     render_not_found and return if @object.nil?
       
