@@ -93,6 +93,18 @@ class MediasControllerTest < ActionController::TestCase
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
   end
 
+  test "should render Twitter metatags" do
+    project, collection, item = 'google_spreadsheet', 'watchbot', 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+    get :embed, project: project, collection: collection, item: item, format: :html
+    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /#{project}\/#{collection}\/#{item}.png/})
+
+    get :embed, project: project, collection: collection, format: :html
+    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /images\/bridge-logo.png/})
+
+    get :embed, project: project, format: :html
+    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /images\/bridge-logo.png/})
+  end
+
   test "should not have object if project is not supported" do
     get :embed, project: 'invalid', collection: 'invalid', format: :html
     assert_nil assigns(:object) 

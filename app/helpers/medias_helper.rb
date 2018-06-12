@@ -29,12 +29,13 @@ module MediasHelper
   end
 
   def include_twitter_tags(project, collection, item, level)
+    image = level === 'item' ? embed_url(project, collection, item, 'png') : '/images/bridge-logo.png'
     safe_join([
       tag(:meta, name: 'twitter:card', content: 'player'),
       tag(:meta, name: 'twitter:title', content: ' '),
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
       tag(:meta, name: 'twitter:description', content: ' '),
-      tag(:meta, name: 'twitter:image', content: embed_url(project, collection, item, 'png')),
+      tag(:meta, name: 'twitter:image', content: image),
       tag(:meta, name: 'twitter:image:alt', content: content_for(:description)),
       tag(:meta, name: 'twitter:title', content: ' '),
       tag(:meta, name: 'twitter:player', content: embed_url(project, collection, item, 'html')),
