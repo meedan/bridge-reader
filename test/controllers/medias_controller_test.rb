@@ -93,7 +93,7 @@ class MediasControllerTest < ActionController::TestCase
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
   end
 
-  test "should render Twitter metatags" do
+  test "should render bridge logo for project and collection on Twitter metatags" do
     project, collection, item = 'google_spreadsheet', 'watchbot', 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: project, collection: collection, item: item, format: :html
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /#{project}\/#{collection}\/#{item}.png/})
@@ -155,6 +155,24 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.any_instance.unstub(:screenshot_path)
   end
 
+  test "should return image if html cache and screenshot exists" do
+    project, collection, item = 'google_spreadsheet', 'watchbot', 'offline'
+    image_path = File.join(Rails.root, 'test', 'data', 'offline.png')
+    MediasController.any_instance.stubs(:screenshot_path).with(project, collection, item, '').returns(image_path)
+    MediasController.any_instance.stubs(:cache_path).with(project, collection, item, 'screenshot').returns(image_path)
+    MediasController.any_instance.stubs(:generate_screenshot_image).never
+    File.stubs(:exists?).with(image_path).returns(true)
+
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'offline', format: :png
+    assert_response 200
+    assert_equal 'image/png', @response.content_type
+
+    MediasController.any_instance.unstub(:screenshot_path)
+    MediasController.any_instance.unstub(:cache_path)
+    MediasController.any_instance.unstub(:generate_screenshot_image)
+    File.unstub(:exists?)
+  end
+
   test "should return not found for screenshot of project or collection" do
     get :embed, project: 'google_spreadsheet', format: :png
     assert_response 404
@@ -195,7 +213,7 @@ class MediasControllerTest < ActionController::TestCase
   test "should render HTML with template" do
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'screenshot'
-    assert_not_nil assigns(:entries)
+    assert_not_nil assigns(:source_entries)
   end
 
   test "should cache HTML with template" do
@@ -204,16 +222,16 @@ class MediasControllerTest < ActionController::TestCase
     assert !File.exists?(cachepath)
     get :embed, project: project, collection: collection, item: id, format: :html, template: template
     assert File.exists?(cachepath)
-    assert_not_nil assigns(:entries)
-    @controller.instance_variable_set(:@entries, nil)
+    assert_not_nil assigns(:source_entries)
+    @controller.instance_variable_set(:@source_entries, nil)
     get :embed, project: project, collection: collection, item: id, format: :html, template: template
-    assert_nil assigns(:entries)
+    assert_nil assigns(:source_entries)
   end
 
   test "should fallback to default when template is not present" do
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'invalid'
-    assert_nil assigns(:entries)
+    assert_nil assigns(:source_entries)
   end
 
   test "should return not found for HTML with template for project or collection" do
@@ -222,6 +240,13 @@ class MediasControllerTest < ActionController::TestCase
 
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', format: :html, template: 'screenshot'
     assert_response 404
+  end
+
+  test "should have only item on entries if request has template" do
+    id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
+
+    get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'screenshot'
+    assert_equal ['item'], assigns(:source_entries).keys
   end
 
   test "should not raise screenshot exception if agent is a Slack bot" do

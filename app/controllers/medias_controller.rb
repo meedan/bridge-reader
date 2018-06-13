@@ -40,12 +40,14 @@ class MediasController < ApplicationController
   def render_embed_as_png
     level = get_level(@project, @collection, @item)
     render_not_found and return if level != 'item'
-    html = cache_path(@project, @collection, @item)
+    cache = true
+    html = cache_path(@project, @collection, @item, 'screenshot')
     unless File.exists?(html)
+      cache = false
       get_object
-      generate_cache(@object, @project, @collection, @item, @site) if @object
+      generate_cache(@object, @project, @collection, @item, 'screenshot') if @object
     end
-    if File.exists?(html)
+    if File.exists?(html) && (!cache || !screenshot_exists?(@project, @collection, @item, @css))
       generate_screenshot_image
       render_error('Error', 'EXCEPTION', 400) and return if @image.nil?
     end
@@ -72,7 +74,7 @@ class MediasController < ApplicationController
 
     get_object and return
     render_not_found and return if @object.nil?
-      
+
     @url = request.original_url
 
     unless params[:template].blank?
@@ -83,7 +85,7 @@ class MediasController < ApplicationController
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      unless generate_cache(@object, @project, @collection, @item, @site)
+      unless generate_cache(@object, @project, @collection, @item)
         logger.info "Could not generate cache on #{@cachepath}"
       end
       @cache = false

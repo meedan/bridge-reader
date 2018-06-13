@@ -23,16 +23,19 @@ module Bridge
       File.exists?(screenshot_path(project, collection, item, css))
     end
 
-    def generate_cache(object, project, collection, item, site = BRIDGE_CONFIG['bridgembed_host'])
+    def generate_cache(object, project, collection, item, template = '')
       # Check first if item exists
       level = get_level(project, collection, item)
-      entries = get_entries_from_source(object, collection, item, level)
-      clear_cache(project, collection, item) and return if entries.blank?
-      path = cache_path(project, collection, item)
-      new_item = !File.exists?(path)
-      save_cache_file(object, project, collection, item, level, entries, path, site)
+      @source_entries = get_entries_from_source(object, collection, item, level, template)
+      if @source_entries.blank?
+        return false if template.blank?
+        clear_cache(project, collection, item) and return
+      end
+      path = cache_path(project, collection, item, template)
+      new_item = !File.exists?(path) if template.blank?
+      save_cache_file(object, project, collection, item, level, @source_entries, path, template)
       object.notify_new_item(collection, item) if new_item
-      notify_cc_service(project, collection, item)
+      notify_cc_service(project, collection, item) if template.blank?
     end
 
     def remove_screenshot(project, collection, item)
@@ -79,32 +82,32 @@ module Bridge
       end
     end
 
-    def get_entries_from_source(object, collection, item, level)
+    def get_entries_from_source(object, collection, item, level, template = '')
       pender = Bridge::Pender.new BRIDGE_CONFIG['pender_token']
       entries = {}.with_indifferent_access
-      level_mapping(level).each do |l|
+      level_mapping(level, template).each do |l|
         entries[l] = pender.send("parse_#{l}", object.send("get_#{l}", collection, item))
       end
       entries[level].blank? ? [] : entries
     end
 
-    def level_mapping(level)
+    def level_mapping(level, template)
       mapping = {
         'project' => [:project],
         'collection' => [:project, :collection],
         'item' => [:project, :collection, :item],
       }
-      mapping[level]
+      template.blank? ? mapping[level] : [:item]
     end
 
-    def save_cache_file(object, project, collection, item, level, entries, cache_path, site = nil, template_name = '')
+    def save_cache_file(object, project, collection, item, level, entries, cache_path, template_name = '')
       dir = File.dirname(cache_path)
       FileUtils.mkdir_p(dir) unless File.exists?(dir)
 
       path = self.get_components(project, collection, item, template_name).join('-')
       av = ActionView::Base.new(Rails.root.join('app', 'views'))
       av.assign(entries: entries, project: project, collection: collection,
-                item: item, site: site, level: level, path: path)
+                item: item, level: level, path: path)
       ActionView::Base.send :include, MediasHelper
       template = template_name.blank? ? "medias/embed-#{level}.html.erb" : "medias/#{template_name}-#{level}.html.erb"
       content = av.render(template: template, layout: "layouts/application.html.erb")

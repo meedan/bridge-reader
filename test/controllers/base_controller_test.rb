@@ -14,12 +14,12 @@ class BaseControllerTest < ActionController::TestCase
     assert File.exists?(path)
   end
 
-  test "should render png for collections" do
+  test "should not render png for collections" do
     puts 'Running screenshot test...'
     path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test2.png')
     assert !File.exists?(path)
     get :embed, project: 'google_spreadsheet', collection: 'test2', format: :png
-    assert File.exists?(path)
+    assert !File.exists?(path)
   end
 
   test "should render cached png" do
@@ -51,14 +51,16 @@ class BaseControllerTest < ActionController::TestCase
 
   test "should render png with custom CSS" do
     puts 'Running screenshot test...'
-    id = '183773d82423893d9409faf05941bdbd63eb0b5c'
+    project, collection, id = 'google_spreadsheet', 'test', '183773d82423893d9409faf05941bdbd63eb0b5c'
     css = 'http://ca.ios.ba/files/meedan/ooew.css'
     css_hash = Digest::MD5.hexdigest(css.parameterize)
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}-#{css_hash}.png")
-    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}-#{css_hash}.png")
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', project, collection, "#{id}-#{css_hash}.png")
+    generated = File.join(Rails.root, 'public', 'screenshots', project, collection, "#{id}-#{css_hash}.png")
+    url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, URI.encode(collection), id].join('/') + '?&template=screenshot' + "#css=#{css}"
+    PenderClient::Request.delete_medias(BRIDGE_CONFIG['pender_base_url'], {url: url}, BRIDGE_CONFIG['pender_token'])
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png, css: css
+    get :embed, project: project, collection: collection, item: id, format: :png, css: css
     assert_same_image generated, output
   end
 
@@ -75,12 +77,14 @@ class BaseControllerTest < ActionController::TestCase
 
   test "should render png with ratio 2:1 if width / height < 2" do
     puts 'Running screenshot test...'
-    id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
-    generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'test', "#{id}.png")
+    project, collection, id = 'google_spreadsheet', 'test', '183773d82423893d9409faf05941bdbd63eb0b5c'
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', project, collection, "#{id}.png")
+    generated = File.join(Rails.root, 'public', 'screenshots', project, collection, "#{id}.png")
+    url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, URI.encode(collection), id].join('/') + '?&template=screenshot'
+    PenderClient::Request.delete_medias(BRIDGE_CONFIG['pender_base_url'], {url: url}, BRIDGE_CONFIG['pender_token'])
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', 'ratiolt2.png')
-    get :embed, project: 'google_spreadsheet', collection: 'test', item: id, format: :png
+    get :embed, project: project, collection: collection, item: id, format: :png
     assert_same_image generated, output
   end
 
