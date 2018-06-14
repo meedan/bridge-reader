@@ -49,7 +49,7 @@ class BaseControllerTest < ActionController::TestCase
     assert_same_image generated, output
   end
 
-  test "should render png with custom CSS" do
+  test "should not render specific png with custom CSS" do
     puts 'Running screenshot test...'
     project, collection, id = 'google_spreadsheet', 'test', '183773d82423893d9409faf05941bdbd63eb0b5c'
     css = 'http://ca.ios.ba/files/meedan/ooew.css'
@@ -61,7 +61,7 @@ class BaseControllerTest < ActionController::TestCase
     assert !File.exists?(generated)
     output = File.join(Rails.root, 'test', 'data', "#{id}-custom-css.png")
     get :embed, project: project, collection: collection, item: id, format: :png, css: css
-    assert_same_image generated, output
+    assert_not_equal generated, output
   end
 
   test "should render png with RTL text" do
