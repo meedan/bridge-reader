@@ -6,47 +6,52 @@ module Bridge
   module Cache
     def clear_cache(project, collection, item)
       FileUtils.rm_rf(cache_path(project, collection, item))
+      FileUtils.rm_rf(cache_path(project, collection, item, 'screenshot'))
       notify_cc_service(project, collection, item)
       true
     end
 
-    def cache_path(project, collection, item)
-      self.file_path(project, collection, item, 'cache', 'html')
+    def cache_path(project, collection, item, template = '')
+      self.file_path(project, collection, item, 'cache', 'html', template)
     end
 
-    def cache_exists?(project, collection, item)
-      File.exists?(cache_path(project, collection, item))
+    def cache_exists?(project, collection, item, template = '')
+      File.exists?(cache_path(project, collection, item, template))
     end
 
-    def screenshot_exists?(project, collection, item)
-      File.exists?(screenshot_path(project, collection, item))
+    def screenshot_exists?(project, collection, item, css = '')
+      File.exists?(screenshot_path(project, collection, item, css))
     end
 
-    def generate_cache(object, project, collection, item, site = BRIDGE_CONFIG['bridgembed_host'])
+    def generate_cache(object, project, collection, item, template = '')
       # Check first if item exists
       level = get_level(project, collection, item)
-      entries = get_entries_from_source(object, collection, item, level)
-      clear_cache(project, collection, item) and return if entries.blank?
-      path = cache_path(project, collection, item)
-      dir = File.dirname(path)
-      FileUtils.mkdir_p(dir) unless File.exists?(dir)
-      new_item = !File.exists?(path)
-      save_cache_file(object, project, collection, item, level, entries, site)
+      @source_entries = get_entries_from_source(object, collection, item, level, template)
+      if @source_entries.blank?
+        return false if template.blank?
+        clear_cache(project, collection, item) and return
+      end
+      path = cache_path(project, collection, item, template)
+      new_item = !File.exists?(path) if template.blank?
+      save_cache_file(object, project, collection, item, level, @source_entries, path, template)
       object.notify_new_item(collection, item) if new_item
-      notify_cc_service(project, collection, item)
+      notify_cc_service(project, collection, item) if template.blank?
     end
 
     def remove_screenshot(project, collection, item)
-      FileUtils.rm_rf(screenshot_path(project, collection, item))
+      path = screenshot_path(project, collection, item)
+      path_with_css = path.gsub(item, "#{item}-*")
+      Dir.glob([path, path_with_css]).each { |f| FileUtils.rm_rf(f) }
       notify_cc_service(project, collection, item, 'png')
     end
 
-    def screenshot_path(project, collection, item)
-      self.file_path(project, collection, item, 'screenshots', 'png')
+    def screenshot_path(project, collection, item, css = '')
+      css = Digest::MD5.hexdigest(css.parameterize) unless css.blank?
+      self.file_path(project, collection, item, 'screenshots', 'png', '', css)
     end
 
     def generate_screenshot(project, collection, item, css = '')
-      output = screenshot_path(project, collection, item)
+      output = screenshot_path(project, collection, item, css)
       if BRIDGE_CONFIG['cache_embeds'] && File.exists?(output)
         # Cache file will be returned
       else
@@ -77,48 +82,53 @@ module Bridge
       end
     end
 
-    def get_entries_from_source(object, collection, item, level)
+    def get_entries_from_source(object, collection, item, level, template = '')
       pender = Bridge::Pender.new BRIDGE_CONFIG['pender_token']
       entries = {}.with_indifferent_access
-      level_mapping(level).each do |l|
+      level_mapping(level, template).each do |l|
         entries[l] = pender.send("parse_#{l}", object.send("get_#{l}", collection, item))
       end
       entries[level].blank? ? [] : entries
     end
 
-    def level_mapping(level)
+    def level_mapping(level, template)
       mapping = {
         'project' => [:project],
         'collection' => [:project, :collection],
         'item' => [:project, :collection, :item],
       }
-      mapping[level]
+      template.blank? ? mapping[level] : [:item]
     end
 
-    def save_cache_file(object, project, collection, item, level, entries, site = nil)
-      path = self.get_components(project, collection, item).join('-')
+    def save_cache_file(object, project, collection, item, level, entries, cache_path, template_name = '')
+      dir = File.dirname(cache_path)
+      FileUtils.mkdir_p(dir) unless File.exists?(dir)
+
+      path = self.get_components(project, collection, item, template_name).join('-')
       av = ActionView::Base.new(Rails.root.join('app', 'views'))
       av.assign(entries: entries, project: project, collection: collection,
-                item: item, site: site, level: level, path: path)
+                item: item, level: level, path: path)
       ActionView::Base.send :include, MediasHelper
-      content = av.render(template: "medias/embed-#{level}.html.erb", layout: "layouts/application.html.erb")
-      File.atomic_write(cache_path(project, collection, item)) do |file|
+      template = template_name.blank? ? "medias/embed-#{level}.html.erb" : "medias/#{template_name}-#{level}.html.erb"
+      content = av.render(template: template, layout: "layouts/application.html.erb")
+      File.atomic_write(cache_path(project, collection, item, template_name)) do |file|
         file.write(content)
       end
     end
 
     def screenshot_url(project, collection, item, css = '')
-      url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, URI.encode(collection), item].join('/') + "?t=#{Time.now.to_i}&template=screenshot"
+      url = [BRIDGE_CONFIG['bridgembed_host'], 'medias', 'embed', project, URI.encode(collection), item].join('/') + "?&template=screenshot"
       url += "#css=#{css}" unless css.blank?
       url
     end
 
-    def get_components(project, collection, item)
-      [project, collection, item].reject(&:empty?)
+    def get_components(project, collection, item, template)
+      [template, project, collection, item].reject(&:empty?)
     end
 
-    def file_path(project, collection, item, basedir, extension)
-      path = self.get_components(project, collection, item)
+    def file_path(project, collection, item, basedir, extension, template = '', css = '')
+      item = [item, css].compact.join('-') unless item.blank? || css.blank?
+      path = self.get_components(project, collection, item, template)
       File.join(Rails.root, 'public', basedir, path) + '.' + extension
     end
 

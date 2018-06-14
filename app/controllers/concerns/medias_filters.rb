@@ -4,9 +4,8 @@ module MediasFilters
   private
 
   def generate_screenshot_image
-    css = URI.parse(params[:css].to_s).to_s
     begin
-      @image = generate_screenshot(@project, @collection, @item, css)
+      @image = generate_screenshot(@project, @collection, @item, @css)
     rescue Exception => e
       raise "Could not take screenshot: #{e.message}" unless from_bot?
     end
@@ -51,6 +50,7 @@ module MediasFilters
     
     sanitize_parameters(params[:collection], params[:item])
 
+    @css = URI.parse(params[:css].to_s).to_s
     (render_not_found and return) if @project.blank?
   end
 
@@ -84,14 +84,14 @@ module MediasFilters
     @level = get_level(@project, @collection, @item)
     name = params[:template].to_s.gsub(/[^a-z0-9_-]/, '')
     template = "medias/#{name}-#{@level}.html.erb"
-    return false unless File.exists?(File.join(Rails.root, 'app', 'views', template))
-    @entries = get_entries_from_source(@object, @collection, @item, @level)
-    if @entries.blank?
-      render(status: 404, text: 'Not Found')
-    else
-      render template: template
+    render_not_found and return true if !File.exists?(File.join(Rails.root, 'app', 'views', template))
+    cachepath = cache_path(@project, @collection, @item, name)
+    if !cache_exists?(@project, @collection, @item, name)
+      unless generate_cache(@object, @project, @collection, @item, name)
+        render(status: 404, text: 'Not Found') and return true
+      end
     end
-    return true
+    render_cache(cachepath)
   end
 
   def post_process_cache(content)

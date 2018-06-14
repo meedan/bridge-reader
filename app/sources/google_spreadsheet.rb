@@ -186,7 +186,7 @@ module Sources
         hash = entry[:id]
         Rails.cache.delete('pender:' + hash)
         @entries = [entry]
-        generate_cache(self, self.project, worksheet, hash, BRIDGE_CONFIG['bridgembed_host'])
+        generate_cache(self, self.project, worksheet, hash)
         remove_screenshot(self.project, worksheet, hash)
         # generate_screenshot(self.project, worksheet, hash)
       end

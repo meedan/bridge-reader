@@ -38,18 +38,22 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_png
-    html = cache_path(@project, @collection, @item)
+    level = get_level(@project, @collection, @item)
+    render_not_found and return if level != 'item'
+    cache = true
+    html = cache_path(@project, @collection, @item, 'screenshot')
     unless File.exists?(html)
+      cache = false
       get_object
-      generate_cache(@object, @project, @collection, @item, @site) if @object
+      generate_cache(@object, @project, @collection, @item, 'screenshot') if @object
     end
-    if File.exists?(html)
+    if File.exists?(html) && (!cache || !screenshot_exists?(@project, @collection, @item, @css))
       generate_screenshot_image
       render_error('Error', 'EXCEPTION', 400) and return if @image.nil?
     end
 
-    if screenshot_exists?(@project, @collection, @item)
-      @image = screenshot_path(@project, @collection, @item) if @image.nil?
+    if screenshot_exists?(@project, @collection, @item, @css)
+      @image = screenshot_path(@project, @collection, @item, @css) if @image.nil?
       send_data(File.read(@image), type: 'image/png', disposition: 'inline')
     else
       logger.info "Could not find image on #{@image}"
@@ -65,9 +69,12 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_html
+    level = get_level(@project, @collection, @item)
+    render_not_found and return if params[:template] && level != 'item'
+
     get_object and return
     render_not_found and return if @object.nil?
-      
+
     @url = request.original_url
 
     unless params[:template].blank?
@@ -78,7 +85,7 @@ class MediasController < ApplicationController
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      unless generate_cache(@object, @project, @collection, @item, @site)
+      unless generate_cache(@object, @project, @collection, @item)
         logger.info "Could not generate cache on #{@cachepath}"
       end
       @cache = false

@@ -20,21 +20,21 @@ module Bridge
         create_config_file_for_project(slug, config[:info])
         BRIDGE_PROJECTS[slug] = config[:info]
       elsif payload['condition'] == 'updated'
-        generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+        generate_cache(self, self.project, '', '')
       end
     end
 
     def refresh_cache(channel)
-      generate_cache(self, self.project, channel, '', BRIDGE_CONFIG['bridgembed_host'])
+      generate_cache(self, self.project, channel, '')
       remove_screenshot(self.project, channel, '')
-      generate_cache(self, self.project, '', '', BRIDGE_CONFIG['bridgembed_host'])
+      generate_cache(self, self.project, '', '')
       remove_screenshot(self.project, '', '')
     end
 
     def update_cache_for_saved_translation(channel, translation)
       Rails.cache.delete('pender:' + translation['id'].to_s)
       @entries = [translation]
-      generate_cache(self, self.project, channel, translation['id'].to_s, BRIDGE_CONFIG['bridgembed_host'])
+      generate_cache(self, self.project, channel, translation['id'].to_s)
       remove_screenshot(self.project, channel, translation['id'].to_s)
       @entries = nil
     end
