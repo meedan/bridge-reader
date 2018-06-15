@@ -36,6 +36,7 @@ module Bridge
       save_cache_file(object, project, collection, item, level, @source_entries, path, template)
       object.notify_new_item(collection, item) if new_item
       notify_cc_service(project, collection, item) if template.blank?
+      true
     end
 
     def remove_screenshot(project, collection, item)
@@ -123,7 +124,7 @@ module Bridge
     end
 
     def get_components(project, collection, item, template)
-      [template, project, collection, item].reject(&:empty?)
+      [template.to_s, project, collection, item].reject(&:empty?)
     end
 
     def file_path(project, collection, item, basedir, extension, template = '', css = '')

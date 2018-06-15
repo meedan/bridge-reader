@@ -130,6 +130,7 @@ class MediasControllerTest < ActionController::TestCase
   test "should return error if item is not found" do
     get :embed, project: 'google_spreadsheet', collection: 'test', item: 'notfound'
     assert_response 404
+    assert_template file: '404.html'
   end
 
   test "should return error if collection is not found" do
@@ -214,6 +215,7 @@ class MediasControllerTest < ActionController::TestCase
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'screenshot'
     assert_not_nil assigns(:source_entries)
+    assert_response 200
   end
 
   test "should cache HTML with template" do
@@ -291,6 +293,7 @@ class MediasControllerTest < ActionController::TestCase
   test "should return 404 for screenshot of unexistent item" do
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'unexistent', format: :html, template: 'screenshot'
     assert_response 404
+    assert_template file: '404.html'
   end
 
   test "should ignore some user agents" do
