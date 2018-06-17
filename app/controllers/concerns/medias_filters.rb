@@ -82,16 +82,10 @@ module MediasFilters
 
   def render_embed_from_template
     @level = get_level(@project, @collection, @item)
-    name = params[:template].to_s.gsub(/[^a-z0-9_-]/, '')
-    template = "medias/#{name}-#{@level}.html.erb"
+    @name = params[:template].to_s.gsub(/[^a-z0-9_-]/, '')
+    template = "medias/#{@name}-#{@level}.html.erb"
     render_not_found and return true if !File.exists?(File.join(Rails.root, 'app', 'views', template))
-    cachepath = cache_path(@project, @collection, @item, name)
-    if !cache_exists?(@project, @collection, @item, name)
-      unless generate_cache(@object, @project, @collection, @item, name)
-        render(status: 404, text: 'Not Found') and return true
-      end
-    end
-    render_cache(cachepath)
+    return false
   end
 
   def post_process_cache(content)

@@ -130,6 +130,7 @@ class MediasControllerTest < ActionController::TestCase
   test "should return error if item is not found" do
     get :embed, project: 'google_spreadsheet', collection: 'test', item: 'notfound'
     assert_response 404
+    assert_template file: '404.html'
   end
 
   test "should return error if collection is not found" do
@@ -181,6 +182,25 @@ class MediasControllerTest < ActionController::TestCase
     assert_response 404
   end
 
+  test "should return not found if cache and image can't be generated" do
+    project, collection, item = 'google_spreadsheet', 'watchbot', 'offline'
+    image_path = File.join(Rails.root, 'test', 'data', 'offline.png')
+    MediasController.any_instance.stubs(:screenshot_path).with(project, collection, item, '').returns(image_path)
+    MediasController.any_instance.stubs(:cache_path).with(project, collection, item, 'screenshot').returns(image_path)
+    MediasController.any_instance.stubs(:generate_screenshot_image).never
+    MediasController.any_instance.stubs(:generate_cache).returns(false)
+    File.stubs(:exists?).with(image_path).returns(false)
+
+    get :embed, project: project, collection: collection, item: item, format: :png
+    assert_response 404
+    assert_equal 'text/html', @response.content_type
+    MediasController.any_instance.unstub(:screenshot_path)
+    MediasController.any_instance.unstub(:cache_path)
+    MediasController.any_instance.unstub(:generate_screenshot_image)
+    MediasController.any_instance.unstub(:generate_cache)
+    File.unstub(:exists?)
+  end
+
   test "should remove parameters from caller JavaScript" do
     get :embed, project: 'google_spreadsheet', collection: 'test', format: :js, t: 123456
     assert_equal 'http://test.host/medias/embed/google_spreadsheet/test', assigns(:url)
@@ -214,6 +234,7 @@ class MediasControllerTest < ActionController::TestCase
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html, template: 'screenshot'
     assert_not_nil assigns(:source_entries)
+    assert_response 200
   end
 
   test "should cache HTML with template" do
@@ -291,6 +312,7 @@ class MediasControllerTest < ActionController::TestCase
   test "should return 404 for screenshot of unexistent item" do
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'unexistent', format: :html, template: 'screenshot'
     assert_response 404
+    assert_template file: '404.html'
   end
 
   test "should ignore some user agents" do

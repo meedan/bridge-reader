@@ -81,11 +81,11 @@ class MediasController < ApplicationController
       render_embed_from_template and return
     end
 
-    @cachepath = cache_path(@project, @collection, @item)
+    @cachepath = cache_path(@project, @collection, @item, @name)
     if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
       @cache = true
     else
-      unless generate_cache(@object, @project, @collection, @item)
+      unless generate_cache(@object, @project, @collection, @item, @name)
         logger.info "Could not generate cache on #{@cachepath}"
       end
       @cache = false

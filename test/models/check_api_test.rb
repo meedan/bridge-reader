@@ -44,24 +44,24 @@ class CheckApiTest < ActiveSupport::TestCase
   end
 
   test "should get translations" do
-    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '2,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
+    @check.stubs(:execute_query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
+    stub_graphql_result(@team_result)
+    assert_equal ['project'], @check.get_project.collect{ |c| c[:name] }
+
+    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '2,1,1', :annotation_types => 'translation,translation_status'}}).returns(@project_media_result)
     stub_graphql_result(@project_media_result)
     t = @check.get_item('1', '2')
     assert_equal 'en', t[:source_lang]
 
-    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '3,1,', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
+    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '3,1,1', :annotation_types => 'translation,translation_status'}}).returns(@project_media_without_translation_result)
     stub_graphql_result(@project_media_without_translation_result)
     t = @check.get_item('1', '3')
     assert_nil t
 
-    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '1,', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
+    @check.stubs(:execute_query).with('Query', {:variables => {:ids => '1,1', :annotation_types => 'translation,translation_status'}}).returns(@project_result)
     stub_graphql_result(@project_result)
     t = @check.get_collection('1')
     assert_equal 'en', t[0][:source_lang]
-
-    @check.stubs(:execute_query).with('Query', {:variables => {:slug => 'check-api'}}).returns(@team_result)
-    stub_graphql_result(@team_result)
-    assert_equal ['project'], @check.get_project.collect{ |c| c[:name] }
   end
 
   test "should update cache for created translation" do
