@@ -56,7 +56,8 @@ module Sources
       end
     end
     
-    def notify_new_item(worksheet, entry)
+    def notify_new_item(worksheet, entry, new_item = true)
+      return unless new_item
       if entry.blank? && worksheet.present?
         url = get_worksheet.spreadsheet.human_url + '#' + worksheet
         self.notify_watchbot(url)
@@ -74,10 +75,6 @@ module Sources
       @spreadsheet ||= @session.spreadsheet_by_key(id)
     end
 
-    def get_url(row)
-      get_worksheet[row, 2].gsub(' ', '')
-    end
-
     def get_worksheet(title = '', force = false)
       if @worksheet.blank? || force
         @worksheet = get_spreadsheet.worksheet_by_title(get_title(title))
@@ -89,12 +86,7 @@ module Sources
       if @entries.blank? || force
         worksheet = self.get_worksheet
         @entries = []
-        for row in 2..worksheet.num_rows
-          Retryable.retryable tries: 5 do
-            hash = row_to_hash(row)
-            @entries << hash if link.nil? || link == hash[:id]
-          end
-        end
+        get_entries_rows(worksheet.num_rows, link)
       end
       @entries.reverse
     end
@@ -107,7 +99,7 @@ module Sources
 
     def row_to_hash(row)
       worksheet = get_worksheet
-      link = self.get_url(row)
+      link = worksheet[row, 2].gsub(' ', '')
       {
         id: Digest::SHA1.hexdigest(link),
         source_text: worksheet[row, 1],
@@ -186,7 +178,7 @@ module Sources
         hash = entry[:id]
         Rails.cache.delete('pender:' + hash)
         @entries = [entry]
-        generate_cache(self, self.project, worksheet, hash)
+        generate_cache(self, worksheet, hash)
         remove_screenshot(self.project, worksheet, hash)
         # generate_screenshot(self.project, worksheet, hash)
       end
@@ -197,9 +189,18 @@ module Sources
 
     def refresh_cache_milestone
       worksheet = self.get_worksheet.title
-      generate_cache(self, self.project, worksheet, '')
+      generate_cache(self, worksheet, '')
       remove_screenshot(self.project, worksheet, '')
       # generate_screenshot(self.project, worksheet, '')
+    end
+
+    def get_entries_rows(num_rows, link)
+      for row in 2..num_rows
+        Retryable.retryable tries: 5 do
+          hash = row_to_hash(row)
+          @entries << hash if link.nil? || link == hash[:id]
+        end
+      end
     end
   end
 end

@@ -4,7 +4,7 @@ module Bridge
     def parse_notification(channel, translation_id, payload = {})
       if !payload['project'].blank?
         self.handle_project(payload)
-      elsif payload['condition'] == 'created' || payload['condition'] == 'updated'
+      elsif payload['condition'].in?(['created', 'updated'])
         self.update_cache_for_saved_translation(channel, payload['translation'])
       elsif payload['condition'] == 'destroyed'
         self.update_cache_for_removed_translation(channel, translation_id)
@@ -20,21 +20,21 @@ module Bridge
         create_config_file_for_project(slug, config[:info])
         BRIDGE_PROJECTS[slug] = config[:info]
       elsif payload['condition'] == 'updated'
-        generate_cache(self, self.project, '', '')
+        generate_cache(self, '', '')
       end
     end
 
     def refresh_cache(channel)
-      generate_cache(self, self.project, channel, '')
+      generate_cache(self, channel, '')
       remove_screenshot(self.project, channel, '')
-      generate_cache(self, self.project, '', '')
+      generate_cache(self, '', '')
       remove_screenshot(self.project, '', '')
     end
 
     def update_cache_for_saved_translation(channel, translation)
       Rails.cache.delete('pender:' + translation['id'].to_s)
       @entries = [translation]
-      generate_cache(self, self.project, channel, translation['id'].to_s)
+      generate_cache(self, channel, translation['id'].to_s)
       remove_screenshot(self.project, channel, translation['id'].to_s)
       @entries = nil
     end

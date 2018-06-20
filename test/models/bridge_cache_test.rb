@@ -20,7 +20,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should check that cache exists" do
     assert !@b.cache_exists?('google_spreadsheet', 'watchbot', '')
-    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', '')
+    @b.generate_cache(@b, 'watchbot', '')
     assert @b.cache_exists?('google_spreadsheet', 'watchbot', '')
   end
 
@@ -34,7 +34,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
   test "should request cc-deville to clear cache for single item when generating cache" do
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet/watchbot/' + id).returns(201)
-    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
+    @b.generate_cache(@b, 'watchbot', id)
   end
 
   test "should request cc-deville to clear cache for single item when removing cache" do
@@ -49,7 +49,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should request cc-deville to clear cache for collection when generating cache" do
     Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet/test').returns(201)
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
+    @b.generate_cache(@b, 'test', '')
   end
 
   test "should request cc-deville to clear cache for collection when removing cache" do
@@ -64,7 +64,7 @@ class BridgeCacheTest < ActiveSupport::TestCase
 
   test "should request cc-deville to clear cache for project when generating cache" do
     Bridge::CcDeville.any_instance.expects(:clear_cache).with(BRIDGE_CONFIG['bridgembed_host'] + '/medias/embed/google_spreadsheet').returns(201)
-    @b.generate_cache(@b, 'google_spreadsheet', '', '')
+    @b.generate_cache(@b, '', '')
   end
 
   test "should request cc-deville to clear cache for project when removing cache" do
@@ -88,13 +88,14 @@ class BridgeCacheTest < ActiveSupport::TestCase
       oembed: {},
       translations: [{ text: 'Test', comments: [] }] * 10
     }
+    @b.instance_variable_set(:@source_entries, { collection: [entry] * 20 })
     create_cache
     cachepath = @b.cache_path('google_spreadsheet', 'test', '')
     assert_not_nil File.size?(cachepath)
     threads = []
     blank = nil
     threads << Thread.new do
-      @b.send(:save_cache_file, @b, 'google_spreadsheet', 'test', '', 'collection', { collection: [entry] * 20 }, cachepath)
+      @b.send(:save_cache_file, @b, 'test', '')
     end
     threads << Thread.new do
       sleep 1
@@ -132,4 +133,13 @@ class BridgeCacheTest < ActiveSupport::TestCase
     assert !File.exists?(path_with_css)
   end
 
+  test "should raise error if can't take screenshot" do
+    url = 'http://ca.ios.ba'
+    params = { url: url }
+    PenderClient::Request.stubs(:get_medias).with(BRIDGE_CONFIG['pender_base_url'], params, BRIDGE_CONFIG['pender_token']).returns({ 'data' => {'screenshot_taken' => 0}})
+    assert_raise RuntimeError do
+      error = @b.send(:take_screenshot, url, '/tmp/screenshot.png', 'item')
+      assert_match /No screenshot received/, error
+    end
+  end
 end

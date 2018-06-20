@@ -28,8 +28,8 @@ module MediasHelper
     text = text.gsub(/@([a-zA-Z0-9_]+)/, '<a href="http://instagram.com/\1" target="_blank">@\1</a>')
   end
 
-  def include_twitter_tags(project, collection, item, level)
-    image = level === 'item' ? embed_url(project, collection, item, 'png') : '/images/bridge-logo.png'
+  def include_twitter_tags(project, collection, item)
+    image = @level === 'item' ? embed_url(project, collection, item, 'png') : '/images/bridge-logo.png'
     safe_join([
       tag(:meta, name: 'twitter:card', content: 'player'),
       tag(:meta, name: 'twitter:title', content: ' '),
@@ -81,8 +81,8 @@ module MediasHelper
     end
   end
 
-  def include_facebook_tags(project, collection, item, level, url = nil)
-    safe_join(facebook_tags(project, collection, item, level, url).map(&:html_safe), "\n")
+  def include_facebook_tags(project, collection, item, url = nil)
+    safe_join(facebook_tags(project, collection, item, url).map(&:html_safe), "\n")
   end
 
   def facebook_share_url(project, collection, item)
@@ -130,8 +130,8 @@ module MediasHelper
     [BRIDGE_CONFIG['bridgembed_host'], '/medias/', 'embed/', project + '/', URI.encode(collection) + '/', item].join.gsub(/([^:])\/+/, '\1/').gsub(/\/$/, '') + format
   end
 
-  def facebook_tags(project, collection, item, level, url)
-    image = level === 'item' ? embed_url(project, collection, item, 'png') : '/images/bridge-logo.png'
+  def facebook_tags(project, collection, item, url)
+    image = @level === 'item' ? embed_url(project, collection, item, 'png') : '/images/bridge-logo.png'
     [
       tag(:meta, property: 'og:title', content: embed_title),
       tag(:meta, property: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
@@ -146,10 +146,14 @@ module MediasHelper
     if lang.nil? || lang == 'unk' || BRIDGE_CONFIG['languages'].nil?
       'Unknown'
     else
-      lang.downcase!
-      lang = BRIDGE_CONFIG['language_fallbacks'][lang] if lang.size == 2 && !BRIDGE_CONFIG['language_fallbacks'].nil?
+      lang = language_name_fallback(lang.downcase)
       BRIDGE_CONFIG['languages'][lang] || 'Unknown'
     end
+  end
+
+  def language_name_fallback(lang)
+    return lang unless lang.size == 2 && !BRIDGE_CONFIG['language_fallbacks'].nil?
+    BRIDGE_CONFIG['language_fallbacks'][lang]
   end
 
 end
