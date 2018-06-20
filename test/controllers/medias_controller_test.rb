@@ -20,6 +20,7 @@ class MediasControllerTest < ActionController::TestCase
     assert cache_file_exists?
     get :embed, project: 'google_spreadsheet', collection: 'test'
     assert assigns(:cache)
+    assert_nil assigns(:source_entries)
   end
 
   test "should not use cache if option is false" do
@@ -28,6 +29,7 @@ class MediasControllerTest < ActionController::TestCase
     assert cache_file_exists?
     get :embed, project: 'google_spreadsheet', collection: 'test'
     assert !assigns(:cache)
+    assert_not_nil assigns(:source_entries)
   end
 
   test "should not use cache if option is true but file does not exist" do
@@ -36,6 +38,7 @@ class MediasControllerTest < ActionController::TestCase
     assert !cache_file_exists?
     get :embed, project: 'google_spreadsheet', collection: 'test'
     assert !assigns(:cache)
+    assert_not_nil assigns(:source_entries)
   end
 
   test "should output valid markup" do

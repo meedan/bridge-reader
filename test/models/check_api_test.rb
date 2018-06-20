@@ -89,8 +89,8 @@ class CheckApiTest < ActiveSupport::TestCase
     @check.stubs(:get_project).with('1', '').returns(project_hash(@team_result[:data][:team]))
     @check.stubs(:get_project).with('', '').returns(project_hash(@team_result[:data][:team]))
 
-    @check.generate_cache(@check, 'check-api', '1', '2')
-    @check.generate_cache(@check, 'check-api', '1', '')
+    @check.generate_cache(@check, '1', '2')
+    @check.generate_cache(@check, '1', '')
     file1 = @check.cache_path('check-api', '1', '2')
     file2 = @check.cache_path('check-api', '1', '')
     file3 = @check.cache_path('check-api', '', '')
@@ -119,7 +119,7 @@ class CheckApiTest < ActiveSupport::TestCase
   test "should handle update of a project" do
     @check.stubs(:get_project).with('', '').returns(project_hash(@team_result[:data][:team]))
 
-    @check.generate_cache(@check, 'check-api', '', '')
+    @check.generate_cache(@check, '', '')
     file = @check.cache_path('check-api', '', '')
     assert File.exists?(file)
     time = File.mtime(file)
