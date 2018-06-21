@@ -22,6 +22,7 @@ module Sources
 
     def get_item(project, project_media)
       # Check Project Media -> return the project media
+      get_project if @team_id.nil?
       query = execute_query(ProjectMediaQuery, variables: { ids: get_ids(project_media,project,@team_id), annotation_types: "translation,translation_status" }).data
       unless query.nil?
         item_to_hash(query.project_media) if query.project_media.annotations_count.to_i > 0
@@ -29,6 +30,7 @@ module Sources
     end
 
     def get_collection(project, project_media = nil)
+      get_project if @team_id.nil?
       # Return the project medias of a Check project
       query = execute_query(ProjectQuery, variables: { ids: get_ids(project,@team_id), annotation_types: "translation,translation_status" }).data
       unless query.nil?

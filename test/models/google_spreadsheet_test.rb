@@ -106,9 +106,9 @@ Not big deal, actually.'
     assert !File.exists?(@b.cache_path('google_spreadsheet', 'test', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14'))
     assert !File.exists?(@b.cache_path('google_spreadsheet', 'test', ''))
 
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14')
+    @b.generate_cache(@b, 'test', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14')
     @b.instance_variable_set(:@entries, nil)
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
+    @b.generate_cache(@b, 'test', '')
     
     assert File.exists?(@b.cache_path('google_spreadsheet', 'test', 'bdfe8a5559bd3e44987188b1c5e85113c52bfe14'))
     assert File.exists?(@b.cache_path('google_spreadsheet', 'test', ''))
@@ -129,15 +129,17 @@ Not big deal, actually.'
   end
 
   test "should send to watchbot when generating cache if file does not exist" do
-    Sources::GoogleSpreadsheet.any_instance.expects(:notify_new_item).once
+    Sources::GoogleSpreadsheet.any_instance.expects(:notify_new_item).with('test', '', true).once
+    Sources::GoogleSpreadsheet.any_instance.expects(:notify_new_item).with('test', '', false).never
     clear_cache
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
+    @b.generate_cache(@b, 'test', '')
   end
 
   test "should not send to watchbot when generating cache if file exists" do
-    Sources::GoogleSpreadsheet.any_instance.expects(:notify_new_item).never
+    Sources::GoogleSpreadsheet.any_instance.expects(:notify_new_item).with('test', '', true).never
+    Sources::GoogleSpreadsheet.any_instance.expects(:notify_new_item).with('test', '', false).once
     create_cache
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', '')
+    @b.generate_cache(@b, 'test', '')
   end
 
   test "should get a single entry" do

@@ -10,7 +10,7 @@ class BaseScreenshotTest < ActiveSupport::TestCase
 
   test "should generate screenshot for Twitter" do
     id = '183773d82423893d9409faf05941bdbd63eb0b5c'
-    @b.generate_cache(@b, 'google_spreadsheet', 'test', id)
+    @b.generate_cache(@b, 'test', id)
     path = @b.screenshot_path('google_spreadsheet', 'test', id)
     assert !File.exists?(path)
     @b.generate_screenshot('google_spreadsheet', 'test', id)
@@ -19,7 +19,7 @@ class BaseScreenshotTest < ActiveSupport::TestCase
 
   test "should generate screenshot for Instagram" do
     id = '4152e40dcbab622b12dfd56f2d91f6e19813c66d'
-    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
+    @b.generate_cache(@b, 'watchbot', id)
     path = @b.screenshot_path('google_spreadsheet', 'watchbot', id)
     assert !File.exists?(path)
     @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
@@ -28,7 +28,7 @@ class BaseScreenshotTest < ActiveSupport::TestCase
 
   test "should check that screenshot exists" do
     id = '4152e40dcbab622b12dfd56f2d91f6e19813c66d'
-    @b.generate_cache(@b, 'google_spreadsheet', 'watchbot', id)
+    @b.generate_cache(@b, 'watchbot', id)
     assert !@b.screenshot_exists?('google_spreadsheet', 'watchbot', id)
     @b.generate_screenshot('google_spreadsheet', 'watchbot', id)
     assert @b.screenshot_exists?('google_spreadsheet', 'watchbot', id)

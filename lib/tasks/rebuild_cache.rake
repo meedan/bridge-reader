@@ -26,7 +26,7 @@ namespace :bridgembed do
           id = item[:id]
 
           puts "[#{Time.now}] - - - - - Building HTML cache for item #{id}"
-          generate_cache(object, project, collection, id, BRIDGE_CONFIG['bridgembed_host']) unless cache_exists?(project, collection, id)
+          generate_cache(object, collection, id) unless cache_exists?(project, collection, id)
           
           puts "[#{Time.now}] - - - - - Building screenshot cache for item #{id}"
           begin
@@ -36,7 +36,7 @@ namespace :bridgembed do
           end
         end
 
-        generate_cache(object, project, collection, '', BRIDGE_CONFIG['bridgembed_host']) unless cache_exists?(project, collection, '')
+        generate_cache(object, collection, '') unless cache_exists?(project, collection, '')
         begin
           generate_screenshot(project, collection, '') unless screenshot_exists?(project, collection, '')
         rescue

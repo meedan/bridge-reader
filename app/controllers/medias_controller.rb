@@ -22,14 +22,11 @@ class MediasController < ApplicationController
   def notify
     begin
       payload = request.raw_post
-      if verify_signature(payload)
-        get_object
-        render_not_found and return if @object.nil?
-        @object.parse_notification(@collection, @item, JSON.parse(payload))
-        render_success
-      else
-        render_error 'Signature could not be verified', 'INVALID_SIGNATURE'
-      end
+      verify_signature(payload) and return
+      get_object
+      render_not_found and return if @object.nil?
+      @object.parse_notification(@collection, @item, JSON.parse(payload))
+      render_success
     rescue Exception => e
       render_error e.message, 'EXCEPTION'
     end
@@ -38,19 +35,14 @@ class MediasController < ApplicationController
   private
 
   def render_embed_as_png
-    html = cache_path(@project, @collection, @item)
-    unless File.exists?(html)
-      get_object
-      generate_cache(@object, @project, @collection, @item, @site) if @object
-    end
-    if File.exists?(html)
-      generate_screenshot_image
-      render_error('Error', 'EXCEPTION', 400) and return if @image.nil?
-    end
+    ignore_non_items and return
+    html_path = cache_path(@project, @collection, @item, 'screenshot')
+    cache = verify_html_cache(html_path, 'screenshot')
+    handle_new_html_cache(cache) and return if File.exists?(html_path)
 
-    if screenshot_exists?(@project, @collection, @item)
-      @image = screenshot_path(@project, @collection, @item) if @image.nil?
-      send_data(File.read(@image), type: 'image/png', disposition: 'inline')
+    if screenshot_exists?(@project, @collection, @item, @css)
+      file = screenshot_path(@project, @collection, @item, @css)
+      send_data(File.read(file), type: 'image/png', disposition: 'inline')
     else
       logger.info "Could not find image on #{@image}"
       render_not_found
@@ -65,25 +57,15 @@ class MediasController < ApplicationController
   end
 
   def render_embed_as_html
+    ignore_non_items and return
     get_object and return
     render_not_found and return if @object.nil?
-      
+
     @url = request.original_url
 
-    unless params[:template].blank?
-      render_embed_from_template and return
-    end
-
-    @cachepath = cache_path(@project, @collection, @item)
-    if BRIDGE_CONFIG['cache_embeds'] && File.exists?(@cachepath)
-      @cache = true
-    else
-      unless generate_cache(@object, @project, @collection, @item, @site)
-        logger.info "Could not generate cache on #{@cachepath}"
-      end
-      @cache = false
-    end
-
+    render_embed_from_template and return
+    @cachepath = cache_path(@project, @collection, @item, @template)
+    @cache = verify_html_cache(@cachepath, @template)
     render_cache(@cachepath)
   end
 
@@ -104,4 +86,27 @@ class MediasController < ApplicationController
       render_success and return
     end
   end
+
+  def ignore_non_items
+    return if request.format.html? && @template.blank?
+    level = get_level(@project, @collection, @item)
+    render_not_found and return true if level != 'item'
+  end
+
+  def verify_html_cache(html_path, template = '')
+    return true if File.exists?(html_path) && BRIDGE_CONFIG['cache_embeds']
+    get_object if @object.nil?
+    unless generate_cache(@object, @collection, @item, template)
+      logger.info "Could not generate cache on #{html_path}"
+    end
+    return false
+  end
+
+  def handle_new_html_cache(cache)
+    if !cache || !screenshot_exists?(@project, @collection, @item, @css)
+      generate_screenshot_image
+      render_error('Error', 'EXCEPTION', 400) and return true if @image.nil?
+    end
+  end
+
 end

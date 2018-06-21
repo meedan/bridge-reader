@@ -4,9 +4,8 @@ module MediasFilters
   private
 
   def generate_screenshot_image
-    css = URI.parse(params[:css].to_s).to_s
     begin
-      @image = generate_screenshot(@project, @collection, @item, css)
+      @image = generate_screenshot(@project, @collection, @item, @css)
     rescue Exception => e
       raise "Could not take screenshot: #{e.message}" unless from_bot?
     end
@@ -41,7 +40,9 @@ module MediasFilters
 
   def verify_signature(payload)
     signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), BRIDGE_CONFIG['secret_token'].to_s, payload)
-    Rack::Utils.secure_compare(signature, request.headers['X-Signature'].to_s)
+    unless Rack::Utils.secure_compare(signature, request.headers['X-Signature'].to_s)
+      render_error 'Signature could not be verified', 'INVALID_SIGNATURE' and return true
+    end
   end
 
   def get_params
@@ -51,6 +52,8 @@ module MediasFilters
     
     sanitize_parameters(params[:collection], params[:item])
 
+    @css = URI.parse(params[:css].to_s).to_s
+    @template = params[:template].to_s.gsub(/[^a-z0-9_-]/, '')
     (render_not_found and return) if @project.blank?
   end
 
@@ -81,17 +84,11 @@ module MediasFilters
   end
 
   def render_embed_from_template
+    return if @template.blank?
     @level = get_level(@project, @collection, @item)
-    name = params[:template].to_s.gsub(/[^a-z0-9_-]/, '')
-    template = "medias/#{name}-#{@level}.html.erb"
-    return false unless File.exists?(File.join(Rails.root, 'app', 'views', template))
-    @entries = get_entries_from_source(@object, @collection, @item, @level)
-    if @entries.blank?
-      render(status: 404, text: 'Not Found')
-    else
-      render template: template
-    end
-    return true
+    template_name = "medias/#{@template}-#{@level}.html.erb"
+    render_not_found and return true if !File.exists?(File.join(Rails.root, 'app', 'views', template_name))
+    return false
   end
 
   def post_process_cache(content)

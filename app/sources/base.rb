@@ -66,7 +66,7 @@ module Sources
       # Bridge::Pender calls this method when some item is not available
     end
 
-    def notify_new_item(collection, item)
+    def notify_new_item(collection, item, new_item = true)
       # Bridge::Cache calls this method when caching this item for the first time
     end
 
