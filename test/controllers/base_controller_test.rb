@@ -7,6 +7,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should render png for items" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     path = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', 'cac1af59cc9b410752fcbe3810b36d30ed8e049d.png')
     assert !File.exists?(path)
@@ -31,6 +32,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should render png for Twitter" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     id = '09ba77abe84d84fb6531255b458980cd4af9ea9a'
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
@@ -41,6 +43,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should render png for Instagram" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
@@ -50,6 +53,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should not render specific png with custom CSS" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     project, collection, id = 'google_spreadsheet', 'test', '183773d82423893d9409faf05941bdbd63eb0b5c'
     css = 'http://ca.ios.ba/files/meedan/ooew.css'
@@ -65,6 +69,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should render png with RTL text" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     id = '6f975c79aa6644919907e3b107babf56803f57c7'
     FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'first', "#{id}.png")
@@ -76,6 +81,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should render png with ratio 2:1 if width / height < 2" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     project, collection, id = 'google_spreadsheet', 'test', '183773d82423893d9409faf05941bdbd63eb0b5c'
     FileUtils.rm_rf File.join(Rails.root, 'public', 'screenshots', project, collection, "#{id}.png")
@@ -89,6 +95,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should render png with ratio 2:1 if width / height > 2" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     id = '09ba77abe84d84fb6531255b458980cd4af9ea9a'
     generated = File.join(Rails.root, 'public', 'screenshots', 'google_spreadsheet', 'watchbot', "#{id}.png")
@@ -99,6 +106,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should render png for Instagram video" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     assert_nothing_raised do
@@ -107,6 +115,7 @@ class BaseControllerTest < ActionController::TestCase
   end
 
   test "should render png for Twitter 2" do
+    skip('Skip screenshot test')
     puts 'Running screenshot test...'
     id = '09ba77abe84d84fb6531255b458980cd4af9ea9a'
     assert_nothing_raised do
