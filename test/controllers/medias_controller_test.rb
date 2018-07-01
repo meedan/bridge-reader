@@ -90,22 +90,8 @@ class MediasControllerTest < ActionController::TestCase
 
   test "should render Twitter metatags" do
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image:alt' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
-  end
-
-  test "should render bridge logo for project and collection on Twitter metatags" do
-    project, collection, item = 'google_spreadsheet', 'watchbot', 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
-    get :embed, project: project, collection: collection, item: item, format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /#{project}\/#{collection}\/#{item}.png/})
-
-    get :embed, project: project, collection: collection, format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /images\/bridge-logo.png/})
-
-    get :embed, project: project, format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /images\/bridge-logo.png/})
   end
 
   test "should not have object if project is not supported" do
@@ -214,14 +200,12 @@ class MediasControllerTest < ActionController::TestCase
   test "should have Facebook metatags for project" do
     get :embed, project: 'google_spreadsheet', format: :html
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet' })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /bridge-logo\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description' })
   end
 
   test "should have Facebook metatags for collection" do
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', format: :html
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet / Watchbot' })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /bridge-logo\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translations of Google Spreadsheet / Watchbot' })
   end
 
@@ -229,7 +213,6 @@ class MediasControllerTest < ActionController::TestCase
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google SpreadsheetTranslation of @ahmadabou: Vídeo do Instagram' })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /#{id}\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
   end
 
@@ -278,7 +261,7 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_nothing_raised do
       get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
-      assert_response 400
+      assert_response 404
     end
     MediasController.unstub(:generate_screenshot)
   end
@@ -288,7 +271,7 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_nothing_raised do
       get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
-      assert_response 400
+      assert_response 404
     end
     MediasController.unstub(:generate_screenshot)
   end
@@ -298,12 +281,13 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_nothing_raised do
       get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
-      assert_response 400
+      assert_response 404
     end
     MediasController.unstub(:generate_screenshot)
   end
 
   test "should raise screenshot exception if agent is not a bot" do
+    skip('Skip request to png')
     @request.env['HTTP_USER_AGENT'] = 'Google Chrome'
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_raises RuntimeError do

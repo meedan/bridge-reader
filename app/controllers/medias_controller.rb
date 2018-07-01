@@ -38,7 +38,6 @@ class MediasController < ApplicationController
     ignore_non_items and return
     html_path = cache_path(@project, @collection, @item, 'screenshot')
     cache = verify_html_cache(html_path, 'screenshot')
-    handle_new_html_cache(cache) and return if File.exists?(html_path)
 
     if screenshot_exists?(@project, @collection, @item, @css)
       file = screenshot_path(@project, @collection, @item, @css)

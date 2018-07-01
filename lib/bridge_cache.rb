@@ -145,7 +145,7 @@ module Bridge
       FileUtils.mkdir_p(File.dirname(output))
       tmp = Tempfile.new(['screenshot', '.png']).path
       result = request_url(url)
-      raise "No screenshot received, response was: #{result.inspect}" if result['data']['screenshot_taken'].to_i == 0
+      return false unless result && verify_screenshot(result)
       screenshot = result['data']['screenshot']
       open(screenshot) do |f|
         File.atomic_write(tmp) { |file| file.write(f.read) }
@@ -157,6 +157,7 @@ module Bridge
     def request_url(url)
       params = { url: url }
       result = PenderClient::Request.get_medias(BRIDGE_CONFIG['pender_base_url'], params, BRIDGE_CONFIG['pender_token'])
+      return unless result['data'].has_key?('screenshot_taken')
       attempts = 0
       while attempts < 30 && result['data']['screenshot_taken'].to_i == 0
         sleep 10
@@ -165,6 +166,12 @@ module Bridge
         result = PenderClient::Request.get_medias(BRIDGE_CONFIG['pender_base_url'], params, BRIDGE_CONFIG['pender_token'])
       end
       result
+    end
+
+    def verify_screenshot(result)
+      return true if result['data']['screenshot_taken'].to_i > 0
+      Airbrake.notify("No screenshot received, response was: #{result.inspect}") if Airbrake.configuration.api_key
+      false
     end
   end
 end

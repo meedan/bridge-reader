@@ -133,13 +133,29 @@ class BridgeCacheTest < ActiveSupport::TestCase
     assert !File.exists?(path_with_css)
   end
 
-  test "should raise error if can't take screenshot" do
+  test "should notify Airbrake if can't take screenshot" do
+    Airbrake.configuration.stubs(:api_key).returns('token')
+    Airbrake.stubs(:notify).once
+
     url = 'http://ca.ios.ba'
     params = { url: url }
     PenderClient::Request.stubs(:get_medias).with(BRIDGE_CONFIG['pender_base_url'], params, BRIDGE_CONFIG['pender_token']).returns({ 'data' => {'screenshot_taken' => 0}})
-    assert_raise RuntimeError do
-      error = @b.send(:take_screenshot, url, '/tmp/screenshot.png', 'item')
-      assert_match /No screenshot received/, error
-    end
+    assert !@b.send(:take_screenshot, url, '/tmp/screenshot.png', 'item')
+
+    Airbrake.configuration.unstub(:api_key)
+    Airbrake.unstub(:notify)
+  end
+
+  test "should not notify Airbrake if Pender don't have screenshot key" do
+    Airbrake.configuration.stubs(:api_key).returns('token')
+    Airbrake.stubs(:notify).never
+
+    url = 'http://ca.ios.ba'
+    params = { url: url }
+    PenderClient::Request.stubs(:get_medias).with(BRIDGE_CONFIG['pender_base_url'], params, BRIDGE_CONFIG['pender_token']).returns({ 'data' => {}})
+    assert !@b.send(:take_screenshot, url, '/tmp/screenshot.png', 'item')
+
+    Airbrake.configuration.unstub(:api_key)
+    Airbrake.unstub(:notify)
   end
 end
