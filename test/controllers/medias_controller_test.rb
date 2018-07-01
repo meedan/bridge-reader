@@ -261,7 +261,7 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_nothing_raised do
       get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
-      assert_response 400
+      assert_response 404
     end
     MediasController.unstub(:generate_screenshot)
   end
@@ -271,7 +271,7 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_nothing_raised do
       get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
-      assert_response 400
+      assert_response 404
     end
     MediasController.unstub(:generate_screenshot)
   end
@@ -281,12 +281,13 @@ class MediasControllerTest < ActionController::TestCase
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_nothing_raised do
       get :embed, project: 'google_spreadsheet', collection: 'test', item: 'c291f649aa5625b81322207177a41e2c4a08f09d', format: :png
-      assert_response 400
+      assert_response 404
     end
     MediasController.unstub(:generate_screenshot)
   end
 
   test "should raise screenshot exception if agent is not a bot" do
+    skip('Skip request to png')
     @request.env['HTTP_USER_AGENT'] = 'Google Chrome'
     MediasController.any_instance.stubs(:generate_screenshot).raises(Exception)
     assert_raises RuntimeError do
