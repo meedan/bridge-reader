@@ -90,22 +90,8 @@ class MediasControllerTest < ActionController::TestCase
 
   test "should render Twitter metatags" do
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: 'cac1af59cc9b410752fcbe3810b36d30ed8e049d', format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image' })
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image:alt' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:card' })
     assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:site' })
-  end
-
-  test "should render bridge logo for project and collection on Twitter metatags" do
-    project, collection, item = 'google_spreadsheet', 'watchbot', 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
-    get :embed, project: project, collection: collection, item: item, format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /#{project}\/#{collection}\/#{item}.png/})
-
-    get :embed, project: project, collection: collection, format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /images\/bridge-logo.png/})
-
-    get :embed, project: project, format: :html
-    assert_tag(tag: 'meta', attributes: { 'name' => 'twitter:image', content: /images\/bridge-logo.png/})
   end
 
   test "should not have object if project is not supported" do
@@ -214,14 +200,12 @@ class MediasControllerTest < ActionController::TestCase
   test "should have Facebook metatags for project" do
     get :embed, project: 'google_spreadsheet', format: :html
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet' })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /bridge-logo\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description' })
   end
 
   test "should have Facebook metatags for collection" do
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', format: :html
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google Spreadsheet / Watchbot' })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /bridge-logo\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translations of Google Spreadsheet / Watchbot' })
   end
 
@@ -229,7 +213,6 @@ class MediasControllerTest < ActionController::TestCase
     id = 'cac1af59cc9b410752fcbe3810b36d30ed8e049d'
     get :embed, project: 'google_spreadsheet', collection: 'watchbot', item: id, format: :html
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:title', 'content' => 'Translations of Google SpreadsheetTranslation of @ahmadabou: Vídeo do Instagram' })
-    assert_tag(tag: 'meta', attributes: { 'property' => 'og:image', 'content' => /#{id}\.png/ })
     assert_tag(tag: 'meta', attributes: { 'property' => 'og:description', 'content' => 'Translation of @ahmadabou: Vídeo do Instagram' })
   end
 
