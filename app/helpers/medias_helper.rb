@@ -29,14 +29,11 @@ module MediasHelper
   end
 
   def include_twitter_tags(project, collection, item)
-    image = @level === 'item' ? embed_url(project, collection, item, 'png') : '/images/bridge-logo.png'
     safe_join([
       tag(:meta, name: 'twitter:card', content: 'player'),
       tag(:meta, name: 'twitter:title', content: ' '),
       tag(:meta, name: 'twitter:site', content: BRIDGE_CONFIG['twitter_handle']),
       tag(:meta, name: 'twitter:description', content: ' '),
-      tag(:meta, name: 'twitter:image', content: image),
-      tag(:meta, name: 'twitter:image:alt', content: content_for(:description)),
       tag(:meta, name: 'twitter:title', content: ' '),
       tag(:meta, name: 'twitter:player', content: embed_url(project, collection, item, 'html')),
       tag(:meta, name: 'twitter:player:width', content: 492),
@@ -131,11 +128,9 @@ module MediasHelper
   end
 
   def facebook_tags(project, collection, item, url)
-    image = @level === 'item' ? embed_url(project, collection, item, 'png') : '/images/bridge-logo.png'
     [
       tag(:meta, property: 'og:title', content: embed_title),
       tag(:meta, property: 'fb:app_id', content: BRIDGE_CONFIG['facebook_app_id']),
-      tag(:meta, property: 'og:image', content: image),
       tag(:meta, property: 'og:type', content: 'article'),
       tag(:meta, property: 'og:url', content: url || embed_url(project, collection, item)),
       tag(:meta, property: 'og:description', content: content_for(:description))

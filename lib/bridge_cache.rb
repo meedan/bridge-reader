@@ -157,7 +157,7 @@ module Bridge
     def request_url(url)
       params = { url: url }
       result = PenderClient::Request.get_medias(BRIDGE_CONFIG['pender_base_url'], params, BRIDGE_CONFIG['pender_token'])
-      return unless result['data'].has_key?('screenshot')
+      return unless result['data'].has_key?('screenshot_taken')
       attempts = 0
       while attempts < 30 && result['data']['screenshot_taken'].to_i == 0
         sleep 10
